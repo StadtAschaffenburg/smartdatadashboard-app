@@ -26,8 +26,8 @@ const categoryID = {
 export default async function BaseView({
   type,
   children,
-  showSurveys = true,
-  showSuccessStories = true,
+  showSurveys = false,
+  showSuccessStories = false,
   showGoToButton = false,
 }: ViewProps) {
   const surveys = await getSurveysForCategory(categoryID[type])

@@ -13,7 +13,7 @@ import Phenomenon from './Phenomenon'
 export default function WeatherTileContent() {
   const [timestamp, setTimestamp] = useState(new Date())
 
-  const weather = useWeather({ lat: 49.9, lng: 9.15 }, timestamp)
+  const weather = useWeather({ lat: 49.98, lng: 9.15 }, timestamp)
 
   const nextHours = new Array(6).fill(undefined).map((e, i) => {
     const date = new Date()

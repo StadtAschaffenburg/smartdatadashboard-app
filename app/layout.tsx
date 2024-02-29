@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
 import Cookies from './Cookies'
-import Matomo from './Matomo'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
@@ -28,7 +27,6 @@ export default function RootLayout({
         {children}
         <Cookies />
       </body>
-      <Matomo />
     </html>
   )
 }

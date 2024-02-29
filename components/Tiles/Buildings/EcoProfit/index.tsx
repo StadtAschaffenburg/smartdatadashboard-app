@@ -14,8 +14,6 @@ interface IEcoProfitData {
   updatedAt: string
 }
 
-console.log(EcoProfitData);
-
 export default function EcoProfitTile() {
   const {
     companiesTotal,

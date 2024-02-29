@@ -19,10 +19,6 @@ export default function ClimateView() {
 
       <ClimateIndicesTile />
 
-      <GarbageTile />
-      <Columns>
-        <DataCountTile />
-      </Columns>
     </BaseView>
   )
 }
