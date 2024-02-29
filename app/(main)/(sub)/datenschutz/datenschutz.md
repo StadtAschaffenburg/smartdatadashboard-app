@@ -1,10 +1,10 @@
 ## Datenschutz
 
-Die Stadt Münster unterliegt als öffentliche Stelle den Bestimmungen der Datenschutzgrundverordnung (DSGVO) und des Datenschutzgesetzes für das Land Nordrhein-Westfalen (DSG NRW). Der Schutz Ihrer personenbezogenen Daten ist uns ein sehr wichtiges Anliegen. Daher werden Ihre Daten im Rahmen der gesetzlichen Vorschriften geschützt und alle Vorgaben der DSGVO und des Datenschutzgesetzes für das Land Nordrhein-Westfalen eingehalten.
+Die Stadt Aschaffenburg unterliegt als öffentliche Stelle den Bestimmungen der Datenschutzgrundverordnung (DSGVO) und des Datenschutzgesetzes für das Land Nordrhein-Westfalen (DSG NRW). Der Schutz Ihrer personenbezogenen Daten ist uns ein sehr wichtiges Anliegen. Daher werden Ihre Daten im Rahmen der gesetzlichen Vorschriften geschützt und alle Vorgaben der DSGVO und des Datenschutzgesetzes für das Land Nordrhein-Westfalen eingehalten.
 
 ## Übermittlung personenbezogener Daten
 
-Die Nutzung der Online-Dienste der Stadt Münster ist freiwillig. Die für die Nutzung dieser Dienste erforderlichen personenbezogenen Daten werden ausschließlich zu dem Zweck der von Ihnen aktuell ausgewählten Transaktion erhoben und gespeichert. Die von der Stadt Münster erhobenen personenbezogenen Daten werden gelöscht, wenn sie für die Durchführung der ausgewählten Transaktion nicht mehr benötigt werden und rechtliche Aufbewahrungsfristen abgelaufen sind.
+Die Nutzung der Online-Dienste der Stadt Aschaffenburg ist freiwillig. Die für die Nutzung dieser Dienste erforderlichen personenbezogenen Daten werden ausschließlich zu dem Zweck der von Ihnen aktuell ausgewählten Transaktion erhoben und gespeichert. Die von der Stadt Aschaffenburg erhobenen personenbezogenen Daten werden gelöscht, wenn sie für die Durchführung der ausgewählten Transaktion nicht mehr benötigt werden und rechtliche Aufbewahrungsfristen abgelaufen sind.
 In keinem Fall erfolgt eine Weitergabe oder Verarbeitung der Daten an bzw. durch Dritte.
 Unsere Server sind durch Firewalls und Virenschutz gesichert.
 Da die Übermittlung von Informationen im Internet nicht völlig sicher ist, kann nicht ausgeschlossen werden, dass Dritte übermittelte Daten abfangen oder verändern. Dies gilt besonders für die unverschlüsselte Übermittlung von Daten über einfache Web-Formulare oder ein Mailprogramm. In Angelegenheiten, die besondere Vertraulichkeit erfordern, sollte daher auf andere Arten der Übermittlung zurückgegriffen werden.
@@ -23,7 +23,7 @@ Wenn Sie mit uns per E-Mail in Kontakt treten, verarbeiten wir Ihre Angaben zur 
 - Recht gemäß Artikel 20 DSGVO, Ihre personenbezogenen Daten, die Sie uns bereitgestellt haben, in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten oder die Übermittlung an einen anderen Verantwortlichen zu verlangen
 - Widerspruchsrecht gegen bestimmte Datenverarbeitungen nach Maßgabe des Artikels 21 DSGVO
 
-Diese Rechte können nach Artikel 23 DSGVO beschränkt werden. Bundes- und Landesgesetzgeber haben von der Möglichkeit Gebrauch gemacht, die Rechte der betroffenen Person zu beschränken. Sollten Sie von den oben genannten Rechten Gebrauch machen, prüft die Stadt Münster, ob die gesetzlichen Voraussetzungen hierfür im Einzelfall erfüllt sind.
+Diese Rechte können nach Artikel 23 DSGVO beschränkt werden. Bundes- und Landesgesetzgeber haben von der Möglichkeit Gebrauch gemacht, die Rechte der betroffenen Person zu beschränken. Sollten Sie von den oben genannten Rechten Gebrauch machen, prüft die Stadt Aschaffenburg, ob die gesetzlichen Voraussetzungen hierfür im Einzelfall erfüllt sind.
 
 ## Beschwerderecht bei der Aufsichtsbehörde
 
@@ -35,19 +35,19 @@ Landesbeauftragte für Datenschutz und Informationsfreiheit des Landes Nordrhein
 
 Wenn Sie Auskunft über Ihre personenbezogenen Daten beziehungsweise deren Korrektur oder Löschung wünschen oder weitergehende Fragen über die Verwendung Ihrer uns überlassenen personenbezogenen Daten haben, wenden Sie sich bitte an die behördliche Datenschutzbeauftragte:
 
-Stadt Münster, Der Oberbürgermeister\
+Stadt Aschaffenburg, Der Oberbürgermeister\
 Michaela Heuer\
-Klemensstraße 10, 48143 Münster\
+Klemensstraße 10, 48143 Aschaffenburg\
 datenschutz(at)stadt-muenster.de
 
 ## Logfiles
 
-Die Stadt Münster erhebt und speichert aufgrund ihres berechtigten Interesses als Betreiberin der Website (Artikel 6 Absatz 1 f DSGVO) in den Logfiles ihrer Webservers die Informationen, die Ihr Browser an uns übermittelt: IP-Adresse, Betriebssystem und Browser-Typ/-Version (User-Agent) des Computers, Name und IP-Adresse des Servers, der die Seite anfordert (Remote Host), Uhrzeit der Server-Anfrage, Adresse der Webseiten, die Sie bei uns besuchen, übertragene Datenmenge und die Webseite, von der aus Sie zu unseren Seiten kommen (Referrer-URL). Sie bleiben als einzelne/r Nutzer/in hierbei anonym.
+Die Stadt Aschaffenburg erhebt und speichert aufgrund ihres berechtigten Interesses als Betreiberin der Website (Artikel 6 Absatz 1 f DSGVO) in den Logfiles ihrer Webservers die Informationen, die Ihr Browser an uns übermittelt: IP-Adresse, Betriebssystem und Browser-Typ/-Version (User-Agent) des Computers, Name und IP-Adresse des Servers, der die Seite anfordert (Remote Host), Uhrzeit der Server-Anfrage, Adresse der Webseiten, die Sie bei uns besuchen, übertragene Datenmenge und die Webseite, von der aus Sie zu unseren Seiten kommen (Referrer-URL). Sie bleiben als einzelne/r Nutzer/in hierbei anonym.
 Die Daten werden für maximal drei Monate gespeichert und dann gelöscht. Die Speicherung der Daten erfolgt aus Sicherheitsgründen. Müssen Daten aus Beweisgründen aufgehoben werden, werden sie solange nicht gelöscht, bis der Vorfall endgültig geklärt ist.
 
 ## Webstatistik
 
-Um die Internetseiten kontinuierlich nach den Bedarfen der Nutzerinnen und Nutzer auszurichten, beobachtet die Stadt Münster die Seitenaufrufe, indem sie die Informationen aus den Logfiles der Webserver auswertet und eine an die gesetzlichen Datenschutzbestimmungen angepasste Version des Analyse-Tools "Matomo" einsetzt (matomo.org).
+Um die Internetseiten kontinuierlich nach den Bedarfen der Nutzerinnen und Nutzer auszurichten, beobachtet die Stadt Aschaffenburg die Seitenaufrufe, indem sie die Informationen aus den Logfiles der Webserver auswertet und eine an die gesetzlichen Datenschutzbestimmungen angepasste Version des Analyse-Tools "Matomo" einsetzt (matomo.org).
 
 Mit den über Logfiles und Matomo gewonnenen Daten lässt sich nachvollziehen, welche Seiten zu welchen Zeiten besonders nachgefragt werden und welche Informationen weniger abgerufen werden. So erhalten wir Hinweise, wie wir unser Angebot verbessern können.
 Die gespeicherten Daten werden ausschließlich zu den genannten Zwecken ausgewertet, in keinem Fall erfolgt eine Weitergabe oder Verarbeitung der Daten an bzw. durch Dritte oder eine Zusammenführung der Daten mit anderen Datenquellen.
@@ -55,6 +55,5 @@ Die gespeicherten Daten werden ausschließlich zu den genannten Zwecken ausgewer
 ## Matomo
 
 Matomo verwendet sogenannte "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden. Die Cookies ermöglichen die Wiedererkennung des Internet-Browsers und geben uns so Aufschluss darüber, wie Sie unsere Website nutzen. Diese Analyse erfolgt anonym, ein Rückschluss auf einzelne Personen oder das Anlegen von Benutzerprofilen ist damit nicht möglich.
-Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer anonymisierten IP-Adresse) bleiben dabei unter der Datenhoheit der Stadt Münster.
+Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer anonymisierten IP-Adresse) bleiben dabei unter der Datenhoheit der Stadt Aschaffenburg.
 Sie können der Erfassung Ihrer Besuche durch die Webanalysesoftware Matomo widersprechen, indem Sie das folgende Häkchen entfernen (es dauert ggf. ein paar Sekunden, bis das Häkchen sichtbar wird):
-

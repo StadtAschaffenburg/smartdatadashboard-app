@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "next export",
+    "standalone": "next standalone",
     "lint": "next lint",
     "prepare": "husky install",
     "svg": "svgr svgicons --out-dir components/Icons --typescript --ignore-existing --no-dimensions"
