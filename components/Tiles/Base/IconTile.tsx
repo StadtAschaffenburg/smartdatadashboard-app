@@ -37,8 +37,8 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
     title?: string | React.ReactElement
     subtitle?: string | React.ReactElement
     icon:
-      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
     live?: boolean
   }
 
