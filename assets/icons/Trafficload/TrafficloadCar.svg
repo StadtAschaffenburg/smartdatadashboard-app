@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60.5" height="56.5" viewBox="0 0 60.5 56.5">
+  <g id="Komponente_62_4" data-name="Komponente 62 – 4" transform="translate(1.25 1.25)">
+    <rect id="Rechteck_16" data-name="Rechteck 16" width="58" height="22" rx="4" transform="translate(0 26)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_24" data-name="Pfad 24" d="M716,151v4a2,2,0,0,1-2,2h-5a2,2,0,0,1-2-2v-4" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_25" data-name="Pfad 25" d="M757,137" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_26" data-name="Pfad 26" d="M703,137" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_27" data-name="Pfad 27" d="M757,133" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_28" data-name="Pfad 28" d="M703,133" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <circle id="Ellipse_11" data-name="Ellipse 11" cx="4" cy="4" r="4" transform="translate(5 31)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_29" data-name="Pfad 29" d="M707,129l1.574-20.46a6,6,0,0,1,5.982-5.54h30.888a6,6,0,0,1,5.982,5.54L753,129" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <circle id="Ellipse_12" data-name="Ellipse 12" cx="4" cy="4" r="4" transform="translate(45 31)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_30" data-name="Pfad 30" d="M753,151v4a2,2,0,0,1-2,2h-5a2,2,0,0,1-2-2v-4" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+    <path id="Pfad_31" data-name="Pfad 31" d="M740,151v-8a2,2,0,0,0-2-2H722a2,2,0,0,0-2,2v8" transform="translate(-701 -103)" fill="none" stroke="#34c17b" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+export { default as MsKlimadashboardIconsGBibliothek } from './MsKlimadashboardIconsGBibliothek'
+export { default as MsKlimadashboardIconsGDaecherGruen } from './MsKlimadashboardIconsGDaecherGruen'
+export { default as MsKlimadashboardIconsGDaecherPv } from './MsKlimadashboardIconsGDaecherPv'
+export { default as MsKlimadashboardIconsGSchule } from './MsKlimadashboardIconsGSchule'
+export { default as MsKlimadashboardIconsGSportSentruperHoehe } from './MsKlimadashboardIconsGSportSentruperHoehe'
+export { default as MsKlimadashboardIconsGStadtweinhaus } from './MsKlimadashboardIconsGStadtweinhaus'
