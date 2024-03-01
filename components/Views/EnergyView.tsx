@@ -11,6 +11,9 @@ export default function EnergyView() {
     <BaseView type="energy">
       <Columns>
         <PhotovoltTile />
+        <WindEnergyTile />
+
+        <EnergietraegerTile />
       </Columns>
       <Columns>
         <LanternsTile />

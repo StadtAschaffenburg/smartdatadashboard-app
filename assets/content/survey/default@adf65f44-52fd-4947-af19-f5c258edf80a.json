@@ -1,0 +1,68 @@
+{
+  "data": [
+    {
+      "id": "a7de9c86-e70b-4335-a34b-0fb75f223b8b",
+      "status": "published",
+      "sort": null,
+      "user_created": "1dde8813-9593-4009-87c1-cc192594ba4b",
+      "date_created": "2023-05-16T14:36:27.846Z",
+      "user_updated": "bfa6ffdc-e374-43b8-9da1-3eeeb00b7419",
+      "date_updated": "2023-06-06T09:58:20.343Z",
+      "question": "Wie wichtig ist Münsteraner*innen der Dämmstandard und die Energieeffizienz bei der Suche nach einer neuen Wohnung?",
+      "answer_text": "der Münsteraner*innen ist ein höherer Dämmstandard und eine bessere Energieeffizienz bei der neuen Wohnung wichtig, wenn sie umziehen.",
+      "category": "84ff5cfe-184a-41dd-885d-ff9c2c8c9dcf",
+      "answer_percent": 36.5,
+      "dataSource": "https://www.stadt-muenster.de/statistik-stadtforschung",
+      "dataRetrieval": "2021-01-01",
+      "title": "Bürger*innenumfrage 2021"
+    },
+    {
+      "id": "adf65f44-52fd-4947-af19-f5c258edf80a",
+      "status": "published",
+      "sort": null,
+      "user_created": "1dde8813-9593-4009-87c1-cc192594ba4b",
+      "date_created": "2023-05-16T13:41:30.058Z",
+      "user_updated": "bfa6ffdc-e374-43b8-9da1-3eeeb00b7419",
+      "date_updated": "2023-06-06T09:58:26.786Z",
+      "question": "Welches Verkehrsmittel benutzen die Münsteraner*innen, um die Innenstadt zu besuchen?",
+      "answer_text": "der Münsteraner*innen benutzen das Fahrrad, um in die Innenstadt zu fahren.",
+      "category": "4fa0c731-13d7-4ce9-8407-91a8a71da1cb",
+      "answer_percent": 64.4,
+      "dataSource": "https://www.stadt-muenster.de/statistik-stadtforschung",
+      "dataRetrieval": "2021-01-01",
+      "title": "Bürger*innenumfrage 2021"
+    },
+    {
+      "id": "35aa70c7-5755-4e10-ad57-4b8fc034e51b",
+      "status": "published",
+      "sort": null,
+      "user_created": "1dde8813-9593-4009-87c1-cc192594ba4b",
+      "date_created": "2023-05-16T14:34:44.934Z",
+      "user_updated": "605ab418-09e1-40fb-be3b-229ae21626cd",
+      "date_updated": "2023-12-12T08:20:26.848Z",
+      "question": "Wie wichtig ist es für berufstätige Münsteraner*innen, dass ihr*e Arbeitgeber*in sich für den Klimaschutz engagiert?",
+      "answer_text": "Die Bürger*innen-Umfrage wird aktuell erhoben und ausgewertet. Sobald die Ergebnisse vorliegen, findet sich an dieser Stelle die Antwort. ",
+      "category": "8f6f89ac-d6bf-4e6c-8445-d1503075963a",
+      "answer_percent": null,
+      "dataSource": "https://www.stadt-muenster.de/statistik-stadtforschung",
+      "dataRetrieval": "2023-06-05",
+      "title": "Bürger*innenumfrage 2023"
+    },
+    {
+      "id": "45cb6a79-aa37-4276-922f-c894a89d63d6",
+      "status": "published",
+      "sort": null,
+      "user_created": "1dde8813-9593-4009-87c1-cc192594ba4b",
+      "date_created": "2023-05-16T14:37:21.494Z",
+      "user_updated": "605ab418-09e1-40fb-be3b-229ae21626cd",
+      "date_updated": "2023-12-12T08:20:35.957Z",
+      "question": "Wie viele Münsteraner*innen beziehen schon Ökostrom?",
+      "answer_text": "Die Bürger*innen-Umfrage wird aktuell erhoben und ausgewertet. Sobald die Ergebnisse vorliegen, findet sich an dieser Stelle die Antwort. ",
+      "category": "0c7620c0-7d0c-45e7-b801-0bc44715f731",
+      "answer_percent": null,
+      "dataSource": "https://www.stadt-muenster.de/statistik-stadtforschung",
+      "dataRetrieval": "2023-06-05",
+      "title": "Bürger*innenumfrage 2023"
+    }
+  ]
+}

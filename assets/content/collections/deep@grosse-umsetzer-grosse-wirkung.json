@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "tiles": [
+        {
+          "id": 28,
+          "collections_id": "5079ef9b-a298-432a-b02c-4d35d13703d8",
+          "item": "594a639c-e9a1-413a-8a32-4d15ea4aa904",
+          "collection": "tiles",
+          "sort": 1
+        },
+        {
+          "id": 35,
+          "collections_id": "5079ef9b-a298-432a-b02c-4d35d13703d8",
+          "item": "35aa70c7-5755-4e10-ad57-4b8fc034e51b",
+          "collection": "survey",
+          "sort": 2
+        },
+        {
+          "id": 39,
+          "collections_id": "5079ef9b-a298-432a-b02c-4d35d13703d8",
+          "item": "5a31e1ca-6de5-4807-b77a-af790d1faa2a",
+          "collection": "tiles",
+          "sort": 4
+        },
+        {
+          "id": 40,
+          "collections_id": "5079ef9b-a298-432a-b02c-4d35d13703d8",
+          "item": "78f9e6fe-bf68-439b-8cf3-e382e387e06e",
+          "collection": "tiles",
+          "sort": 5
+        }
+      ]
+    }
+  ]
+}

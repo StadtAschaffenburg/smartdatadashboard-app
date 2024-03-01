@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "id": "adf65f44-52fd-4947-af19-f5c258edf80a",
+      "status": "published",
+      "sort": null,
+      "user_created": "1dde8813-9593-4009-87c1-cc192594ba4b",
+      "date_created": "2023-05-16T13:41:30.058Z",
+      "user_updated": "bfa6ffdc-e374-43b8-9da1-3eeeb00b7419",
+      "date_updated": "2023-06-06T09:58:26.786Z",
+      "question": "Welches Verkehrsmittel benutzen die Münsteraner*innen, um die Innenstadt zu besuchen?",
+      "answer_text": "der Münsteraner*innen benutzen das Fahrrad, um in die Innenstadt zu fahren.",
+      "category": "4fa0c731-13d7-4ce9-8407-91a8a71da1cb",
+      "answer_percent": 64.4,
+      "dataSource": "https://www.stadt-muenster.de/statistik-stadtforschung",
+      "dataRetrieval": "2021-01-01",
+      "title": "Bürger*innenumfrage 2021"
+    }
+  ]
+}

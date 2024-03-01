@@ -1,5 +1,5 @@
-import directus from '@/lib/directus'
 import { ID } from '@directus/sdk'
+import { getOne } from '@/utils/ContentFactory'
 
 // super complex and probably overkill function to seperate fill width from normal tiles
 export type BaseTile = {
@@ -25,9 +25,7 @@ const isFullWidth = async (tile: BaseTile) => {
     return false
   }
 
-  const data = await directus.items(tile.collection).readOne(tile.item, {
-    fields: ['full_width'],
-  })
+  const data = await getOne(tile.item, tile.collection)
 
   return data?.full_width === true
 }

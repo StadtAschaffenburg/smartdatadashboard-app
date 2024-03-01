@@ -1,0 +1,13 @@
+[
+  {
+    "id": "6f4c692e-6623-445d-bf16-8b9fe701cb32",
+    "group": "8f6f89ac-d6bf-4e6c-8445-d1503075963a",
+    "name": "Abfall",
+    "full_width": true,
+    "sort": null,
+    "tile_id": "climate-garbage",
+    "details": "Die städtische CO₂-Bilanz erfasst nur die Emissionen der Münsteraner\\*innen, die im Stadtgebiet Münster produziert werden. Kauft ein Münsteraner zum Beispiel einen in Asien produzierten Laptop, werden die durch die Produktion erzeugten Emissionen nicht in der CO₂-Bilanz der Stadt Münster erfasst. \n\nWarum rechnen Kommunen nicht nach dem „Verursacherprinzip“? Dafür fehlen die entsprechenden Daten. Berechnungen nach dem Verursacherprinzip könnten sich größtenteils nur auf Annahmen stützen, mit wenig Aussagekraft. Diese nicht-erfassten CO₂-Emissionen fallen jedoch oft in Lebensbereichen an, die jede\\*r Einzelne direkt beeinflussen kann: Konsum, Reisen, Investitionen. Als ein indirekter Indikator für das Umwelt- und Ressourcenbewusstsein der Münsteranerinnen und Münsteraner kann das Abfallaufkommen pro Kopf herangezogen werden. \n\nGemeinsam mit den Münsteranerinnen und Münsteranern sowie weiteren Netzwerk- und Kooperationspartnern wollen die awm Münster bis 2030 zu einer Hauptstadt der Abfallvermeidung entwickeln. Die wesentlichen Aspekte dabei: Abfälle sollen vermieden werden, wann immer es geht. Wenn Abfälle anfallen, sollen sie sortenrein getrennt werden, so dass sie optimal verwertet und in die Stoffkreisläufe zurückgegeben werden können. \n\nUnter dem Claim „alle wirken mit!“ ist Münster aufgerufen, \n\n- nur das zu konsumieren, was tatsächlich benötigt wird, \n- auf langlebige Produkte zu setzen, \n- Gegenstände möglichst nicht neu zu kaufen, sondern zu leihen, verleihen und zu tauschen,\n- Gegenständen durch Upcycling ein „neues Leben“ zu geben, \n- verpackungsfrei beziehungsweise möglichst verpackungsarm einzukaufen,\n- auf Mehrweg statt auf Einweg zu setzen,\n- Abfall sortenrein zu trennen. \n\nWeitere Informationen zur nachhaltigen Abfallwirtschaft der awm: [awm.stadt-muenster.de/gemeinsam-nachhaltig/nachhaltigkeitsziele](https://awm.stadt-muenster.de/gemeinsam-nachhaltig/nachhaltigkeitsziele)\n",
+    "data_url": null,
+    "info": "Die CO₂ Entwicklung der Stadt Münster wird jährlich veröffentlicht und nach dem sogenannten „Territorialprinzip“ und nicht nach dem „Verursacherprinzip“ erfasst. Berücksichtigt werden lediglich die Emissionen, die auf dem Stadtgebiet Münster produziert werden. Nicht aber zum Beispiel Emissionen, die ein*e Münsteraner*in durch eine Flugreise erzeugt. Auch das Abfallaufkommen der Münsteraner*innen lässt keinen direkten Rückschluss auf das Konsumverhalten in Münster zu, gibt jedoch Aufschluss über den Umgang mit Ressourcen."
+  }
+]

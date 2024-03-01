@@ -1,10 +1,11 @@
 import { SurveyTileProps } from '@/components/Tiles/Survey'
-import directus, { surveyCollectionName } from '../directus'
 import { ID } from '@directus/sdk'
+import getOne from '@/utils/ContentFactory'
 
 export const getSurveyData = async (surveyID: ID) => {
   try {
-    const data = await directus.items(surveyCollectionName).readOne(surveyID)
+    const data = await getOne(surveyID.toString(), 'survey')
+
     const props: SurveyTileProps = {
       title: data?.title ?? '',
       answer: {

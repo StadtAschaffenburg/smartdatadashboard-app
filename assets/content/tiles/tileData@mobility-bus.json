@@ -1,0 +1,13 @@
+[
+  {
+    "id": "5a31e1ca-6de5-4807-b77a-af790d1faa2a",
+    "group": "4fa0c731-13d7-4ce9-8407-91a8a71da1cb",
+    "name": "E-Busse",
+    "full_width": false,
+    "sort": null,
+    "tile_id": "mobility-bus",
+    "details": "Der öffentliche Personennahverkehr (ÖPNV) spielt eine große Rolle für eine gelingende kommunale Energiewende, denn: Stadtbusse sind für Bürgerinnen und Bürgern, aber auch Tourist\\*innen und andere Besucher\\*innen der Stadt eine gute Alternative zum eigenen Auto. Damit die Umweltbilanz des öffentlichen Nahverkehrs noch besser wird, setzen die Stadtwerke Münster auf emissionsfreie Elektrobusse, die mit Ökostrom geladen werden. \n\nBereits seit 2015 gehören in Münster leise und abgasfreie E-Busse zum Stadtbild. Ab 2029 soll die Busflotte der Stadtwerke sogar komplett elektrisch fahren. Dafür errichten die Stadtwerke im gesamten Stadtgebiet an den Endhaltestellen Schnellladestationen, die die Batterien in kurzer Zeit aufladen können, so dass der Bus mit vollem Akku in die nächste Fahrt startet.\n\nWeitere Infos zu den Elektrobussen der Stadtwerke Münster: [www.stadtwerke-muenster.de/unternehmen/mobilitaet/unser-angebot-fuer-sie/betrieb/elektrobus.html](https://www.stadtwerke-muenster.de/unternehmen/mobilitaet/unser-angebot-fuer-sie/betrieb/elektrobus.html)",
+    "data_url": null,
+    "info": "Busfahren ist Klimaschutz. Damit die Umweltbilanz noch besser wird, setzen die Stadtwerke auf Elektrobusse mit Ökostrom. Bis 2029 soll die Stadtwerke-Flotte komplett elektrisch fahren. Von den bereits XX Elektrobussen sind aktuell YY auf Münsters Straßen unterwegs."
+  }
+]

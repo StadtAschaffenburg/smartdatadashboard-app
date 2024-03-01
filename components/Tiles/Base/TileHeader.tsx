@@ -24,18 +24,6 @@ const iconTileTitleStyle = cva('', {
   },
 })
 
-const tileHeaderStyle = cva('flex flex-1 gap-2', {
-  variants: {
-    variant: {
-      primary: 'text-primary fill-primary',
-      inverse: 'text-white fill-white',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
-})
-
 type TileHeaderProps = VariantProps<typeof iconTileTitleStyle> & {
   onEmbedClick?: () => void
   onMoreInfoClick?: () => void
@@ -44,8 +32,8 @@ type TileHeaderProps = VariantProps<typeof iconTileTitleStyle> & {
   dataURL?: string
   hasMoreDetails?: boolean
   icon?:
-    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+  | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+  | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
 }
 
 /**

@@ -1,18 +1,11 @@
-import directus, {
-  ENV_DIRECTUS_ITEM_STATUS,
-  successStoriesCollectionName,
-} from '../directus'
+import getContent from '@/utils/ContentFactory'
 
 export default async function getSuccessStoriesForCategory(category: string) {
-  const { data } = await directus
-    .items(successStoriesCollectionName)
-    .readByQuery({
-      filter: {
-        category,
-        status: ENV_DIRECTUS_ITEM_STATUS,
-      },
-      limit: 3,
-    })
+  const { data } = await getContent(category, 'successStory', {
+    filter: {
+      category
+    }
+  });
 
   return data
 }

@@ -1,17 +1,9 @@
-import directus, {
-  collectionsName,
-  ENV_DIRECTUS_ITEM_STATUS,
-} from '@/lib/directus'
 import { revalidatePath } from 'next/cache'
 import { NextResponse } from 'next/server'
+import { getCollections } from '@/utils/ContentFactory'
 
 export async function GET() {
-  const { data } = await directus.items(collectionsName).readByQuery({
-    fields: ['slug'],
-    filter: {
-      status: ENV_DIRECTUS_ITEM_STATUS,
-    },
-  })
+  const { data } = await getCollections()
 
   if (!data) {
     return NextResponse.json({ msg: 'No data' })
@@ -19,7 +11,7 @@ export async function GET() {
 
   const revalidatedPaths: string[] = []
 
-  data.forEach(({ slug }) => {
+  data.forEach(({ slug }: { slug: string }) => {
     const path = `/sammlung/${slug}`
     revalidatedPaths.push(path)
     revalidatePath(path)

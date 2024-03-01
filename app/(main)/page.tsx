@@ -1,3 +1,4 @@
+import InsightsContainer from '@/components/Insights/InsightsContainer'
 import Container from '@/components/Layout/Container'
 
 import AnimatedPage from '@/components/Layout/AnimatedPage'
@@ -10,6 +11,7 @@ import ClimateDevelopmentTile from '@/components/Tiles/Climate/Devlopment'
 import PhotovoltTile from '@/components/Tiles/Energy/PhotovoltTile'
 import EnergietraegerTile from '@/components/Tiles/Energy/EnergietraegerTile'
 import WindEnergyTile from '@/components/Tiles/Energy/WindEnergyTile'
+import TrafficloadTile from '@/components/Tiles/Mobility/TrafficloadTile'
 import BusTile from '@/components/Tiles/Mobility/Bus'
 import BicycleChartTile from '@/components/Tiles/Mobility/Bicycle/BicycleChartTile'
 import EnergyComsumptionTile from '@/components/Tiles/Buildings/EnergyConsumption'
@@ -40,6 +42,8 @@ export default async function Home() {
           >
             <Columns>
               <PhotovoltTile />
+              <WindEnergyTile />
+              <EnergietraegerTile />
             </Columns>
           </BaseView>
 
@@ -49,6 +53,7 @@ export default async function Home() {
             showSurveys={false}
             type="mobility"
           >
+            <TrafficloadTile />
             <Columns>
               <BusTile />
               <BicycleChartTile />

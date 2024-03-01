@@ -21,8 +21,13 @@ export default function MobilityView() {
         <AWMTile />
       </Columns>
       <Columns>
+        <MasterplanTile />
         <PassengerTile />
       </Columns>
+
+      <ModalSplitTile />
+
+      <TrafficloadTile />
     </BaseView>
   )
 }

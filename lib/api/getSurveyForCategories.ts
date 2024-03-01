@@ -1,15 +1,12 @@
-import directus, {
-  ENV_DIRECTUS_ITEM_STATUS,
-  surveyCollectionName,
-} from '../directus'
+import getContent from '@/utils/ContentFactory'
 
 export default async function getSurveysForCategory(category: string) {
-  const { data } = await directus.items(surveyCollectionName).readByQuery({
+  const { data } = await getContent(category, 'survey', {
     filter: {
-      category,
-      status: ENV_DIRECTUS_ITEM_STATUS,
+      category
     },
   })
+
 
   return data
 }

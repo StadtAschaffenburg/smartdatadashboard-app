@@ -1,9 +1,4 @@
 import Columns from '@/components/Layout/Columns'
-import directus, {
-  collectionsName,
-  ENV_DIRECTUS_ITEM_STATUS,
-  tileCollectionName,
-} from '@/lib/directus'
 import { notFound } from 'next/navigation'
 import getTilesBucket, { BaseTile } from '@/utils/fullWidthBucket'
 import TileFactory, { TileType } from '@/utils/TileFactory'
@@ -11,44 +6,39 @@ import { SurveyTileProps } from '@/components/Tiles/Survey'
 import { SuccessStoryTileProps } from '@/components/Tiles/SuccessStory'
 import { getSurveyData } from '@/lib/api/getSurveyData'
 import { getSuccessStoryData } from '@/lib/api/getSuccessStoryData'
+import { getContent, getOne } from '@/utils/ContentFactory'
 
 export const revalidate = 10
 
 // ISR
 export async function generateStaticParams() {
-  const { data } = await directus.items(collectionsName).readByQuery({
-    fields: ['slug'],
-    filter: {
-      status: ENV_DIRECTUS_ITEM_STATUS,
-    },
-  })
+  const { data } = await getContent('all', 'collections')
 
   if (!data) {
     return [{ slug: undefined }]
   }
 
-  return data.map(({ slug }) => ({
+  return data.map(({ slug }: { slug: string }) => ({
     slug,
   }))
 }
 
 const getCollection = async (collectionSlug: string) => {
-  const { data } = await directus.items(collectionsName).readByQuery({
+  const { data } = await getContent(collectionSlug, 'collections', {
     filter: {
       slug: collectionSlug,
-      status: ENV_DIRECTUS_ITEM_STATUS,
     },
     fields: ['tiles.*'],
     deep: {
       tiles: {},
     },
-  })
+  }, 'deep')
 
   return data
 }
 
 const getTileType = async (tileID: string) => {
-  const data = await directus.items(tileCollectionName).readOne(tileID)
+  const data = await getOne(tileID, 'tiles')
 
   return data?.tile_id
 }
@@ -104,7 +94,7 @@ export default async function Collection({
 
   const { tiles } = collection[0]
 
-  const sortedTiles = tiles.sort((a, b) => a.sort - b.sort)
+  const sortedTiles = tiles.sort((a: { sort: number }, b: { sort: number }) => a.sort - b.sort)
 
   // sort tiles into buckets indicating full width display or column display
   const tileBuckets = await getTilesBucket(sortedTiles)

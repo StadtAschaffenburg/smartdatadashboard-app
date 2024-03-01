@@ -3,25 +3,20 @@ import Container from '@/components/Layout/Container'
 import Footer from '@/components/Layout/Footer'
 import CollectionNavbar from '@/components/Layout/Navbar/CollectionNavbar'
 import Providers from '@/components/Layout/Providers'
-import directus, {
-  collectionsName,
-  ENV_DIRECTUS_ITEM_STATUS,
-} from '@/lib/directus'
 import { notFound } from 'next/navigation'
+import getContent from '@/utils/ContentFactory'
 
 // revalidate each minute
 export const revalidate = 10
 
 const getCollection = async (collectionSlug: string) => {
-  const { data } = await directus.items(collectionsName).readByQuery({
+  const { data } = await getContent(collectionSlug, 'collections', {
     filter: {
       slug: collectionSlug,
-      status: ENV_DIRECTUS_ITEM_STATUS,
-    },
-    fields: ['title', 'description'],
+    }
   })
 
-  return data
+  return data?.[0]
 }
 
 export default async function Layout({
@@ -47,7 +42,7 @@ export default async function Layout({
     return notFound()
   }
 
-  const { title, description } = collection[0]
+  const { title, description } = collection[0] ?? collection
 
   return (
     <div className="flex h-screen flex-col">
