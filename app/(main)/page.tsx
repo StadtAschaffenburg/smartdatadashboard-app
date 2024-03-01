@@ -20,6 +20,7 @@ export default async function Home() {
   return (
     <div className="-translate-y-52">
       <AnimatedPage>
+        <InsightsContainer />
         <Container>
           <BaseView
             showGoToButton={true}

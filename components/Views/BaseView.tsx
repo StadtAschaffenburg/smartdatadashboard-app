@@ -6,6 +6,7 @@ import Columns from '../Layout/Columns'
 import SurveyTile from '../Tiles/Survey'
 import getSuccessStoriesForCategory from '@/lib/api/getSuccessStories'
 import SuccessStoryTile from '../Tiles/SuccessStory'
+import { SuccessStory, Survey } from '@/lib/directus'
 
 interface ViewProps {
   type: 'climate' | 'mobility' | 'energy' | 'building'
@@ -13,25 +14,6 @@ interface ViewProps {
   showSuccessStories?: boolean
   showSurveys?: boolean
   showGoToButton?: boolean
-}
-
-interface Survey {
-  answer_text: string;
-  answer_percent: number;
-  dataRetrieval: any;
-  dataSource: any;
-  id: string | number;
-  question: string;
-  title: string;
-}
-
-interface SuccessStory {
-  id: string | number;
-  image: string;
-  image_position: string;
-  link: string;
-  details: string;
-  text: string;
 }
 
 const categoryID = {

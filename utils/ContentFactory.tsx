@@ -1,8 +1,10 @@
-import directus from '../lib/directus'
-import { ID } from '@directus/sdk'
+import directus from '@/lib/directus'
 
 import fs from 'fs'
 import path from 'path'
+
+const directusUrl =
+    process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055'
 
 export async function getContent(id: string, collection: string, query: object = {}, query_id: string = 'default') {
     const filePath = getFilePath(collection, id, query_id)
@@ -16,7 +18,7 @@ export async function getContent(id: string, collection: string, query: object =
     return data
 }
 
-export async function getOne(id: string | ID, collection: string) {
+export async function getOne(id: number | string, collection: string) {
     const filePath = getFilePath(collection, id, 'one')
     let data = readFile(filePath)
 
@@ -40,7 +42,11 @@ export async function getCollections() {
     return data;
 }
 
-function getFilePath(folder: string, id: string | ID = 'all', query_id: string = 'default') {
+export function getImage(image: string) {
+    return '/images/placeholder.jpeg';
+}
+
+function getFilePath(folder: string, id: number | string = 'all', query_id: string = 'default') {
     return path.join(process.cwd(), 'assets', 'content', folder, `${query_id}@${id}.json`);
 }
 

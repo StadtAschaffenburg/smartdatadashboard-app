@@ -7,7 +7,6 @@ import { useState } from 'react'
 import { animated, useTransition } from '@react-spring/web'
 import { BaseTile } from '../Base/BaseTile'
 import SurveyAnswer, { SurveyAnswerProps } from './Answer'
-import { ID } from '@directus/sdk'
 
 export type SurveyTileProps = {
   title: string
@@ -15,7 +14,7 @@ export type SurveyTileProps = {
   answer: SurveyAnswerProps
   dataSource: string
   dataRetrieval: Date
-  id: string | ID
+  id: number | string
 }
 export default function SurveyTile({
   question,

@@ -1,10 +1,10 @@
 'use client'
 
 import InsightsTile from './InsightsTile'
-import { directusImage } from '@/lib/directus'
 import useDevice from '@/hooks/useDevice'
 import Carousel from '../Elements/Carousel'
 import { useWindowSize } from 'react-use'
+import { getImage } from '@/utils/ContentFactory'
 
 const pages = {
   desktop: 3,
@@ -49,7 +49,7 @@ export default function InsightsCarousel({
     >
       {insights?.map(({ slug, title, image }) => (
         <InsightsTile
-          image={directusImage(image)}
+          image={getImage(image)}
           key={slug}
           link={`/sammlung/${slug}`}
           title={title}

@@ -3,10 +3,9 @@ import Title from '@/components/Elements/Title'
 import Image from 'next/image'
 
 import { BaseTile } from '../Base/BaseTile'
-import { directusImage } from '@/lib/directus'
-import { ID } from '@directus/sdk'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { getImage } from '@/utils/ContentFactory'
 
 export type SuccessStoryTileProps = {
   text: string
@@ -14,7 +13,7 @@ export type SuccessStoryTileProps = {
   image?: string
   imagePosition?: 'left' | 'right'
   moreInfo?: string
-  id: string | ID
+  id: number | string
 }
 
 /**
@@ -123,7 +122,7 @@ export default function SuccessStoryTile({
         alt={'Image'}
         className="object-cover object-center transition-all group-hover:scale-105"
         fill
-        src={directusImage(image)}
+        src={getImage(image)}
       />
     </div>
   )

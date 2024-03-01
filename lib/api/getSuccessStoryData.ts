@@ -1,8 +1,7 @@
-import { ID } from '@directus/sdk'
 import { SuccessStoryTileProps } from '@/components/Tiles/SuccessStory'
 import getOne from '@/utils/ContentFactory'
 
-export const getSuccessStoryData = async (successStoryID: ID) => {
+export const getSuccessStoryData = async (successStoryID: number | string) => {
   try {
     const data = await getOne(successStoryID.toString(), 'successStory')
 

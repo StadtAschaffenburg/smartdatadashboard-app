@@ -1,8 +1,7 @@
 import { SurveyTileProps } from '@/components/Tiles/Survey'
-import { ID } from '@directus/sdk'
 import getOne from '@/utils/ContentFactory'
 
-export const getSurveyData = async (surveyID: ID) => {
+export const getSurveyData = async (surveyID: number | string) => {
   try {
     const data = await getOne(surveyID.toString(), 'survey')
 
