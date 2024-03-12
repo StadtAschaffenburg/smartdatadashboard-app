@@ -3,10 +3,10 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     screens: {
-      'xs' : '540px',
-      'md' : '768px',
-      'lg' : '1024px',
-      'xl' : '1440px',
+      'xs': '540px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1440px',
       '2xl': '1920px',
     },
     extend: {
@@ -20,28 +20,28 @@ module.exports = {
       },
       colors: {
         primary: {
-          DEFAULT: '#005b79',
-          light: '#f1f5fd',
+          DEFAULT: '#005096',
+          light: '#dbeeff',
         },
         secondary: {
-          DEFAULT: '#aab315',
-          light: '#fbfbf3',
+          DEFAULT: '#d23c2d',
+          light: '#faebea',
         },
         climate: {
-          DEFAULT: '#14b3d9',
-          light: '#ecf8fb',
+          DEFAULT: '#009fde',
+          light: '#e2f6ff',
         },
         mobility: {
-          DEFAULT: '#34c17b',
-          light: '#f5fcf8',
+          DEFAULT: '#008838',
+          light: '#ecfff4',
         },
         energy: {
-          DEFAULT: '#f28443',
-          light: '#fdf2ec',
+          DEFAULT: '#f28b00',
+          light: '#fff3e4',
         },
         buildings: {
-          DEFAULT: '#6060d6',
-          light: '#f2f2fa',
+          DEFAULT: '#8a0f76',
+          light: '#fdeefa',
         },
       },
     },

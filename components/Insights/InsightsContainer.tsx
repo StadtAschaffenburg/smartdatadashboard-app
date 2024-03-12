@@ -25,9 +25,9 @@ const Fallback = (
   <div className="w-full">
     <Container>
       <div className="flex w-full flex-col items-center justify-between gap-6 lg:flex-row">
-        <div className="h-96 w-full flex-1 animate-pulse self-stretch rounded-[36px] bg-zinc-100 md:rounded-[56px]" />
-        <div className="h-96 w-full flex-1 animate-pulse self-stretch rounded-[36px] bg-zinc-100 md:rounded-[56px]" />
-        <div className="h-96 w-full flex-1 animate-pulse self-stretch rounded-[36px] bg-zinc-100 md:rounded-[56px]" />
+        <div className="h-96 w-full flex-1 animate-pulse self-stretch bg-zinc-100 md:rounded-[56px]" />
+        <div className="h-96 w-full flex-1 animate-pulse self-stretch bg-zinc-100 md:rounded-[56px]" />
+        <div className="h-96 w-full flex-1 animate-pulse self-stretch bg-zinc-100 md:rounded-[56px]" />
       </div>
     </Container>
   </div>

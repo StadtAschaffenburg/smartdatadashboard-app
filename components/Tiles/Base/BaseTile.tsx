@@ -17,7 +17,7 @@ import { MsKlimadashboardIconsButtonAktivEnergieV1, MsKlimadashboardIconsButtonA
 
 
 const baseTileStyle = cva(
-  'relative flex flex-col md:flex-row h-fit overflow-hidden rounded-[36px] lg:rounded-[56px]',
+  'relative flex flex-col md:flex-row h-fit overflow-hidden',
   {
     variants: {
       variant: {

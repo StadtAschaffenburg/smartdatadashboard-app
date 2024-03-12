@@ -51,9 +51,3 @@ Um die Internetseiten kontinuierlich nach den Bedarfen der Nutzerinnen und Nutze
 
 Mit den über Logfiles und Matomo gewonnenen Daten lässt sich nachvollziehen, welche Seiten zu welchen Zeiten besonders nachgefragt werden und welche Informationen weniger abgerufen werden. So erhalten wir Hinweise, wie wir unser Angebot verbessern können.
 Die gespeicherten Daten werden ausschließlich zu den genannten Zwecken ausgewertet, in keinem Fall erfolgt eine Weitergabe oder Verarbeitung der Daten an bzw. durch Dritte oder eine Zusammenführung der Daten mit anderen Datenquellen.
-
-## Matomo
-
-Matomo verwendet sogenannte "Cookies", Textdateien, die auf Ihrem Computer gespeichert werden. Die Cookies ermöglichen die Wiedererkennung des Internet-Browsers und geben uns so Aufschluss darüber, wie Sie unsere Website nutzen. Diese Analyse erfolgt anonym, ein Rückschluss auf einzelne Personen oder das Anlegen von Benutzerprofilen ist damit nicht möglich.
-Die durch den Cookie erzeugten Informationen über Ihre Benutzung dieser Website (einschließlich Ihrer anonymisierten IP-Adresse) bleiben dabei unter der Datenhoheit der Stadt Aschaffenburg.
-Sie können der Erfassung Ihrer Besuche durch die Webanalysesoftware Matomo widersprechen, indem Sie das folgende Häkchen entfernen (es dauert ggf. ein paar Sekunden, bis das Häkchen sichtbar wird):
