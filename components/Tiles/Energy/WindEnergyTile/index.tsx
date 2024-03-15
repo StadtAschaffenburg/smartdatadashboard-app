@@ -23,7 +23,7 @@ export default function WindEnergyTile() {
   return (
     <EnergyTile
       dataRetrieval="05.06.2023"
-      dataSource="Stadt Münster &ndash; Stadtplanungsamt"
+      dataSource="Stadt Aschaffenburg &ndash; Stadtplanungsamt"
       embedId="energy-wind"
       title={
         <>

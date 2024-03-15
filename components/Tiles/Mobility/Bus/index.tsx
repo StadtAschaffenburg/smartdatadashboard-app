@@ -4,7 +4,7 @@ import BusContent from './BusContent'
 export default function BusTile() {
   return (
     <MobilityTile
-      dataSource="Stadtwerke Münster"
+      dataSource="Stadtwerke Aschaffenburg"
       embedId="mobility-bus"
       live
       subtitle="Anzahl im Vergleich zu Bussen mit fossilem Antrieb"

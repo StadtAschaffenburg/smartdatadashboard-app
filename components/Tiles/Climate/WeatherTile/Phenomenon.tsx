@@ -11,14 +11,14 @@ type PhenomenaType = {
     shortTitle?: string
     unit: string
     icon:
-      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
-      | React.ForwardRefExoticComponent<
-          Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
-            title?: string | undefined
-            titleId?: string | undefined
-          } & React.RefAttributes<SVGSVGElement>
-        >
+    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+    | React.ForwardRefExoticComponent<
+      Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+        title?: string | undefined
+        titleId?: string | undefined
+      } & React.RefAttributes<SVGSVGElement>
+    >
     decimals?: number
   }
 }
@@ -48,9 +48,25 @@ const phenomena: PhenomenaType = {
     icon: MsKlimadashboardIconsWetterWindgeschw,
     decimals: 1,
   },
+  winddirection: {
+    title: 'Wind&shy;richtung',
+    shortTitle: 'Windricht.',
+    unit: '°',
+    icon: MsKlimadashboardIconsWetterWindgeschw,
+  },
   sunhours: {
     title: 'Sonnenstunden',
     unit: 'h',
+    icon: MsKlimadashboardIconsWetterSonnig,
+  },
+  humidity: {
+    title: 'Luft&shy;feuchtigkeit',
+    unit: '%',
+    icon: MsKlimadashboardIconsWetterSonnig,
+  },
+  pressure: {
+    title: 'Luft&shy;druck',
+    unit: 'hPa',
     icon: MsKlimadashboardIconsWetterSonnig,
   },
 }
@@ -58,12 +74,14 @@ const phenomena: PhenomenaType = {
 type PhenomenonProps = {
   phenomenon: keyof typeof phenomena
   value: number
-  size?: 'md' | 'xl'
+  size?: 'md' | 'xl',
+  meta: string | false
 }
 
 export default function Phenomenon({
   phenomenon,
   value,
+  meta = false,
   size = 'md',
 }: PhenomenonProps) {
   const { title, unit, icon, decimals, shortTitle } = phenomena[phenomenon]
@@ -90,7 +108,7 @@ export default function Phenomenon({
           variant={'primary'}
         ></Title>
         <Title as={valueSize} variant="climate">
-          <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit}
+          <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit} {meta}
         </Title>
       </div>
     </div>

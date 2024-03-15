@@ -23,8 +23,16 @@ export default function WeatherTileContent() {
     return addHours(date, i)
   })
 
+  function getWindDirection(degrees: number): string {
+    const directions: string[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']
+    const index: number = Math.round(((degrees %= 360) < 0 ? degrees + 360 : degrees) / 45) % 8
+    return directions[index]
+  }
+
   if (weather) {
     const Icon = conditionMappingIcon[weather?.condition]
+
+    console.log('weather', weather)
 
     return (
       <div>
@@ -58,14 +66,42 @@ export default function WeatherTileContent() {
                     phenomenon="cloudcover"
                     value={weather?.cloud_cover}
                   />
-                  <Phenomenon
-                    phenomenon="windspeed"
-                    value={weather?.wind_speed}
-                  />
                   {/* <Phenomenon phenomenon="sunhours" value={weather?.sunshine} /> */}
                 </div>
               </div>
             </div>
+
+            <div className="flex flex-row items-start md:items-center">
+              <div className="flex-1">
+                <Phenomenon
+                  phenomenon="windspeed"
+                  value={weather?.wind_speed}
+                />
+              </div>
+              <div className="flex-1">
+                <Phenomenon
+                  phenomenon="winddirection"
+                  value={weather?.wind_direction}
+                  meta={'(' + getWindDirection(weather?.wind_direction) + ')'}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-row items-start md:items-center">
+              <div className="flex-1">
+                <Phenomenon
+                  phenomenon="humidity"
+                  value={weather?.relative_humidity}
+                />
+              </div>
+              <div className="flex-1">
+                <Phenomenon
+                  phenomenon="pressure"
+                  value={weather?.pressure_msl}
+                />
+              </div>
+            </div>
+
           </div>
         )}
         <Slider

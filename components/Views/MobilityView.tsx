@@ -12,6 +12,7 @@ import BaseView from './BaseView'
 export default function MobilityView() {
   return (
     <BaseView type="mobility">
+
       <Columns>
         <BicycleChartTile />
 
@@ -20,14 +21,11 @@ export default function MobilityView() {
 
         <AWMTile />
       </Columns>
+
       <Columns>
-        <MasterplanTile />
         <PassengerTile />
       </Columns>
 
-      <ModalSplitTile />
-
-      <TrafficloadTile />
     </BaseView>
   )
 }

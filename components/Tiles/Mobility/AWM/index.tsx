@@ -10,7 +10,7 @@ export default async function AWMTile() {
 
   return (
     <MobilityTile
-      dataSource="Abfallwirtschaftsbetriebe Münster (awm)"
+      dataSource="Stadtwerke Aschaffenburg (STWAB)"
       embedId="mobility-awm"
       live
       subtitle="Anzahl der elektrisch angetriebenen Nutzfahrzeuge im Vergleich zu Fahrzeugen mit fossilem Antrieb"

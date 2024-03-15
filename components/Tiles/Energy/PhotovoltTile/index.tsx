@@ -33,7 +33,7 @@ export default function PhotovoltTile() {
     >
       <div>
         <Title as={'subtitle'}>
-          haben die Münsteraner*innen bereits mit{' '}
+          haben die Aschaffenburger*innen bereits mit{' '}
           <span className="text-energy">
             <AnimatedNumber>{data.AnzahlAnlagen}</AnimatedNumber> PV-Anlagen
           </span>{' '}

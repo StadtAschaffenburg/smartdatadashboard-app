@@ -29,7 +29,7 @@ export default function SectionTitle({
 }: VariantProps<typeof sectionHeaderStyle> & {
   large?: boolean
 }) {
-  let title: string | React.ReactNode = 'Münster'
+  let title: string | React.ReactNode = 'Aschaffenburg'
   let Icon: ((_: SVGProps<SVGSVGElement>) => JSX.Element) | undefined =
     MsKlimadashboardIconsButtonAktivKlima
 

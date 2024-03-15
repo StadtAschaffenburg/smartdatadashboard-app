@@ -10,7 +10,7 @@ export default async function BicycleChartTile() {
 
   return (
     <MobilityTile
-      dataSource="Stadt Münster &ndash; Amt für Mobilität und Tiefbau"
+      dataSource="Stadt Aschaffenburg &ndash; Amt für Mobilität und Tiefbau"
       embedId="mobility-bicycle"
       live
       subtitle="im Stadtgebiet"

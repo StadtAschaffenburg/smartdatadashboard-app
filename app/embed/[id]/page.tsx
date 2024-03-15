@@ -19,7 +19,7 @@ export default async function Embed({ params }: { params: { id: TileType } }) {
       <TileFactory type={id} />
       <div className="mt-4 flex h-full w-full flex-col justify-end gap-4 md:flex-row md:items-center">
         <Image
-          alt="Logo der Stadt Münster"
+          alt="Logo der Stadt Aschaffenburg"
           className="h-10 w-fit"
           src={MSLogo}
         />

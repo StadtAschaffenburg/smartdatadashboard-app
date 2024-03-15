@@ -16,7 +16,7 @@ export default async function ClimateIndicesTile() {
       embedId="climate-indices"
       live
       subtitle={
-        'Häufigkeit von Temperaturkenntagen in Münster'
+        'Häufigkeit von Temperaturkenntagen in Aschaffenburg'
       }
       title="Klimakenntage"
     >

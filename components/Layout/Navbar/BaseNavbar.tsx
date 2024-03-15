@@ -52,7 +52,7 @@ export default function BaseNavbar({
     <div className="pt-8">
       <div className="container relative z-10 mx-auto translate-y-1/2 px-4 md:px-12">
         <Image
-          alt="Logo der Stadt Münster"
+          alt="Logo der Stadt Aschaffenburg"
           className="ml-auto h-12 w-auto"
           src={MSLogo}
         />

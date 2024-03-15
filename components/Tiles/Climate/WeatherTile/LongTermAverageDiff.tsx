@@ -9,11 +9,12 @@ export default function LongTermAverageDiff() {
 
   async function getData() {
     try {
-      const request = await fetch(
+      /*const request = await fetch(
         'https://long-term-average.klimadashboard-ms.reedu.de/',
       )
       const data = await request.json()
-      setDifference(data.value)
+      setDifference(data.value)*/
+      setDifference(0)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error("Couldn't fetch long term average difference", error)

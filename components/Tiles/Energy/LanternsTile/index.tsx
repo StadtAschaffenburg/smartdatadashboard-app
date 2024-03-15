@@ -19,7 +19,7 @@ export default function LanternsTile() {
   return (
     <EnergyTile
       dataRetrieval={format(new Date('2023-05-30T00:00:00.000Z'), 'dd.MM.yyyy')}
-      dataSource={'Stadtwerke Münster'}
+      dataSource={'Stadtwerke Aschaffenburg'}
       embedId="energy-lanterns"
       title={
         <>
@@ -29,8 +29,8 @@ export default function LanternsTile() {
     >
       <div>
         <Title as={'subtitle'}>
-          schenken Münsters Straßen bereits klimafreundliches Licht. Die
-          Stadtnetze Münster rüsten nach und nach alle rund{' '}
+          schenken Aschaffenburgs Straßen bereits klimafreundliches Licht. Die
+          Stadtnetze Aschaffenburg rüsten nach und nach alle rund{' '}
           <span className="text-energy">
             <AnimatedNumber>{29000}</AnimatedNumber> Straßenlaternen
           </span>{' '}

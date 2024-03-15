@@ -16,7 +16,7 @@ export default function PVAnlagenTile() {
   return (
     <EnergyTile
       dataRetrieval="12.04.2023"
-      dataSource={'Stadt Münster'}
+      dataSource={'Stadt Aschaffenburg'}
       embedId="energy-PVAnlagen"
       live
       title={

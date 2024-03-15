@@ -11,6 +11,8 @@ export async function getContent(id: string, collection: string, query: object =
     let data = readFile(filePath)
 
     if (!data) {
+        console.log('Can\'t find file: ', filePath);
+        return;
         data = await directus.items(collection).readByQuery(setDefaultQuery(query))
         saveFile(filePath, data)
     }
@@ -23,6 +25,8 @@ export async function getOne(id: number | string, collection: string) {
     let data = readFile(filePath)
 
     if (!data) {
+        console.log('Can\'t find file: ', filePath);
+        return;
         data = await directus.items(collection).readOne(id)
         saveFile(filePath, data)
     }
@@ -35,6 +39,8 @@ export async function getCollections() {
     let data = readFile(filePath)
 
     if (!data) {
+        console.log('Can\'t find file: ', filePath);
+        return;
         data = await directus.items('collections').readByQuery(setDefaultQuery())
         saveFile(filePath, data)
     }

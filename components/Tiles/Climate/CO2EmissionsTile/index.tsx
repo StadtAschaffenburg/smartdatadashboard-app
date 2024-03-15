@@ -13,7 +13,7 @@ export default async function CO2EmissionsTile() {
   return (
     <ClimateTile
       dataRetrieval="02.03.2023"
-      dataSource="Stadt Münster - Stabsstelle Klima"
+      dataSource="Stadt Aschaffenburg - Stabsstelle Klima"
       embedId="climate-co2"
       subtitle="So viel wird in Aschaffenburg ausgestoßen"
       title={

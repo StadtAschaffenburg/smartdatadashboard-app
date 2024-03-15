@@ -51,7 +51,7 @@ export default function Footer() {
               <div className="relative h-28 w-full md:h-36">
                 <Link href="https://www.stadtwerke-muenster.de/">
                   <Image
-                    alt="Stadtwerke Münster Logo"
+                    alt="Stadtwerke Aschaffenburg Logo"
                     className="object-contain"
                     fill
                     src={StadtwerkeLogo}
@@ -61,7 +61,7 @@ export default function Footer() {
               <div className="relative h-28 w-full md:h-36">
                 <Link href="https://www.wfm-muenster.de/">
                   <Image
-                    alt="Wirtschaftsförderung Münster Logo"
+                    alt="Wirtschaftsförderung Aschaffenburg Logo"
                     className="object-contain"
                     fill
                     src={WFMLogo}

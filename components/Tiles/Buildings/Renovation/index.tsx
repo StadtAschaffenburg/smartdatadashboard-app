@@ -23,7 +23,7 @@ export default async function RenovationTile() {
   return (
     <BuildingsTile
       dataRetrieval={format(new Date(), 'dd.MM.yyyy')}
-      dataSource={'Stadt Münster'}
+      dataSource={'Stadt Aschaffenburg'}
       embedId="building-renovation"
       title={
         <>

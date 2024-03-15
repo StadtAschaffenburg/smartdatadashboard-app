@@ -20,7 +20,6 @@ export default async function Home() {
   return (
     <div className="-translate-y-52">
       <AnimatedPage>
-        <InsightsContainer />
         <Container>
           <BaseView
             showGoToButton={true}
@@ -28,7 +27,6 @@ export default async function Home() {
             showSurveys={false}
             type="climate"
           >
-            <CO2EmissionsTile />
             <Columns>
               <WeatherTile />
               <ClimateDevelopmentTile />
@@ -43,8 +41,6 @@ export default async function Home() {
           >
             <Columns>
               <PhotovoltTile />
-              <WindEnergyTile />
-              <EnergietraegerTile />
             </Columns>
           </BaseView>
 
@@ -54,7 +50,6 @@ export default async function Home() {
             showSurveys={false}
             type="mobility"
           >
-            <TrafficloadTile />
             <Columns>
               <BusTile />
               <BicycleChartTile />

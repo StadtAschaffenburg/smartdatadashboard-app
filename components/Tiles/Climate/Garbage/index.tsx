@@ -11,7 +11,7 @@ export default async function GarbageTile() {
   return (
     <ClimateTile
       dataRetrieval={'31.05.2023'}
-      dataSource="Abfallwirtschaftsbetriebe Münster (awm)"
+      dataSource="Stadtwerke Aschaffenburg (STWAB)"
       embedId="climate-garbage"
       subtitle={
         'So viele Kilogramm Abfall wurden durchschnittlich durch die awm erfasst'

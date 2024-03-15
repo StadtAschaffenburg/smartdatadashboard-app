@@ -13,7 +13,7 @@ export default async function DataCountTile() {
   return (
     <ClimateTile
       dataRetrieval="05.06.2023"
-      dataSource="Stadt Münster - Stabsstelle Smart City"
+      dataSource="Stadt Aschaffenburg - Stabsstelle Smart City"
       embedId={'climate-data'}
       title={
         <>

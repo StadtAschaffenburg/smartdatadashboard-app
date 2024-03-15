@@ -9,16 +9,16 @@ import BaseView from './BaseView'
 export default function EnergyView() {
   return (
     <BaseView type="energy">
+
       <Columns>
         <PhotovoltTile />
-        <WindEnergyTile />
-
-        <EnergietraegerTile />
       </Columns>
+
       <Columns>
         <LanternsTile />
         <PVAnlagenTile />
       </Columns>
+
     </BaseView>
   )
 }
