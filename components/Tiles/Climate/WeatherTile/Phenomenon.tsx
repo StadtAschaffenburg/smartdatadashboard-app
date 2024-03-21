@@ -55,8 +55,8 @@ const phenomena: PhenomenaType = {
     icon: MsKlimadashboardIconsWetterWindgeschw,
   },
   sunhours: {
-    title: 'Sonnenstunden',
-    unit: 'h',
+    title: 'Sonneneinstrahlung',
+    unit: 'kW/m²',
     icon: MsKlimadashboardIconsWetterSonnig,
   },
   humidity: {
@@ -75,14 +75,16 @@ type PhenomenonProps = {
   phenomenon: keyof typeof phenomena
   value: number
   size?: 'md' | 'xl',
-  meta: string | false
+  meta?: string,
+  hide_icon?: boolean
 }
 
 export default function Phenomenon({
   phenomenon,
   value,
-  meta = false,
+  meta = '',
   size = 'md',
+  hide_icon = false
 }: PhenomenonProps) {
   const { title, unit, icon, decimals, shortTitle } = phenomena[phenomenon]
 
@@ -93,12 +95,12 @@ export default function Phenomenon({
   const Icon = icon
   return (
     <div className="my-1 flex items-center gap-3 md:my-2">
-      <Icon
+      {!hide_icon && (<Icon
         className={cx(
           size === 'md' ? 'aspect-square' : 'w-6',
           'h-10 fill-primary stroke-primary text-primary md:h-14',
         )}
-      />
+      />)}
       <div>
         <Title
           as={'h5'}

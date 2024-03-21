@@ -12,11 +12,11 @@ export default function EnergyView() {
 
       <Columns>
         <PhotovoltTile />
+        <PVAnlagenTile />
       </Columns>
 
       <Columns>
         <LanternsTile />
-        <PVAnlagenTile />
       </Columns>
 
     </BaseView>

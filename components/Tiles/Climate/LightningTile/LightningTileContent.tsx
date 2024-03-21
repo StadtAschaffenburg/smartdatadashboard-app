@@ -35,7 +35,7 @@ export default function WeatherTileContent() {
                 Blitze mit einer Entfernung von bis zu{' '}
                 <span className="text-climate">
                   <AnimatedNumber decimals={2}>{data.distance}</AnimatedNumber> km
-                </span>{' '}
+                </span>{' '} vom Rathaus
               </Title>
             </div>
           </div>

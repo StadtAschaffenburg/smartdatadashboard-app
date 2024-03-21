@@ -9,6 +9,7 @@ import { addHours, format } from 'date-fns'
 import { useState } from 'react'
 import LongTermAverageDiff from './LongTermAverageDiff'
 import Phenomenon from './Phenomenon'
+import { MsKlimadashboardIconsWetterWindgeschw, MsKlimadashboardIconsWetterWolkendichte } from '@/components/Icons/Klima'
 
 export default function WeatherTileContent() {
   const [timestamp, setTimestamp] = useState(new Date())
@@ -47,7 +48,8 @@ export default function WeatherTileContent() {
                 </span>
               </Title>
             </div>
-            <div className="flex flex-row items-start md:items-center">
+
+            <div className="flex flex-row items-start md:items-center mb-4">
               <div className="flex-1">
                 <Phenomenon
                   phenomenon="temperature"
@@ -66,36 +68,48 @@ export default function WeatherTileContent() {
                     phenomenon="cloudcover"
                     value={weather?.cloud_cover}
                   />
-                  {/* <Phenomenon phenomenon="sunhours" value={weather?.sunshine} /> */}
+                  <Phenomenon
+                    phenomenon="sunhours"
+                    value={weather?.sunshine}
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-row items-start md:items-center">
+            <div className="flex flex-row items-start md:items-center mb-4">
+              <div className="w-32">
+                <MsKlimadashboardIconsWetterWindgeschw className='h-10 fill-primary stroke-primary text-primary md:h-14' />
+              </div>
               <div className="flex-1">
                 <Phenomenon
+                  hide_icon={true}
                   phenomenon="windspeed"
                   value={weather?.wind_speed}
                 />
               </div>
               <div className="flex-1">
                 <Phenomenon
+                  hide_icon={true}
+                  meta={'(' + getWindDirection(weather?.wind_direction) + ')'}
                   phenomenon="winddirection"
                   value={weather?.wind_direction}
-                  meta={'(' + getWindDirection(weather?.wind_direction) + ')'}
                 />
               </div>
             </div>
 
-            <div className="flex flex-row items-start md:items-center">
-              <div className="flex-1">
-                <Phenomenon
-                  phenomenon="humidity"
-                  value={weather?.relative_humidity}
-                />
+            <div className="flex flex-row items-start md:items-center mb-4">
+              <div className="w-32">
+                <MsKlimadashboardIconsWetterWolkendichte className='h-10 fill-primary stroke-primary text-primary md:h-14' />
               </div>
               <div className="flex-1">
                 <Phenomenon
+                  hide_icon={true}
+                  phenomenon="humidity"
+                  value={weather?.relative_humidity}                />
+              </div>
+              <div className="flex-1">
+                <Phenomenon
+                  hide_icon={true}
                   phenomenon="pressure"
                   value={weather?.pressure_msl}
                 />
