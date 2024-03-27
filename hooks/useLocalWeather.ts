@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { Weather } from '@/types/brightsky'
 
 const getLocalWeather = async () => {
-  const api = (process.env.PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'thingsboard/weather'
+  const api = (process.env.PUBLIC_SSD_API || 'https://smartcitydashboard-cms.preview.schleegleixner.de/api/') + 'thingsboard/weather'
   const res = await fetch(api)
   const data = await res.json()
 
