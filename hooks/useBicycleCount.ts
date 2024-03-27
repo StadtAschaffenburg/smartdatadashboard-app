@@ -1,14 +1,23 @@
 import { isEqual } from 'date-fns'
 import { useEffect, useState } from 'react'
 
+const getBicycleData = async () => {
+  const limit = 7
+  const api = (process.env.PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'ecocounter?step=day&limit=' + limit
+  const res = await fetch(api)
+  const data = await res.json()
+
+  return data.payload
+}
+
 type BicycleAPIResponse = {
   name: string
   id: string
+  interval: number
+  visible: boolean
   data: {
     counts: number
     date: string
-    isoDate: string
-    status: number
   }[]
 }
 
@@ -16,24 +25,6 @@ type BicycleStationData = {
   count: number
   id: string
   name: string
-}
-
-const counter = [
-  { name: 'Wolbecker Str.', id: '100020113' }, // wolbecker
-  { name: 'Promenade', id: '100031297' }, // promenade
-  { name: 'Gartenstr.', id: '100034978' }, // gartenstr
-  { name: 'Hammer Str.', id: '100034980' }, // hammer str
-  { name: 'Warendorfer Str.', id: '100034983' }, // warendorfer
-  { name: 'Neutor', id: '100035541' }, // neutor
-]
-
-const getBicycleData = async (station: string) => {
-  const res = await fetch(
-    `https://city-dashboard.felixerdmann.com/bicycle/${station}`,
-  )
-  const data = await res.json()
-
-  return data
 }
 
 export function useBicycleCount(timestamp: Date) {
@@ -50,15 +41,7 @@ export function useBicycleCount(timestamp: Date) {
   const [totalMax, setTotalMax] = useState(0)
 
   useEffect(() => {
-    const fetchPromise = Promise.all(
-      counter.map(async ({ name, id }) => ({
-        name,
-        id,
-        data: await getBicycleData(id),
-      })),
-    )
-
-    fetchPromise.then(bicycleData => setData(bicycleData))
+    getBicycleData().then(e => setData(e))
   }, [])
 
   useEffect(() => {
@@ -101,6 +84,6 @@ export function useBicycleCount(timestamp: Date) {
     min: totalMin,
     max: totalMax,
     data: filteredData,
-    stationCount: counter.length,
+    stationCount: 2,
   }
 }

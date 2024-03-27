@@ -1,39 +1,43 @@
 'use client'
 
-import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import Slider from '@/components/Inputs/Slider'
 import useWeather from '@/hooks/useWeather'
+import useLocalWeather from '@/hooks/useLocalWeather'
 import { conditionMapping, conditionMappingIcon } from '@/lib/brightsky'
-import { addHours, format } from 'date-fns'
-import { useState } from 'react'
 import LongTermAverageDiff from './LongTermAverageDiff'
 import Phenomenon from './Phenomenon'
-import { MsKlimadashboardIconsWetterWindgeschw, MsKlimadashboardIconsWetterWolkendichte } from '@/components/Icons/Klima'
+import {
+  MsKlimadashboardIconsWetterWindgeschw,
+  MsKlimadashboardIconsWetterWolkendichte,
+} from '@/components/Icons/Klima'
 
 export default function WeatherTileContent() {
-  const [timestamp, setTimestamp] = useState(new Date())
-
-  const weather = useWeather({ lat: 49.98, lng: 9.15 }, timestamp)
-
-  const nextHours = new Array(6).fill(undefined).map((e, i) => {
-    const date = new Date()
-    date.setMinutes(0)
-    date.setSeconds(0)
-    date.setMilliseconds(0)
-    return addHours(date, i)
-  })
+  const weather = useWeather({ lat: 49.98, lng: 9.15 }, new Date())
+  const local_weather = useLocalWeather()
 
   function getWindDirection(degrees: number): string {
     const directions: string[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']
-    const index: number = Math.round(((degrees %= 360) < 0 ? degrees + 360 : degrees) / 45) % 8
+    const index: number =
+      Math.round(((degrees %= 360) < 0 ? degrees + 360 : degrees) / 45) % 8
     return directions[index]
+  }
+
+  function updateWeatherValue<T>(weather: T, localWeather: any, key: keyof T) {
+    const localValue = localWeather[key]
+    if (typeof localValue === 'number') {
+      weather[key] = localValue as T[keyof T]
+    }
   }
 
   if (weather) {
     const Icon = conditionMappingIcon[weather?.condition]
 
-    console.log('weather', weather)
+    // merge weather data
+    if (local_weather) {
+      Object.keys(weather).forEach((key: string) => {
+        updateWeatherValue(weather, local_weather, key as keyof typeof weather)
+      })
+    }
 
     return (
       <div>
@@ -49,7 +53,7 @@ export default function WeatherTileContent() {
               </Title>
             </div>
 
-            <div className="flex flex-row items-start md:items-center mb-4">
+            <div className="mb-4 flex flex-row items-start md:items-center">
               <div className="flex-1">
                 <Phenomenon
                   phenomenon="temperature"
@@ -68,17 +72,14 @@ export default function WeatherTileContent() {
                     phenomenon="cloudcover"
                     value={weather?.cloud_cover}
                   />
-                  <Phenomenon
-                    phenomenon="sunhours"
-                    value={weather?.sunshine}
-                  />
+                  <Phenomenon phenomenon="sunhours" value={weather?.sunshine} />
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-row items-start md:items-center mb-4">
+            <div className="mb-4 flex flex-row items-start md:items-center">
               <div className="w-32">
-                <MsKlimadashboardIconsWetterWindgeschw className='h-10 fill-primary stroke-primary text-primary md:h-14' />
+                <MsKlimadashboardIconsWetterWindgeschw className="h-10 fill-primary stroke-primary text-primary md:h-14" />
               </div>
               <div className="flex-1">
                 <Phenomenon
@@ -97,15 +98,16 @@ export default function WeatherTileContent() {
               </div>
             </div>
 
-            <div className="flex flex-row items-start md:items-center mb-4">
+            <div className="mb-4 flex flex-row items-start md:items-center">
               <div className="w-32">
-                <MsKlimadashboardIconsWetterWolkendichte className='h-10 fill-primary stroke-primary text-primary md:h-14' />
+                <MsKlimadashboardIconsWetterWolkendichte className="h-10 fill-primary stroke-primary text-primary md:h-14" />
               </div>
               <div className="flex-1">
                 <Phenomenon
                   hide_icon={true}
                   phenomenon="humidity"
-                  value={weather?.relative_humidity}                />
+                  value={weather?.relative_humidity}
+                />
               </div>
               <div className="flex-1">
                 <Phenomenon
@@ -115,28 +117,12 @@ export default function WeatherTileContent() {
                 />
               </div>
             </div>
-
           </div>
         )}
-        <Slider
-          defaultValue={[0]}
-          labels={(() => {
-            const labels = nextHours.map(d => format(d, 'kk:mm'))
-            labels[0] = 'jetzt'
-            return labels
-          })()}
-          max={nextHours.length - 1}
-          min={0}
-          onValueChange={([e]) => {
-            setTimestamp(nextHours[e])
-          }}
-          variant={'climate'}
-        />
-        <Spacer size="xl" />
         <LongTermAverageDiff />
       </div>
     )
   }
 
-  return <p>Loading...</p>
+  return <p>Lade...</p>
 }
