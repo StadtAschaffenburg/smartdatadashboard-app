@@ -3,56 +3,57 @@ import directus from '@/lib/directus'
 import fs from 'fs'
 import path from 'path'
 
-const getTileContent = async (id: string) => {
-  const api =
-    (process.env.PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') +
-    '/api/content/tile/' +
-    id
-  const res = await fetch(api)
-  const data = await res.json()
+const cache = new Map()
 
-  console.log(data)
+const getTileContent = async (
+  id: string | number,
+  collection: string = 'tiles',
+) => {
+  // get from cache
+  const cache_key = `content-${collection}-${id}`
+  const cache_data = cache.get(cache_key)
+  if (cache_data) {
+    return cache_data
+  }
 
-  return data.payload
+  const api = `${
+    process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/'
+  }content/${collection}/${id}`
+  try {
+    const res = await fetch(api)
+    const data = await res.json()
+
+    if (data.status === 'success') {
+      cache.set(cache_key, data.payload)
+      setTimeout(() => cache.delete(cache_key), 3600 * 1000)
+      console.log('💾 Fetched new content:', collection, id)
+      return data.payload
+    }
+
+    return false
+  } catch (error) {
+    return false
+  }
 }
-
-const directusUrl =
-  process.env.NEXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055'
 
 // TODO: Remove Directus dependency
 
 export async function getContent(
   id: string,
-  collection: string,
+  collection: string = 'tiles',
   query: object = {},
   query_id: string = 'default',
 ) {
-  const filePath = getFilePath(collection, id, query_id)
-  let data = readFile(filePath)
-
-  if (!data) {
-    console.log("Can't find file: ", filePath)
-    //return
-    data = await getTileContent('building-ecoprofit')
-    //data = await directus.items(collection).readByQuery(setDefaultQuery(query))
-    //saveFile(filePath, data)
-  }
-
-  return data
+  const data = await getTileContent(id, collection)
+  return [data]
 }
 
 // can be removed - this is only required for collections, surveys and success stories
-export async function getOne(id: number | string, collection: string) {
-  const filePath = getFilePath(collection, id, 'one')
-  let data = readFile(filePath)
-
-  if (!data) {
-    console.log("Can't find file: ", filePath)
-    return
-    data = await directus.items(collection).readOne(id)
-    saveFile(filePath, data)
-  }
-
+export async function getOne(
+  id: number | string,
+  collection: string = 'tiles',
+) {
+  const data = await getTileContent(id, collection)
   return data
 }
 
