@@ -4,8 +4,6 @@ import getTilesBucket, { BaseTile } from '@/utils/fullWidthBucket'
 import TileFactory, { TileType } from '@/utils/TileFactory'
 import { SurveyTileProps } from '@/components/Tiles/Survey'
 import { SuccessStoryTileProps } from '@/components/Tiles/SuccessStory'
-import { getSurveyData } from '@/lib/api/getSurveyData'
-import { getSuccessStoryData } from '@/lib/api/getSuccessStoryData'
 import { getContent, getOne } from '@/utils/ContentFactory'
 
 export const revalidate = 10
@@ -41,12 +39,10 @@ const getTileComponent = async (tile: BaseTile) => {
     | undefined
   let type: TileType
   if (tile.collection === 'survey') {
-    const surveyData = await getSurveyData(tile.item)
-    props = { surveyData }
+    // const surveyData = await getSurveyData(tile.item)
+    //props = { surveyData }
     type = 'survey'
   } else if (tile.collection === 'successStory') {
-    const successStoryData = await getSuccessStoryData(tile.item)
-    props = { successStoryData }
     type = 'successStory'
   } else {
     type = (await getTileType(tile.item as string)) as TileType

@@ -33,12 +33,14 @@ const routeToType: {
 }
 
 type SectionData = {
-  [key: string]: {
-    title: string
-    description: string
-    id: string
-    slug: string
-  }
+  [key: string]:
+    | {
+        title: string
+        description: string
+        id: string
+        slug: string
+      }
+    | undefined
 }
 
 export default function Navbar() {
@@ -147,20 +149,15 @@ export default function Navbar() {
     ].includes(route)
   ) {
     // TBD: this is a bit hacky, but it works for now
-    const sectionText: Record<string, string | null> = {
-      klima:
-        (sections_texte as unknown as SectionData)?.klima?.description ||
-        'Lade...',
-      energie:
-        (sections_texte as unknown as SectionData)?.energie?.description ||
-        'Lade...',
-      mobilitaet:
-        (sections_texte as unknown as SectionData)?.mobilitaet?.description ||
-        'Lade...',
-      gebaeude:
-        (sections_texte as unknown as SectionData)?.gebaeude?.description ||
-        'Lade...',
-    }
+    const sectionKeys = ['klima', 'energie', 'mobilitaet', 'gebaeude']
+    const sectionText: Record<string, string> = sectionKeys.reduce(
+      (acc, key) => {
+        const text = sections_texte as any // TODO: fix this
+        acc[key] = text[key]?.description || 'Lade...'
+        return acc
+      },
+      {} as Record<string, string>,
+    )
 
     return (
       <BaseNavbar

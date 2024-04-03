@@ -13,7 +13,7 @@ import {
 
 export default function WeatherTileContent() {
   const weather = useWeather({ lat: 49.98, lng: 9.15 }, new Date())
-  const local_weather = useLocalWeather()
+  const local_weather = useLocalWeather() as any // TODO: Fix type
 
   function getWindDirection(degrees: number): string {
     const directions: string[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']

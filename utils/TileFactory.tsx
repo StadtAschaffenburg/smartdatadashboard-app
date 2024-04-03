@@ -20,12 +20,6 @@ import MasterplanTile from '@/components/Tiles/Mobility/MasterplanTile'
 import ModalSplitTile from '@/components/Tiles/Mobility/ModalSplit'
 import PassengerTile from '@/components/Tiles/Mobility/PassengerTile'
 import TrafficloadTile from '@/components/Tiles/Mobility/TrafficloadTile'
-import SuccessStoryTile, {
-  SuccessStoryTileProps,
-} from '@/components/Tiles/SuccessStory'
-import SurveyTile, { SurveyTileProps } from '@/components/Tiles/Survey'
-import { getSuccessStoryData } from '@/lib/api/getSuccessStoryData'
-import { getSurveyData } from '@/lib/api/getSurveyData'
 import {
   BuildingsTypes,
   ClimateTypes,
@@ -52,8 +46,6 @@ export type TileType =
 
 interface TileFactoryProps {
   type: TileType
-  successStoryData?: SuccessStoryTileProps
-  surveyData?: SurveyTileProps
 }
 
 /**
@@ -62,34 +54,7 @@ interface TileFactoryProps {
  * @param param TileFactoryProps
  * @returns Tile
  */
-export default async function TileFactory({
-  type,
-  ...props
-}: TileFactoryProps) {
-  if (type.startsWith('survey')) {
-    const [_, id] = type.split('survey-')
-    if (props.surveyData) {
-      return <SurveyTile {...props.surveyData} />
-    }
-    const data = await getSurveyData(id)
-    if (!data) {
-      return null
-    }
-    return <SurveyTile {...data} />
-  }
-
-  if (type.startsWith('successStory')) {
-    const [_, id] = type.split('successStory-')
-    if (props.successStoryData) {
-      return <SuccessStoryTile {...props.successStoryData} />
-    }
-    const data = await getSuccessStoryData(id)
-    if (!data) {
-      return null
-    }
-    return <SuccessStoryTile {...data} />
-  }
-
+export default async function TileFactory({ type }: TileFactoryProps) {
   switch (type) {
     // ---- WEATHER ----
     case 'climate-weather':
