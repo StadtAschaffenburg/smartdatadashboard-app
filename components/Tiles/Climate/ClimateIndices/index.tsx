@@ -15,9 +15,7 @@ export default async function ClimateIndicesTile() {
       dataSource="Deutscher Wetterdienst"
       embedId="climate-indices"
       live
-      subtitle={
-        'Häufigkeit von Temperaturkenntagen in Aschaffenburg'
-      }
+      subtitle={'Häufigkeit von Temperaturkenntagen in Aschaffenburg'}
       title="Klimakenntage"
     >
       <TileSplitView>

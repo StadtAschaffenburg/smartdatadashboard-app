@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getJSON } from '@/utils/ContentFactory'
+import { getJSON } from '@/lib/cms'
 
 const getUVIndex = async () => {
   const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'uvi'

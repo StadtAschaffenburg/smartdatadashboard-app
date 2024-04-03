@@ -1,7 +1,7 @@
 import withSuspense from '@/utils/withSuspense'
 import Container from '../Layout/Container'
 import InsightsCarousel from './InsightsCarousel'
-import getContent from '@/utils/ContentFactory'
+import getContent from '@/lib/cms'
 
 const getInsightsData = async () => {
   const data = await getContent('all', 'collections')

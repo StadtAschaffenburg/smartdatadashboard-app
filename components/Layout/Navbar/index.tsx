@@ -11,7 +11,7 @@ import InfoText from '../InfoText'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MsKlimadashboardIconsNaviInfoI } from '@/components/Icons/Misc/Navi'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { getJSON } from '@/utils/ContentFactory'
+import getSectionsData from '@/lib/api/getSectionsData'
 
 const routeToType: {
   [key: string]:
@@ -46,21 +46,13 @@ type SectionData = {
 export default function Navbar() {
   const pathname = usePathname()
 
-  const [sections_texte, setSectionstext] = useState<SectionData[]>([])
+  const [sections_texte, setSectionsTexte] = useState<SectionData[]>([])
 
   useEffect(() => {
-    const fetchSectionsText = async () => {
-      const api =
-        (process.env.NEXT_PUBLIC_SSD_API ||
-          'http://smartcitydashboard-cms.test/api/') + 'content/sections'
-      const data = await getJSON(api)
-
-      if (data?.status === 'success') {
-        setSectionstext(data?.payload)
-      }
-    }
-
-    fetchSectionsText()
+    ;(async () => {
+      const data = await getSectionsData()
+      setSectionsTexte(data)
+    })()
   }, [])
 
   const [showOverlay, setShowOverlay] = useState(false)

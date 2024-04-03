@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { BaseTile } from '../Base/BaseTile'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { getImage } from '@/utils/ContentFactory'
+import { getImage } from '@/lib/cms'
 
 export type SuccessStoryTileProps = {
   text: string

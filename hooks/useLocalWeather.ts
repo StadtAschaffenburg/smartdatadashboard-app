@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getJSON } from '@/utils/ContentFactory'
+import { getJSON } from '@/lib/cms'
 
 interface LocalWeather {
   humidity: number;

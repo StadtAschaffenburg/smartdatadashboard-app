@@ -1,7 +1,7 @@
-import getContent from '@/utils/ContentFactory'
+import getContent from '@/lib/cms'
 
-export default async function getTileData(id: string) {
+export default async function getTileData(id: string, default_value: any = []) {
   const data = await getContent(id, 'tiles');
 
-  return data?.[0];
+  return data || default_value;
 }

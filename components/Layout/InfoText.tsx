@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Title from '@/components/Elements/Title'
-import { getJSON } from '@/utils/ContentFactory'
+import getGlobalData from '@/lib/api/getGlobalData'
 
 export default function SectionText() {
-  const [infotext, setInfotext] = useState(null)
+  const [infotext, setInfotext] = useState<string | null>(null)
 
   useEffect(() => {
-    const fetchInfotext = async () => {
-      const api =
-        (process.env.NEXT_PUBLIC_SSD_API ||
-          'http://smartcitydashboard-cms.test/api/') + 'content/global/infotext'
-      const data = await getJSON(api)
-
-      if (data?.status === 'success') {
-        setInfotext(data?.payload)
-      }
-    }
-
-    fetchInfotext()
+    ;(async () => {
+      const data = await getGlobalData('infotext')
+      setInfotext(data)
+    })()
   }, [])
 
   if (infotext) {

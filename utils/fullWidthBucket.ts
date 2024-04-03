@@ -1,5 +1,4 @@
 import { ID } from '@directus/sdk'
-import { getOne } from '@/utils/ContentFactory'
 
 // super complex and probably overkill function to seperate fill width from normal tiles
 export type BaseTile = {
@@ -17,17 +16,7 @@ type TilesBucket = {
 
 // check if a tile should be displayed full width
 const isFullWidth = async (tile: BaseTile) => {
-  if (tile.collection === 'successStory') {
-    return true
-  }
-
-  if (tile.collection === 'survey') {
-    return false
-  }
-
-  const data = await getOne(tile.item, tile.collection)
-
-  return data?.full_width === true
+  return true
 }
 
 /**

@@ -4,7 +4,7 @@ import Footer from '@/components/Layout/Footer'
 import CollectionNavbar from '@/components/Layout/Navbar/CollectionNavbar'
 import Providers from '@/components/Layout/Providers'
 import { notFound } from 'next/navigation'
-import getContent from '@/utils/ContentFactory'
+import getContent from '@/lib/cms'
 
 // revalidate each minute
 export const revalidate = 10
@@ -12,7 +12,7 @@ export const revalidate = 10
 const getCollection = async (collectionSlug: string) => {
   const data = await getContent(collectionSlug, 'collections')
 
-  return data?.[0]
+  return data || []
 }
 
 export default async function Layout({

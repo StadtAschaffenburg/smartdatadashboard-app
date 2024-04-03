@@ -4,7 +4,7 @@ import InsightsTile from './InsightsTile'
 import useDevice from '@/hooks/useDevice'
 import Carousel from '../Elements/Carousel'
 import { useWindowSize } from 'react-use'
-import { getImage } from '@/utils/ContentFactory'
+import { getImage } from '@/lib/cms'
 
 const pages = {
   desktop: 3,
@@ -42,8 +42,8 @@ export default function InsightsCarousel({
           width < 1440 && width > 1024
             ? '2.5rem'
             : width >= 1920
-              ? '82px'
-              : padding[device],
+            ? '82px'
+            : padding[device],
         perPage: pages[device],
       }}
     >
