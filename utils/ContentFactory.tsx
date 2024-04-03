@@ -50,24 +50,47 @@ export function getImage(image: string = 'placeholder') {
   return '/images/' + image + '.jpeg'
 }
 
+/**
+ * Get JSON from API with caching
+ * cache_duration in minutes
+ */
 export async function getJSON(endpoint: string, cache_duration: number = 60) {
   // get from cache
   const cache_key = `api-${endpoint}`
-  const cache_data = cache.get(cache_key)
-  if (cache_data) {
+  const cache_entry = cache.get(cache_key)
+
+  const cache_data = cache_entry ? cache_entry.data : null
+  const stale = cache_entry ? Date.now() > cache_entry.expiry : false
+
+  if (cache_data && !stale) {
     return cache_data
   }
 
-  try {
-    const res = await fetch(endpoint)
-    const data = await res.json()
+  const timeout: number = process.env.NEXT_PUBLIC_API_TIMEOUT || 5000
 
-    cache.set(cache_key, data)
-    setTimeout(() => cache.delete(cache_key), cache_duration * 60 * 1000)
+  const api_promise = fetch(endpoint).then(res => res.json())
+  const timeout_promise = new Promise(resolve =>
+    setTimeout(() => resolve(false), timeout),
+  )
+
+  try {
+    const data = await Promise.race([api_promise, timeout_promise])
+
+    if (!data) {
+      console.log('⏳ API request timed out:', endpoint)
+      return cache_data || false // stale content is better than no content
+    }
+
+    // store with an expiry timestamp
+    cache.set(cache_key, {
+      data,
+      expiry: Date.now() + cache_duration * 60 * 1000,
+    })
     console.log('💾 Fetched API content:', endpoint)
 
     return data
   } catch (error) {
+    console.log('🔥 Everything is on fire!', endpoint)
     return false
   }
 }
