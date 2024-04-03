@@ -12,7 +12,7 @@ export const revalidate = 10
 
 // ISR
 export async function generateStaticParams() {
-  const { data } = await getContent('all', 'collections')
+  const data = await getContent('all', 'collections')
 
   if (!data) {
     return [{ slug: undefined }]
@@ -24,15 +24,7 @@ export async function generateStaticParams() {
 }
 
 const getCollection = async (collectionSlug: string) => {
-  const { data } = await getContent(collectionSlug, 'collections', {
-    filter: {
-      slug: collectionSlug,
-    },
-    fields: ['tiles.*'],
-    deep: {
-      tiles: {},
-    },
-  }, 'deep')
+  const data = await getContent(collectionSlug, 'collections')
 
   return data
 }
@@ -94,7 +86,9 @@ export default async function Collection({
 
   const { tiles } = collection[0]
 
-  const sortedTiles = tiles.sort((a: { sort: number }, b: { sort: number }) => a.sort - b.sort)
+  const sortedTiles = tiles.sort(
+    (a: { sort: number }, b: { sort: number }) => a.sort - b.sort,
+  )
 
   // sort tiles into buckets indicating full width display or column display
   const tileBuckets = await getTilesBucket(sortedTiles)

@@ -4,7 +4,7 @@ import WeatherTileContent from './WeatherTileContent'
 export default function WeatherTile() {
   return (
     <ClimateTile
-      dataSource="Deutscher Wetterdienst"
+      dataSource="Stadt Aschaffenburg"
       embedId={'climate-weather'}
       live
       title={'Wetter aktuell'}

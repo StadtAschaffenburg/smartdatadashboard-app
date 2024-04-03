@@ -16,7 +16,7 @@ export default function WeatherTileContent() {
   if (lightning) {
     const data = {
       count: 1000 * yearIndex,
-      distance: 1 * yearIndex
+      distance: 1 * yearIndex,
     }
 
     return (
@@ -34,8 +34,10 @@ export default function WeatherTileContent() {
                 </span>{' '}
                 Blitze mit einer Entfernung von bis zu{' '}
                 <span className="text-climate">
-                  <AnimatedNumber decimals={2}>{data.distance}</AnimatedNumber> km
-                </span>{' '} vom Rathaus
+                  <AnimatedNumber decimals={2}>{data.distance}</AnimatedNumber>{' '}
+                  km
+                </span>{' '}
+                vom Rathaus
               </Title>
             </div>
           </div>
@@ -55,5 +57,5 @@ export default function WeatherTileContent() {
     )
   }
 
-  return <p>Loading...</p>
+  return <p>Lade Daten...</p>
 }

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import StairStepBackground from '../StairStepBackground'
-import MSLogo from '@/assets/logos/logo_stadt-aschaffenburg_big.png'
+import StadtLogo from '@/assets/logos/logo_ab.jpg'
 import Link from 'next/link'
 import Collapsible from '../../Elements/Collapsible'
 import Container from '../Container'
@@ -8,7 +8,12 @@ import { Bars3Icon } from '@heroicons/react/24/outline'
 import Title from '@/components/Elements/Title'
 import LinkComponent, { LinkProps } from './LinkComponent'
 import { Spacer } from '@/components/Elements/Spacer'
-import { MsKlimadashboardIconsButtonAktivEnergieV1, MsKlimadashboardIconsButtonAktivGebaeude, MsKlimadashboardIconsButtonAktivKlima, MsKlimadashboardIconsButtonAktivMobil } from '@/components/Icons/Misc'
+import {
+  MsKlimadashboardIconsButtonAktivEnergieV1,
+  MsKlimadashboardIconsButtonAktivGebaeude,
+  MsKlimadashboardIconsButtonAktivKlima,
+  MsKlimadashboardIconsButtonAktivMobil,
+} from '@/components/Icons/Misc'
 
 const links: LinkProps[] = [
   {
@@ -49,12 +54,12 @@ export default function BaseNavbar({
   children,
 }: BaseNavbarProps) {
   return (
-    <div className="pt-8">
-      <div className="container relative z-10 mx-auto translate-y-1/2 px-4 md:px-12">
+    <div className="pt-0">
+      <div className="container pointer-events-none relative z-10 mx-auto translate-y-1/2 px-4 md:px-12">
         <Image
           alt="Logo der Stadt Aschaffenburg"
-          className="ml-auto h-12 w-auto"
-          src={MSLogo}
+          className="pointer-events-none ml-auto h-24 w-auto"
+          src={StadtLogo}
         />
       </div>
       <StairStepBackground variant={variant}>
@@ -81,7 +86,7 @@ export default function BaseNavbar({
                 as="h2"
                 variant={variant === 'overlay' ? 'inverse' : 'primary'}
               >
-                Klimadashboard Aschaffenburg
+                Smart Data Dashboard Aschaffenburg
               </Title>
             </Link>
             <div className="flex items-center justify-between">

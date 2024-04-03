@@ -10,11 +10,7 @@ import getContent from '@/utils/ContentFactory'
 export const revalidate = 10
 
 const getCollection = async (collectionSlug: string) => {
-  const { data } = await getContent(collectionSlug, 'collections', {
-    filter: {
-      slug: collectionSlug,
-    }
-  })
+  const data = await getContent(collectionSlug, 'collections')
 
   return data?.[0]
 }

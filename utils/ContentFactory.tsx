@@ -1,5 +1,3 @@
-import directus from '@/lib/directus'
-
 import fs from 'fs'
 import path from 'path'
 
@@ -9,46 +7,24 @@ const getTileContent = async (
   id: string | number,
   collection: string = 'tiles',
 ) => {
-  // get from cache
-  const cache_key = `content-${collection}-${id}`
-  const cache_data = cache.get(cache_key)
-  if (cache_data) {
-    return cache_data
-  }
-
   const api = `${
     process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/'
   }content/${collection}/${id}`
-  try {
-    const res = await fetch(api)
-    const data = await res.json()
 
-    if (data.status === 'success') {
-      cache.set(cache_key, data.payload)
-      setTimeout(() => cache.delete(cache_key), 3600 * 1000)
-      console.log('💾 Fetched new content:', collection, id)
-      return data.payload
-    }
+  const data = await getJSON(api, 12 * 60)
 
-    return false
-  } catch (error) {
-    return false
+  if (data?.status === 'success') {
+    return data?.payload
   }
+
+  return []
 }
 
-// TODO: Remove Directus dependency
-
-export async function getContent(
-  id: string,
-  collection: string = 'tiles',
-  query: object = {},
-  query_id: string = 'default',
-) {
+export async function getContent(id: string, collection: string = 'tiles') {
   const data = await getTileContent(id, collection)
   return [data]
 }
 
-// can be removed - this is only required for collections, surveys and success stories
 export async function getOne(
   id: number | string,
   collection: string = 'tiles',
@@ -57,22 +33,43 @@ export async function getOne(
   return data
 }
 
+// legacy
 export async function getCollections() {
   const filePath = getFilePath('collections')
-  let data = readFile(filePath)
+  const data = readFile(filePath)
 
   if (!data) {
     console.log("Can't find file: ", filePath)
-    return
-    data = await directus.items('collections').readByQuery(setDefaultQuery())
-    saveFile(filePath, data)
+    return []
   }
 
   return data
 }
 
-export function getImage(image: string) {
-  return '/images/placeholder.jpeg'
+export function getImage(image: string = 'placeholder') {
+  return '/images/' + image + '.jpeg'
+}
+
+export async function getJSON(endpoint: string, cache_duration: number = 60) {
+  // get from cache
+  const cache_key = `api-${endpoint}`
+  const cache_data = cache.get(cache_key)
+  if (cache_data) {
+    return cache_data
+  }
+
+  try {
+    const res = await fetch(endpoint)
+    const data = await res.json()
+
+    cache.set(cache_key, data)
+    setTimeout(() => cache.delete(cache_key), cache_duration * 60 * 1000)
+    console.log('💾 Fetched API content:', endpoint)
+
+    return data
+  } catch (error) {
+    return false
+  }
 }
 
 function getFilePath(
@@ -109,16 +106,6 @@ function saveFile(filePath: string, data: any) {
   })
 
   return true
-}
-
-function setDefaultQuery(query: any = {}) {
-  if (!query.filter) {
-    query.filter = {} // Setzt 'filter', falls es nicht existiert
-  }
-
-  query.filter.status = 'published' // Fügt 'status: published' sicher hininzu
-
-  return query
 }
 
 export default getContent

@@ -13,8 +13,12 @@ import Title from '@/components/Elements/Title'
 import remarkGfm from 'remark-gfm'
 import TileHeader from './TileHeader'
 
-import { MsKlimadashboardIconsButtonAktivEnergieV1, MsKlimadashboardIconsButtonAktivGebaeude, MsKlimadashboardIconsButtonAktivKlima, MsKlimadashboardIconsButtonAktivMobil } from '@/components/Icons/Misc'
-
+import {
+  MsKlimadashboardIconsButtonAktivEnergieV1,
+  MsKlimadashboardIconsButtonAktivGebaeude,
+  MsKlimadashboardIconsButtonAktivKlima,
+  MsKlimadashboardIconsButtonAktivMobil,
+} from '@/components/Icons/Misc'
 
 const baseTileStyle = cva(
   'relative flex flex-col md:flex-row h-fit overflow-hidden',
@@ -91,7 +95,7 @@ export function BaseTile({
     if (navigator && navigator.share) {
       try {
         await navigator.share({
-          title: 'Klimadashboard Aschaffenburg',
+          title: 'Smart Data Dashboard Aschaffenburg',
           url: `${window.location.origin}/share/${embedId}`,
         })
       } catch (e) {

@@ -3,7 +3,13 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { cx } from 'class-variance-authority'
 import useDevice from '@/hooks/useDevice'
-import { MsKlimadashboardIconsWetterNiederschlag, MsKlimadashboardIconsWetterSonnig, MsKlimadashboardIconsWetterTemperatur, MsKlimadashboardIconsWetterWindgeschw, MsKlimadashboardIconsWetterWolkendichte } from '@/components/Icons/Klima'
+import {
+  MsKlimadashboardIconsWetterNiederschlag,
+  MsKlimadashboardIconsWetterSonnig,
+  MsKlimadashboardIconsWetterTemperatur,
+  MsKlimadashboardIconsWetterWindgeschw,
+  MsKlimadashboardIconsWetterWolkendichte,
+} from '@/components/Icons/Klima'
 
 type PhenomenaType = {
   [key: string]: {
@@ -11,14 +17,14 @@ type PhenomenaType = {
     shortTitle?: string
     unit: string
     icon:
-    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
-    | React.ForwardRefExoticComponent<
-      Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
-        title?: string | undefined
-        titleId?: string | undefined
-      } & React.RefAttributes<SVGSVGElement>
-    >
+      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+      | React.ForwardRefExoticComponent<
+          Omit<React.SVGProps<SVGSVGElement>, 'ref'> & {
+            title?: string | undefined
+            titleId?: string | undefined
+          } & React.RefAttributes<SVGSVGElement>
+        >
     decimals?: number
   }
 }
@@ -55,8 +61,13 @@ const phenomena: PhenomenaType = {
     icon: MsKlimadashboardIconsWetterWindgeschw,
   },
   sunhours: {
+    title: 'Sonnenstunden',
+    unit: 'h',
+    icon: MsKlimadashboardIconsWetterSonnig,
+  },
+  solar_radiation: {
     title: 'Sonneneinstrahlung',
-    unit: 'kW/m²',
+    unit: 'W/m²',
     icon: MsKlimadashboardIconsWetterSonnig,
   },
   humidity: {
@@ -74,8 +85,8 @@ const phenomena: PhenomenaType = {
 type PhenomenonProps = {
   phenomenon: keyof typeof phenomena
   value: number
-  size?: 'md' | 'xl',
-  meta?: string,
+  size?: 'md' | 'xl'
+  meta?: string
   hide_icon?: boolean
 }
 
@@ -84,7 +95,7 @@ export default function Phenomenon({
   value,
   meta = '',
   size = 'md',
-  hide_icon = false
+  hide_icon = false,
 }: PhenomenonProps) {
   const { title, unit, icon, decimals, shortTitle } = phenomena[phenomenon]
 
@@ -95,12 +106,14 @@ export default function Phenomenon({
   const Icon = icon
   return (
     <div className="my-1 flex items-center gap-3 md:my-2">
-      {!hide_icon && (<Icon
-        className={cx(
-          size === 'md' ? 'aspect-square' : 'w-6',
-          'h-10 fill-primary stroke-primary text-primary md:h-14',
-        )}
-      />)}
+      {!hide_icon && (
+        <Icon
+          className={cx(
+            size === 'md' ? 'aspect-square' : 'w-6',
+            'h-10 fill-primary stroke-primary text-primary md:h-14',
+          )}
+        />
+      )}
       <div>
         <Title
           as={'h5'}
@@ -110,7 +123,8 @@ export default function Phenomenon({
           variant={'primary'}
         ></Title>
         <Title as={valueSize} variant="climate">
-          <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit} {meta}
+          <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit}{' '}
+          {meta}
         </Title>
       </div>
     </div>

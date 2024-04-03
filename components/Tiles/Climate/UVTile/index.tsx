@@ -7,7 +7,7 @@ export default function UVTile() {
       dataSource="Deutscher Wetterdienst"
       embedId={'climate-uv'}
       live
-      title={'UV-Belastung'}
+      title={'UV-Index'}
     >
       <UVTileContent />
     </ClimateTile>

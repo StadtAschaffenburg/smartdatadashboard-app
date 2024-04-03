@@ -5,8 +5,8 @@ import Cookies from './Cookies'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata = {
-  title: 'Klimadashboard Aschaffenburg',
-  description: 'Das Klimadashboard der Stadt Aschaffenburg',
+  title: 'Smart Data Dashboard Aschaffenburg',
+  description: 'Das Smart Data Dashboard der Stadt Aschaffenburg',
   icons: '/favicon.ico',
 }
 

@@ -10,24 +10,19 @@ export default function Footer() {
     <StairStepBackground>
       <Container>
         <div className="flex justify-between py-16">
-          <Link href="/impressum">
+          <Link href="https://www.aschaffenburg.de/Impressum/DE_index_1846.html">
             <Title as="h5" className="underline" variant={'primary'}>
               Impressum
             </Title>
           </Link>
-          <Link href="/datenschutz">
+          <Link href="https://www.aschaffenburg.de/Aktuelles/Datenschutz-/DE_index_4181.html">
             <Title as="h5" className="underline" variant={'primary'}>
               Datenschutz
             </Title>
           </Link>
           <Link href="/feedback#use-dashboard">
             <Title as="h5" className="underline" variant={'primary'}>
-              Dieses Dashboard adaptieren
-            </Title>
-          </Link>
-          <Link href="/feedback#feedback">
-            <Title as="h5" className="underline" variant={'primary'}>
-              Feedback geben
+              Quellenverweise
             </Title>
           </Link>
         </div>

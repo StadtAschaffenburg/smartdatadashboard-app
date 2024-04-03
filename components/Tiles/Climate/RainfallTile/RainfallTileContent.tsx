@@ -16,7 +16,7 @@ export default function RainfallTileContent() {
   if (lightning) {
     const data = {
       amount: 100 * yearIndex + 1000,
-      intensity: 1 * yearIndex + 10
+      intensity: 1 * yearIndex + 10,
     }
 
     return (
@@ -34,7 +34,8 @@ export default function RainfallTileContent() {
                 </span>{' '}
                 Niederschlag mit einer Intensität von bis zu{' '}
                 <span className="text-climate">
-                  <AnimatedNumber decimals={2}>{data.intensity}</AnimatedNumber> mm/h
+                  <AnimatedNumber decimals={2}>{data.intensity}</AnimatedNumber>{' '}
+                  mm/h
                 </span>{' '}
               </Title>
             </div>
@@ -55,5 +56,5 @@ export default function RainfallTileContent() {
     )
   }
 
-  return <p>Loading...</p>
+  return <p>Lade Daten...</p>
 }
