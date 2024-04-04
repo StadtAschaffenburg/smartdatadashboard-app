@@ -1,9 +1,6 @@
 import Columns from '@/components/Layout/Columns'
 import { notFound } from 'next/navigation'
 import getTilesBucket, { BaseTile } from '@/utils/fullWidthBucket'
-import TileFactory, { TileType } from '@/utils/TileFactory'
-import { SurveyTileProps } from '@/components/Tiles/Survey'
-import { SuccessStoryTileProps } from '@/components/Tiles/SuccessStory'
 import { getContent } from '@/lib/cms'
 
 export const revalidate = 10
@@ -35,19 +32,7 @@ const getTileType = async (tileID: string) => {
 }
 
 const getTileComponent = async (tile: BaseTile) => {
-  let props:
-    | { surveyData?: SurveyTileProps; successStoryData?: SuccessStoryTileProps }
-    | undefined
-  let type: TileType
-  if (tile.collection === 'survey') {
-    // legacy
-  } else if (tile.collection === 'successStory') {
-    // legacy
-  } else {
-    type = (await getTileType(tile.item as string)) as TileType
-  }
-
-  return <TileFactory key={tile.item} type={type} {...props} />
+  return false
 }
 
 const getTileComponents = async (tiles: BaseTile[]) => {
