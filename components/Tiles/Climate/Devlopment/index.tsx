@@ -30,6 +30,7 @@ export default function ClimateDevelopmentTile() {
     <ClimateTile
       dataSource="Deutscher Wetterdienst"
       embedId="climate-development"
+      live
       subtitle={
         'Temperaturabweichungen von den langjährigen Monatsmitteln vor 1900'
       }

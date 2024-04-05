@@ -1,12 +1,12 @@
 
 const cache = new Map()
 
-export async function getContent(id: string, collection: string = 'tiles') {
+export async function getContent(id: string, collection: string = 'tile') {
   const data = await getCmsContent(collection, id)
   return data
 }
 
-export async function getCollection(collection: string = 'tiles') {
+export async function getCollection(collection: string = 'tile') {
   const data = await getCmsContent(collection)
   return data
 }
@@ -16,7 +16,7 @@ export function getImage(image: string = 'placeholder') {
 }
 
 const getCmsContent = async (
-  collection: string = 'tiles',
+  collection: string = 'tile',
   id: string | number | boolean = false
 ) => {
   let api = `${
