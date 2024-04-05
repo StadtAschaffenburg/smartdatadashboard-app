@@ -25,3 +25,4 @@ export { default as MsKlimadashboardIconsWetterStuermisch } from './MsKlimadashb
 export { default as MsKlimadashboardIconsWetterTemperatur } from './MsKlimadashboardIconsWetterTemperatur'
 export { default as MsKlimadashboardIconsWetterWindgeschw } from './MsKlimadashboardIconsWetterWindgeschw'
 export { default as MsKlimadashboardIconsWetterWolkendichte } from './MsKlimadashboardIconsWetterWolkendichte'
+export { default as MsKlimadashboardIconsWetterAtmosphaere } from './MsKlimadashboardIconsWetterAtmosphaere'

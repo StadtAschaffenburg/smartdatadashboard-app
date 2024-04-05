@@ -7,8 +7,8 @@ import { conditionMapping, conditionMappingIcon } from '@/lib/brightsky'
 import LongTermAverageDiff from './LongTermAverageDiff'
 import Phenomenon from './Phenomenon'
 import {
+  MsKlimadashboardIconsWetterAtmosphaere,
   MsKlimadashboardIconsWetterWindgeschw,
-  MsKlimadashboardIconsWetterWolkendichte,
 } from '@/components/Icons/Klima'
 
 export default function WeatherTileContent() {
@@ -68,7 +68,7 @@ export default function WeatherTileContent() {
 
             <div className="mb-4 flex flex-row items-start md:items-center">
               <div className="w-32">
-                <MsKlimadashboardIconsWetterWindgeschw className="h-10 fill-primary stroke-primary text-primary md:h-14" />
+                <MsKlimadashboardIconsWetterWindgeschw className="h-10 fill-primary stroke-primary text-primary md:h-10" />
               </div>
               <div className="flex-1">
                 <Phenomenon
@@ -89,7 +89,7 @@ export default function WeatherTileContent() {
 
             <div className="mb-4 flex flex-row items-start md:items-center">
               <div className="w-32">
-                <MsKlimadashboardIconsWetterWolkendichte className="h-10 fill-primary stroke-primary text-primary md:h-14" />
+                <MsKlimadashboardIconsWetterAtmosphaere className="h-10 fill-primary stroke-primary text-primary md:h-20 md:pl-2" />
               </div>
               <div className="flex-1">
                 <Phenomenon
