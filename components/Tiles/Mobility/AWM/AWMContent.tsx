@@ -23,9 +23,7 @@ type AwmDatatType = {
 }
 
 export default function AWMContent() {
-  // const { electroCount, combustionCount } = useBusData()
   const { width } = useWindowSize()
-  const [yearIndex, setYearIndex] = useState(2)
 
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
@@ -33,6 +31,7 @@ export default function AWMContent() {
   const [LNGCount, setLNGCount] = useState(0)
 
   const data: AwmDatatType[] = AwmEMobility
+  const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   useEffect(() => {
     if (!data) {

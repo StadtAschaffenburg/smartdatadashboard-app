@@ -25,15 +25,15 @@ type BusDataType = {
 }
 
 export default function BusContent() {
-  // const { electroCount, combustionCount } = useBusData()
   const { width } = useWindowSize()
-  const [yearIndex, setYearIndex] = useState(0)
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
   const [alternativeCount, setAlternativeCount] = useState(0)
   const [hybridCount, setHybridCount] = useState(0)
 
   const data: BusDataType[] = BusData
+  const [yearIndex, setYearIndex] = useState(data.length - 1)
+
   const [content_strings, setContentStrings] = useState<TileContentStrings[]>(
     [],
   )
