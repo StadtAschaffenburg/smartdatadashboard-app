@@ -4,23 +4,24 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 // @ts-ignore
-import BusData from '@/assets/data/stadtwerke-bus-fahrzeuge.csv'
+import BusData from '@/assets/data/stadtwerke-bus-fahrzeuge-neu.csv'
 import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
-import { MsKlimadashboardIconsMBusAbgas, MsKlimadashboardIconsMBusElektro } from '@/components/Icons/Mobilitaet'
+import {
+  MsKlimadashboardIconsMBusAbgas,
+  MsKlimadashboardIconsMBusElektro,
+} from '@/components/Icons/Mobilitaet'
+import { getTileStrings, TileContentStrings } from '@/lib/api/getTileData'
 
 type BusDataType = {
   ZEIT: string
-  'Fahrzeuge Alternative Antriebe Elektro': number
-  'Fahrzeuge Alternative Antriebe Gesamt': number
-  'Fahrzeuge Alternative Antriebe H2': number
-  'Fahrzeuge Alternative Antriebe Hybrid': number
-  'Fahrzeuge SWMS': number
-  'Fahrzeuge Sub': number
-  'Fahrzeuge awm - Alternativer Antrieb': number
-  'Fahrzeuge awm - Verbrenner': number
+  total: number
+  fossil: number
+  hybrid: number
+  alternativ: number
+  elektro: number
 }
 
 export default function BusContent() {
@@ -29,49 +30,34 @@ export default function BusContent() {
   const [yearIndex, setYearIndex] = useState(0)
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
+  const [alternativeCount, setAlternativeCount] = useState(0)
+  const [hybridCount, setHybridCount] = useState(0)
 
   const data: BusDataType[] = BusData
-  const [reducedData, setReducedData] = useState<BusDataType[]>([])
+  const [content_strings, setContentStrings] = useState<TileContentStrings[]>(
+    [],
+  )
+
+  useEffect(() => {
+    const getStrings = async () => {
+      const response = await getTileStrings('mobilitat-e-busse')
+      setContentStrings(response)
+    }
+
+    getStrings()
+  }, [])
 
   useEffect(() => {
     if (!data) {
       return
     }
-    const reducedDataLocal: BusDataType[] = []
-    let currentYear = ''
-    data.forEach(item => {
-      if (currentYear === item.ZEIT.toString().substring(0, 4)) {
-        return
-      }
-      currentYear = item.ZEIT.toString().substring(0, 4)
-      const row: BusDataType | undefined = data
-        .slice()
-        .reverse()
-        .find(item => item.ZEIT.toString().substring(0, 4) === currentYear)
-      if (
-        row &&
-        row['Fahrzeuge SWMS'] &&
-        row['Fahrzeuge Alternative Antriebe Elektro']
-      ) {
-        reducedDataLocal.push({ ...row, ZEIT: currentYear })
-      }
-    })
-    setReducedData(reducedDataLocal)
-    setYearIndex(reducedDataLocal.length - 1)
-  }, [data])
+    const row: BusDataType = data[yearIndex]
 
-  useEffect(() => {
-    if (!reducedData) {
-      return
-    }
-    const row: BusDataType = reducedData[yearIndex]
-    if (row) {
-      setElectroCount(row['Fahrzeuge Alternative Antriebe Elektro'])
-      setCombustionCount(
-        row['Fahrzeuge SWMS'] - row['Fahrzeuge Alternative Antriebe Elektro'],
-      )
-    }
-  }, [yearIndex, reducedData])
+    setElectroCount(row.elektro)
+    setHybridCount(row.hybrid)
+    setAlternativeCount(row.alternativ)
+    setCombustionCount(row.fossil)
+  }, [data, yearIndex])
 
   return (
     <div>
@@ -86,10 +72,10 @@ export default function BusContent() {
         </div>
         <div className="flex flex-col items-end">
           <Title as="h5" variant={'primary'}>
-            Fahrzeuge mit Elektroantrieb
+            Fahrzeuge mit alternativem Antrieb
           </Title>
           <AnimatedNumber className="text-2xl text-mobility">
-            {electroCount}
+            {electroCount + hybridCount + alternativeCount}
           </AnimatedNumber>
         </div>
       </div>
@@ -98,7 +84,11 @@ export default function BusContent() {
           className="flex-none transition-all"
           style={{
             width: `${
-              (combustionCount / (electroCount + combustionCount) || 0.5) * 100
+              (combustionCount /
+                (electroCount +
+                  hybridCount +
+                  alternativeCount +
+                  combustionCount) || 0.5) * 100
             }%`,
           }}
         >
@@ -110,9 +100,10 @@ export default function BusContent() {
       </div>
       {width < 1800 && (
         <MobileSlider
-          firstValueMobile={3} // ONLY FOR DEMO
-          labels={reducedData.map(e => e.ZEIT.toString())}
-          max={reducedData.length - 1}
+          defaultValue={[yearIndex]}
+          firstValueMobile={data.length - 1}
+          labels={data.map(e => e.ZEIT.toString())}
+          max={data.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
           value={[yearIndex]}
@@ -122,8 +113,8 @@ export default function BusContent() {
       {width >= 1800 && (
         <Slider
           firstValueMobile={3} //ONLY FOR DEMO
-          labels={reducedData.map(e => e.ZEIT.toString())}
-          max={reducedData.length - 1}
+          labels={data.map(e => e.ZEIT.toString())}
+          max={data.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
           value={[yearIndex]}
@@ -131,11 +122,7 @@ export default function BusContent() {
         />
       )}
       <Spacer />
-      <Title as="h5">
-        Busfahren ist Klimaschutz. Damit die Umweltbilanz noch besser wird,
-        setzen die Stadtwerke auf Elektrobusse mit Ökostrom. Bis 2029 soll die
-        Stadtwerke-Flotte komplett elektrisch fahren.
-      </Title>
+      <Title as="h5">{(content_strings as any).copy ?? 'Lade...'}</Title>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { Spacer } from '@/components/Elements/Spacer'
 import MobilityTile from '../MobilityTile'
 import AWMContent from './AWMContent'
@@ -10,11 +11,11 @@ export default async function AWMTile() {
 
   return (
     <MobilityTile
-      dataSource="Stadtwerke Aschaffenburg (STWAB)"
+      dataRetrieval={format(new Date('2024-04-01T00:00:00.000Z'), 'dd.MM.yyyy')}
+      dataSource="Stadtwerke Aschaffenburg"
       embedId="mobility-awm"
-      live
       subtitle="Anzahl der elektrisch angetriebenen Nutzfahrzeuge im Vergleich zu Fahrzeugen mit fossilem Antrieb"
-      title="E-Mobilität awm"
+      title="E-Mobilität"
     >
       <AWMContent />
       <Spacer size={'lg'} />

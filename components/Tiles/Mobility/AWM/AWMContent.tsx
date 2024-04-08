@@ -9,13 +9,17 @@ import { useWindowSize } from 'react-use'
 // @ts-ignore
 import AwmEMobility from '@/assets/data/awm-e-mobilitaet.csv'
 import { useEffect, useState } from 'react'
-import { MsKlimadashboardIconsMAwmAbgas, MsKlimadashboardIconsMAwmElektro } from '@/components/Icons/Mobilitaet'
+import {
+  MsKlimadashboardIconsMAwmAbgas,
+  MsKlimadashboardIconsMAwmElektro,
+} from '@/components/Icons/Mobilitaet'
 
 type AwmDatatType = {
   ZEIT: number
-  'AWM Fahrzeuge - Dieselantrieb': number
-  'AWM Fahrzeuge - Elektroantrieb': number
-  'AWM Fahrzeuge - Erdgasantrieb': number
+  Dieselantrieb: number
+  Hybridantrieb: number
+  Elektroantrieb: number
+  Erdgasantrieb: number
 }
 
 export default function AWMContent() {
@@ -25,6 +29,8 @@ export default function AWMContent() {
 
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
+  const [hybridCount, setHybridCount] = useState(0)
+  const [LNGCount, setLNGCount] = useState(0)
 
   const data: AwmDatatType[] = AwmEMobility
 
@@ -33,8 +39,10 @@ export default function AWMContent() {
       return
     }
     const row: AwmDatatType = data[yearIndex]
-    setElectroCount(row['AWM Fahrzeuge - Elektroantrieb'])
-    setCombustionCount(row['AWM Fahrzeuge - Dieselantrieb'])
+    setElectroCount(row.Elektroantrieb)
+    setHybridCount(row.Hybridantrieb)
+    setCombustionCount(row.Dieselantrieb)
+    setLNGCount(row.Erdgasantrieb)
   }, [data, yearIndex])
 
   return (
@@ -50,10 +58,10 @@ export default function AWMContent() {
         </div>
         <div className="flex flex-col items-end">
           <Title as="h5" variant={'primary'}>
-            Fahrzeuge mit Elektroantrieb
+            Fahrzeuge mit Hybridantrieb
           </Title>
           <AnimatedNumber className="text-2xl text-mobility">
-            {electroCount}
+            {hybridCount}
           </AnimatedNumber>
         </div>
       </div>
@@ -62,7 +70,9 @@ export default function AWMContent() {
           className="flex-none transition-all"
           style={{
             width: `${
-              (combustionCount / (electroCount + combustionCount) || 0.5) * 100
+              (combustionCount /
+                (hybridCount + electroCount + LNGCount + combustionCount) ||
+                0.5) * 100
             }%`,
           }}
         >

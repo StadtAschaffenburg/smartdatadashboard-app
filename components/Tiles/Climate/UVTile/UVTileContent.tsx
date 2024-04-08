@@ -34,7 +34,7 @@ export default function UVTileContent() {
     return hvkey !== undefined ? rating[hvkey] : ['Unbekannt', '', '']
   }
 
-  const [dayIndex, setDayIndex] = useState<number>(timeline.length - 1)
+  const [dayIndex, setDayIndex] = useState<number>(0)
 
   if (uv_data && uv_data.length > 0) {
     const uv_index: number = uv_data[dayIndex] as any // not proud of this
@@ -69,7 +69,7 @@ export default function UVTileContent() {
         </div>
         <Slider
           defaultValue={[0]}
-          firstValueMobile={timeline.length - 1}
+          firstValueMobile={0}
           labels={timeline.map(e => e.toString())}
           max={timeline.length - 1}
           min={0}

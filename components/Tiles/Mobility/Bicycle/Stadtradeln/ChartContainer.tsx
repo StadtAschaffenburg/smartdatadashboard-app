@@ -18,7 +18,7 @@ type StadtradelnData = {
 }
 
 const otherCities = Object.keys(stadtradelnData)
-  .filter(k => k !== 'muenster')
+  .filter(k => k !== 'aschaffenburg')
   // @ts-ignore
   .map(k => stadtradelnData[k] as StadtradelnData)
 
@@ -82,7 +82,7 @@ export default function ChartContainer() {
       <div className="flex h-[350px] w-full items-center justify-center md:h-[500px]">
         <Chart
           compare={compare}
-          data={stadtradelnData.muenster}
+          data={stadtradelnData.aschaffenburg}
           other={otherData}
         />
       </div>

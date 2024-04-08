@@ -2,7 +2,10 @@
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
-import { MsKlimadashboardIconsMoepnv, MsKlimadashboardIconsMoepnvGast } from '@/components/Icons/Mobilitaet'
+import {
+  MsKlimadashboardIconsMoepnv,
+  MsKlimadashboardIconsMoepnvGast,
+} from '@/components/Icons/Mobilitaet'
 
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
@@ -17,23 +20,27 @@ interface PassengerDataProps {
 const data: PassengerDataProps[] = [
   {
     ZEIT: 2018,
-    value: 46.3,
+    value: 8.5,
   },
   {
     ZEIT: 2019,
-    value: 49.0,
+    value: 8.3,
   },
   {
     ZEIT: 2020,
-    value: 43.9,
+    value: 8.4,
   },
   {
     ZEIT: 2021,
-    value: 41.0,
+    value: 5.0,
   },
   {
     ZEIT: 2022,
-    value: 46.8,
+    value: 4.4,
+  },
+  {
+    ZEIT: 2023,
+    value: 5.3,
   },
 ]
 
@@ -58,7 +65,7 @@ export default function PassengerContent() {
           <Title as="h3" variant={'mobility'}>
             <AnimatedNumber decimals={2}>{passengerValue}</AnimatedNumber> Mio
           </Title>
-          <div className="flex justify-end pb-4 gap-1">
+          <div className="flex justify-end gap-1 pb-4">
             <span>
               <MsKlimadashboardIconsMoepnvGast className="h-10 fill-primary lg:h-14" />
             </span>

@@ -1,4 +1,8 @@
-ZEIT,AWM Fahrzeuge - Dieselantrieb,AWM Fahrzeuge - Elektroantrieb,AWM Fahrzeuge - Erdgasantrieb
-2020,191.0,22.0,2.0
-2021,193.0,26.0,2.0
-2022,187.0,30.0,1.0
+ZEIT,Dieselantrieb,Hybridantrieb,Elektroantrieb,Erdgasantrieb
+2018,16,0,0,0
+2019,16,0,0,0
+2020,16,0,0,0
+2021,16,0,0,0
+2022,16,0,0,0
+2023,16,0,0,0
+2024,16,1,0,0
