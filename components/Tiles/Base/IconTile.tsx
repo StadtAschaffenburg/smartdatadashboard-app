@@ -27,7 +27,6 @@ const iconTileTitleStyle = cva('', {
 
 export type DataSourceProps = {
   dataRetrieval?: string
-  dataSource: string
 }
 
 export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
@@ -36,9 +35,10 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
     children: React.ReactElement | React.ReactElement[]
     title?: string | React.ReactElement
     subtitle?: string | React.ReactElement
+    dataSource?: string
     icon:
-    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
     live?: boolean
   }
 
@@ -88,15 +88,15 @@ export default async function IconTile({
                 className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
                 font={'normal'}
               >
-                {title}
+                {data?.title || title}
               </Title>
-              {subtitle && (
+              {(data?.subtitle || subtitle) && (
                 <Title
                   as={'subtitle'}
                   className="2xl:max-w-[85%]"
                   color={'dark'}
                 >
-                  {subtitle}
+                  {data?.subtitle || subtitle}
                 </Title>
               )}
             </div>
@@ -121,12 +121,21 @@ export default async function IconTile({
 
       <>{children}</>
       <Spacer />
+
+      <>{data?.copy && <Title as="h5">{data?.copy}</Title>}</>
+      <>{data?.copy && <Spacer />}</>
+
       <div className="flex space-x-2 text-xs">
         <Title as="h7" font="semibold" variant={'primary'}>
-          Datenstand: {dataRetrieval ?? (live ? 'live' : 'undefined')}
+          Datenstand:{' '}
+          {dataRetrieval
+            ? data?.retrieval ?? dataRetrieval
+            : live
+            ? 'live'
+            : 'unbekannt'}
         </Title>
         <Title as="h7" font="normal" variant={'primary'}>
-          Quelle: {dataSource}
+          Quelle: {data?.source ?? dataSource ?? 'Stadt Aschaffenburg'}
         </Title>
       </div>
     </BaseTile>

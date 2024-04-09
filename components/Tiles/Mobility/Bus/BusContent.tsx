@@ -13,7 +13,7 @@ import {
   MsKlimadashboardIconsMBusAbgas,
   MsKlimadashboardIconsMBusElektro,
 } from '@/components/Icons/Mobilitaet'
-import { getTileStrings, TileContentStrings } from '@/lib/api/getTileData'
+// import { getTileStrings, TileContentStrings } from '@/lib/api/getTileData'
 
 type BusDataType = {
   ZEIT: string
@@ -34,18 +34,19 @@ export default function BusContent() {
   const data: BusDataType[] = BusData
   const [yearIndex, setYearIndex] = useState(data.length - 1)
 
-  const [content_strings, setContentStrings] = useState<TileContentStrings[]>(
+  /* const [content_strings, setContentStrings] = useState<TileContentStrings[]>(
     [],
-  )
+  ) */
+  //       <Title as="h5">{(content_strings as any).copy ?? 'Lade...'}</Title>
 
-  useEffect(() => {
+  /*useEffect(() => {
     const getStrings = async () => {
       const response = await getTileStrings('mobilitat-e-busse')
       setContentStrings(response)
     }
 
     getStrings()
-  }, [])
+  }, []) */
 
   useEffect(() => {
     if (!data) {
@@ -122,7 +123,6 @@ export default function BusContent() {
         />
       )}
       <Spacer />
-      <Title as="h5">{(content_strings as any).copy ?? 'Lade...'}</Title>
     </div>
   )
 }

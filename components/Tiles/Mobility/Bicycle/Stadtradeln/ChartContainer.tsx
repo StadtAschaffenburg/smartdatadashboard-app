@@ -92,7 +92,7 @@ export default function ChartContainer() {
           geradelte Kilometer in Aschaffenburg
         </Title>
       </div>
-      <div className="flex w-full flex-col justify-between gap-2 rounded border border-dashed border-primary p-2 md:flex-row md:items-center md:space-x-4 md:p-4 md:pl-8">
+      <div className="flex hidden w-full flex-col justify-between gap-2 rounded border border-dashed border-primary p-2 md:flex-row md:items-center md:space-x-4 md:p-4 md:pl-8">
         <div className="flex flex-shrink-0 items-center gap-2 md:gap-10">
           <Switch
             defaultChecked={compare}

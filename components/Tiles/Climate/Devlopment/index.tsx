@@ -26,14 +26,14 @@ const climateYears = data.reduce((a: AvgTempData, o) => {
 }, {})
 
 export default function ClimateDevelopmentTile() {
+  const tile_id = 'climate-development'
+
   return (
     <ClimateTile
       dataSource="Deutscher Wetterdienst"
-      embedId="climate-development"
+      embedId={tile_id}
       live
-      subtitle={
-        'Temperaturabweichungen von den langjährigen Monatsmitteln vor 1900'
-      }
+      subtitle=""
       title={'Klima'}
     >
       <div className="h-[316px] w-full md:h-[528px]">

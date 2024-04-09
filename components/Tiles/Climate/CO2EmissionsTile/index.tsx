@@ -8,7 +8,7 @@ import { MsKlimadashboardIconsKCo2 } from '@/components/Icons/Klima'
 
 export default async function CO2EmissionsTile() {
   const data = await getTileData('climate-co2')
-  const infoText = data?.info ?? ''
+  const infoText = data?.legend ?? ''
 
   return (
     <ClimateTile

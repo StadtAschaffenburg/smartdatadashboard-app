@@ -13,7 +13,11 @@ export default function MobilityTile({
   ...props
 }: MobilityTileProps) {
   return (
-    <IconTile {...props} icon={MsKlimadashboardIconsButtonAktivMobil} variant="mobility">
+    <IconTile
+      {...props}
+      icon={MsKlimadashboardIconsButtonAktivMobil}
+      variant="mobility"
+    >
       <>{children}</>
     </IconTile>
   )

@@ -6,16 +6,16 @@ import getTileData from '@/lib/api/getTileData'
 import Title from '@/components/Elements/Title'
 
 export default async function ClimateIndicesTile() {
-  const data = await getTileData('climate-indices')
-  const infoText = data?.info ?? ''
+  const tile_id = 'climate-indices'
+  const data = await getTileData(tile_id)
 
   return (
     <ClimateTile
       dataRetrieval={format(new Date(), '01.MM.yyyy')}
       dataSource="Deutscher Wetterdienst"
-      embedId="climate-indices"
+      embedId={tile_id}
       live
-      subtitle={'Häufigkeit von Temperaturkenntagen in Aschaffenburg'}
+      subtitle=""
       title="Klimakenntage"
     >
       <TileSplitView>
@@ -26,7 +26,7 @@ export default async function ClimateIndicesTile() {
         </TileSplitView.Left>
         <TileSplitView.Right>
           <Title as="h5" variant={'dark'}>
-            {infoText}
+            {data?.legend ?? ''}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

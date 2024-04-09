@@ -6,7 +6,7 @@ import { TileSplitView } from '../../Base/TileSplitView'
 
 export default async function GarbageTile() {
   const data = await getTileData('climate-garbage')
-  const infoText = data?.info ?? ''
+  const infoText = data?.legend ?? ''
 
   return (
     <ClimateTile
