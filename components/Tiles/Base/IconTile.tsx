@@ -80,36 +80,32 @@ export default async function IconTile({
             )}
           />
         </div>
-        {title && (
-          <div className="relative flex items-center justify-between">
-            <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
-              <Title
-                as={'h1'}
-                className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
-                font={'normal'}
-              >
-                {data?.title || title}
+        <div className="relative flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
+            <Title
+              as={'h1'}
+              className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
+              font={'normal'}
+              x
+            >
+              {data?.title ?? title ?? 'Lade...'}
+            </Title>
+            {(data?.subtitle || subtitle) && (
+              <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
+                {data?.subtitle ?? subtitle}
               </Title>
-              {(data?.subtitle || subtitle) && (
-                <Title
-                  as={'subtitle'}
-                  className="2xl:max-w-[85%]"
-                  color={'dark'}
-                >
-                  {data?.subtitle || subtitle}
-                </Title>
-              )}
-            </div>
+            )}
+          </div>
 
-            {/* <Icon
+          {/* <Icon
               className={cx(
                 'absolute right-0 top-0 hidden h-[29px] w-auto flex-shrink-0 opacity-40 md:h-[50px] 2xl:block',
                 iconTileTitleStyle({ variant }),
               )}
             /> */}
-          </div>
-        )}
-        {(title || subtitle) && <Spacer />}
+        </div>
+
+        {(data?.title || title) && <Spacer />}
       </div>
       <>
         {!title && !subtitle && (
@@ -128,11 +124,7 @@ export default async function IconTile({
       <div className="flex space-x-2 text-xs">
         <Title as="h7" font="semibold" variant={'primary'}>
           Datenstand:{' '}
-          {dataRetrieval
-            ? data?.retrieval ?? dataRetrieval
-            : live
-            ? 'live'
-            : 'unbekannt'}
+          {data?.retrieval ?? dataRetrieval ?? (live ? 'live' : 'unbekannt')}
         </Title>
         <Title as="h7" font="normal" variant={'primary'}>
           Quelle: {data?.source ?? dataSource ?? 'Stadt Aschaffenburg'}

@@ -2,13 +2,10 @@ import ClimateTile from '../ClimateTile'
 import WeatherTileContent from './WeatherTileContent'
 
 export default function WeatherTile() {
+  const tile_id = 'climate-weather'
+
   return (
-    <ClimateTile
-      dataSource="Stadt Aschaffenburg"
-      embedId={'climate-weather'}
-      live
-      title={'Wetter aktuell'}
-    >
+    <ClimateTile embedId={tile_id} live title={'Wetter aktuell'}>
       <WeatherTileContent />
     </ClimateTile>
   )
