@@ -20,9 +20,9 @@ export default function Footer() {
               Datenschutz
             </Title>
           </Link>
-          <Link href="/feedback">
+          <Link href="/adaptieren">
             <Title as="h5" className="underline" variant={'primary'}>
-              Quellenverweise
+              Dashboard adaptieren
             </Title>
           </Link>
         </div>

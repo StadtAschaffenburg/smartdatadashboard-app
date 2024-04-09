@@ -23,13 +23,16 @@ function mapBetween(
 
 export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
   const progress = mapBetween(count, min * 0.9, max * 1.1)
+  name = name.replace('straße', '&shy;straße')
 
   return (
     <div className="my-2 flex w-full items-end">
       <div className="w-28 flex-none md:w-40">
-        <Title as={'h5'} variant={'primary'}>
-          {name}
-        </Title>
+        <Title
+          as={'h5'}
+          dangerouslySetInnerHTML={{ __html: name }}
+          variant={'primary'}
+        />
         <Title as={'h3'} variant={'mobility'}>
           <AnimatedNumber>{count}</AnimatedNumber>
         </Title>

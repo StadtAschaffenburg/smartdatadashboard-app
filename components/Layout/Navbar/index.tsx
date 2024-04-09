@@ -21,7 +21,7 @@ const routeToType: {
     | 'building'
     | 'impressum'
     | 'datenschutz'
-    | 'feedback'
+    | 'adaptieren'
 } = {
   klima: 'climate',
   mobilitaet: 'mobility',
@@ -29,7 +29,7 @@ const routeToType: {
   gebaeude: 'building',
   impressum: 'impressum',
   datenschutz: 'datenschutz',
-  feedback: 'feedback',
+  adaptieren: 'adaptieren',
 }
 
 type SectionData = {
@@ -79,7 +79,7 @@ export default function Navbar() {
   ) : (
     <Back
       variant={
-        ['impressum', 'datenschutz', 'feedback'].includes(route)
+        ['impressum', 'datenschutz', 'adaptieren'].includes(route)
           ? 'inverse'
           : 'primary'
       }
@@ -137,7 +137,7 @@ export default function Navbar() {
       'gebaeude',
       'impressum',
       'datenschutz',
-      'feedback',
+      'adaptieren',
     ].includes(route)
   ) {
     // TBD: this is a bit hacky, but it works for now
@@ -155,7 +155,7 @@ export default function Navbar() {
       <BaseNavbar
         actionComponent={ActionComponent}
         variant={
-          ['impressum', 'datenschutz', 'feedback'].includes(route)
+          ['impressum', 'datenschutz', 'adaptieren'].includes(route)
             ? 'overlay'
             : 'primary'
         }

@@ -86,7 +86,6 @@ export default async function IconTile({
               as={'h1'}
               className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
-              x
             >
               {data?.title ?? title ?? 'Lade...'}
             </Title>

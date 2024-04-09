@@ -18,7 +18,7 @@ const sectionHeaderStyle = cva('', {
       energy: 'text-energy border-energy',
       impressum: 'text-white',
       datenschutz: 'text-white',
-      feedback: 'text-white',
+      adaptieren: 'text-white',
     },
   },
 })
@@ -56,10 +56,10 @@ export default function SectionTitle({
     title = 'Datenschutz'
     Icon = undefined
   }
-  if (variant === 'feedback') {
+  if (variant === 'adaptieren') {
     title = (
       <span>
-        Mit Ihren Daten - <br /> für Ihre Kommune
+        Dashboard <br /> adaptieren
       </span>
     )
     Icon = undefined
@@ -80,7 +80,7 @@ export default function SectionTitle({
       <Title
         as={large ? 'h2' : 'h4'}
         variant={
-          ['impressum', 'datenschutz', 'feedback'].includes(variant!)
+          ['impressum', 'datenschutz', 'adaptieren'].includes(variant!)
             ? 'inverse'
             : 'primary'
         }

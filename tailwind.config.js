@@ -32,8 +32,8 @@ module.exports = {
           light: '#e2f6ff',
         },
         mobility: {
-          DEFAULT: '#008838',
-          light: '#ecfff4',
+          DEFAULT: '#03657a',
+          light: '#ecfbfe',
         },
         energy: {
           DEFAULT: '#f28b00',

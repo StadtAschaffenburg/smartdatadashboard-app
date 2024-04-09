@@ -57,7 +57,7 @@ export default function AWMContent() {
         </div>
         <div className="flex flex-col items-end">
           <Title as="h5" variant={'primary'}>
-            Fahrzeuge mit Hybridantrieb
+            Fahrzeuge mit alternativem Antrieb
           </Title>
           <AnimatedNumber className="text-2xl text-mobility">
             {hybridCount}
