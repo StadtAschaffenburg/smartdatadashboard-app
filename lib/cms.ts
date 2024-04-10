@@ -2,70 +2,87 @@ import axios from 'axios';
 
 const cache = new Map()
 let version_cms = 'v0'
-let version_expiry = 0
 
-export async function getContent(id: string, collection: string = 'tile') {
-  const data = await getCmsContent(collection, id)
-  return data
+export async function getContent(
+  collection: string = 'tile',
+  id: string | number | boolean = false,
+  use_cache: boolean = true
+) {
+  await updateContentVersion()
+  const endpoint = `${getAPIEndpoint()}content/${collection}${id ? `/${id}` : ''}`
+
+  // get from cache
+  const cache_data = cache.get(endpoint)?.payload || null;
+  const stale = version_cms !== cache.get(endpoint)?.version || false;
+
+  if (cache_data && !stale && use_cache) {
+    return cache_data
+  }
+
+  const payload = await fetchJSON(endpoint)
+
+  if (payload !== null) {
+    cache.set(endpoint, {
+      payload,
+      version: version_cms
+    })
+
+    return payload
+  }
+
+  return cache_data || false // stale content is better than no content
 }
 
-export async function getCollection(collection: string = 'tile') {
-  const data = await getCmsContent(collection)
-  return data
+export async function getAPI (
+  api: string,
+  use_cache: boolean = true,
+  lifetime: number = 6 * 60 // 6 hours
+) {
+  const endpoint = `${getAPIEndpoint()}${api}`
+
+  // get from cache
+  const cache_data = cache.get(endpoint)?.payload || null;
+  const stale = Date.now() <= (cache.get(endpoint)?.expiry || Infinity);
+
+  if (cache_data && !stale && use_cache) {
+    return cache_data
+  }
+
+  const payload = await fetchJSON(endpoint)
+
+  if (payload !== null) {
+    cache.set(endpoint, {
+      payload,
+      expiry: Date.now() + lifetime * 60 * 1000
+    })
+
+    return payload
+  }
+
+  return cache_data || false // stale content is better than no content
 }
 
 export function getImage(image: string = 'placeholder') {
   return '/images/' + image + '.jpeg'
 }
 
-const getCmsContent = async (
-  collection: string = 'tile',
-  id: string | number | boolean = false
-) => {
-  await updateContentVersion()
-  let api = `${getAPIEndpoint()}content/${collection}`
-
-  if (id) {
-    api += `/${id}`
-  }
-
-  const data = await getJSON(api)
-
-  if (data?.status === 'success') {
-    return data?.payload
-  }
-
-  return []
-}
-
 /**
  * Get Version from CMS with caching (in minutes)
  */
-export async function updateContentVersion() {
-  if (Date.now() <= version_expiry) {
-    return true
-  }
-  
-  // reset expiry
+const updateContentVersion = async () => {
   const lifetime: number = Number(process.env.NEXT_PUBLIC_CMS_CACHE_DURATION) || 50
-  version_expiry = Date.now() + lifetime * 60 * 1000 
-
-  const endpoint = `${getAPIEndpoint()}content/version`
-  const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
   try {
-    const response = await axios.get(endpoint, { timeout });
-    const data = response.data;
+    const current_version = await getAPI('content/version', true, lifetime)
 
-    if (!data) {
-      return false
+    if (current_version !== null && current_version !== version_cms) {
+      console.log('💾 New content version:', version_cms, '=>', current_version)
+      version_cms = current_version
+      
+      return true
     }
 
-    // store with an expiry timestamp
-    version_cms = data.payload
-    console.log('💾 Fetched API version:', version_cms, (version_expiry -  Date.now()) / 60 / 1000)
-
-    return true
+    return false
   } catch (error) {
     return false
   }
@@ -73,40 +90,23 @@ export async function updateContentVersion() {
 
 /**
  * Get JSON from API with caching
+ * @param endpoint API endpoint
+ * @returns JSON data.payload or null
  */
-export async function getJSON(endpoint: string, use_cache: boolean = true) {
-  // get from cache
-  const cache_key = `api-${endpoint}`
-  const cache_entry = cache.get(cache_key)
-
-  const cache_data = cache_entry ? cache_entry.data : null
-  const stale = cache_entry ? version_cms !== cache_entry.version : false
-
-  if (cache_data && !stale && use_cache) {
-    return cache_data
-  }
-
+export async function fetchJSON(endpoint: string) {
   const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
   try {
     const response = await axios.get(endpoint, { timeout });
     const data = response.data;
 
-    if (!data) {
-      return cache_data || false // stale content is better than no content
+    if (data?.status === 'success' && data?.payload) {
+      return data.payload
     }
 
-    // store with version id
-    cache.set(cache_key, {
-      data,
-      version: version_cms
-    })
-    // console.log('💾 Fetched API content:', endpoint, version_cms)
-
-    return data
+    return null
   } catch (error) {
-    // console.log('🔥 Everything is on fire!', endpoint)
-    return false
+    return null
   }
 }
 

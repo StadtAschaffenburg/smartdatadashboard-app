@@ -1,7 +1,7 @@
 import getContent from '@/lib/cms'
 
 export default async function getTileData(id: string, attribute: string | false = false, default_value: any = []) {
-  const data = await getContent(id, 'tile');
+  const data = await getContent('tile', id);
 
   if (attribute !== false) {
     return data && data[attribute] ? data[attribute] : default_value

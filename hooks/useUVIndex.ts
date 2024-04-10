@@ -1,21 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getJSON } from '@/lib/cms'
+import { getAPI } from '@/lib/cms'
 
 const getUVIndex = async () => {
-  const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'uvi'
-
   try {
-    const data = await getJSON(api, false)
-
-    if (data?.status === 'success') {
-      return data?.payload
-    }
-  
-    return null
+    const payload = await getAPI('uvi')
+    return payload !== null ? payload : false
   } catch (error) {
-    return null;
+    return false;
   }
 }
 

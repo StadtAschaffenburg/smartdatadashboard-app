@@ -4,7 +4,7 @@ import InsightsCarousel from './InsightsCarousel'
 import getContent from '@/lib/cms'
 
 const getInsightsData = async () => {
-  const data = await getContent('all', 'collections')
+  const data = await getContent('collections')
 
   return data
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getJSON } from '@/lib/cms'
+import { getAPI } from '@/lib/cms'
 
 interface LocalWeather {
   humidity: number;
@@ -18,11 +18,10 @@ interface LocalWeather {
 }
 
 const getLocalWeather = async () => {
-  const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'thingsboard/weather'
-  const data = await getJSON(api, false)
+  const response = await getAPI('thingsboard/weather', true, 30)
 
-  if (data?.status === 'success') {
-    const payload = Object.entries(data.payload)
+  if (response !== null) {
+    const payload = Object.entries(response)
     .map(([key, value]) => ({
       key,
       value: isNaN(Number(value)) ? value : Number(value),
