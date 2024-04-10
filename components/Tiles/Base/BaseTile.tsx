@@ -203,6 +203,8 @@ export function BaseTile({
                           target="_blank"
                         />
                       ),
+                      table: props => <table className="my-8" {...props} />,
+                      th: props => <th className="pr-4" {...props} />,
                     }}
                     remarkPlugins={[remarkGfm]}
                   >
