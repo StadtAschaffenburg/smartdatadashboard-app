@@ -5,13 +5,18 @@ import { getJSON } from '@/lib/cms'
 
 const getUVIndex = async () => {
   const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'uvi'
-  const data = await getJSON(api)
 
-  if (data?.status === 'success') {
-    return data?.payload
+  try {
+    const data = await getJSON(api, false)
+
+    if (data?.status === 'success') {
+      return data?.payload
+    }
+  
+    return null
+  } catch (error) {
+    return null;
   }
-
-  return undefined
 }
 
 type UVDataProps = number[]

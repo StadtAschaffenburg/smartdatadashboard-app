@@ -19,7 +19,7 @@ interface LocalWeather {
 
 const getLocalWeather = async () => {
   const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'thingsboard/weather'
-  const data = await getJSON(api)
+  const data = await getJSON(api, false)
 
   if (data?.status === 'success') {
     const payload = Object.entries(data.payload)

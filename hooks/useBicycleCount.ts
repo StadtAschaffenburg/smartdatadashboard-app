@@ -1,16 +1,19 @@
 import { isEqual } from 'date-fns'
 import { useEffect, useState } from 'react'
-import axios from 'axios';
+import { getJSON } from '@/lib/cms'
 
 const getBicycleData = async () => {
   const limit = 7
   const api = (process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/') + 'ecocounter?step=day&limit=' + limit
-  const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
   try {
-    const response = await axios.get(api, { timeout });
-    const data = response.data;
-    return data.payload;
+    const data = await getJSON(api, false)
+
+    if (data?.status === 'success') {
+      return data?.payload
+    }
+  
+    return null
   } catch (error) {
     return null;
   }
