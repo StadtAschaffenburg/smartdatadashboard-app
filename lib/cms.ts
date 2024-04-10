@@ -1,3 +1,4 @@
+import axios, { AxiosResponse } from 'axios';
 
 const cache = new Map()
 let version_cms = 'v0'
@@ -52,13 +53,9 @@ export async function updateContentVersion() {
   const endpoint = `${getAPIEndpoint()}content/version`
   const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
-  const api_promise = fetch(endpoint).then(res => res.json())
-  const timeout_promise = new Promise(resolve =>
-    setTimeout(() => resolve(false), timeout),
-  )
-
   try {
-    const data = await Promise.race([api_promise, timeout_promise])
+    const response = await axios.get(endpoint, { timeout });
+    const data = response.data;
 
     if (!data) {
       return false
@@ -91,16 +88,11 @@ export async function getJSON(endpoint: string) {
 
   const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
-  const api_promise = fetch(endpoint).then(res => res.json())
-  const timeout_promise = new Promise(resolve =>
-    setTimeout(() => resolve(false), timeout),
-  )
-
   try {
-    const data = await Promise.race([api_promise, timeout_promise])
+    const response = await axios.get(endpoint, { timeout });
+    const data = response.data;
 
     if (!data) {
-      // console.log('⏳ API request timed out:', endpoint)
       return cache_data || false // stale content is better than no content
     }
 
@@ -115,6 +107,15 @@ export async function getJSON(endpoint: string) {
   } catch (error) {
     // console.log('🔥 Everything is on fire!', endpoint)
     return false
+  }
+}
+
+const fetchApi = async (endpoint: string, timeout: number): Promise<any> => {
+  try {
+    const response: AxiosResponse = await axios.get(endpoint, { timeout });
+    return response.data;
+  } catch (error) {
+    return false;
   }
 }
 

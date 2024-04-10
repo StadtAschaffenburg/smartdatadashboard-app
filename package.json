@@ -24,6 +24,7 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@react-spring/web": "^9.7.3",
     "@splidejs/react-splide": "^0.7.12",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "date-fns": "^2.30.0",
     "echarts": "^5.4.3",
