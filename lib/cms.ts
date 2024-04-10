@@ -66,7 +66,7 @@ export async function updateContentVersion() {
 
     // store with an expiry timestamp
     version_cms = data.payload
-    // console.log('💾 Fetched API version:', version_cms, version_expiry)
+    console.log('💾 Fetched API version:', version_cms, version_expiry)
 
     return true
   } catch (error) {

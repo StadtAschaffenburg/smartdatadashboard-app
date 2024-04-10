@@ -7,6 +7,8 @@ import { ForwardRefExoticComponent, SVGProps } from 'react'
 import { BaseTile, EmbedTileProps } from './BaseTile'
 import LiveBadge from './LiveBadge'
 import getTileData from '@/lib/api/getTileData'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const iconTileTitleStyle = cva('', {
   variants: {
@@ -117,7 +119,36 @@ export default async function IconTile({
       <>{children}</>
       <Spacer />
 
-      <>{data?.copy && <Title as="h5">{data?.copy}</Title>}</>
+      {data?.copy && (
+        <ReactMarkdown
+          components={{
+            h1: props => <Title as={'h2'} {...props} />,
+            h2: props => <Title as={'h3'} {...props} />,
+            h3: props => <Title as={'h4'} {...props} />,
+            h4: props => <Title as={'h5'} {...props} />,
+            h5: props => <Title as={'h6'} {...props} />,
+            h6: props => <Title as={'h7'} {...props} />,
+            ul: props => <ul className="list-disc px-6" {...props} />,
+            p: props => (
+              <p
+                className="mb-2 text-base font-medium lg:text-xl lg:leading-6 lg:tracking-wide"
+                {...props}
+              />
+            ),
+            a: props => (
+              <a
+                className="underline"
+                {...props}
+                rel="noopener noreferrer"
+                target="_blank"
+              />
+            ),
+          }}
+          remarkPlugins={[remarkGfm]}
+        >
+          {data?.copy}
+        </ReactMarkdown>
+      )}
       <>{data?.copy && <Spacer />}</>
 
       <div className="flex space-x-2 text-xs">
