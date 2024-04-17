@@ -1,7 +1,7 @@
-import { getContent } from '@/lib/cms'
+import { client } from '@/lib/cms'
 
 export default async function getSectionsData() {
-  const data = await getContent('sections');
+  const data = await client.getContent('sections');
 
   return data || [];
 }

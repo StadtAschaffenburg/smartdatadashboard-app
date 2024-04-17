@@ -4,6 +4,10 @@ import CookieConsent from 'react-cookie-consent'
 
 export default function Cookies() {
   const handleAccept = () => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
     const win = window as any
     win._paq = []
     win._paq.push(['trackPageView'])

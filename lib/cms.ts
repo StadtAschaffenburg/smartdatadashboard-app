@@ -1,117 +1,101 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const cache = new Map()
-let version_cms = 'v0'
-
-export async function getContent(
-  collection: string = 'tile',
-  id: string | number | boolean = false,
-  use_cache: boolean = true
-) {
-  await updateContentVersion()
-  const endpoint = `${getAPIEndpoint()}content/${collection}${id ? `/${id}` : ''}`
-
-  // get from cache
-  const cache_data = cache.get(endpoint)?.payload || null;
-  const stale = version_cms !== cache.get(endpoint)?.version || false;
-
-  if (cache_data && !stale && use_cache) {
-    return cache_data
-  }
-
-  const payload = await fetchJSON(endpoint)
-
-  if (payload !== null) {
-    cache.set(endpoint, {
-      payload,
-      version: version_cms
-    })
-
-    return payload
-  }
-
-  return cache_data || false // stale content is better than no content
+interface CacheEntry {
+  payload: any
+  version?: string
+  expiry?: number
 }
 
-export async function getAPI (
-  api: string,
-  use_cache: boolean = true,
-  lifetime: number = 6 * 60 // 6 hours
-) {
-  const endpoint = `${getAPIEndpoint()}${api}`
+class APIClient {
+  private static instance: APIClient
+  private cache: Map<string, CacheEntry> = new Map()
+  private version_cms: string = 'v0'
+  private id: string
 
-  // get from cache
-  const cache_data = cache.get(endpoint)?.payload || null;
-  const stale = Date.now() <= (cache.get(endpoint)?.expiry || Infinity);
-
-  if (cache_data && !stale && use_cache) {
-    return cache_data
+  private constructor() {
+    this.id = Math.random().toString(36).substring(2, 15)
+    console.log(`Creating new APIClient instance with ID: ${this.id}`)
   }
 
-  const payload = await fetchJSON(endpoint)
-
-  if (payload !== null) {
-    cache.set(endpoint, {
-      payload,
-      expiry: Date.now() + lifetime * 60 * 1000
-    })
-
-    return payload
+  public static getInstance(): APIClient {
+    if (!APIClient.instance) {
+      APIClient.instance = new APIClient()
+    }
+    return APIClient.instance
   }
 
-  return cache_data || false // stale content is better than no content
-}
+  public async getContent(collection: string = 'tile', id: string | number | boolean = false, use_cache: boolean = true): Promise<any> {
+    await this.updateContentVersion()
+    const endpoint = `${this.getAPIEndpoint()}content/${collection}${id ? `/${id}` : ''}`
+    const cacheData = this.cache.get(endpoint) || null
+    const stale = this.version_cms !== this.cache.get(endpoint)?.version
 
-export function getImage(image: string = 'placeholder') {
-  return '/images/' + image + '.jpeg'
-}
+    if (cacheData?.payload && !stale && use_cache) {
+      return cacheData.payload
+    }
 
-/**
- * Get Version from CMS with caching (in minutes)
- */
-const updateContentVersion = async () => {
-  const lifetime: number = Number(process.env.NEXT_PUBLIC_CMS_CACHE_DURATION) || 50
+    const payload = await this.fetchJSON(endpoint)
 
-  try {
-    const current_version = await getAPI('content/version', true, lifetime)
+    if (payload !== null) {
+      this.cache.set(endpoint, { payload, version: this.version_cms })
+      return payload
+    }
 
-    if (current_version !== null && current_version !== version_cms) {
-      console.log('💾 New content version:', version_cms, '=>', current_version)
-      version_cms = current_version
-      
+    return cacheData?.payload || false
+  }
+
+  public async getAPI(api: string, use_cache: boolean = true, lifetime: number = 6 * 60): Promise<any> {
+    const endpoint = `${this.getAPIEndpoint()}${api}`
+    const cacheData = this.cache.get(endpoint) || null
+    const stale = Date.now() > (this.cache.get(endpoint)?.expiry || 0)
+
+    if (cacheData?.payload && !stale && use_cache) {
+      return cacheData.payload
+    }
+
+    const payload = await this.fetchJSON(endpoint)
+
+    if (payload !== null) {
+      this.cache.set(endpoint, { payload, expiry: Date.now() + lifetime * 60 * 1000 })
+      return payload
+    }
+
+    return cacheData?.payload || false
+  }
+
+  private async updateContentVersion(): Promise<boolean> {
+    const lifetime = Number(process.env.NEXT_PUBLIC_CMS_CACHE_DURATION) || 50
+    const current_version = await this.getAPI('content/version', true, lifetime)
+
+    if (current_version !== null && current_version !== this.version_cms) {
+      console.log('💾 New content version:', this.version_cms, '=>', current_version)
+      this.version_cms = current_version
       return true
     }
 
     return false
-  } catch (error) {
-    return false
   }
-}
 
-/**
- * Get JSON from API with caching
- * @param endpoint API endpoint
- * @returns JSON data.payload or null
- */
-export async function fetchJSON(endpoint: string) {
-  const timeout: number = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
+  private async fetchJSON(endpoint: string): Promise<any> {
+    const timeout = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
-  try {
-    const response = await axios.get(endpoint, { timeout });
-    const data = response.data;
+    try {
+      const response = await axios.get(endpoint, { timeout })
+      const data = response.data
 
-    if (data?.status === 'success' && data?.payload) {
-      return data.payload
+      if (data?.status === 'success' && data?.payload) {
+        return data.payload
+      }
+
+      return null
+    } catch (error) {
+      return null
     }
+  }
 
-    return null
-  } catch (error) {
-    return null
+  private getAPIEndpoint(): string {
+    return process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/'
   }
 }
 
-function getAPIEndpoint() {
-  return process.env.NEXT_PUBLIC_SSD_API || 'http://smartcitydashboard-cms.test/api/'
-}
-
-export default getContent
+export const client = APIClient.getInstance()

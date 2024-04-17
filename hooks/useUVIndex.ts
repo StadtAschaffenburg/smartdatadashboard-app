@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { getAPI } from '@/lib/cms'
+import { client } from '@/lib/cms'
 
 const getUVIndex = async () => {
   try {
-    const payload = await getAPI('uvi')
+    const payload = await client.getAPI('uvi')
     return payload !== null ? payload : false
   } catch (error) {
     return false;

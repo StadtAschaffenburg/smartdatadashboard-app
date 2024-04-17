@@ -4,7 +4,6 @@ import InsightsTile from './InsightsTile'
 import useDevice from '@/hooks/useDevice'
 import Carousel from '../Elements/Carousel'
 import { useWindowSize } from 'react-use'
-import { getImage } from '@/lib/cms'
 
 const pages = {
   desktop: 3,
@@ -49,7 +48,7 @@ export default function InsightsCarousel({
     >
       {insights?.map(({ slug, title, image }) => (
         <InsightsTile
-          image={getImage(image)}
+          image={''}
           key={slug}
           link={`/sammlung/${slug}`}
           title={title}

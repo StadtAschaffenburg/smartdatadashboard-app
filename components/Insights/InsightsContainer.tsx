@@ -1,10 +1,10 @@
 import withSuspense from '@/utils/withSuspense'
 import Container from '../Layout/Container'
 import InsightsCarousel from './InsightsCarousel'
-import getContent from '@/lib/cms'
+import { client } from '@/lib/cms'
 
 const getInsightsData = async () => {
-  const data = await getContent('collections')
+  const data = await client.getContent('collections')
 
   return data
 }
