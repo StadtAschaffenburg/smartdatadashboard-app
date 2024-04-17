@@ -88,6 +88,17 @@ class APIClient {
     return false
   }
 
+  public async getCache(api: string): Promise<any> {
+    const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
+    
+    try {
+      const response = this.fetchJSON(host + '/' + api) as any
+      return response?.data || null
+    } catch (error) {
+      return null;
+    }
+  }
+
   private async fetchJSON(endpoint: string): Promise<any> {
     const timeout = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 

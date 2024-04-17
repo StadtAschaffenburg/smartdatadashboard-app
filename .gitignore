@@ -40,3 +40,4 @@ package-lock.json
 yarn.lock
 
 assets/cache/*
+!assets/cache/fallback/

@@ -1,12 +1,7 @@
-import axios from 'axios'
+import { client } from '@/lib/cms'
 
 export default async function getPageData(id: string, default_value: any = []) {
-  const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
+  const data = await client.getCache(`content?collection=page&id=${id}`)
 
-  try {
-    const response = await axios(`${host}content?collection=page&id=${id}`, { timeout: 1000 }) as any
-    return response.data || default_value;
-  } catch (error) {
-    return default_value;
-  }
+  return data || default_value
 }
