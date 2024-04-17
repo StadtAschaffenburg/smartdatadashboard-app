@@ -15,7 +15,7 @@ export default function Impressum({ slug }: Props): JSX.Element {
 
   useEffect(() => {
     ;(async () => {
-      const data = await getPageData(slug, 'page')
+      const data = await getPageData(slug)
       setText(data?.content)
     })()
   }, [])

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { client } from '@/lib/cms'
+import getLiveData from '@/lib/api/getLiveData'
 
 interface LocalWeather {
   humidity: number;
@@ -18,7 +18,7 @@ interface LocalWeather {
 }
 
 const getLocalWeather = async () => {
-  const response = await client.getAPI('thingsboard/weather', true, 30)
+  const response = await getLiveData('thingsboard/weather', 30)
 
   if (response !== null) {
     const payload = Object.entries(response)

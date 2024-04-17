@@ -38,3 +38,5 @@ next-env.d.ts
 svgicons
 package-lock.json
 yarn.lock
+
+assets/cache/*

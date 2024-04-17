@@ -1,7 +1,8 @@
-import { client } from '@/lib/cms'
+import axios from 'axios'
 
-export default async function getTileData(id: string, default_value: any = []) {
-  const data = await client.getContent('page', id);
+export default async function getPageData(id: string, default_value: any = []) {
+  const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
+  const request = await axios(`${host}content?collection=page&id=${id}`) as any
 
-  return data || default_value;
+  return request?.data || default_value
 }

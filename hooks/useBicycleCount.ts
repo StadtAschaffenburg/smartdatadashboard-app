@@ -1,13 +1,12 @@
 import { isEqual } from 'date-fns'
 import { useEffect, useState } from 'react'
-import { client } from '@/lib/cms'
+import getLiveData from '@/lib/api/getLiveData'
 
 const getBicycleData = async () => {
   const limit = 7
 
   try {
-    const payload = await client.getAPI(`ecocounter?step=day&limit=${limit}`
-  )
+    const payload = await getLiveData(`ecocounter?step=day&limit=${limit}`)
     return payload !== null ? payload : false
   } catch (error) {
     return false;
