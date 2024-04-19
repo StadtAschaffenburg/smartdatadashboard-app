@@ -13,6 +13,7 @@ class APIClient {
   private cache: Map<string, CacheEntry> = new Map()
   private version_cms: string = 'fallback'
   private id: string
+  private contentVersionPromise: Promise<boolean> | null = null
 
   private constructor() {
     this.id = Math.random().toString(36).substring(2, 15)
@@ -66,34 +67,45 @@ class APIClient {
     return cache_data?.payload || false
   }
 
+  // update the content version
+  // if the version has changed, the cache will be cleared
   private async updateContentVersion(): Promise<boolean> {
-    const lifetime = Number(process.env.NEXT_PUBLIC_CMS_CACHE_DURATION) || 50
-    const current_version = await this.getAPI('content/version', true, lifetime)
-
-    if (current_version && current_version !== this.version_cms) {
-      console.log('💾 New content version:', this.version_cms, '=>', current_version)
-
-      if (this.version_cms !== 'fallback') {
-        fs.rmSync(this.getFolderPath(), { recursive: true, force: true }) // remove old cache
-      }
-
-      fs.renameSync(this.getFolderPath('', this.version_cms), this.getFolderPath())
-      fs.mkdirSync(this.getFolderPath('', current_version), { recursive: true })
-
-      this.version_cms = current_version
-
-      return true
+    if (!this.contentVersionPromise) {
+      // promise to get the current version of the content
+      this.contentVersionPromise = (async () => {
+        const lifetime = Number(process.env.NEXT_PUBLIC_CMS_CACHE_DURATION) || 50;
+        const current_version = await this.getAPI('content/version', true, lifetime);
+  
+        if (current_version && current_version !== this.version_cms) {
+          console.log('💾 New content version:', this.version_cms, '=>', current_version);
+  
+          if (this.version_cms !== 'fallback') {
+            fs.rmSync(this.getFolderPath(), { recursive: true, force: true }); // remove old cache
+          }
+  
+          fs.renameSync(this.getFolderPath('', this.version_cms), this.getFolderPath());
+          fs.mkdirSync(this.getFolderPath('', current_version), { recursive: true });
+  
+          this.version_cms = current_version;
+          return true;
+        }
+  
+        return false;
+      })().finally(() => {
+        this.contentVersionPromise = null; // reset the promise
+      });
     }
 
-    return false
+    return this.contentVersionPromise;
   }
 
-  public async getCache(api: string): Promise<any> {
+  public async getCachedData(api: string): Promise<any> {
     const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
     
     try {
-      const response = this.fetchJSON(host + '/' + api) as any
-      return response?.data || null
+      const response = await this.fetchJSON(host + '/' + api) as any
+
+      return response || null
     } catch (error) {
       return null;
     }
@@ -103,11 +115,10 @@ class APIClient {
     const timeout = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
     try {
-      const response = await axios.get(endpoint, { timeout })
-      const data = response.data
+      const response = await axios.get(endpoint.replace(/([^:]\/)\/+/g, '$1'), { timeout })
 
-      if (data?.status === 'success' && data?.payload) {
-        return data.payload
+      if (response?.data?.status === 'success' || response?.status === 200) {
+        return response?.data?.payload ?? response?.data
       }
 
       return null
@@ -131,7 +142,7 @@ class APIClient {
     ].filter(Boolean).join('/')
   }
 
-  private getCachePath() {
+  private getCachedDataPath() {
     return [
       process.cwd(),
       'assets',
@@ -144,20 +155,20 @@ class APIClient {
     version: string = 'fallback'
   ) {
     return [
-      this.getCachePath(),
+      this.getCachedDataPath(),
       folder !== 'api' ? version : false,
       folder,
     ].filter(Boolean).join('/')
   }
 
   private async clearCache() {
-    fs.readdir(this.getCachePath(), (err, files) => {
+    fs.readdir(this.getCachedDataPath(), (err, files) => {
       if (err) {
         throw err
       }
     
       files.forEach((file: string) => {
-        const full_path: string = path.join(this.getCachePath(), file)
+        const full_path: string = path.join(this.getCachedDataPath(), file)
         fs.stat(full_path, (err, stats) => {
           if (err) {
             throw err

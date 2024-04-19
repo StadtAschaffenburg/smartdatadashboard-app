@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import getLiveData from '@/lib/api/getLiveData'
 
 interface LocalWeather {
+  cloud_cover: number;
   humidity: number;
   irradiation: number;
   precipitation: number;
@@ -44,17 +45,15 @@ const getLocalWeather = async () => {
 }
 
 export default function useLocalWeather() {
-  const [data, setData] = useState<LocalWeather[]>([])
+  const [data, setData] = useState<LocalWeather | null>(null)
 
   useEffect(() => {
-    getLocalWeather().then(e => setData(e as LocalWeather[]))
-  }, [])
+    getLocalWeather().then(weatherData => {
+      if (weatherData) {
+        setData(weatherData as LocalWeather);
+      }
+    });
+  }, []);
 
-  useEffect(() => {
-    if (!data) {
-      return
-    }
-  }, [data])
-
-  return data
+  return data;
 }

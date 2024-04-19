@@ -1,7 +1,7 @@
 import { client } from '@/lib/cms'
 
 export default async function getTileData(id: string, attribute: string | false = false, default_value: any = []) {
-  const data = await client.getCache(`content?collection=tile&id=${id}`)
+  const data = await client.getCachedData(`content?collection=tile&id=${id}`)
 
   if (attribute !== false) {
     return data && data[attribute] ? data[attribute] : default_value
