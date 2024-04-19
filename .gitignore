@@ -42,4 +42,4 @@ yarn.lock
 assets/cache/*
 !assets/cache/fallback/
 assets/cache/fallback/*
-!assets/cache/api/
+!assets/cache/api/*
