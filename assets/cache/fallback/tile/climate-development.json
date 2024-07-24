@@ -1,0 +1,14 @@
+{
+  "copy": null,
+  "details": "Die Begriffe „Wetter“ und „Klima“ werden oft fälschlicherweise gleichgesetzt, obwohl sie sich in ihrer Bedeutung unterscheiden. „Wetter“ bezieht sich auf kurzfristige lokale Ereignisse, die durch Parameter wie Lufttemperatur, Luftfeuchte, Luftdruck, Windrichtung, Windgeschwindigkeit und Niederschlag an einem bestimmten Ort zu einer bestimmten Zeit beschrieben werden. Ein Beispiel hierfür wäre: Heute regnet es in Aschaffenburg, morgen scheint die Sonne. Im Gegensatz dazu beschreibt „Klima“ das durchschnittliche Wetter über einen längeren Zeitraum von z. B. 30 Jahren an einem bestimmten Ort, wie Aschaffenburg. Seit der Industrialisierung im 19. Jahrhundert steigt die Erdmitteltemperatur rapide an, was zu einer Veränderung des Klimas führt. \n\nDer [britische Klimaforscher Ed Hawkins](https://edhawkins.org/) hat die globale Erderwärmung anhand der Abweichungen der globalen monatlichen Durchschnittstemperatur vom langjährigen Mittel eindrucksvoll visualisiert. Unsere Darstellung zeigt die Abweichungen der Temperaturen von den langjährigen Monatsmitteln der Jahre 1853 – 1899 für Aschaffenburg und verdeutlicht, dass es dort bereits über 1,5 Grad Celsius wärmer ist als in vorindustrieller Zeit. Die spürbaren Folgen in Aschaffenburg sind Wetterextreme wie Starkregen, Hitzewellen und Dürren.\n\nDiese Darstellung ist eine veränderte Version einer Darstellung von Ed Hawkins und ist unter der „[Creative Commons Namensnennung – 4.0 International (CC-BY 4.0)](https://creativecommons.org/licenses/by/4.0/)“ lizenziert und frei verfügbar.\n\nInformationen dazu, was Sie persönlich tun können und welche Maßnahmen die Stadt Aschaffenburg bereits ergreift, um gegen die zunehmenden Wetterextreme vorzubeugen, finden Sie [hier](https://www.aschaffenburg.de/Buerger-in-Aschaffenburg/Umwelt--und-Verbraucherschutz/Klima-Anpassung/DE_index_5413.html).",
+  "group": "8f6f89ac-d6bf-4e6c-8445-d1503075963a",
+  "id": "0d3fda03-44c3-4c8c-8157-7375f71f835f",
+  "legend": null,
+  "name": "Klima - Entwicklung",
+  "retrieval": null,
+  "source": null,
+  "strings": [],
+  "subtitle": "Temperaturabweichungen von den langjährigen Monatsmitteln vor 1900",
+  "tile_id": "446e451d-e25d-42ba-8d1f-78138d21bdaf",
+  "title": "Klima"
+}

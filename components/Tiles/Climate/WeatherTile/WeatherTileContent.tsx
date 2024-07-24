@@ -22,9 +22,6 @@ export default function WeatherTileContent() {
     return directions[index]
   }
 
-  console.log('weather', weather)
-  console.log('local_weather', local_weather.length, local_weather)
-
   if (weather && local_weather.length !== 0) {
     const Icon = conditionMappingIcon[weather?.condition]
 
@@ -55,7 +52,7 @@ export default function WeatherTileContent() {
                 <div className="flex h-full w-full flex-1 flex-col justify-between gap-2.5 md:gap-6">
                   <Phenomenon
                     phenomenon="precipitation"
-                    value={local_weather?.rain}
+                    value={local_weather?.avgrain}
                   />
                   <Phenomenon
                     phenomenon="cloudcover"
@@ -63,7 +60,7 @@ export default function WeatherTileContent() {
                   />
                   <Phenomenon
                     phenomenon="solar_radiation"
-                    value={local_weather?.solar_radiation}
+                    value={local_weather?.avgsolar_radiation}
                   />
                 </div>
               </div>

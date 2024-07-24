@@ -9,6 +9,8 @@ import Title from '@/components/Elements/Title'
 import LinkComponent, { LinkProps } from './LinkComponent'
 import { Spacer } from '@/components/Elements/Spacer'
 import {
+  MsKlimadashboardIconsButtonAktivEnergieV1,
+  MsKlimadashboardIconsButtonAktivGebaeude,
   MsKlimadashboardIconsButtonAktivKlima,
   MsKlimadashboardIconsButtonAktivMobil,
 } from '@/components/Icons/Misc'
@@ -20,24 +22,24 @@ const links: LinkProps[] = [
     link: '/klima',
     hover: 'climate',
   },
-  /*{
+  {
     title: 'Energie',
     icon: MsKlimadashboardIconsButtonAktivEnergieV1,
     link: '/energie',
     hover: 'energy',
-  },*/
+  },
   {
     title: 'Mobilität',
     icon: MsKlimadashboardIconsButtonAktivMobil,
     link: '/mobilitaet',
     hover: 'mobility',
   },
-  /*{
+  {
     title: 'Gebäude',
     icon: MsKlimadashboardIconsButtonAktivGebaeude,
     link: '/gebaeude',
     hover: 'buildings',
-  },*/
+  },
 ]
 
 type BaseNavbarProps = {

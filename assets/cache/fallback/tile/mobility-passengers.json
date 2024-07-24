@@ -1,0 +1,14 @@
+{
+  "copy": null,
+  "details": "Keine Mobilitätswende ohne funktionierenden Busverkehr – gute Alternativen zum eigenen Auto erleichtern oder ermöglichen sogar erst den Umstieg auf ein autofreies Leben. In der Stadt Aschaffenburg kommt einem funktionierenden Busverkehr – mit einem immer größer werdenden Anteil an klimafreundlichen Bussen – die Hauptrolle der Mobilitätswende zu. Die Qualität des Busverkehrs ist dabei von vielen Faktoren abhängig: So braucht es sinnvolle Haltestellenabstände, bedarfsorientierte Fahrtrouten und eine attraktive Taktung.\n\nAuch On-Demand-Systeme wie ASTflex, Bikesharing und Carsharing spielen eine wichtige Rolle. Sie sorgen dafür, dass möglichst alle Ziele im gesamten Stadtgebiet zügig erreicht werden können und das Umland gut an die Stadt angebunden ist. \n\n[Eine Übersicht der weiteren Mobilitätsangebote der Stadtwerke Aschaffenburg](https://www.stwab.de/mobilitaet)",
+  "group": "4fa0c731-13d7-4ce9-8407-91a8a71da1cb",
+  "id": "92549096-590e-4a1c-b550-ef1931cf037f",
+  "legend": null,
+  "name": "Mobilität - ÖPNV",
+  "retrieval": "31.12.2023",
+  "source": "VAB / Stadtwerke Aschaffenburg",
+  "strings": [],
+  "subtitle": "Entwicklung der Fahrgastzahlen in den Bussen der VAB",
+  "tile_id": "3c02b8dd-453a-4d83-a2cf-3144000d173d",
+  "title": "ÖPNV"
+}

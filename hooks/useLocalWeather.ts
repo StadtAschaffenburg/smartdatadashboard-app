@@ -8,10 +8,10 @@ interface LocalWeather {
   irradiation: number;
   precipitation: number;
   pressure: number;
-  rain: number;
+  avgrain: number;
   rain_amount: number;
   relative_humidity: number;
-  solar_radiation: number;
+  avgsolar_radiation: number;
   temperature: number;
   wind_direction: number;
   wind_speed: number;

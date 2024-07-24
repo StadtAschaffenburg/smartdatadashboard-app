@@ -5,35 +5,100 @@ import Title from '@/components/Elements/Title'
 import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
-import waermeData from '@/assets/data/waerme.json'
-import stromData from '@/assets/data/strom.json'
-import { MsKlimadashboardIconsGBibliothek, MsKlimadashboardIconsGSchule, MsKlimadashboardIconsGSportSentruperHoehe, MsKlimadashboardIconsGStadtweinhaus } from '@/components/Icons/Gebaeude'
+
+// @ts-ignore
+import waermeDataTable from '@/assets/data/waerme.csv'
+
+// @ts-ignore
+import stromDataTable from '@/assets/data/strom.csv'
+
+import {
+  MsKlimadashboardIconsGBibliothek,
+  MsKlimadashboardIconsGSchule,
+  MsKlimadashboardIconsGSportSentruperHoehe,
+  MsKlimadashboardIconsGStadtweinhaus,
+} from '@/components/Icons/Gebaeude'
+
+type InputDataType = {
+  Zeit: string
+  'Brentanoschule (kWh)': string
+  'Stadbibliothek (kWh)': string
+  'F.A.N Frankenstolz Arena (kWh)': string
+  'Rathaus (kWh)': string
+}
 
 type DataType = {
   Datum: number
-  stadtbuecherei: number | null
-  sentruper: number | null
+  brentanoschule: number | null
+  stadtbibliothek: number | null
+  frankenstolz_arena: number | null
   rathaus: number | null
-  'freiherr-von-stein': number | null
 }
+
+const convertToFloat = (str: string): number =>
+  parseFloat(str.replace(/\./g, '').replace(',', '.'))
+
+const monthMap: { [key: string]: number } = {
+  Jan: 0,
+  Feb: 1,
+  Mär: 2,
+  Apr: 3,
+  Mai: 4,
+  Jun: 5,
+  Jul: 6,
+  Aug: 7,
+  Sep: 8,
+  Okt: 9,
+  Nov: 10,
+  Dez: 11,
+}
+
+const convertToUnixTimestamp = (dateStr: string): number => {
+  if (/^\d{4}$/.test(dateStr)) {
+    // Check if the dateStr is just a year
+    const date = new Date(`${dateStr}-01-01T00:00:00Z`)
+    return Math.floor(date.getTime() / 1000)
+  }
+  const [monthStr, yearStr] = dateStr.split(' ')
+  const month = monthMap[monthStr]
+  const year = parseInt(`20${yearStr}`, 10) // Assumes the year is in the 21st century
+  const date = new Date(year, month, 1) // Month in Date object is 0-based
+  return Math.floor(date.getTime() / 1000)
+}
+
+const stromData: DataType[] = stromDataTable.map((d: InputDataType) => ({
+  Datum: convertToUnixTimestamp(d.Zeit) * 1000,
+  brentanoschule: convertToFloat(d['Brentanoschule (kWh)']),
+  stadtbibliothek: convertToFloat(d['Stadbibliothek (kWh)']),
+  frankenstolz_arena: convertToFloat(d['F.A.N Frankenstolz Arena (kWh)']),
+  rathaus: convertToFloat(d['Rathaus (kWh)']),
+}))
+
+const waermeData: DataType[] = waermeDataTable.map((d: InputDataType) => ({
+  Datum: convertToUnixTimestamp(d.Zeit) * 1000,
+  brentanoschule: convertToFloat(d['Brentanoschule (kWh)']),
+  stadtbibliothek: convertToFloat(d['Stadbibliothek (kWh)']),
+  frankenstolz_arena: convertToFloat(d['F.A.N Frankenstolz Arena (kWh)']),
+  rathaus: convertToFloat(d['Rathaus (kWh)']),
+}))
 
 type Building = Omit<DataType, 'Datum'>
 
 const buildings: Record<keyof Building, string> = {
-  rathaus: 'Rathaus / Stadtweinhaus',
-  stadtbuecherei: 'Stadtbücherei',
-  sentruper: 'Sportanlage Sentruper Höhe',
-  'freiherr-von-stein': 'Freiherr-vom-Stein-Gymnasium',
+  brentanoschule: 'Bentanoschule',
+  stadtbibliothek: 'Stadtbibliothek',
+  frankenstolz_arena: 'F.A.N Frankenstolz Arena',
+  rathaus: 'Rathaus',
 }
 
 const buildingIcon: Record<
   keyof Building,
   (_props: SVGProps<SVGSVGElement>) => JSX.Element
 > = {
-  stadtbuecherei: MsKlimadashboardIconsGBibliothek,
-  sentruper: MsKlimadashboardIconsGSportSentruperHoehe,
+  brentanoschule: MsKlimadashboardIconsGBibliothek,
+  stadtbibliothek: MsKlimadashboardIconsGSportSentruperHoehe,
+  frankenstolz_arena: MsKlimadashboardIconsGSchule,
   rathaus: MsKlimadashboardIconsGStadtweinhaus,
-  'freiherr-von-stein': MsKlimadashboardIconsGSchule,
 }
 
 function getBuildingIcon(
@@ -98,16 +163,24 @@ export default function DesktopView({ mode, yearIndex }: DesktopViewProps) {
           </div>
         ))}
       </div>
-      <LabelSeperator>Monatlicher Verbrauch</LabelSeperator>
-      <div className="flex h-full w-full justify-between gap-8">
-        {Object.keys(buildings).map(building => (
-          <div className="h-72 w-full md:pb-2" key={building}>
-            <EnergyConsumptionChart
-              data={getData(mode, building as keyof Building, years[yearIndex])}
-            />
+      {mode !== 'strom' && (
+        <>
+          <LabelSeperator>Monatlicher Verbrauch</LabelSeperator>
+          <div className="flex h-full w-full justify-between gap-8">
+            {Object.keys(buildings).map(building => (
+              <div className="h-72 w-full md:pb-2" key={building}>
+                <EnergyConsumptionChart
+                  data={getData(
+                    mode,
+                    building as keyof Building,
+                    years[yearIndex],
+                  )}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
       <LabelSeperator>
         {years[yearIndex] === new Date().getFullYear()
           ? 'Jahresverbrauch bisher'

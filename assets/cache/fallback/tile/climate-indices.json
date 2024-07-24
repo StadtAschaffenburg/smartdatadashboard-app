@@ -1,0 +1,14 @@
+{
+  "copy": null,
+  "details": "Während heiße Tage, Sommertage und Tropennächte mess- und spürbar zunehmen, nimmt die Häufigkeit von Frost- und Eistagen ab. Die Zu- und Abnahme der einzelnen Klimakenntage hat bereits heute Auswirkungen auf die Natur und auf unser Leben.\n\nAn einem als „Sommertag“ definierten Klimakenntag erreicht oder überschreitet die Tageshöchsttemperatur mindestens ein Mal am Tag 25 Grad Celsius. Von einem „heißen Tag“ spricht man, wenn eine Temperatur von 30 Grad Celsius oder mehr erreicht wird. Ein heißer Tag wurde früher auch als Tropentag bezeichnet. Die Anzahl der Sommertage und der heißen Tage werden zur Bewertung eines Sommers herangezogen. Bei einer „Tropennacht“ sinkt die Temperatur auch nachts nicht unter 20 Grad Celsius. Für die Bevölkerung bedeuten solche Tage eine erhöhte körperliche Belastung, die besonders für bereits geschwächte Personen kritisch werden kann. Erreicht ein Tag im Laufe seiner 24 Stunden den Nullpunkt, spricht man von einem „Frosttag“. Ein „Eistag“ wird er dann, wenn es zu keinem Zeitpunkt wärmer als 0 Grad Celsius wird.",
+  "group": "8f6f89ac-d6bf-4e6c-8445-d1503075963a",
+  "id": "160d8cf1-4452-42ce-b7c2-a50bf59af4dc",
+  "legend": "Ein \"Klimatologischer Kenntag\" ist ein Tag, an dem ein definierter Schwellenwert eines klimatischen Parameters erreicht beziehungsweise über- oder unterschritten wird (z. B. Sommertag als Tag mit Temperaturmaximum gleich oder mehr als 25 Grad Celsius) oder ein Tag, an dem ein definiertes meteorologisches Phänomen auftrat (z. B. Gewittertag als Tag, an dem irgendwann am Tag ein Gewitter (hörbarer Donner) auftrat).",
+  "name": "Klima - Kenntage",
+  "retrieval": null,
+  "source": "Deutscher Wetterdienst",
+  "strings": [],
+  "subtitle": "Häufigkeit von Temperaturkenntagen in Aschaffenburg",
+  "tile_id": "8cc99d53-4451-40df-9b6e-9576c97ef810",
+  "title": "Kenntage"
+}
