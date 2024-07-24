@@ -7,7 +7,7 @@ import { useState } from 'react'
 import Slider from '@/components/Inputs/Slider'
 
 import DesktopView from './DesktopView'
-import MobileView from './MobileView'
+//import MobileView from './MobileView'
 
 const years = Array.from(
   new Set(
@@ -40,9 +40,6 @@ export default function EnergyConsumptionContent() {
         </div>
         <div className="hidden xl:block">
           <DesktopView mode={mode} yearIndex={yearIndex} />
-        </div>
-        <div className="block xl:hidden">
-          <MobileView mode={mode} yearIndex={yearIndex} />
         </div>
       </div>
       <Slider
