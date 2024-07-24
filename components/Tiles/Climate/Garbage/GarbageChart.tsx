@@ -14,7 +14,11 @@ import { ReactECharts } from '@/components/Charts/ReactECharts'
 
 // @ts-ignore
 import GarbageData from '@/assets/data/awm-abfallaufkommen-pro-kopf.csv'
-import { MsKlimadashboardIconsKAbfallGesamt, MsKlimadashboardIconsKAbfallRest, MsKlimadashboardIconsKAbfallWertstoffe } from '@/components/Icons/Klima'
+import {
+  MsKlimadashboardIconsKAbfallGesamt,
+  MsKlimadashboardIconsKAbfallRest,
+  MsKlimadashboardIconsKAbfallWertstoffe,
+} from '@/components/Icons/Klima'
 
 const { theme } = resolveConfig(tailwindConfig)
 

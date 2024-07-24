@@ -52,7 +52,7 @@ export default function WeatherTileContent() {
                 <div className="flex h-full w-full flex-1 flex-col justify-between gap-2.5 md:gap-6">
                   <Phenomenon
                     phenomenon="precipitation"
-                    value={local_weather?.rain ?? weather.precipitation}
+                    value={weather.precipitation}
                   />
                   <Phenomenon
                     phenomenon="cloudcover"

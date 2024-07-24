@@ -7,33 +7,38 @@ import LabelSeperator from './LabelSeperator'
 import waermeData from '@/assets/data/waerme.json'
 import stromData from '@/assets/data/strom.json'
 import Carousel from '@/components/Elements/Carousel'
-import { MsKlimadashboardIconsGBibliothek, MsKlimadashboardIconsGSchule, MsKlimadashboardIconsGSportSentruperHoehe, MsKlimadashboardIconsGStadtweinhaus } from '@/components/Icons/Gebaeude'
+import {
+  MsKlimadashboardIconsGBibliothek,
+  MsKlimadashboardIconsGSchule,
+  MsKlimadashboardIconsGSportSentruperHoehe,
+  MsKlimadashboardIconsGStadtweinhaus,
+} from '@/components/Icons/Gebaeude'
 
 type DataType = {
   Datum: number
-  stadtbuecherei: number | null
-  sentruper: number | null
   rathaus: number | null
-  'freiherr-von-stein': number | null
+  brentanoschule: number | null
+  stadtbibliothek: number | null
+  frankenstolz_arena: number | null
 }
 
 type Building = Omit<DataType, 'Datum'>
 
 const buildings: Record<keyof Building, string> = {
-  rathaus: 'Rathaus / Stadtweinhaus',
-  stadtbuecherei: 'Stadtbücherei',
-  sentruper: 'Sportanlage Sentruper Höhe',
-  'freiherr-von-stein': 'Freiherr-vom-Stein-Gymnasium',
+  rathaus: 'Rathaus',
+  brentanoschule: 'Bentanoschule',
+  stadtbibliothek: 'Stadtbibliothek',
+  frankenstolz_arena: 'F.A.N Frankenstolz Arena',
 }
 
 const buildingIcon: Record<
   keyof Building,
   (_props: SVGProps<SVGSVGElement>) => JSX.Element
 > = {
-  stadtbuecherei: MsKlimadashboardIconsGBibliothek,
-  sentruper: MsKlimadashboardIconsGSportSentruperHoehe,
   rathaus: MsKlimadashboardIconsGStadtweinhaus,
-  'freiherr-von-stein': MsKlimadashboardIconsGSchule,
+  brentanoschule: MsKlimadashboardIconsGBibliothek,
+  stadtbibliothek: MsKlimadashboardIconsGSportSentruperHoehe,
+  frankenstolz_arena: MsKlimadashboardIconsGSchule,
 }
 
 function getBuildingIcon(
