@@ -5,7 +5,7 @@ function SvgMuensterDom(props: SVGProps<SVGSVGElement>) {
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g
         fill="none"
-        stroke="#005b79"
+        stroke="#005096"
         strokeLinecap="round"
         strokeLinejoin="round"
       >

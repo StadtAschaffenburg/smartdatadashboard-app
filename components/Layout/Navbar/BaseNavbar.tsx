@@ -58,7 +58,7 @@ export default function BaseNavbar({
       <div className="container pointer-events-none relative z-10 mx-auto translate-y-1/2 px-4 md:px-12">
         <Image
           alt="Logo der Stadt Aschaffenburg"
-          className="pointer-events-none ml-auto h-24 w-auto"
+          className="pointer-events-none ml-auto h-16 w-auto md:h-24"
           src={StadtLogo}
         />
       </div>

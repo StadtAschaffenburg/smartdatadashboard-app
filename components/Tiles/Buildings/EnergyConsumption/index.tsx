@@ -15,7 +15,6 @@ export default async function EnergyComsumptionTile() {
       dataRetrieval={format(new Date(), '01.MM.yyyy')}
       dataSource="Stadt Aschaffenburg &ndash; Amt für Immobilienmanagement"
       embedId={'building-energyConsumption'}
-      live
       subtitle={
         'So entwickelt sich über das Jahr verteilt der Verbrauch von Wärme und Strom in ausgewählten städtischen Gebäuden'
       }

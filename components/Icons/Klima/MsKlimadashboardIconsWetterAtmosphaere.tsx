@@ -11,7 +11,7 @@ function SvgMsKlimadashboardIconsWetterAtmosphaere(
       {...props}
     >
       <defs>
-        <style>{'.clima-icon{fill:#005b79}'}</style>
+        <style>{'.clima-icon{fill:#005096}'}</style>
       </defs>
       <g className="clima-icon" id="c">
         <path d="M118.84,0C53.31,0,0,53.31,0,118.84s53.31,118.84,118.84,118.84,118.84-53.31,118.84-118.84S184.37,0,118.84,0ZM118.84,230.68c-61.67,0-111.84-50.17-111.84-111.84S57.17,7,118.84,7s111.84,50.17,111.84,111.84-50.17,111.84-111.84,111.84Z" />

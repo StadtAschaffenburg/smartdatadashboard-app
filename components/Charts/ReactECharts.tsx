@@ -59,7 +59,7 @@ export function ReactECharts({
         textStyle: {
           ...option.textStyle,
           fontFamily: 'Inter, sans-serif',
-          color: '#005b79',
+          color: '#005096',
           fontSize: device === 'mobile' ? 12 : 20,
         },
         ...option,

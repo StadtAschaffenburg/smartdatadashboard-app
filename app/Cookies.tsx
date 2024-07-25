@@ -42,7 +42,7 @@ export default function Cookies() {
       enableDeclineButton
       onAccept={handleAccept}
       style={{
-        background: '#005b79',
+        background: '#005096',
       }}
     >
       Einwilligung zu Cookies (Analytics, Tracking)

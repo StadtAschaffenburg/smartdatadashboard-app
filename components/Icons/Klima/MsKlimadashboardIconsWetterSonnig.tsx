@@ -9,7 +9,7 @@ function SvgMsKlimadashboardIconsWetterSonnig(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <style>{'.clima-icon{fill:#005b79}'}</style>
+        <style>{'.clima-icon{fill:#005096}'}</style>
       </defs>
       <g className="clima-icon" id="c">
         <path d="M119.5,187.7c-37.6,0-68.2-30.59-68.2-68.2s30.59-68.2,68.2-68.2,68.2,30.59,68.2,68.2-30.59,68.2-68.2,68.2ZM119.5,58.3c-33.74,0-61.2,27.45-61.2,61.2s27.45,61.2,61.2,61.2,61.2-27.45,61.2-61.2-27.45-61.2-61.2-61.2Z" />

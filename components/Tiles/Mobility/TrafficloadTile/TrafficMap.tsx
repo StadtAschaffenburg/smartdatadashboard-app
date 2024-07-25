@@ -365,7 +365,7 @@ export default function TrafficMap({
         <path
           d="M1162.26 94.607H624.256V238.355"
           id="Pfad_376"
-          stroke="#005B79"
+          stroke="#005096"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -389,7 +389,7 @@ export default function TrafficMap({
           )}
         </text>
         <text
-          fill="#005B79"
+          fill="#005096"
           fontSize="20"
           fontWeight={500}
           id="Weseler-Str.-/-Inselbogen"
@@ -419,7 +419,7 @@ export default function TrafficMap({
           )}
         </text>
         <text
-          fill="#005B79"
+          fill="#005096"
           fontSize="20"
           fontWeight={500}
           id="Albersloher-Weg-/-Heumannsweg-"
@@ -449,7 +449,7 @@ export default function TrafficMap({
           )}
         </text>
         <text
-          fill="#005B79"
+          fill="#005096"
           fontSize="20"
           fontWeight={500}
           id="Warendorfer-Str.-/-Schifffahrter-Damm"
@@ -462,22 +462,22 @@ export default function TrafficMap({
         </text>
         <path
           d="M553.5 246.064C553.5 249.654 550.59 252.564 547 252.564C543.41 252.564 540.5 249.654 540.5 246.064C540.5 242.475 543.41 239.564 547 239.564C550.59 239.564 553.5 242.475 553.5 246.064Z"
-          fill="#005B79"
+          fill="#005096"
           id="Ellipse_55"
         />
         <path
           d="M630.5 239.064C630.5 242.654 627.59 245.564 624 245.564C620.41 245.564 617.5 242.654 617.5 239.064C617.5 235.475 620.41 232.564 624 232.564C627.59 232.564 630.5 235.475 630.5 239.064Z"
-          fill="#005B79"
+          fill="#005096"
           id="Ellipse_56"
         />
         <path
           d="M600.5 308.543C600.5 312.133 597.59 315.043 594 315.043C590.41 315.043 587.5 312.133 587.5 308.543C587.5 304.953 590.41 302.043 594 302.043C597.59 302.043 600.5 304.953 600.5 308.543Z"
-          fill="#005B79"
+          fill="#005096"
           id="Ellipse_57"
         />
         <path
           d="M497.256 380.107C497.256 383.697 494.346 386.607 490.756 386.607C487.166 386.607 484.256 383.697 484.256 380.107C484.256 376.518 487.166 373.607 490.756 373.607C494.346 373.607 497.256 376.518 497.256 380.107Z"
-          fill="#005B79"
+          fill="#005096"
           id="Ellipse_58"
         />
         <text
@@ -499,7 +499,7 @@ export default function TrafficMap({
           )}
         </text>
         <text
-          fill="#005B79"
+          fill="#005096"
           fontSize="20"
           fontWeight={500}
           id="Steinfurter-Str.-/-Austermannstr."
@@ -529,7 +529,7 @@ export default function TrafficMap({
           )}
         </text>
         <text
-          fill="#005B79"
+          fill="#005096"
           fontSize="20"
           fontWeight={500}
           id="Rishon-le-Zion-Ring-/-Einsteinstr."
@@ -542,13 +542,13 @@ export default function TrafficMap({
         </text>
         <path
           d="M541 275.545C541 279.135 538.09 282.045 534.5 282.045C530.91 282.045 528 279.135 528 275.545C528 271.955 530.91 269.045 534.5 269.045C538.09 269.045 541 271.955 541 275.545Z"
-          fill="#005B79"
+          fill="#005096"
           id="Ellipse_59"
         />
         <path
           d="M1 94.607H547V245.564"
           id="Pfad_375"
-          stroke="#005B79"
+          stroke="#005096"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -556,7 +556,7 @@ export default function TrafficMap({
         <path
           d="M1 260.902H535.5V275.652"
           id="Pfad_405"
-          stroke="#005B79"
+          stroke="#005096"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -564,7 +564,7 @@ export default function TrafficMap({
         <path
           d="M1 426.292H490.5V380.107"
           id="Pfad_378"
-          stroke="#005B79"
+          stroke="#005096"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"
@@ -572,7 +572,7 @@ export default function TrafficMap({
         <path
           d="M1132.26 426.292H594.256V307.833"
           id="Pfad_377"
-          stroke="#005B79"
+          stroke="#005096"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="2"

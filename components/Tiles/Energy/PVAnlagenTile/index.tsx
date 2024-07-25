@@ -18,7 +18,6 @@ export default function PVAnlagenTile() {
       dataRetrieval="12.04.2023"
       dataSource={'Stadt Aschaffenburg'}
       embedId="energy-PVAnlagen"
-      live
       title={
         <>
           <AnimatedNumber>{data.AnzahlAnlagen}</AnimatedNumber> PV-Anlagen

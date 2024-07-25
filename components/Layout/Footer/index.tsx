@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <StairStepBackground>
       <Container>
-        <div className="flex justify-between py-16">
+        <div className="flex justify-between gap-4 py-16">
           <Link href="/impressum">
             <Title as="h5" className="underline" variant={'primary'}>
               Impressum

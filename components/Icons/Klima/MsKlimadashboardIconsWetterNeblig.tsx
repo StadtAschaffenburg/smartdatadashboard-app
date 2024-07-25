@@ -10,7 +10,7 @@ function SvgMsKlimadashboardIconsWetterNeblig(props: SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <style>{'.clima-icon{fill:#005b79}'}</style>
+        <style>{'.clima-icon{fill:#005096}'}</style>
       </defs>
       <g className="clima-icon" id="c">
         <g>

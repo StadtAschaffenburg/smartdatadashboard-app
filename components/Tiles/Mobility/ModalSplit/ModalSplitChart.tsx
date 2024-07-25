@@ -63,11 +63,15 @@ function Toggle({ onChange }: { onChange: (_val: string) => void }) {
 }
 
 const icons = {
-  KFZ: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_pkw.svg').default.src,
-  ÖPNV: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_bus.svg').default.src,
-  Fahrrad: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_rad.svg').default
-    .src,
-  Fuß: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_fuss.svg').default.src,
+  KFZ: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_pkw.svg')
+    .default.src,
+  ÖPNV: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_bus.svg')
+    .default.src,
+  Fahrrad:
+    require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_rad.svg')
+      .default.src,
+  Fuß: require('@/assets/icons/ModalSplit/MS_Klimadashboard_Icons_m_modalsplit_fuss.svg')
+    .default.src,
 }
 
 const colors = {
@@ -131,7 +135,7 @@ export default function ModalSplitChart() {
           },
           name: {
             //@ts-ignore
-            color: theme?.colors?.primary.DEFAULT || '#005b79',
+            color: theme?.colors?.primary.DEFAULT || '#005096',
             fontWeight: 'bold',
             align: 'left',
             fontSize: width <= 1600 ? 18 : 20,

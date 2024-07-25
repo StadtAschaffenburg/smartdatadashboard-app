@@ -1,20 +1,12 @@
-import Title from '@/components/Elements/Title'
 import EnergyTile from '../EnergyTile'
+import LanternsContent from './LanternsContent'
 
 // @ts-ignore
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { format } from 'date-fns'
 
-// interface PVDataType {
-//   ZEIT: string
-//   AnzahlAnlagen: number
-//   AnzahlSolarModule: number
-//   Bruttoleistung: number
-//   Nettonennleistung: number
-// }
-
-export default function LanternsTile() {
-  // const [data] = PVData as PVDataType[]
+export default async function LanternsTile() {
+  const currentCount = 4000
 
   return (
     <EnergyTile
@@ -23,20 +15,11 @@ export default function LanternsTile() {
       embedId="energy-lanterns"
       title={
         <>
-          <AnimatedNumber>{8850}</AnimatedNumber> LED-Leuchtmittel
+          <AnimatedNumber>{currentCount}</AnimatedNumber> Straßenlaternen
         </>
       }
     >
-      <div>
-        <Title as={'subtitle'}>
-          schenken Aschaffenburgs Straßen bereits klimafreundliches Licht. Die
-          Stadtnetze Aschaffenburg rüsten nach und nach alle rund{' '}
-          <span className="text-energy">
-            <AnimatedNumber>{29000}</AnimatedNumber> Straßenlaternen
-          </span>{' '}
-          im Stadtgebiet mit der Technologie aus.
-        </Title>
-      </div>
+      <LanternsContent></LanternsContent>
     </EnergyTile>
   )
 }

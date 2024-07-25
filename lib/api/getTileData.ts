@@ -14,6 +14,26 @@ export async function getTileStrings(id: string, default_value: any = []) {
   return await getTileData(id, 'strings', default_value)
 }
 
+export async function getTileDatapoint(id: string, datapoint_id: string) {
+  const data = await getTileData(id, 'datapoints');
+
+  if (!data || !Array.isArray(data)) { return null }
+
+  const item = data.find(entry => entry.id === datapoint_id)
+  
+  return item ? item.val : null
+}
+
+export async function getTileSource(id: string, source_id: string) {
+  const data = await getTileData(id, 'sources');
+
+  if (!data || !Array.isArray(data)) { return null }
+
+  const item = data.find(entry => entry.id === source_id)
+  
+  return item ? item.content : null
+}
+
 export type TileContentStrings = {
   title: string
   text: string
