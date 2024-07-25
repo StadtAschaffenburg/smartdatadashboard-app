@@ -5,11 +5,12 @@
   "id": "4f9ee933-b727-40da-ba95-ac91a533dadf",
   "legend": null,
   "name": "Energie - PV Anlagen",
-  "retrieval": null,
-  "source": null,
+  "retrieval": "Juli 2024",
+  "source": "Stadt Aschaffenburg, Amt für Stadtplanung und Klimamanagement",
   "strings": [],
   "subtitle": null,
   "tile_id": "f03436ba-c273-41b9-9193-4ec2d4d723a1",
-  "title": "PV Anlagen",
+  "title": null,
+  "datapoints": null,
   "sources": []
 }

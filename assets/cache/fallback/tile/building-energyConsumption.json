@@ -11,6 +11,7 @@
   "subtitle": null,
   "tile_id": "c9414bd8-8b9a-4aac-b581-50e4db72917a",
   "title": "Energieverbrauch Gebäude",
+  "datapoints": null,
   "sources": [
     {
       "id": "gebaeude-strom",
