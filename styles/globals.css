@@ -20,3 +20,19 @@
     column-fill: auto;
   }
 }
+
+.ab-icon-klima {
+  fill: rgb(0, 159, 222);
+}
+
+.ab-icon-energie {
+  fill: rgb(242, 139, 0);
+}
+
+.ab-icon-mobilitaet {
+  fill: rgb(3, 101, 122);
+}
+
+.ab-icon-gebaeude {
+  fill: rgb(138, 15, 118);
+}

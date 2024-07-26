@@ -1,14 +1,13 @@
-'use client'
+import 'server-only'
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
-
-// @ts-ignore
+import { getTileDatapoint } from '@/lib/api/getTileData'
 import { MsKlimadashboardIconsEPvLanterns } from '@/components/Icons/Energie'
 
-const totalCount: number = 10000
+export default async function LanternsContent() {
+  const count = (await getTileDatapoint('energie-laternen', 'total')) * 1
 
-export default function LanternsContent() {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
@@ -18,10 +17,9 @@ export default function LanternsContent() {
         <div className="flex flex-grow flex-col justify-between">
           <Title as={'subtitle'}>
             in Aschaffenburg sind bereits mit modernster LED-Technik
-            ausgestattet. Die Stadt Aschaffenburg saniert nach und nach alle
-            rund{' '}
+            ausgestattet. Die Stadt Aschaffenburg saniert nach und nach all rund{' '}
             <span className="text-energy">
-              <AnimatedNumber>{totalCount}</AnimatedNumber> Straßenlaternen
+              <AnimatedNumber>{count ?? 0}</AnimatedNumber> Straßenlaternen
             </span>{' '}
             im Stadtgebiet mit LED-Technik, um Energie zu sparen und den
             CO2-Ausstoß zu mindern

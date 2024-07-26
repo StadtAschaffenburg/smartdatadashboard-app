@@ -73,7 +73,7 @@ export default async function IconTile({
       source={data?.data_url}
       variant={variant}
     >
-      <div className="px-2.5">
+      <div className="n:px-2.5">
         <div className="absolute right-16 top-16 hidden lg:block">
           <Icon
             className={cx(

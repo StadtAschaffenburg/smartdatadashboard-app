@@ -30,7 +30,7 @@ export default function EnergyConsumptionChart({ data }: Props) {
           axisLabel: {
             overflow: 'truncate', // or 'break' to continue in a new line
             interval: 0,
-            color: '#6060d6',
+            color: '#8a0f76',
             fontSize: device === 'mobile' ? 12 : 20,
           },
         },
@@ -42,7 +42,7 @@ export default function EnergyConsumptionChart({ data }: Props) {
           {
             data,
             type: 'bar',
-            color: '#837ef4',
+            color: '#8a0f76',
             barWidth: '11px',
             itemStyle: {
               opacity: 0.77,

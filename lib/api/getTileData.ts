@@ -14,10 +14,18 @@ export async function getTileStrings(id: string, default_value: any = []) {
   return await getTileData(id, 'strings', default_value)
 }
 
-export async function getTileDatapoint(id: string, datapoint_id: string) {
+export async function getTileDatapoints(id: string) {
   const data = await getTileData(id, 'datapoints');
 
   if (!data || !Array.isArray(data)) { return null }
+  
+  return data || null
+}
+
+export async function getTileDatapoint(id: string, datapoint_id: string) {
+  const data = await getTileDatapoints(id);
+
+  if (!data) { return null }
 
   const item = data.find(entry => entry.id === datapoint_id)
   
