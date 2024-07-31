@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import getLiveData from '@/lib/api/getLiveData'
 
 const getUVIndex = async () => {
@@ -16,9 +16,18 @@ type UVDataProps = number[]
 
 export default function useUVIndex() {
   const [data, setData] = useState<UVDataProps[]>([])
+  const isFetching = useRef(false)
 
   useEffect(() => {
-    getUVIndex().then(e => setData(e as UVDataProps[]))
+    if (isFetching.current) { return }
+    isFetching.current = true
+    
+    getUVIndex().then(result => {
+      setData(result as UVDataProps[]);
+    }).catch(() => {
+    }).finally(() => {
+      isFetching.current = false
+    });
   }, [])
 
   useEffect(() => {

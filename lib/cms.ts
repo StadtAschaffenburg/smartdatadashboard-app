@@ -82,6 +82,7 @@ class APIClient {
         const current_version = await this.getAPI('content/version', true, lifetime);
   
         if (current_version && current_version !== this.version_cms) {
+          // eslint-disable-next-line no-console
           console.log('💾 New content version:', this.version_cms, '=>', current_version);
   
           try {
@@ -92,6 +93,7 @@ class APIClient {
             fs.renameSync(this.getFolderPath('', this.version_cms), this.getFolderPath());
             fs.mkdirSync(this.getFolderPath('', current_version), { recursive: true });
           } catch (err) {
+            // eslint-disable-next-line no-console
             console.error('🚫 Error updating content version:', err);
           }
   

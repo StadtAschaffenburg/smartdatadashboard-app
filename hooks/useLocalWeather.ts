@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import getLiveData from '@/lib/api/getLiveData'
 
 interface LocalWeather {
@@ -47,14 +47,21 @@ const getLocalWeather = async () => {
 
 export default function useLocalWeather() {
   const [data, setData] = useState<LocalWeather | null>(null)
+  const isFetching = useRef(false)
 
   useEffect(() => {
+    if (isFetching.current) { return }
+    isFetching.current = true
+    
     getLocalWeather().then(weatherData => {
       if (weatherData) {
         setData(weatherData as LocalWeather);
       }
+    }).catch(() => {
+    }).finally(() => {
+      isFetching.current = false
     });
-  }, []);
+  }, [])
 
-  return data;
+  return data
 }

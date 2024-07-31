@@ -1,7 +1,7 @@
 'use client'
 
 import Title from '@/components/Elements/Title'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
 import getPageData from '@/lib/api/getPageData'
@@ -10,15 +10,26 @@ interface Props {
   slug: string
 }
 
-export default function Impressum({ slug }: Props): JSX.Element {
+export default function ContentView({ slug }: Props): JSX.Element {
   const [content, setText] = useState<string | null>(null)
+  const isFetching = useRef(false)
 
   useEffect(() => {
-    ;(async () => {
-      const data = await getPageData(slug)
-      setText(data?.content)
-    })()
-  }, [])
+    const fetchData = async () => {
+      if (isFetching.current) {
+        return
+      }
+      isFetching.current = true
+      try {
+        const data = await getPageData(slug)
+        setText(data?.content)
+      } finally {
+        isFetching.current = false
+      }
+    }
+
+    fetchData()
+  }, [slug])
 
   if (content) {
     return (

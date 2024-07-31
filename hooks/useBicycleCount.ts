@@ -1,5 +1,5 @@
 import { isEqual } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import getLiveData from '@/lib/api/getLiveData'
 
 const getBicycleData = async () => {
@@ -43,8 +43,18 @@ export function useBicycleCount(timestamp: Date) {
   const [totalMin, setTotalMin] = useState(0)
   const [totalMax, setTotalMax] = useState(0)
 
+  const isFetching = useRef(false);
+
   useEffect(() => {
-    getBicycleData().then(e => setData(e))
+    if (isFetching.current) { return };
+    isFetching.current = true;
+    
+    getBicycleData().then(result => {
+      setData(result);
+    }).catch(() => {
+    }).finally(() => {
+      isFetching.current = false;
+    });
   }, [])
 
   useEffect(() => {
