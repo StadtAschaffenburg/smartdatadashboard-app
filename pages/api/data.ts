@@ -7,8 +7,9 @@ interface DataResponse {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<DataResponse>) {
   const route = req.query.route as string;
+  const lifetime = parseInt(req.query.lifetime as string, 10);
 
-  const data = await client.getAPI(route);
+  const data = await client.getAPI(route, true, lifetime);
   
   if (data) {
     res.status(200).json(data);

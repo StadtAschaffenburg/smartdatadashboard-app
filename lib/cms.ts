@@ -85,7 +85,7 @@ class APIClient {
           console.log('💾 New content version:', this.version_cms, '=>', current_version);
   
           try {
-            if (this.version_cms !== 'fallback') {
+            if (this.version_cms !== this.fallback_folder) {
               fs.rmSync(this.getFolderPath(), { recursive: true, force: true }); // remove old cache
             }
     

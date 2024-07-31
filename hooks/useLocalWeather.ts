@@ -20,7 +20,7 @@ interface LocalWeather {
 }
 
 const getLocalWeather = async () => {
-  const response = await getLiveData('thingsboard/weather', 30)
+  const response = await getLiveData('thingsboard/weather', 1)
 
   if (response !== null) {
     const payload = Object.entries(response)
