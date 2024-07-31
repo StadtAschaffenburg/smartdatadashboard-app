@@ -7,8 +7,8 @@ export default function EnergyView() {
   return (
     <BaseView type="energy">
       <Columns>
-        <PVAnlagenTile />
         <LanternsTile />
+        <PVAnlagenTile />
       </Columns>
     </BaseView>
   )

@@ -10,7 +10,10 @@ interface CacheEntry {
 class APIClient {
   private static instance: APIClient
   private cache: Map<string, CacheEntry> = new Map()
-  private version_cms: string = 'fallback'
+  private use_named_folders: boolean = false
+  private fallback_folder: string = 'fallback'
+  private content_folder: string = 'content'
+  private version_cms: string = this.fallback_folder
   private id: string
   private contentVersionPromise: Promise<boolean> | null = null
 
@@ -140,7 +143,7 @@ class APIClient {
   private getFilePath(
     id: string | number | boolean,
     folder: string = '',
-    version: string = 'fallback',
+    version: string = this.fallback_folder,
   ) {
     return [
       this.getFolderPath(folder, version),
@@ -158,8 +161,13 @@ class APIClient {
 
   private getFolderPath(
     folder: string = '',
-    version: string = 'fallback'
+    version: string = this.fallback_folder
   ) {
+    // use named folders for the cache
+    if (!this.use_named_folders && version !== this.fallback_folder) {
+      version = this.content_folder
+    }
+
     return [
       this.getCachedDataPath(),
       folder !== 'api' ? version : false,
@@ -167,7 +175,7 @@ class APIClient {
     ].filter(Boolean).join('/')
   }
 
-  private async readFile(id: string | number | boolean = false, folder: string, version: string = 'fallback') {
+  private async readFile(id: string | number | boolean = false, folder: string, version: string = this.fallback_folder) {
     if (!id) {
       id = 'default'
     }
