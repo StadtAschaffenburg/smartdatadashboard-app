@@ -11,7 +11,13 @@ import { ForwardRefExoticComponent, SVGProps, useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
 import useDevice from '@/hooks/useDevice'
-import { MsKlimadashboardIconsKlimakenntageEis, MsKlimadashboardIconsKlimakenntageFrost, MsKlimadashboardIconsKlimakenntageHeiss, MsKlimadashboardIconsKlimakenntageSommer, MsKlimadashboardIconsKlimakenntageTropennacht } from '@/components/Icons/Klima'
+import {
+  MsKlimadashboardIconsKlimakenntageEis,
+  MsKlimadashboardIconsKlimakenntageFrost,
+  MsKlimadashboardIconsKlimakenntageHeiss,
+  MsKlimadashboardIconsKlimakenntageSommer,
+  MsKlimadashboardIconsKlimakenntageTropennacht,
+} from '@/components/Icons/Klima'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -38,9 +44,7 @@ const STARTING_YEAR = 1990
 const data = climateIndicesData as ClimateIndex[]
 const getSeries = (property: keyof ClimateIndex) => {
   const arr = data
-    .filter(
-      e =>  new Date(e.timestamp).getFullYear() >= STARTING_YEAR
-    )
+    .filter(e => new Date(e.timestamp).getFullYear() >= STARTING_YEAR)
     .map(e => [
       parse(e.timestamp, 'yyyy-MM-dd HH:mm:ssXXX', new Date()),
       e[property],
@@ -184,7 +188,7 @@ export default function ClimateIndicesChart() {
       },
       data: indices[e as IndicesTypes].seriesOption.data?.filter(
         // @ts-ignore
-        ([date, _val]) => getYear(new Date(date)) !== new Date().getFullYear()
+        ([date, _val]) => getYear(new Date(date)) !== new Date().getFullYear(),
       ),
     }))
 
@@ -192,7 +196,9 @@ export default function ClimateIndicesChart() {
     .filter(e => seriesVisible[e as IndicesTypes])
     .map(e => ({
       ...indices[e as IndicesTypes].seriesOption,
-      name: `${indices[e as IndicesTypes].seriesOption.name} (${new Date().getFullYear()})`,
+      name: `${
+        indices[e as IndicesTypes].seriesOption.name
+      } (${new Date().getFullYear()})`,
       type: 'line',
       itemStyle: {
         opacity: 0,
@@ -203,10 +209,10 @@ export default function ClimateIndicesChart() {
       },
       data: indices[e as IndicesTypes].seriesOption.data?.filter(
         // @ts-ignore
-        ([date, _val]) => getYear(new Date(date)) >= new Date().getFullYear() - 1
+        ([date, _val]) =>
+          getYear(new Date(date)) >= new Date().getFullYear() - 1,
       ),
     }))
-
 
   return (
     <div className="flex h-full w-full flex-col items-center p-5 2xl:flex-row">
@@ -224,17 +230,22 @@ export default function ClimateIndicesChart() {
                 left: 40,
                 right: 40,
               },
-              series: [
-                ...series,
-                ...curYearSeries,
-              ],
+              series: [...series, ...curYearSeries],
               xAxis: {
                 type: 'time',
                 axisLabel: {
                   fontSize: device === 'mobile' ? 12 : 20,
                 },
-                min: parse(`${STARTING_YEAR}-01-01`, 'yyyy-MM-dd', new Date()).getTime(),
-                max: parse(`${new Date().getFullYear()}-01-01`, 'yyyy-MM-dd', new Date()).getTime(),
+                min: parse(
+                  `${STARTING_YEAR}-01-01`,
+                  'yyyy-MM-dd',
+                  new Date(),
+                ).getTime(),
+                max: parse(
+                  `${new Date().getFullYear()}-01-01`,
+                  'yyyy-MM-dd',
+                  new Date(),
+                ).getTime(),
               },
               yAxis: {
                 type: 'value',
@@ -246,7 +257,7 @@ export default function ClimateIndicesChart() {
                       return ''
                     }
                     return val
-                  }
+                  },
                 },
               },
               animation: true,

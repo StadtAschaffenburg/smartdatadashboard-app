@@ -114,7 +114,7 @@ class APIClient {
     const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
     
     try {
-      const response = await this.fetchJSON(host + '/' + api) as any
+      const response = await this.fetchJSON(host + api) as any
 
       return response || null
     } catch (error) {

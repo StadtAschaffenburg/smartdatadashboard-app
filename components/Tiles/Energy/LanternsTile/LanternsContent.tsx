@@ -6,7 +6,7 @@ import { getTileDatapoint } from '@/lib/api/getTileData'
 import { MsKlimadashboardIconsEPvLanterns } from '@/components/Icons/Energie'
 
 export default async function LanternsContent() {
-  const count = (await getTileDatapoint('energie-laternen', 'total')) * 1
+  const count = (await getTileDatapoint('energy-lanterns', 'total')) * 1
 
   return (
     <div>

@@ -83,7 +83,7 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <PhotovoltTile />
     case 'energy-wind':
       return <WindEnergyTile />
-    case 'energy-PVAnlagen':
+    case 'energy-pvanlagen':
       return <PVAnlagenTile />
     case 'energy-energietraeger':
       return <EnergietraegerTile />

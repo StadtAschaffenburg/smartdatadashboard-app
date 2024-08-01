@@ -7,7 +7,7 @@ export default function PVAnlagenTile() {
     <EnergyTile
       dataRetrieval=""
       dataSource={'Stadt Aschaffenburg'}
-      embedId="energy-PVAnlagen"
+      embedId="energy-pvanlagen"
       title={<PVAnlagenTitle />}
     >
       <PVAnlagenContent></PVAnlagenContent>

@@ -7,7 +7,7 @@ import { getTileDatapoint } from '@/lib/api/getTileData'
 
 export default async function PVAnlagenContent() {
   const capacity =
-    (await getTileDatapoint('energie-pv-anlagen', 'kapazitaet')) * 1
+    (await getTileDatapoint('energy-pvanlagen', 'kapazitaet')) * 1
 
   return (
     <div>

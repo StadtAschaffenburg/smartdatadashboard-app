@@ -10162,5 +10162,49 @@
         "timestamp": "2024-02-01 00:00:00+00:00",
         "tropennaechte": 0.0,
         "wmo_station_id": null
+    },
+    {
+        "dwd_station_id": 2480.0,
+        "eistage": 0.0,
+        "frosttage": 1.0,
+        "heisse_tage": 0.0,
+        "observation_type": "historical",
+        "sommertage": 0.0,
+        "timestamp": "2024-03-01 00:00:00+00:00",
+        "tropennaechte": 0.0,
+        "wmo_station_id": null
+    },
+    {
+        "dwd_station_id": 2480.0,
+        "eistage": 0.0,
+        "frosttage": 2.0,
+        "heisse_tage": 0.0,
+        "observation_type": "historical",
+        "sommertage": 3.0,
+        "timestamp": "2024-04-01 00:00:00+00:00",
+        "tropennaechte": 0.0,
+        "wmo_station_id": null
+    },
+    {
+        "dwd_station_id": 2480.0,
+        "eistage": 0.0,
+        "frosttage": 0.0,
+        "heisse_tage": 0.0,
+        "observation_type": "historical",
+        "sommertage": 7.0,
+        "timestamp": "2024-05-01 00:00:00+00:00",
+        "tropennaechte": 0.0,
+        "wmo_station_id": null
+    },
+    {
+        "dwd_station_id": 2480.0,
+        "eistage": 0.0,
+        "frosttage": 0.0,
+        "heisse_tage": 3.0,
+        "observation_type": "historical",
+        "sommertage": 9.0,
+        "timestamp": "2024-06-01 00:00:00+00:00",
+        "tropennaechte": 0.0,
+        "wmo_station_id": null
     }
 ]
