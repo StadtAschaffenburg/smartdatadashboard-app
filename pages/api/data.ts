@@ -13,7 +13,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   const data = await client.getAPI(route, true, lifetime);
 
   await NextCors(req, res, {
-    // Options
     methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
     origin: '*',
     optionsSuccessStatus: 200, // Some legacy browsers choke on 204

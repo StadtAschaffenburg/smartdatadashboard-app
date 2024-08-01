@@ -1,5 +1,11 @@
 import axios from 'axios'
 import * as fs from 'fs'
+import https from 'https'
+import url from 'url';
+
+const agent = new https.Agent({
+  rejectUnauthorized: false,
+});
 
 interface CacheEntry {
   payload: any
@@ -41,7 +47,7 @@ class APIClient {
 
     const payload = await this.fetchJSON(endpoint) // fetch the data from the API
 
-    if (payload !== null) {
+    if (payload !== null && payload?.status === 'success') {
       // save the data to the cache
       this.saveFile(id, collection, payload)
       return payload
@@ -110,9 +116,24 @@ class APIClient {
     return this.contentVersionPromise;
   }
 
+  // request data from the cache (if available)
   public async getCachedData(api: string): Promise<any> {
     const host = process.env.NEXT_PUBLIC_CACHE_ROUTE || 'http://localhost:3000/api/'
+
+    // server side rendering
+    if (typeof window === 'undefined') {
+      try {
+        const parsedUrl = url.parse(api, true);
+        const { collection, id } = parsedUrl.query;
+
+        const response = await this.getContent(collection as string, id as string) as any
+        return response || null
+      } catch (error) {
+        return null;
+      }
+    }
     
+    // client request
     try {
       const response = await this.fetchJSON(host + api) as any
 
@@ -126,7 +147,10 @@ class APIClient {
     const timeout = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
     try {
-      const response = await axios.get(endpoint.replace(/([^:]\/)\/+/g, '$1'), { timeout })
+      const response = await axios.get(endpoint.replace(/([^:]\/)\/+/g, '$1'), { 
+        timeout, 
+        httpsAgent: agent 
+      });
 
       if (response?.data?.status === 'success' || response?.status === 200) {
         return response?.data?.payload ?? response?.data
