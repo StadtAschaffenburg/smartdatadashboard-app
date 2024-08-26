@@ -80,7 +80,13 @@ export default function WeatherTileContent() {
               <div className="flex-1">
                 <Phenomenon
                   hide_icon={true}
-                  meta={'(' + getWindDirection(weather?.wind_direction) + ')'}
+                  meta={
+                    '(' +
+                    getWindDirection(
+                      local_weather?.wind_direction ?? weather?.wind_direction,
+                    ) +
+                    ')'
+                  }
                   phenomenon="winddirection"
                   value={
                     local_weather?.wind_direction ?? weather?.wind_direction
