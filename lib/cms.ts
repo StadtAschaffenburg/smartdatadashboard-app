@@ -15,17 +15,11 @@ interface CacheEntry {
 
 class APIClient {
   private static instance: APIClient
-  private cache: Map<string, CacheEntry> = new Map()
-  private use_named_folders: boolean = false
+  private use_versioned_folders: boolean = false
   private fallback_folder: string = 'fallback'
   private content_folder: string = 'content'
   private version_cms: string = this.fallback_folder
-  private id: string
   private contentVersionPromise: Promise<boolean> | null = null
-
-  private constructor() {
-    this.id = Math.random().toString(36).substring(2, 15)
-  }
 
   public static getInstance(): APIClient {
     if (!APIClient.instance) {
@@ -47,7 +41,7 @@ class APIClient {
 
     const payload = await this.fetchJSON(endpoint) // fetch the data from the API
 
-    if (payload !== null && payload?.status === 'success') {
+    if (payload) {
       // save the data to the cache
       this.saveFile(id, collection, payload)
       return payload
@@ -71,6 +65,7 @@ class APIClient {
     const payload = await this.fetchJSON(endpoint)
 
     if (payload !== null) {
+      // save the data to the cache
       this.saveFile(file_name, 'api', { payload, expiry: Date.now() + lifetime * 60 * 1000 })
       return payload
     }
@@ -93,11 +88,9 @@ class APIClient {
   
           try {
             if (this.version_cms !== this.fallback_folder) {
-              fs.rmSync(this.getFolderPath(), { recursive: true, force: true }); // remove old cache
+              fs.rmSync(this.getFolderPath('', this.version_cms), { recursive: true, force: true }); // remove content cache
             }
-    
-            fs.renameSync(this.getFolderPath('', this.version_cms), this.getFolderPath());
-            fs.mkdirSync(this.getFolderPath('', current_version), { recursive: true });
+            fs.mkdirSync(this.getFolderPath('', current_version), { recursive: true }); // create new cache folder
           } catch (err) {
             // eslint-disable-next-line no-console
             console.error('🚫 Error updating content version:', err);
@@ -143,6 +136,8 @@ class APIClient {
     }
   }
 
+  // fetch the JSON data from the API
+  // return null if the request failed or the data is not available
   private async fetchJSON(endpoint: string): Promise<any> {
     const timeout = Number(process.env.NEXT_PUBLIC_API_TIMEOUT) || 5000
 
@@ -162,10 +157,12 @@ class APIClient {
     }
   }
 
+  // get the API endpoint
   private getAPIEndpoint(): string {
     return process.env.NEXT_PUBLIC_SSD_API || 'https://dashboard-cms.aschaffenburg.de/api/'
   }
 
+  // get the file path for the cache
   private getFilePath(
     id: string | number | boolean,
     folder: string = '',
@@ -190,7 +187,7 @@ class APIClient {
     version: string = this.fallback_folder
   ) {
     // use named folders for the cache
-    if (!this.use_named_folders && version !== this.fallback_folder) {
+    if (!this.use_versioned_folders && version !== this.fallback_folder) {
       version = this.content_folder
     }
 
@@ -201,6 +198,7 @@ class APIClient {
     ].filter(Boolean).join('/')
   }
 
+  // read the data from the cache
   private async readFile(id: string | number | boolean = false, folder: string, version: string = this.fallback_folder) {
     if (!id) {
       id = 'default'
@@ -214,21 +212,28 @@ class APIClient {
     }
   }
   
+  // save the data to the cache
+  // the data will be saved to the current version and the fallback folder
+  // the fallback folder is used if the current version is not available and the API request failed
   private async saveFile(id: string | number | boolean = false, folder: string, data: any) {
     if (!id) {
       id = 'default'
     }
 
-    const folder_path = this.getFolderPath(folder, this.version_cms)
-    const file_path = this.getFolderPath(folder, this.version_cms) + '/' + id + '.json'
+    const versions = [this.version_cms, this.fallback_folder] // save the data to the current version and the fallback folder
 
-    try {
-      fs.mkdirSync(folder_path, { recursive: true })
-      fs.writeFileSync(file_path, JSON.stringify(data, null, 2))
+    for (const version of versions) {
+      const folder_path = this.getFolderPath(folder, version)
+      const file_path = folder_path + '/' + id + '.json' 
 
-      console.log('💾 Saved file:', file_path)
-    } catch (err) {
-      console.error('🚫 Error saving file:', file_path)
+      try {
+        fs.mkdirSync(folder_path, { recursive: true })
+        fs.writeFileSync(file_path, JSON.stringify(data, null, 2))
+  
+        console.log('💾 Saved file:', file_path)
+      } catch (err) {
+        console.error('🚫 Error saving file:', file_path)
+      }
     }
 
     return true
