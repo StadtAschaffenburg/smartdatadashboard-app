@@ -1,6 +1,6 @@
 'use client'
 
-import CookieConsent from 'react-cookie-consent'
+import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent'
 
 export default function Cookies() {
   const handleAccept = () => {
@@ -27,6 +27,11 @@ export default function Cookies() {
     })()
   }
 
+  if (getCookieConsentValue() === 'true') {
+    handleAccept()
+    return
+  }
+
   return (
     <CookieConsent
       buttonStyle={{
@@ -35,6 +40,7 @@ export default function Cookies() {
         borderRadius: '4px',
       }}
       buttonText="Akzeptieren"
+      debug={true}
       declineButtonStyle={{
         borderRadius: '4px',
       }}
