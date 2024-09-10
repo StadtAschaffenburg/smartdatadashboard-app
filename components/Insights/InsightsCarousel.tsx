@@ -46,7 +46,7 @@ export default function InsightsCarousel({
         perPage: pages[device],
       }}
     >
-      {insights?.map(({ slug, title, image }) => (
+      {insights?.map(({ slug, title }) => (
         <InsightsTile
           image={''}
           key={slug}

@@ -1,10 +1,4 @@
-export type TileTypePrefix =
-  | 'climate'
-  | 'mobility'
-  | 'energy'
-  | 'building'
-  | 'survey'
-  | 'successStory'
+export type TileTypePrefix = 'climate' | 'mobility' | 'energy' | 'building'
 
 export type ClimateTypes =
   | 'weather'
@@ -12,11 +6,26 @@ export type ClimateTypes =
   | 'indices'
   | 'development'
   | 'garbage'
+  | 'data'
+  | 'lightning'
+  | 'rainfall'
+  | 'uv'
 export type MobilityTypes =
   | 'bicycle'
   | 'stadtradeln'
   | 'bus'
   | 'modalSplit'
   | 'awm'
-export type BuildingsTypes = 'ecoProfit' | 'energyConsumption'
-export type EnergyTypes = 'PV' | 'wind' | 'energietraeger'
+export type BuildingsTypes =
+  | 'ecoProfit'
+  | 'energyConsumption'
+  | 'trafficload'
+  | 'building'
+  | 'masterplan'
+  | 'passengers'
+export type EnergyTypes =
+  | 'PV'
+  | 'wind'
+  | 'energietraeger'
+  | 'lanterns'
+  | 'pvanlagen'
