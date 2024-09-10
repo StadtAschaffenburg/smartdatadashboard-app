@@ -38,7 +38,7 @@ class APIClient {
 
     const payload = await this.fetchJSON(endpoint) // fetch the data from the API
 
-    if (payload) {
+    if (payload && payload?.status === 'success') {
       // save the data to the cache
       this.saveFile(id, collection, payload)
       return payload
