@@ -33,7 +33,7 @@ export default function BusContent() {
 
   const data: BusDataType[] = BusData
   const years: string[] = data.map(e => e.ZEIT.toString())
-  const [yearIndex, setYearIndex] = useState(0)
+  const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   useEffect(() => {
     const row: BusDataType = data[yearIndex]

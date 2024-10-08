@@ -2,7 +2,7 @@
 
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import Title from '@/components/Elements/Title'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export type AvgTempData = {
   [x: string]: {
@@ -10,28 +10,23 @@ export type AvgTempData = {
   }
 }
 
-// const zero = {
-//   value: new Array(12).fill(0),
-//   name: '0',
-//   lineStyle: {
-//     color: '#14b3d9',
-//     width: 4,
-//   },
-//   itemStyle: {
-//     opacity: 0,
-//   },
-// }
-
 export default function RadarChart({ data }: { data: AvgTempData }) {
   const [years, setYears] = useState<string[]>([])
   const [seriesData, setSeriesData] = useState<any[]>([])
   const [counter, setCounter] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const isPausedRef = useRef(isPaused)
 
   useEffect(() => {
-    const timer = setInterval(
-      () => setCounter(prevCounter => prevCounter + 1),
-      200,
-    )
+    isPausedRef.current = isPaused
+  }, [isPaused])
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!isPausedRef.current) {
+        setCounter(prevCounter => prevCounter + 1)
+      }
+    }, 200)
     return () => clearInterval(timer)
   }, [])
 
@@ -70,13 +65,17 @@ export default function RadarChart({ data }: { data: AvgTempData }) {
   }, [years])
 
   return (
-    <div className="relative h-full w-full">
+    <div
+      className="relative h-full w-full"
+      onClick={() => setCounter(prevCounter => prevCounter + 1)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <div className="absolute flex h-full w-full items-center justify-center">
         <Title as={'h4'} className="z-10 text-2xl">
           {years[years.length - 1]}
         </Title>
       </div>
-
       <ReactECharts
         option={{
           animation: false,

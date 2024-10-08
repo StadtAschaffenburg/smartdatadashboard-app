@@ -9,10 +9,8 @@ const agent = new https.Agent({
 
 class APIClient {
   private static instance: APIClient
-  private use_versioned_folders: boolean = false
   private fallback_folder: string = 'fallback'
   private content_folder: string = 'content'
-  private contentVersionPromise: Promise<boolean> | null = null
 
   public static getInstance(): APIClient {
     if (!APIClient.instance) {
@@ -119,7 +117,7 @@ class APIClient {
         httpsAgent: agent,
       })
 
-      if (response?.data?.status === 'success' || response?.status === 200) {
+      if (response?.data?.result === 'success' || response?.status === 200) {
         return response?.data?.payload ?? response?.data
       }
 
@@ -220,7 +218,6 @@ class APIClient {
     try {
       fs.mkdirSync(folder_path, { recursive: true })
       fs.writeFileSync(file_path, JSON.stringify(data, null, 2))
-
       console.log('💾 Saved file:', file_path)
       return true
     } catch (err) {
