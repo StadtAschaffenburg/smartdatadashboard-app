@@ -52,6 +52,11 @@ const getSeries = (property: keyof ClimateIndex) => {
     .reduce((acc: Record<string, number>, [timestamp, value]) => {
       const year = getYear(timestamp as Date)
 
+      // if current year, ignore
+      if (year === new Date().getFullYear()) {
+        return acc
+      }
+
       acc[year] = (acc[year] ?? 0) + (value as number)
 
       return acc

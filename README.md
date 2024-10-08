@@ -35,9 +35,19 @@ You should now be able to access the application at `http://localhost:3000`.
 
 Bind the port (e. g. 3000) to your domain (nginx: `proxy_pass`). Make sure to restart the process after you update the app.
 
+## Content Management
+
+The app uses a static file cache to store any external content. This is a simple yet effective way to avoid unnecessary API calls. There are three stages stages:
+
+1. Deliver the corresponding file from the cache.
+2. If the cache is empty: fetch it from the CMS system and store it in the cache.
+3. If the CMS can't deliver the requested file: fetch it from the fallback folder (last completed response).
+
+After updating the CMS the cache folder (`/assets/cache/content`) needs to be flushed. Just call the following hook: `/api/flush?secret=[NEXT_PUBLIC_FLUSH_SECRET]`
+
 ## Features
 
-The  web application provides the following features:
+The web application provides the following features:
 
 - **Data visualization:** The application visualizes open smart city data for the city of Aschaffenburg using different charts, including bar charts, line charts, and scatter plots. The charts are interactive and allow users to filter the data by different criteria.
 
