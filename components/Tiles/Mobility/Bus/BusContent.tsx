@@ -32,8 +32,8 @@ export default function BusContent() {
   const [hybridCount, setHybridCount] = useState(0)
 
   const data: BusDataType[] = BusData
-  const labels: string[] = data.map(e => e.ZEIT.toString())
-  const [yearIndex, setYearIndex] = useState(0)
+  const years: string[] = data.map(e => e.ZEIT.toString())
+  const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   useEffect(() => {
     const row: BusDataType = data[yearIndex]
@@ -86,24 +86,23 @@ export default function BusContent() {
         </div>
         {width < 1800 && (
           <MobileSlider
-            defaultValue={[yearIndex]}
-            firstValueMobile={data.length - 1}
-            labels={labels}
-            max={data.length - 1}
+            defaultValue={[years.length - 1]}
+            firstValueMobile={years.length - 1}
+            labels={years}
+            max={years.length - 1}
             min={0}
             onValueChange={([index]) => setYearIndex(index)}
-            value={[yearIndex]}
             variant={'mobility'}
           />
         )}
         {width >= 1800 && (
           <Slider
-            firstValueMobile={3}
-            labels={labels}
-            max={data.length - 1}
+            defaultValue={[years.length - 1]}
+            firstValueMobile={years.length - 1}
+            labels={years}
+            max={years.length - 1}
             min={0}
             onValueChange={([index]) => setYearIndex(index)}
-            value={[yearIndex]}
             variant={'mobility'}
           />
         )}

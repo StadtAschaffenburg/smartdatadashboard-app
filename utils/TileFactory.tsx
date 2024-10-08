@@ -1,6 +1,5 @@
 import EcoProfitTile from '@/components/Tiles/Buildings/EcoProfit'
 import EnergyComsumptionTile from '@/components/Tiles/Buildings/EnergyConsumption'
-import RenovationTile from '@/components/Tiles/Buildings/Renovation'
 import CO2EmissionsTile from '@/components/Tiles/Climate/CO2EmissionsTile'
 import ClimateIndicesTile from '@/components/Tiles/Climate/ClimateIndices'
 import ClimateDevelopmentTile from '@/components/Tiles/Climate/Devlopment'
@@ -27,22 +26,14 @@ import {
   MobilityTypes,
   TileTypePrefix,
 } from '@/types/tile'
-import { ID } from '@directus/sdk'
 
 type TileTypeSuffix =
   | ClimateTypes
   | MobilityTypes
   | BuildingsTypes
   | EnergyTypes
-  | ID
 
-type SuccessStoryTileType = 'successStory'
-type SurveyTileType = 'survey'
-
-export type TileType =
-  | SuccessStoryTileType
-  | SurveyTileType
-  | `${TileTypePrefix}-${TileTypeSuffix}`
+export type TileType = `${TileTypePrefix}-${TileTypeSuffix}`
 
 interface TileFactoryProps {
   type: TileType
@@ -75,8 +66,6 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <EcoProfitTile />
     case 'building-energyConsumption':
       return <EnergyComsumptionTile />
-    case 'building-renovation':
-      return <RenovationTile />
 
     // ---- ENERGY ----
     case 'energy-PV':
