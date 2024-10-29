@@ -43,7 +43,7 @@ The app uses a static file cache to store any external content. This is a simple
 2. If the cache is empty: fetch it from the CMS system and store it in the cache.
 3. If the CMS can't deliver the requested file: fetch it from the fallback folder (last completed response).
 
-After updating the CMS the cache folder (`/assets/cache/content`) needs to be flushed. Just call the following hook: `/api/flush?secret=[NEXT_PUBLIC_FLUSH_SECRET]`
+After updating the CMS the cache folder (`/assets/cache/content`) needs to be flushed. Just call the following hook: `/api/flush?secret=[NEXT_PUBLIC_API_SECRET]`
 
 ## Features
 

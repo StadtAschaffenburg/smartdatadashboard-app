@@ -1,41 +1,21 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import * as fs from 'fs'
-import path from 'path'
+import { checkSecret } from '@/utils/api'
+import { flushContentCache } from '@/lib/cache'
 
 type Data = {
   message: string
   error?: string
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
-  const { secret } = req.query
-
-  // Typüberprüfung für das Secret (string sicherstellen)
-  if (
-    typeof secret !== 'string' ||
-    secret !== process.env.NEXT_PUBLIC_FLUSH_SECRET
-  ) {
+  if (!checkSecret(req)) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  const cacheDir = path.join(process.cwd(), 'assets/cache/content')
+  await flushContentCache()
 
-  try {
-    if (fs.existsSync(cacheDir)) {
-      fs.rmdirSync(cacheDir, { recursive: true })
-    }
-
-    fs.mkdirSync(cacheDir)
-
-    console.log('🗑️ Cache cleared')
-
-    return res.status(200).json({ message: 'Cache cleared' })
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ message: 'Error clearing cache', error: String(error) })
-  }
+  return res.status(200).json({ message: 'Cache cleared' })
 }

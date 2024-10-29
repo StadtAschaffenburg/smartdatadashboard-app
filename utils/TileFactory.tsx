@@ -1,3 +1,4 @@
+// import all tiles
 import EcoProfitTile from '@/components/Tiles/Buildings/EcoProfit'
 import EnergyComsumptionTile from '@/components/Tiles/Buildings/EnergyConsumption'
 import CO2EmissionsTile from '@/components/Tiles/Climate/CO2EmissionsTile'
@@ -19,6 +20,7 @@ import MasterplanTile from '@/components/Tiles/Mobility/MasterplanTile'
 import ModalSplitTile from '@/components/Tiles/Mobility/ModalSplit'
 import PassengerTile from '@/components/Tiles/Mobility/PassengerTile'
 import TrafficloadTile from '@/components/Tiles/Mobility/TrafficloadTile'
+
 import {
   BuildingsTypes,
   ClimateTypes,

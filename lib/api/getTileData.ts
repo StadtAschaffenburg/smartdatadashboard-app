@@ -1,7 +1,11 @@
-import { client } from '@/lib/cms'
+import { getCachedData } from '@/lib/cms'
 
-export default async function getTileData(id: string, attribute: string | false = false, default_value: any = []) {
-  const data = await client.getCachedData(`content?collection=tile&id=${id}`)
+export default async function getTileData(
+  id: string,
+  attribute: string | false = false,
+  default_value: any = [],
+) {
+  const data = await getCachedData(`content?collection=tile&id=${id}`)
 
   if (attribute !== false) {
     return data && data[attribute] ? data[attribute] : default_value
@@ -15,30 +19,36 @@ export async function getTileStrings(id: string, default_value: any = []) {
 }
 
 export async function getTileDatapoints(id: string) {
-  const data = await getTileData(id, 'datapoints'); // todo: do not fetch again if already requested
+  const data = await getTileData(id, 'datapoints') // todo: do not fetch again if already requested
 
-  if (!data || !Array.isArray(data)) { return null }
-  
+  if (!data || !Array.isArray(data)) {
+    return null
+  }
+
   return data || null
 }
 
 export async function getTileDatapoint(id: string, datapoint_id: string) {
-  const data = await getTileDatapoints(id);
+  const data = await getTileDatapoints(id)
 
-  if (!data) { return null }
+  if (!data) {
+    return null
+  }
 
   const item = data.find(entry => entry.id === datapoint_id)
-  
+
   return item ? item.val : null
 }
 
 export async function getTileSource(id: string, source_id: string) {
-  const data = await getTileData(id, 'sources');
+  const data = await getTileData(id, 'sources')
 
-  if (!data || !Array.isArray(data)) { return null }
+  if (!data || !Array.isArray(data)) {
+    return null
+  }
 
   const item = data.find(entry => entry.id === source_id)
-  
+
   return item ? item.content : null
 }
 

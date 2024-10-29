@@ -13,7 +13,7 @@ import Slider from '@/components/Inputs/Slider'
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 
 // @ts-ignore
-import GarbageData from '@/assets/data/awm-abfallaufkommen-pro-kopf.csv'
+import GarbageData from '@/assets/data/abfallaufkommen-pro-kopf.csv'
 import {
   MsKlimadashboardIconsKAbfallGesamt,
   MsKlimadashboardIconsKAbfallRest,

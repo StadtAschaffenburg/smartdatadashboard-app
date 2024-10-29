@@ -4,7 +4,7 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 // @ts-ignore
-import BusData from '@/assets/data/stadtwerke-bus-fahrzeuge-neu.csv'
+import BusData from '@/assets/data/stadtwerke-bus-fahrzeuge.csv'
 import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import MobileSlider from '@/components/Inputs/MobileSlider'

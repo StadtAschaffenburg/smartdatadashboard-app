@@ -7,7 +7,7 @@ import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useWindowSize } from 'react-use'
 // @ts-ignore
-import AwmEMobility from '@/assets/data/awm-e-mobilitaet.csv'
+import AwmEMobility from '@/assets/data/e-mobilitaet.csv'
 import { useEffect, useState } from 'react'
 import {
   MsKlimadashboardIconsMAwmAbgas,
