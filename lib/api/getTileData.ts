@@ -19,7 +19,7 @@ export async function getTileStrings(id: string, default_value: any = []) {
 }
 
 export async function getTileDatapoints(id: string) {
-  const data = await getTileData(id, 'datapoints') // todo: do not fetch again if already requested
+  const data = await getTileData(id, 'datapoints')
 
   if (!data || !Array.isArray(data)) {
     return null

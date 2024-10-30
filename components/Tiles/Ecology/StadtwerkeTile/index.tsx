@@ -1,19 +1,20 @@
-import { format } from 'date-fns'
 import {
   EcologyTile as BaseTile,
+  TilePrefix,
 } from '@/components/Tiles/Ecology/EcologyTile'
-import AWMContent from './AWMContent'
+
+import StadtwerkeContent from './StadtwerkeContent'
+import getSourceData from '@/lib/api/getSourceData'
+import { InputData } from './dt'
 
 export default async function AWMTile() {
-  const tile_id = 'mobility-awm'
+  const tile_id = `${TilePrefix}-stadtwerke`
+
+  const MobilityData: InputData[] = await getSourceData('e-mobilitaet.csv')
 
   return (
-    <BaseTile
-      dataRetrieval={format(new Date('2023-12-31T00:00:00.000Z'), 'dd.MM.yyyy')}
-      embedId={tile_id}
-      title="E-Mobilität"
-    >
-      <AWMContent />
+    <BaseTile embedId={tile_id}>
+      <StadtwerkeContent data={MobilityData} />
     </BaseTile>
   )
 }

@@ -1,18 +1,15 @@
 import {
   EcologyTile as BaseTile,
+  TilePrefix,
 } from '@/components/Tiles/Ecology/EcologyTile'
+
 import UVTileContent from './UVTileContent'
 
-export default function UVTile() {
-  const tile_id = 'climate-uv'
+export default async function UVTile() {
+  const tile_id = `${TilePrefix}-uv`
 
   return (
-    <BaseTile
-      dataSource="Deutscher Wetterdienst"
-      embedId={tile_id}
-      live
-      title={'UV-Index'}
-    >
+    <BaseTile embedId={tile_id}>
       <UVTileContent />
     </BaseTile>
   )

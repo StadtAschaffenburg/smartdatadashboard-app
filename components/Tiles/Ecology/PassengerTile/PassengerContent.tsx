@@ -11,40 +11,9 @@ import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import { useWindowSize } from 'react-use'
+import { PassengerContentProps } from './dt'
 
-interface PassengerDataProps {
-  ZEIT: number
-  value: number
-}
-
-const data: PassengerDataProps[] = [
-  {
-    ZEIT: 2018,
-    value: 8.5,
-  },
-  {
-    ZEIT: 2019,
-    value: 8.3,
-  },
-  {
-    ZEIT: 2020,
-    value: 8.4,
-  },
-  {
-    ZEIT: 2021,
-    value: 5.0,
-  },
-  {
-    ZEIT: 2022,
-    value: 4.4,
-  },
-  {
-    ZEIT: 2023,
-    value: 5.3,
-  },
-]
-
-export default function PassengerContent() {
+export default function PassengerContent({ data }: PassengerContentProps) {
   const { width } = useWindowSize()
   const years = data.map(e => e.ZEIT.toString())
   const [yearIndex, setYearIndex] = useState(
@@ -53,7 +22,7 @@ export default function PassengerContent() {
   const [passengerValue, setPassengerValue] = useState(0)
 
   useEffect(() => {
-    setPassengerValue(data[yearIndex].value)
+    setPassengerValue(data[yearIndex].value / 1000000)
   }, [yearIndex])
   return (
     <div>

@@ -6,43 +6,33 @@ import Title from '@/components/Elements/Title'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useWindowSize } from 'react-use'
-// @ts-ignore
-import AwmEMobility from '@/assets/data/e-mobilitaet.csv'
 import { useEffect, useState } from 'react'
 import {
   MsKlimadashboardIconsMAwmAbgas,
   MsKlimadashboardIconsMAwmElektro,
 } from '@/components/Icons/Mobilitaet'
+import { ContentProps, InputData } from './dt'
 
-type AwmDatatType = {
-  ZEIT: number
-  Dieselantrieb: number
-  Hybridantrieb: number
-  Elektroantrieb: number
-  Erdgasantrieb: number
-}
-
-export default function AWMContent() {
+export default function StadtwerkeContent({ data }: ContentProps) {
   const { width } = useWindowSize()
 
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
   const [hybridCount, setHybridCount] = useState(0)
   const [LNGCount, setLNGCount] = useState(0)
-
-  const data: AwmDatatType[] = AwmEMobility
   const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   useEffect(() => {
-    if (!data) {
-      return
-    }
-    const row: AwmDatatType = data[yearIndex]
-    setElectroCount(row.Elektroantrieb)
-    setHybridCount(row.Hybridantrieb)
-    setCombustionCount(row.Dieselantrieb)
-    setLNGCount(row.Erdgasantrieb)
+    const row: InputData = data[yearIndex]
+    setElectroCount(parseInt(row.Elektroantrieb.toString(), 10))
+    setHybridCount(parseInt(row.Hybridantrieb.toString(), 10))
+    setCombustionCount(parseInt(row.Dieselantrieb.toString(), 10))
+    setLNGCount(parseInt(row.Erdgasantrieb.toString(), 10))
   }, [data, yearIndex])
+
+  if (!data) {
+    return <p>Lade...</p>
+  }
 
   return (
     <div>

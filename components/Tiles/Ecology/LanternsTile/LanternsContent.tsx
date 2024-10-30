@@ -2,12 +2,10 @@ import 'server-only'
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
-import { getTileDatapoint } from '@/lib/api/getTileData'
 import { MsKlimadashboardIconsEPvLanterns } from '@/components/Icons/Energie'
+import { ContentProps } from './dt'
 
-export default async function LanternsContent() {
-  const count = (await getTileDatapoint('energy-lanterns', 'total')) * 1
-
+export default async function LanternsContent({ count }: ContentProps) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">

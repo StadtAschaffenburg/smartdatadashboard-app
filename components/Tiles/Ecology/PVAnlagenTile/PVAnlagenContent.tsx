@@ -3,12 +3,9 @@ import 'server-only'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { MsKlimadashboardIconsEPvGebaeude } from '@/components/Icons/Energie'
-import { getTileDatapoint } from '@/lib/api/getTileData'
+import { ContentProps } from './dt'
 
-export default async function PVAnlagenContent() {
-  const capacity =
-    (await getTileDatapoint('energy-pvanlagen', 'kapazitaet')) * 1
-
+export default async function PVAnlagenContent({ capacity }: ContentProps) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">

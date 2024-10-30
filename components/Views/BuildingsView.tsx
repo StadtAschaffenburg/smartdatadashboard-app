@@ -4,6 +4,9 @@ import BaseView from './BaseView'
 export default function BuildingsView() {
   return (
     <BaseView type="building">
+      <TileFactory type="ecology-weather" />
+      <TileFactory type="ecology-uv" />
+      <TileFactory type="ecology-stadtwerke" />
       <TileFactory type="ecology-passengers" />
       <TileFactory type="ecology-pvanlagen" />
       <TileFactory type="ecology-lanterns" />

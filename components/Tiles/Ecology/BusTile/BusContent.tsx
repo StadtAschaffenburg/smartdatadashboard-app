@@ -31,7 +31,9 @@ export default function BusContent({ data }: BusContentProps) {
     setCombustionCount(parseInt(row.fossil.toString(), 10))
   }, [data, yearIndex])
 
-  if (!data) {return <p>Lade...</p>}
+  if (!data) {
+    return <p>Lade...</p>
+  }
 
   return (
     <div>

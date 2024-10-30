@@ -1,14 +1,12 @@
 import 'server-only'
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { getTileDatapoint } from '@/lib/api/getTileData'
+import { ContentProps } from './dt'
 
-export default async function LanternsContent() {
-  const count = (await getTileDatapoint('energy-pvanlagen', 'anzahl')) * 1
-
+export default async function LanternsContent({ capacity }: ContentProps) {
   return (
     <>
-      <AnimatedNumber>{count ?? 0}</AnimatedNumber> PV-Anlagen
+      <AnimatedNumber>{capacity ?? 0}</AnimatedNumber> PV-Anlagen
     </>
   )
 }
