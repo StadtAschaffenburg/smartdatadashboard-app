@@ -40,18 +40,6 @@ export async function getTileDatapoint(id: string, datapoint_id: string) {
   return item ? item.val : null
 }
 
-export async function getTileSource(id: string, source_id: string) {
-  const data = await getTileData(id, 'sources')
-
-  if (!data || !Array.isArray(data)) {
-    return null
-  }
-
-  const item = data.find(entry => entry.id === source_id)
-
-  return item ? item.content : null
-}
-
 export type TileContentStrings = {
   title: string
   text: string

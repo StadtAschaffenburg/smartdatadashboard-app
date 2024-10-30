@@ -4,13 +4,13 @@ import AnimatedPage from '@/components/Layout/AnimatedPage'
 
 import BaseView from '@/components/Views/BaseView'
 import Columns from '@/components/Layout/Columns'
-import WeatherTile from '@/components/Tiles/Climate/WeatherTile'
-import ClimateDevelopmentTile from '@/components/Tiles/Climate/Devlopment'
-import BusTile from '@/components/Tiles/Mobility/Bus'
-import BicycleChartTile from '@/components/Tiles/Mobility/Bicycle/BicycleChartTile'
-import PVAnlagenTile from '@/components/Tiles/Energy/PVAnlagenTile'
-import LanternsTile from '@/components/Tiles/Energy/LanternsTile'
-import EnergyComsumptionTile from '@/components/Tiles/Buildings/EnergyConsumption'
+import WeatherTile from '@/components/Tiles/Ecology/WeatherTile'
+import ClimateDevelopmentTile from '@/components/Tiles/Ecology/ClimateDevelopmentTile'
+import BusTile from '@/components/Tiles/Ecology/BusTile'
+import BicycleChartTile from '@/components/Tiles/Ecology/BicycleChartTile'
+import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
+import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
+import EnergyComsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
 
 export default async function Home() {
   return (

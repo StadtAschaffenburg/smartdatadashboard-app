@@ -1,41 +1,20 @@
 // import all tiles
-import EcoProfitTile from '@/components/Tiles/Buildings/EcoProfit'
-import EnergyComsumptionTile from '@/components/Tiles/Buildings/EnergyConsumption'
-import CO2EmissionsTile from '@/components/Tiles/Climate/CO2EmissionsTile'
-import ClimateIndicesTile from '@/components/Tiles/Climate/ClimateIndices'
-import ClimateDevelopmentTile from '@/components/Tiles/Climate/Devlopment'
-import GarbageTile from '@/components/Tiles/Climate/Garbage'
-import WeatherTile from '@/components/Tiles/Climate/WeatherTile'
-import DataCountTile from '@/components/Tiles/Data/DataCountTile'
-import EnergietraegerTile from '@/components/Tiles/Energy/EnergietraegerTile'
-import LanternsTile from '@/components/Tiles/Energy/LanternsTile'
-import PVAnlagenTile from '@/components/Tiles/Energy/PVAnlagenTile'
-import PhotovoltTile from '@/components/Tiles/Energy/PhotovoltTile'
-import WindEnergyTile from '@/components/Tiles/Energy/WindEnergyTile'
-import AWMTile from '@/components/Tiles/Mobility/AWM'
-import BicycleChartTile from '@/components/Tiles/Mobility/Bicycle/BicycleChartTile'
-import StadtradelnTile from '@/components/Tiles/Mobility/Bicycle/Stadtradeln'
-import BusTile from '@/components/Tiles/Mobility/Bus'
-import MasterplanTile from '@/components/Tiles/Mobility/MasterplanTile'
-import ModalSplitTile from '@/components/Tiles/Mobility/ModalSplit'
-import PassengerTile from '@/components/Tiles/Mobility/PassengerTile'
-import TrafficloadTile from '@/components/Tiles/Mobility/TrafficloadTile'
+import EnergyComsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
+import WeatherTile from '@/components/Tiles/Ecology/WeatherTile'
+import UVTile from '@/components/Tiles/Ecology/UVTile'
+import ClimateDevelopmentTile from '@/components/Tiles/Ecology/ClimateDevelopmentTile'
+import ClimateIndicesTile from '@/components/Tiles/Ecology/ClimateIndicesTile'
+import StadtradelnTile from '@/components/Tiles/Ecology/StadtradelnTile'
+import BicycleChartTile from '@/components/Tiles/Ecology/BicycleChartTile'
+import PassengerTile from '@/components/Tiles/Ecology/PassengerTile'
+import BusTile from '@/components/Tiles/Ecology/BusTile'
+import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
+import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
+import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
 
-import {
-  BuildingsTypes,
-  ClimateTypes,
-  EnergyTypes,
-  MobilityTypes,
-  TileTypePrefix,
-} from '@/types/tile'
+import { TileTypePrefix } from '@/types/tile'
 
-type TileTypeSuffix =
-  | ClimateTypes
-  | MobilityTypes
-  | BuildingsTypes
-  | EnergyTypes
-
-export type TileType = `${TileTypePrefix}-${TileTypeSuffix}`
+export type TileType = `${TileTypePrefix}-${string}`
 
 interface TileFactoryProps {
   type: TileType
@@ -49,55 +28,35 @@ interface TileFactoryProps {
  */
 export default async function TileFactory({ type }: TileFactoryProps) {
   switch (type) {
-    // ---- WEATHER ----
-    case 'climate-weather':
-      return <WeatherTile />
-    case 'climate-co2':
-      return <CO2EmissionsTile />
-    case 'climate-indices':
-      return <ClimateIndicesTile />
-    case 'climate-development':
-      return <ClimateDevelopmentTile />
-    case 'climate-garbage':
-      return <GarbageTile />
-    case 'climate-data':
-      return <DataCountTile />
-
-    // ---- BUILDINGS ----
-    case 'building-ecoProfit':
-      return <EcoProfitTile />
-    case 'building-energyConsumption':
+    // ---- ECOLOGY ----
+    case 'ecology-energyConsumption':
       return <EnergyComsumptionTile />
-
-    // ---- ENERGY ----
-    case 'energy-PV':
-      return <PhotovoltTile />
-    case 'energy-wind':
-      return <WindEnergyTile />
-    case 'energy-pvanlagen':
+    case 'ecology-weather':
+      return <WeatherTile />
+    case 'ecology-uv':
+      return <UVTile />
+    case 'ecology-climateDevelopment':
+      return <ClimateDevelopmentTile />
+    case 'ecology-climateIndices':
+      return <ClimateIndicesTile />
+    case 'ecology-stadtradeln':
+      return <StadtradelnTile />
+    case 'ecology-bicycle':
+      return <BicycleChartTile />
+    case 'ecology-passengers':
+      return <PassengerTile />
+    case 'ecology-bus':
+      return <BusTile />
+    case 'ecology-stadtwerke':
+      return <StadtwerkeTile />
+    case 'ecology-pvanlagen':
       return <PVAnlagenTile />
-    case 'energy-energietraeger':
-      return <EnergietraegerTile />
-    case 'energy-lanterns':
+    case 'ecology-lanterns':
       return <LanternsTile />
 
-    // ---- MOBILITY ----
-    case 'mobility-bicycle':
-      return <BicycleChartTile />
-    case 'mobility-stadtradeln':
-      return <StadtradelnTile />
-    case 'mobility-bus':
-      return <BusTile />
-    case 'mobility-modalSplit':
-      return <ModalSplitTile />
-    case 'mobility-trafficload':
-      return <TrafficloadTile />
-    case 'mobility-awm':
-      return <AWMTile />
-    case 'mobility-masterplan':
-      return <MasterplanTile />
-    case 'mobility-passengers':
-      return <PassengerTile />
+    // ---- SOCIETY ----
+
+    // ---- ECONOMY ----
 
     default:
       return null

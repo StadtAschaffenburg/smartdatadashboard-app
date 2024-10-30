@@ -37,7 +37,7 @@ export default async function GarbageTile() {
   const infoText = data?.info ?? ''
 
   return (
-    <MobilityTile
+    <BaseTile
       dataSource="Stadt Münster - Amt für Mobilität"
       embedId="mobility-sampleTile"
       title="Sample Tile"
@@ -46,7 +46,7 @@ export default async function GarbageTile() {
        * Here you can add the content of the Tile
        * Don't forget to place the infoText
        */}
-    </MobilityTile>
+    </BaseTile>
   )
 }
 ```
@@ -56,7 +56,7 @@ export default async function GarbageTile() {
 As said, it's best to create a seperate component with the content of the Tile. One example, which also includes the usage of the `infoText`:
 
 ```tsx
-<MobilityTile
+<BaseTile
   dataSource="Stadt Münster - Amt für Mobilität"
   embedId="mobility-sampleTile"
   title="Sample Tile"
@@ -73,7 +73,7 @@ As said, it's best to create a seperate component with the content of the Tile. 
       </Title>
     </TileSplitView.Right>
   </TileSplitView>
-</MobilityTile>
+</BaseTile>
 ```
 
 ### 5. Add the Tile to the `utils/TileFactory.tsx`
