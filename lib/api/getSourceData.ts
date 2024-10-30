@@ -4,6 +4,11 @@ import Papa from 'papaparse'
 
 export default async function getSourceData(file: string) {
   const file_path = path.join(process.cwd(), 'assets', 'data', file)
+
+  if (!fs.existsSync(file_path)) {
+    throw new Error(`Data source not found: ${file}`)
+  }
+
   const file_data = fs.readFileSync(file_path, 'utf8')
 
   if (!file_data) {

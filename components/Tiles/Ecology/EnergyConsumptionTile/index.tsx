@@ -1,34 +1,36 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
 
-import { format } from 'date-fns'
 import { TileSplitView } from '../../Base/TileSplitView'
 import getTileData from '@/lib/api/getTileData'
 import Title from '@/components/Elements/Title'
 import EnergyConsumptionContent from './EnergyConsumptionContent'
+import getSourceData from '@/lib/api/getSourceData'
+import { InputDataType } from './dt'
 
 export default async function EnergyComsumptionTile() {
-  const data = await getTileData('building-energyConsumption')
-  const infoText = data?.info ?? ''
+  const tile_id = `${TilePrefix}-energyConsumption`
+  const data = await getTileData(tile_id)
+
+  const waermeDataInput: InputDataType[] = await getSourceData('waerme.csv')
+  const stromDataInput: InputDataType[] = await getSourceData('strom.csv')
 
   return (
-    <BaseTile
-      dataRetrieval={format(new Date(), '01.MM.yyyy')}
-      dataSource="Stadt Aschaffenburg &ndash; Amt für Immobilienmanagement"
-      embedId={'building-energyConsumption'}
-      subtitle={
-        'So entwickelt sich über das Jahr verteilt der Verbrauch von Wärme und Strom in ausgewählten städtischen Gebäuden'
-      }
-      title={'Energieverbrauch'}
-    >
+    <BaseTile embedId={tile_id}>
       <TileSplitView>
         <TileSplitView.Left>
           <div>
-            <EnergyConsumptionContent />
+            <EnergyConsumptionContent
+              stromDataInput={stromDataInput}
+              waermeDataInput={waermeDataInput}
+            />
           </div>
         </TileSplitView.Left>
         <TileSplitView.Right>
           <Title as="h5" variant={'dark'}>
-            {infoText}
+            {data?.info ?? ''}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

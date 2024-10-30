@@ -10,7 +10,6 @@ import BusTile from '@/components/Tiles/Ecology/BusTile'
 import BicycleChartTile from '@/components/Tiles/Ecology/BicycleChartTile'
 import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
-import EnergyComsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
 
 export default async function Home() {
   return (
@@ -51,15 +50,6 @@ export default async function Home() {
               <BusTile />
               <BicycleChartTile />
             </Columns>
-          </BaseView>
-
-          <BaseView
-            showGoToButton={true}
-            showSuccessStories={false}
-            showSurveys={false}
-            type="building"
-          >
-            <EnergyComsumptionTile />
           </BaseView>
         </Container>
       </AnimatedPage>

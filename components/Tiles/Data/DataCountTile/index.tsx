@@ -3,7 +3,9 @@ import Title from '@/components/Elements/Title'
 // @ts-ignore
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import getTileData from '@/lib/api/getTileData'
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+} from '@/components/Tiles/Ecology/EcologyTile'
 import { MsKlimadashboardIconsDatenkachel } from '@/components/Icons/Klima'
 
 export default async function DataCountTile() {

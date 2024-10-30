@@ -1,32 +1,39 @@
 import { format } from 'date-fns'
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
+
 import ClimateIndicesChart from './ClimateIndicesChart'
 import { TileSplitView } from '../../Base/TileSplitView'
 import getTileData from '@/lib/api/getTileData'
 import Title from '@/components/Elements/Title'
+import getSourceData from '@/lib/api/getSourceData'
+import { ClimateIndex } from './dt'
 
 export default async function ClimateIndicesTile() {
-  const tile_id = 'climate-indices'
-  const data = await getTileData(tile_id)
+  const tile_id = `${TilePrefix}-climateIndices`
+
+  const climateIndicesData: ClimateIndex[] = await getSourceData(
+    'climate_indices.json',
+  )
+  const tile_data = await getTileData(tile_id)
 
   return (
     <BaseTile
       dataRetrieval={format(new Date(), '01.MM.yyyy')}
-      dataSource="Deutscher Wetterdienst"
       embedId={tile_id}
       live
-      subtitle=""
-      title="Klimakenntage"
     >
       <TileSplitView>
         <TileSplitView.Left>
           <div className="rounded bg-white">
-            <ClimateIndicesChart />
+            <ClimateIndicesChart data={climateIndicesData} />
           </div>
         </TileSplitView.Left>
         <TileSplitView.Right>
           <Title as="h5" variant={'dark'}>
-            {data?.legend ?? ''}
+            {tile_data?.legend ?? ''}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

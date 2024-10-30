@@ -1,25 +1,8 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import BicycleProgress from './BicycleProgress'
-
-type BicycleRowProps = {
-  name: string
-  count: number
-  min: number
-  max: number
-}
-
-function mapBetween(
-  currentNum: number,
-  min: number,
-  max: number,
-  minAllowed = 0,
-  maxAllowed = 100,
-) {
-  return (
-    ((maxAllowed - minAllowed) * (currentNum - min)) / (max - min) + minAllowed
-  )
-}
+import { mapBetween } from '@/utils/map'
+import { BicycleRowProps } from './dt'
 
 export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
   const progress = mapBetween(count, min * 0.9, max * 1.1)

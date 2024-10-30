@@ -1,16 +1,22 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
-import BusContent from './BusContent'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
 
-export default function BusTile() {
+import BusContent from './BusContent'
+import getSourceData from '@/lib/api/getSourceData'
+import { BusDataType } from './dt'
+
+export default async function BusTile() {
+  const tile_id = `${TilePrefix}-bus`
+
+  const BusData: BusDataType[] = await getSourceData(
+    'stadtwerke-bus-fahrzeuge.csv',
+  )
+
   return (
-    <BaseTile
-      dataRetrieval=""
-      dataSource="VAB"
-      embedId="mobility-bus"
-      subtitle="Anzahl im Vergleich zu Bussen mit fossilem Antrieb"
-      title="E-Busse"
-    >
-      <BusContent />
+    <BaseTile embedId={tile_id}>
+      <BusContent data={BusData} />
     </BaseTile>
   )
 }

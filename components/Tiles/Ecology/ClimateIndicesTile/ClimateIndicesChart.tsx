@@ -1,13 +1,11 @@
 'use client'
 
 import { ReactECharts } from '@/components/Charts/ReactECharts'
-import climateIndicesData from '@/assets/data/climate_indices.json'
 import { LineSeriesOption } from 'echarts'
 import { getYear, parse } from 'date-fns'
 import Switch from '@/components/Inputs/Switch'
-
 import Title from '@/components/Elements/Title'
-import { ForwardRefExoticComponent, SVGProps, useState } from 'react'
+import { useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
 import useDevice from '@/hooks/useDevice'
@@ -18,31 +16,18 @@ import {
   MsKlimadashboardIconsKlimakenntageSommer,
   MsKlimadashboardIconsKlimakenntageTropennacht,
 } from '@/components/Icons/Klima'
+import {
+  ClimateIndex,
+  ClimateIndices,
+  ClimateIndicesChartProps,
+  IndicesTypes,
+} from './dt'
 
 const { theme } = resolveConfig(tailwindConfig)
 
-type IndicesTypes =
-  | 'eistage'
-  | 'frosttage'
-  | 'heisse_tage'
-  | 'sommertage'
-  | 'tropennaechte'
-
-type ClimateIndex = {
-  dwd_station_id: number
-  eistage: number
-  frosttage: number
-  heisse_tage: number
-  observation_type: string
-  sommertage: number
-  timestamp: string
-  tropennaechte: number
-}
-
 const STARTING_YEAR = 1990
 
-const data = climateIndicesData as ClimateIndex[]
-const getSeries = (property: keyof ClimateIndex) => {
+const getSeries = (data: ClimateIndex[], property: keyof ClimateIndex) => {
   const arr = data
     .filter(e => new Date(e.timestamp).getFullYear() >= STARTING_YEAR)
     .map(e => [
@@ -71,66 +56,61 @@ const getSeries = (property: keyof ClimateIndex) => {
 /**
  * All the indices that are on the chart
  */
-const indices: Record<
-  IndicesTypes,
-  {
-    title: string
-    icon:
-      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
-    seriesOption: LineSeriesOption
+function getIndices(data: ClimateIndex[]) {
+  const indices: ClimateIndices = {
+    heisse_tage: {
+      title: 'Heiße Tage (>= 30°C)',
+      icon: MsKlimadashboardIconsKlimakenntageHeiss,
+      seriesOption: {
+        name: 'Heiße Tage',
+        data: getSeries(data, 'heisse_tage'),
+        // @ts-ignore
+        color: theme?.colors?.energy.DEFAULT || '#6060d6',
+      },
+    },
+    sommertage: {
+      title: 'Sommertage (>= 25°C)',
+      icon: MsKlimadashboardIconsKlimakenntageSommer,
+      seriesOption: {
+        name: 'Sommertage',
+        data: getSeries(data, 'sommertage'),
+        // @ts-ignore
+        color: theme?.colors?.mobility.DEFAULT || '#6060d6',
+      },
+    },
+    tropennaechte: {
+      title: 'Tropennächte (>= 20°C)',
+      icon: MsKlimadashboardIconsKlimakenntageTropennacht,
+      seriesOption: {
+        name: 'Tropennächte',
+        data: getSeries(data, 'tropennaechte'),
+        // @ts-ignore
+        color: theme?.colors?.buildings.DEFAULT || '#6060d6',
+      },
+    },
+    frosttage: {
+      title: 'Frosttage (Min. < 0°C)',
+      seriesOption: {
+        name: 'Frosttage',
+        data: getSeries(data, 'frosttage'),
+        // @ts-ignore
+        color: theme?.colors?.primary.DEFAULT || '#6060d6',
+      },
+      icon: MsKlimadashboardIconsKlimakenntageFrost,
+    },
+    eistage: {
+      title: 'Eistage (Max. < 0°C)',
+      icon: MsKlimadashboardIconsKlimakenntageEis,
+      seriesOption: {
+        name: 'Eistage',
+        data: getSeries(data, 'eistage'),
+        // @ts-ignore
+        color: theme?.colors?.climate.DEFAULT || '#6060d6',
+      },
+    },
   }
-> = {
-  heisse_tage: {
-    title: 'Heiße Tage (>= 30°C)',
-    icon: MsKlimadashboardIconsKlimakenntageHeiss,
-    seriesOption: {
-      name: 'Heiße Tage',
-      data: getSeries('heisse_tage'),
-      // @ts-ignore
-      color: theme?.colors?.energy.DEFAULT || '#6060d6',
-    },
-  },
-  sommertage: {
-    title: 'Sommertage (>= 25°C)',
-    icon: MsKlimadashboardIconsKlimakenntageSommer,
-    seriesOption: {
-      name: 'Sommertage',
-      data: getSeries('sommertage'),
-      // @ts-ignore
-      color: theme?.colors?.mobility.DEFAULT || '#6060d6',
-    },
-  },
-  tropennaechte: {
-    title: 'Tropennächte (>= 20°C)',
-    icon: MsKlimadashboardIconsKlimakenntageTropennacht,
-    seriesOption: {
-      name: 'Tropennächte',
-      data: getSeries('tropennaechte'),
-      // @ts-ignore
-      color: theme?.colors?.buildings.DEFAULT || '#6060d6',
-    },
-  },
-  frosttage: {
-    title: 'Frosttage (Min. < 0°C)',
-    seriesOption: {
-      name: 'Frosttage',
-      data: getSeries('frosttage'),
-      // @ts-ignore
-      color: theme?.colors?.primary.DEFAULT || '#6060d6',
-    },
-    icon: MsKlimadashboardIconsKlimakenntageFrost,
-  },
-  eistage: {
-    title: 'Eistage (Max. < 0°C)',
-    icon: MsKlimadashboardIconsKlimakenntageEis,
-    seriesOption: {
-      name: 'Eistage',
-      data: getSeries('eistage'),
-      // @ts-ignore
-      color: theme?.colors?.climate.DEFAULT || '#6060d6',
-    },
-  },
+
+  return indices
 }
 
 /**
@@ -140,10 +120,12 @@ const indices: Record<
  * @returns Toggle with Icon and text
  */
 function ClimateIndiceToggle({
+  indices,
   type,
   defaultChecked,
   onChange,
 }: {
+  indices: ClimateIndices
   type: IndicesTypes
   defaultChecked?: boolean
   onChange?: (_checked: boolean) => void
@@ -170,8 +152,11 @@ function ClimateIndiceToggle({
  *
  * @returns The Climate Indices Chart
  */
-export default function ClimateIndicesChart() {
+export default function ClimateIndicesChart({
+  data,
+}: ClimateIndicesChartProps) {
   const device = useDevice()
+  const indices = getIndices(data)
 
   const [seriesVisible, setSeriesVisible] = useState<
     Record<IndicesTypes, boolean>
@@ -276,16 +261,19 @@ export default function ClimateIndicesChart() {
       <div className="flex h-full flex-col justify-evenly gap-1">
         <ClimateIndiceToggle
           defaultChecked={seriesVisible.heisse_tage}
+          indices={indices}
           onChange={c => setSeriesVisible({ ...seriesVisible, heisse_tage: c })}
           type="heisse_tage"
         />
         <ClimateIndiceToggle
           defaultChecked={seriesVisible.sommertage}
+          indices={indices}
           onChange={c => setSeriesVisible({ ...seriesVisible, sommertage: c })}
           type="sommertage"
         />
         <ClimateIndiceToggle
           defaultChecked={seriesVisible.tropennaechte}
+          indices={indices}
           onChange={c =>
             setSeriesVisible({ ...seriesVisible, tropennaechte: c })
           }
@@ -293,11 +281,13 @@ export default function ClimateIndicesChart() {
         />
         <ClimateIndiceToggle
           defaultChecked={seriesVisible.frosttage}
+          indices={indices}
           onChange={c => setSeriesVisible({ ...seriesVisible, frosttage: c })}
           type="frosttage"
         />
         <ClimateIndiceToggle
           defaultChecked={seriesVisible.eistage}
+          indices={indices}
           onChange={c => setSeriesVisible({ ...seriesVisible, eistage: c })}
           type="eistage"
         />

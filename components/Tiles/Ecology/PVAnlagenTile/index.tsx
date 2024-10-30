@@ -1,15 +1,16 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
+
 import PVAnlagenTitle from './PVAnlagenTitle'
 import PVAnlagenContent from './PVAnlagenContent'
 
 export default function PVAnlagenTile() {
+  const tile_id = `${TilePrefix}-pvanlagen`
+
   return (
-    <BaseTile
-      dataRetrieval=""
-      dataSource={'Stadt Aschaffenburg'}
-      embedId="energy-pvanlagen"
-      title={<PVAnlagenTitle />}
-    >
+    <BaseTile embedId={tile_id} title={<PVAnlagenTitle />}>
       <PVAnlagenContent></PVAnlagenContent>
     </BaseTile>
   )

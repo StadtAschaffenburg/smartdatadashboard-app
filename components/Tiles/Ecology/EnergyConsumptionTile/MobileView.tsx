@@ -5,6 +5,7 @@ import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
 import Carousel from '@/components/Elements/Carousel'
+import { DataType } from './dt'
 
 import {
   MsKlimadashboardIconsGArena,
@@ -13,15 +14,7 @@ import {
   MsKlimadashboardIconsGSchule,
 } from '@/components/Icons/Gebaeude'
 
-type DataType = {
-  Datum: number
-  rathaus: number | null
-  brentanoschule: number | null
-  stadtbibliothek: number | null
-  frankenstolz_arena: number | null
-}
-
-type Building = Omit<DataType, 'Datum'>
+type Building = Omit<DataType, 'datum'>
 
 const buildings: Record<keyof Building, string> = {
   rathaus: 'Rathaus',
@@ -58,7 +51,7 @@ function getData(
   const data: DataType[] = mode === 'strom' ? stromData : waermeData
 
   const filteredYear = data.filter(
-    d => year === new Date(d.Datum).getFullYear(),
+    d => year === new Date(d.datum).getFullYear(),
   )
 
   return filteredYear.map(d => d[building]).filter(d => d !== null) as number[]

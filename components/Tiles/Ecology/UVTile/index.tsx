@@ -1,4 +1,6 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+} from '@/components/Tiles/Ecology/EcologyTile'
 import UVTileContent from './UVTileContent'
 
 export default function UVTile() {

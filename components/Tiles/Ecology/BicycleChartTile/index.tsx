@@ -1,4 +1,7 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
 
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
@@ -6,21 +9,16 @@ import BicycleChartContent from './BicycleChartContent'
 import getTileData from '@/lib/api/getTileData'
 
 export default async function BicycleChartTile() {
-  const data = await getTileData('mobility-bicycle')
-  const infoText = data?.info ?? ''
+  const tile_id = `${TilePrefix}-bicycle`
+
+  const tile_data = await getTileData(tile_id)
 
   return (
-    <BaseTile
-      dataSource="Stadt Aschaffenburg &ndash; Amt für Mobilität und Tiefbau"
-      embedId="mobility-bicycle"
-      live
-      subtitle="im Stadtgebiet"
-      title="Radler*innen"
-    >
+    <BaseTile embedId={tile_id}>
       <>
         <BicycleChartContent />
         <Spacer size={'lg'} />
-        <Title as="h5">{infoText}</Title>
+        <Title as="h5">{tile_data?.info ?? ''}</Title>
       </>
     </BaseTile>
   )

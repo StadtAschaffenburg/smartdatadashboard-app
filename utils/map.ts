@@ -15,3 +15,15 @@ export function map(
     ((current - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
   return clamp(mapped, out_min, out_max)
 }
+
+export function mapBetween(
+  currentNum: number,
+  min: number,
+  max: number,
+  minAllowed = 0,
+  maxAllowed = 100,
+) {
+  return (
+    ((maxAllowed - minAllowed) * (currentNum - min)) / (max - min) + minAllowed
+  )
+}

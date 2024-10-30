@@ -1,5 +1,5 @@
 // import all tiles
-import EnergyComsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
+import EnergyConsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
 import WeatherTile from '@/components/Tiles/Ecology/WeatherTile'
 import UVTile from '@/components/Tiles/Ecology/UVTile'
 import ClimateDevelopmentTile from '@/components/Tiles/Ecology/ClimateDevelopmentTile'
@@ -30,7 +30,7 @@ export default async function TileFactory({ type }: TileFactoryProps) {
   switch (type) {
     // ---- ECOLOGY ----
     case 'ecology-energyConsumption':
-      return <EnergyComsumptionTile />
+      return <EnergyConsumptionTile />
     case 'ecology-weather':
       return <WeatherTile />
     case 'ecology-uv':

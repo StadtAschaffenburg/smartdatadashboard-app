@@ -1,10 +1,14 @@
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+  TilePrefix,
+} from '@/components/Tiles/Ecology/EcologyTile'
+
 import ChartContainer from './ChartContainer'
 import getSourceData from '@/lib/api/getSourceData'
 import { InputDataType } from './dt'
 
 export default async function StadtradelnTile() {
-  const tile_id = 'mobility-stadtradeln'
+  const tile_id = `${TilePrefix}-stadtradeln`
 
   const StadtradelnData: InputDataType = await getSourceData('stadtradeln.json')
 

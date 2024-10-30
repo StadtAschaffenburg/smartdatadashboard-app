@@ -1,5 +1,7 @@
 import { format } from 'date-fns'
-import BaseTile from '@/components/Tiles/Ecology/EcologyTile'
+import {
+  EcologyTile as BaseTile,
+} from '@/components/Tiles/Ecology/EcologyTile'
 import AWMContent from './AWMContent'
 
 export default async function AWMTile() {
