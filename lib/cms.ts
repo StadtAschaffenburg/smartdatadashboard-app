@@ -1,39 +1,69 @@
 import axios from 'axios'
 import https from 'https'
 import url from 'url'
-import { readCache, writeApiCache, writeContentCache } from '@/lib/cache'
+import {
+  content_folder,
+  fallback_folder,
+  readCache,
+  writeApiCache,
+  writeContentCache,
+  writeFile,
+} from '@/lib/cache'
 import { getCacheEndpoint, getCMSEndpoint } from '@/utils/api'
+import path from 'path'
+import { getDataPath } from '@/utils/filesystem'
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
 })
 
-export async function getContent(
+export async function handleRequest(
+  content_type: string = 'content',
   collection: string = 'tile',
   id: string | number | boolean = false,
   use_cache: boolean = true,
 ): Promise<any> {
   // get the content from the cache or the API
   if (use_cache) {
-    const cache_data = (await readCache(id, collection)) || null
+    const cache_data = (await readCache(content_type, collection, id)) || null
     if (cache_data) {
       return cache_data // return the cached data
     }
   }
 
   // get the data from the API
-  const endpoint = `${getCMSEndpoint()}content/${collection}${
+  const endpoint = `${getCMSEndpoint()}${content_type}/${collection}${
     id ? `/${id}` : ''
   }`
   const payload = await fetchJSON(endpoint) // fetch the data from the API
 
   if (payload) {
     // save the data to the cache
-    await writeContentCache(collection, id, payload)
+    await writeContentCache(content_type, collection, id, payload)
     return payload
   }
 
-  return readCache(id, collection, true) || null // return the fallback data if the API request failed, or null
+  // get fallback data for content collectiono
+  if (content_type === content_folder) {
+    return readCache(fallback_folder, collection, id, true) || null
+  }
+
+  return null
+}
+
+export async function getContent(
+  collection: string = 'tiles',
+  id: string | number | boolean = false,
+  use_cache: boolean = true,
+): Promise<any> {
+  return handleRequest('content', collection, id, use_cache)
+}
+
+export async function getCollection(
+  collection: string = 'tiles',
+  use_cache: boolean = true,
+): Promise<any> {
+  return handleRequest('collection', collection, false, use_cache)
 }
 
 export async function getAPI(
@@ -114,7 +144,21 @@ export async function fetchJSON(endpoint: string): Promise<any> {
   }
 }
 
-export async function fetchFile(endpoint: string): Promise<any> {
+export async function getSourceFile(file_name: string): Promise<any> {
+  // security: sanitize file_name (no directory traversal)
+  const sanitized_file_name = path.basename(file_name)
+
+  const endpoint = getCMSEndpoint(path.join('source', sanitized_file_name))
+  const content = await fetchFile(endpoint)
+
+  if (!content) {
+    return false
+  }
+
+  await writeFile(getDataPath(sanitized_file_name), content)
+}
+
+async function fetchFile(endpoint: string): Promise<any> {
   try {
     const response = await fetch(endpoint)
 

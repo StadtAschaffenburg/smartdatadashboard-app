@@ -1,7 +1,4 @@
-import {
-  EcologyTile as BaseTile,
-  TilePrefix,
-} from '@/components/Tiles/Ecology/EcologyTile'
+import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
 
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'

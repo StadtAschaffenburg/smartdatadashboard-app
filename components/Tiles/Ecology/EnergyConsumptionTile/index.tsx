@@ -1,7 +1,4 @@
-import {
-  EcologyTile as BaseTile,
-  TilePrefix,
-} from '@/components/Tiles/Ecology/EcologyTile'
+import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
 
 import { TileSplitView } from '../../Base/TileSplitView'
 import getTileData from '@/lib/api/getTileData'

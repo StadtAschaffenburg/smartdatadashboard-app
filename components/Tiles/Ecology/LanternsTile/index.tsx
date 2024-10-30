@@ -1,7 +1,4 @@
-import {
-  EcologyTile as BaseTile,
-  TilePrefix,
-} from '@/components/Tiles/Ecology/EcologyTile'
+import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
 
 import LanternsTitle from './LanternsTitle'
 import LanternsContent from './LanternsContent'

@@ -1,7 +1,4 @@
-import {
-  EcologyTile as BaseTile,
-  TilePrefix,
-} from '@/components/Tiles/Ecology/EcologyTile'
+import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
 import PassengerContent from './PassengerContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { PassengerDataType } from './dt'

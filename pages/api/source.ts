@@ -1,9 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { checkSecret, getCMSEndpoint } from '@/utils/api'
-import { fetchFile } from '@/lib/cms'
-import { writeFile } from '@/lib/cache'
-import { getDataPath } from '@/utils/filesystem'
-import path from 'path'
+import { checkSecret } from '@/utils/api'
+import { getSourceFile } from '@/lib/cms'
 
 type Data = {
   message: string
@@ -25,17 +22,11 @@ export default async function handler(
     return res.status(400).json({ message: 'Missing or invalid file name' })
   }
 
-  // security: sanitize file_name (no directory traversal)
-  const sanitized_file_name = path.basename(file_name)
+  const result = getSourceFile(file_name)
 
-  const endpoint = getCMSEndpoint(path.join('source', sanitized_file_name))
-  const content = await fetchFile(endpoint)
-
-  if (!content) {
-    return res.status(404).json({ message: 'File not found' })
+  if (!result) {
+    return res.status(404).json({ message: 'Source not found' })
   }
-
-  await writeFile(getDataPath(sanitized_file_name), content)
 
   return res.status(200).json({ message: 'Source updated' })
 }

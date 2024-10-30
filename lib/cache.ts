@@ -1,19 +1,22 @@
 import * as fs from 'fs'
 import path from 'path'
-import { getFilePath } from '@/utils/filesystem'
+import { getCachePath } from '@/utils/filesystem'
+
+export const api_folder = 'api'
+export const collection_folder = 'collection'
+export const content_folder = 'content'
+export const fallback_folder = 'fallback'
 
 // read the data from the cache
 export async function readCache(
+  content_type: string,
+  folder: string | boolean = false,
   id: string | number | boolean = false,
-  folder: string,
-  fallback: boolean = false,
   ignore_stale: boolean = false,
 ) {
   try {
-    const cache_data = fs.readFileSync(
-      getFilePath(id, folder, fallback),
-      'utf8',
-    )
+    const cache_path = getCachePath(content_type, folder, id)
+    const cache_data = fs.readFileSync(cache_path, 'utf8')
     const json_data = JSON.parse(cache_data)
 
     // check if the data is stale
@@ -55,12 +58,16 @@ async function writeCache(
 
 // write content data to the cache
 export async function writeContentCache(
-  folder_path: string,
-  id: string | number | boolean,
+  content_type: string,
+  folder_path: string | boolean = false,
+  id: string | number | boolean = false,
   data: any,
+  lifetime: number | boolean = false,
 ) {
-  await writeCache(getFilePath(id, folder_path), data) // write the data to the cache
-  await writeCache(getFilePath(id, folder_path, true), data) // and write it to the fallback cache
+  await writeCache(getCachePath(content_type, folder_path, id), data, lifetime) // write the data to the cache
+  if (content_type === 'content') {
+    await writeCache(getCachePath(fallback_folder, folder_path, id), data) // write the data to the cache
+  }
 }
 
 // write API data to the cache
@@ -69,7 +76,7 @@ export async function writeApiCache(
   data: any,
   lifetime: number = 6 * 60,
 ) {
-  await writeCache(getFilePath(file_name, 'api'), data, lifetime) // write the data to the cache
+  writeContentCache('api', false, file_name, data, lifetime)
 }
 
 // write data to a file
@@ -94,14 +101,18 @@ export async function writeFile(file_path: string, data: any) {
 }
 
 // clear the content cache
-export async function flushContentCache() {
-  const cache_dir = path.join(process.cwd(), 'assets/cache/content')
+export async function flushCache() {
+  const wipe_dirs = [api_folder, content_folder, collection_folder]
 
-  if (fs.existsSync(cache_dir)) {
-    fs.rmdirSync(cache_dir, { recursive: true })
+  for (const dir of wipe_dirs) {
+    const cache_dir = path.join(process.cwd(), 'assets/cache', dir)
+
+    if (fs.existsSync(cache_dir)) {
+      fs.rmdirSync(cache_dir, { recursive: true })
+    }
+
+    fs.mkdirSync(cache_dir)
   }
-
-  fs.mkdirSync(cache_dir)
 
   return true
 }
