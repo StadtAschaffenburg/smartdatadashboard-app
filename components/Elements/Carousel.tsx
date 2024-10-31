@@ -5,6 +5,10 @@ import { Splide, SplideProps, SplideSlide } from '@splidejs/react-splide'
 import { cva, cx, VariantProps } from 'class-variance-authority'
 import { useEffect, useRef, useState } from 'react'
 import '@splidejs/react-splide/css'
+import {
+  TextDefaultVariants,
+  TextVariants,
+} from '@/utils/variants/TextVariants'
 
 interface CarouselProps extends SplideProps, VariantProps<typeof arrowStyle> {
   children: React.ReactElement[]
@@ -13,22 +17,8 @@ interface CarouselProps extends SplideProps, VariantProps<typeof arrowStyle> {
 }
 
 const arrowStyle = cva('h-6', {
-  variants: {
-    variant: {
-      primary: 'text-primary',
-      secondary: 'text-secondary',
-      mobility: 'text-mobility',
-      successStory: 'text-primary',
-      climate: 'text-climate',
-      building: 'text-buildings',
-      energy: 'text-energy',
-      inverse: 'text-white',
-      dark: 'text-zinc-900',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+  variants: TextVariants,
+  defaultVariants: TextDefaultVariants,
 })
 
 export default function Carousel({

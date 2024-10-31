@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './app/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './utils/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     screens: {
       xs: '540px',
@@ -21,25 +25,30 @@ module.exports = {
       colors: {
         primary: {
           DEFAULT: '#005096',
+          medium: '#009fde',
           light: '#dbeeff',
         },
         secondary: {
           DEFAULT: '#d23c2d',
           light: '#faebea',
         },
-        climate: {
-          DEFAULT: '#009fde',
-          light: '#e2f6ff',
+        ecology: {
+          DEFAULT: '#036579',
+          light: '#d9f8fe',
         },
-        mobility: {
+        society: {
+          DEFAULT: '#8b0f77',
+          light: '##fcdff7',
+        },
+        economy: {
+          DEFAULT: '#f18a00',
+          light: '#fff3e4',
+        },
+        green: {
           DEFAULT: '#03657a',
           light: '#ecfbfe',
         },
-        energy: {
-          DEFAULT: '#f28b00',
-          light: '#fff3e4',
-        },
-        buildings: {
+        purple: {
           DEFAULT: '#8a0f76',
           light: '#fdeefa',
         },

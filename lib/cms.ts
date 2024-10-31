@@ -61,9 +61,8 @@ export async function getContent(
 
 export async function getCollection(
   collection: string = 'tiles',
-  use_cache: boolean = true,
 ): Promise<any> {
-  return handleRequest('collection', collection, false, use_cache)
+  return handleRequest('collection', collection)
 }
 
 export async function getAPI(

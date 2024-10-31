@@ -26,16 +26,24 @@ export default async function handler(
     data[collection] = await getCollection(collection)
   }
 
+  console.log(data)
+
   // rebuild content (TBD)
-  for (const tile of data.tiles) {
-    const data = getContent('tile', tile.tile_id)
-  }
-  for (const page of data.pages) {
-    const data = getContent('page', page.slug)
-  }
-  for (const source of data.sources) {
-    const data = getSourceFile(source.file_name)
+  try {
+    for (const tile of data.tiles) {
+      const data = getContent('tile', tile.tile_id)
+    }
+    for (const page of data.pages) {
+      const data = getContent('page', page.slug)
+    }
+    for (const source of data.sources) {
+      const data = getSourceFile(source.file_name)
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error rebuilding content', error: String(error) })
   }
 
-  return res.status(200).json({ message: 'Cache cleared' })
+  return res.status(200).json({ message: 'Cache cleared, content rebuild' })
 }

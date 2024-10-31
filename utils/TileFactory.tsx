@@ -11,10 +11,7 @@ import BusTile from '@/components/Tiles/Ecology/BusTile'
 import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
 import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
-
-import { TileTypePrefix } from '@/types/tile'
-
-export type TileType = `${TileTypePrefix}-${string}`
+import { TileType } from '@/types/tiles'
 
 interface TileFactoryProps {
   type: TileType

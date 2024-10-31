@@ -4,13 +4,17 @@ import * as ToggleGroupPrimitive from '@radix-ui/react-toggle-group'
 import { cva, cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import Title from '../Elements/Title'
+import {
+  BorderDefaultVariants,
+  BorderVariants,
+} from '@/utils/variants/BorderVariants'
 
 type variants = {
   primary: string
-  mobility: string
-  successStory: string
-  climate: string
-  building: string
+  live: string
+  ecology: string
+  society: string
+  economy: string
 }
 
 const toggleGroupStyle = cva<{
@@ -18,18 +22,8 @@ const toggleGroupStyle = cva<{
 }>(
   'flex h-fit w-fit overflow-hidden rounded-full border-2 bg-white w-full md:w-auto',
   {
-    variants: {
-      variant: {
-        primary: 'border-primary',
-        mobility: 'border-mobility',
-        successStory: 'border-secondary',
-        climate: 'border-climate',
-        building: 'border-buildings',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: BorderVariants,
+    defaultVariants: BorderDefaultVariants,
   },
 )
 
@@ -40,13 +34,7 @@ const toggleGroupBackgroundStyle = cva<{
   }
 }>('px-4 transition-all duration-300 md:py-2 md:px-8 flex-1', {
   variants: {
-    variant: {
-      primary: 'bg-primary',
-      mobility: 'bg-mobility',
-      successStory: 'bg-secondary',
-      climate: 'bg-climate',
-      building: 'bg-buildings',
-    },
+    variant: BorderVariants.variant,
     isLast: {
       true: 'border-r-2',
     },
@@ -58,24 +46,24 @@ const toggleGroupBackgroundStyle = cva<{
       className: 'border-r-primary',
     },
     {
-      variant: 'mobility',
+      variant: 'live',
       isLast: true,
-      className: 'border-r-mobility',
+      className: 'border-r-primary',
     },
     {
-      variant: 'successStory',
+      variant: 'ecology',
       isLast: true,
-      className: 'border-r-secondary',
+      className: 'border-r-ecology',
     },
     {
-      variant: 'climate',
+      variant: 'society',
       isLast: true,
-      className: 'border-r-climate',
+      className: 'border-r-society',
     },
     {
-      variant: 'building',
+      variant: 'economy',
       isLast: true,
-      className: 'border-r-buildings',
+      className: 'border-r-economy',
     },
   ],
   defaultVariants: {
@@ -87,10 +75,10 @@ const selectedStyle = cva('px-4 transition-all duration-300 md:py-2 md:px-8', {
   variants: {
     variant: {
       primary: null,
-      mobility: null,
-      successStory: null,
-      climate: null,
-      building: null,
+      live: null,
+      ecology: null,
+      society: null,
+      economy: null,
     },
     selected: {
       true: 'bg-opacity-100 text-white',
@@ -105,23 +93,24 @@ const selectedStyle = cva('px-4 transition-all duration-300 md:py-2 md:px-8', {
     },
     {
       selected: false,
-      variant: 'mobility',
-      className: 'text-mobility',
+      variant: 'live',
+      className: 'text-pimary',
     },
     {
       selected: false,
-      variant: 'successStory',
-      className: 'text-secondary',
+      variant: 'ecology',
+      className: 'text-ecology',
+    },
+
+    {
+      selected: false,
+      variant: 'society',
+      className: 'text-society',
     },
     {
       selected: false,
-      variant: 'climate',
-      className: 'text-climate',
-    },
-    {
-      selected: false,
-      variant: 'building',
-      className: 'text-buildings',
+      variant: 'economy',
+      className: 'text-economy',
     },
   ],
   defaultVariants: {

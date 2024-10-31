@@ -4,23 +4,16 @@ import * as SliderPrimitive from '@radix-ui/react-slider'
 import Title from '../Elements/Title'
 import { cva, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
+import {
+  BackgroundDefaultVariants,
+  BackgroundVariants,
+} from '@/utils/variants/BackgroundVariants'
 
 const sliderStyle = cva(
   'relative h-3 md:h-5 flex-1 rounded-full bg-opacity-20',
   {
-    variants: {
-      variant: {
-        primary: 'bg-primary',
-        mobility: 'bg-mobility',
-        successStory: 'bg-secondary',
-        climate: 'bg-climate',
-        energy: 'bg-energy',
-        buildings: 'bg-buildings',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: BackgroundVariants,
+    defaultVariants: BackgroundDefaultVariants,
   },
 )
 

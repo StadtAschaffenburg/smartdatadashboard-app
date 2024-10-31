@@ -9,22 +9,14 @@ import LiveBadge from './LiveBadge'
 import getTileData from '@/lib/api/getTileData'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import {
+  TextDefaultVariants,
+  TextVariants,
+} from '@/utils/variants/TextVariants'
 
 const iconTileTitleStyle = cva('', {
-  variants: {
-    variant: {
-      primary: 'text-primary',
-      mobility: 'text-mobility',
-      successStory: 'text-primary',
-      climate: 'text-climate',
-      building: 'text-buildings',
-      energy: 'text-energy',
-      data: 'text-secondary',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+  variants: TextVariants,
+  defaultVariants: TextDefaultVariants,
 })
 
 export type DataSourceProps = {
@@ -38,7 +30,7 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
     title?: string | React.ReactElement
     subtitle?: string | React.ReactElement
     dataSource?: string
-    icon:
+    icon?:
       | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
       | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
     live?: boolean
@@ -63,6 +55,13 @@ export default async function IconTile({
   const Icon = icon
 
   const data = await getTileData(embedId!)
+
+  // set variant
+  if (!variant && data?.tags?.action_dimension) {
+    variant = data.tags.action_dimension
+  }
+
+  console.log(variant)
 
   return (
     <BaseTile

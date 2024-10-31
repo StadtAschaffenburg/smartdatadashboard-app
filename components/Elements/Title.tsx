@@ -1,46 +1,14 @@
 import { cx, VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import { HTMLAttributes } from 'react'
+import {
+  TileDefaultVariants,
+  TileVariants,
+} from '@/utils/variants/TileVariants'
 
 const TitleStyle = cva('block', {
-  variants: {
-    as: {
-      h1: 'text-5xl lg:text-headline lg:leading-[5.5rem]',
-      h2: 'text-3xl lg:text-4xl lg:leading-[3.5rem] lg:tracking-tight',
-      h3: 'text-2xl lg:text-3xl lg:leading-[3rem]',
-      h4: 'text-xl lg:text-2xl lg:leading-[36px]',
-      h5: 'text-base lg:text-xl lg:leading-6 lg:tracking-wide',
-      h6: 'text-base lg:text-lg lg:tracking-wide',
-      h7: 'text-base leading-7 tracking-wide',
-      h8: 'text-sm leading-5 tracking-wide',
-      subtitle: 'text-xl lg:text-3xl',
-    },
-    variant: {
-      primary: 'text-primary',
-      secondary: 'text-secondary',
-      mobility: 'text-mobility',
-      successStory: 'text-primary',
-      climate: 'text-climate',
-      building: 'text-buildings',
-      energy: 'text-energy',
-      inverse: 'text-white',
-      dark: 'text-zinc-900',
-      eistage: 'text-climate',
-      frosttage: 'text-primary',
-      heisse_tage: 'text-energy',
-      sommertage: 'text-mobility',
-      tropennaechte: 'text-buildings',
-    },
-    font: {
-      medium: 'font-medium',
-      normal: 'font-normal',
-      bold: 'font-bold',
-      semibold: 'font-semibold',
-    },
-  },
-  defaultVariants: {
-    font: 'medium',
-  },
+  variants: TileVariants,
+  defaultVariants: TileDefaultVariants,
 })
 
 type TitleProps = VariantProps<typeof TitleStyle> &

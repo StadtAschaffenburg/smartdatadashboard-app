@@ -7,11 +7,7 @@ export const TilePrefix = 'ecology'
 
 export default function EcologyTile({ children, ...props }: EcologyTileProps) {
   return (
-    <IconTile
-      {...props}
-      icon={MsKlimadashboardIconsButtonAktivGebaeude}
-      variant="building"
-    >
+    <IconTile {...props} icon={MsKlimadashboardIconsButtonAktivGebaeude}>
       <>{children}</>
     </IconTile>
   )

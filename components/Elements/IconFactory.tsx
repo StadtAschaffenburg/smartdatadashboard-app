@@ -1,5 +1,9 @@
 import { cva, cx, VariantProps } from 'class-variance-authority'
 import { ForwardRefExoticComponent, HTMLAttributes, SVGProps } from 'react'
+import {
+  IconDefaultVariants,
+  IconVariants,
+} from '@/utils/variants/IconVariants'
 
 interface IconFactoryProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -10,22 +14,8 @@ interface IconFactoryProps
 }
 
 const iconStyle = cva('', {
-  variants: {
-    variant: {
-      primary: 'stroke-primary text-primary',
-      mobility: 'stroke-mobility text-mobility',
-      successStory: 'stroke-secondary text-secondary',
-      climate: 'stroke-climate text-climate',
-      eistage: 'stroke-climate text-climate',
-      frosttage: 'stroke-primary text-primary',
-      heisse_tage: 'stroke-energy text-energy',
-      sommertage: 'stroke-mobility text-mobility',
-      tropennaechte: 'stroke-buildings text-buildings',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+  variants: IconVariants,
+  defaultVariants: IconDefaultVariants,
 })
 
 export default function IconFactory({

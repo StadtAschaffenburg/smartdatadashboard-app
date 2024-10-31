@@ -2,20 +2,14 @@
 
 import * as ProgressPrimitive from '@radix-ui/react-progress'
 import { cva, VariantProps } from 'class-variance-authority'
+import {
+  TextDefaultVariants,
+  TextVariants,
+} from '@/utils/variants/TextVariants'
 
 const ProgressStyle = cva('flex h-full rounded-full duration-300 ease-in-out', {
-  variants: {
-    variant: {
-      primary: 'bg-white',
-      mobility: 'bg-mobility',
-      climate: 'bg-climate',
-      building: 'bg-buildings',
-      energy: 'bg-energy',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+  variants: TextVariants,
+  defaultVariants: TextDefaultVariants,
 })
 
 type ProgressBarProps = VariantProps<typeof ProgressStyle> & {

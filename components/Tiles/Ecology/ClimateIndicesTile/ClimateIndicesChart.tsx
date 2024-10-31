@@ -65,7 +65,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Heiße Tage',
         data: getSeries(data, 'heisse_tage'),
         // @ts-ignore
-        color: theme?.colors?.energy.DEFAULT || '#6060d6',
+        color: theme?.colors?.energy?.DEFAULT || '#6060d6',
       },
     },
     sommertage: {
@@ -75,7 +75,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Sommertage',
         data: getSeries(data, 'sommertage'),
         // @ts-ignore
-        color: theme?.colors?.mobility.DEFAULT || '#6060d6',
+        color: theme?.colors?.mobility?.DEFAULT || '#6060d6',
       },
     },
     tropennaechte: {
@@ -85,7 +85,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Tropennächte',
         data: getSeries(data, 'tropennaechte'),
         // @ts-ignore
-        color: theme?.colors?.buildings.DEFAULT || '#6060d6',
+        color: theme?.colors?.buildings?.DEFAULT || '#6060d6',
       },
     },
     frosttage: {
@@ -94,7 +94,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Frosttage',
         data: getSeries(data, 'frosttage'),
         // @ts-ignore
-        color: theme?.colors?.primary.DEFAULT || '#6060d6',
+        color: theme?.colors?.primary?.DEFAULT || '#6060d6',
       },
       icon: MsKlimadashboardIconsKlimakenntageFrost,
     },
@@ -105,7 +105,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Eistage',
         data: getSeries(data, 'eistage'),
         // @ts-ignore
-        color: theme?.colors?.climate.DEFAULT || '#6060d6',
+        color: theme?.colors?.climate?.DEFAULT || '#6060d6',
       },
     },
   }

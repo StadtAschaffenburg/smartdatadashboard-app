@@ -1,23 +1,15 @@
 import Title from '@/components/Elements/Title'
 import { cva, VariantProps } from 'class-variance-authority'
+import {
+  BackgroundDefaultVariants,
+  BackgroundVariants,
+} from '@/utils/variants/BackgroundVariants'
 
 const liveBadgeStyle = cva(
   'flex w-fit items-center gap-1 rounded-lg pl-2 pr-3 py-0.5 text-white tracking-wider',
   {
-    variants: {
-      variant: {
-        primary: 'bg-primary',
-        mobility: 'bg-mobility',
-        successStory: 'bg-primary',
-        climate: 'bg-climate',
-        building: 'bg-buildings',
-        energy: 'bg-energy',
-        data: 'bg-secondary',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: BackgroundVariants,
+    defaultVariants: BackgroundDefaultVariants,
   },
 )
 

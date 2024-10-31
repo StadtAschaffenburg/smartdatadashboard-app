@@ -7,11 +7,15 @@ import EmbedOverlay from './EmbedOverlay'
 import ShareOverlay from './ShareOverlay'
 import MoreInfoOverlay from './MoreInfoOverlay'
 import TileFooter from './TileFooter'
-import { TileType } from '@/utils/TileFactory'
+import { TileType } from '@/types/tiles'
 import ReactMarkdown from 'react-markdown'
 import Title from '@/components/Elements/Title'
 import remarkGfm from 'remark-gfm'
 import TileHeader from './TileHeader'
+import {
+  BackgroundDefaultVariants,
+  BackgroundLightVariants,
+} from '@/utils/variants/BackgroundVariants'
 
 import {
   MsKlimadashboardIconsButtonAktivEnergieV1,
@@ -23,21 +27,8 @@ import {
 const baseTileStyle = cva(
   'relative flex flex-col md:flex-row h-fit overflow-hidden',
   {
-    variants: {
-      variant: {
-        primary: 'bg-primary-light',
-        secondary: 'bg-secondary',
-        mobility: 'bg-mobility-light',
-        successStory: 'bg-primary-light',
-        climate: 'bg-climate-light',
-        building: 'bg-buildings-light',
-        energy: 'bg-energy-light',
-        data: 'bg-secondary-light',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: BackgroundLightVariants,
+    defaultVariants: BackgroundDefaultVariants,
   },
 )
 
@@ -147,7 +138,7 @@ export function BaseTile({
             onEmbedClick={() => setShowEmbedOverlay(true)}
             onMoreInfoClick={() => setShowMoreInfo(true)}
             onShareClick={openShareDialog}
-            variant={variant === 'secondary' ? 'inverse' : 'primary'}
+            variant={variant === 'data' ? 'inverse' : 'primary'}
           >
             {footerCenterElement}
           </TileFooter>

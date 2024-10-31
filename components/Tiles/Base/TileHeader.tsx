@@ -1,27 +1,19 @@
 import Link from 'next/link'
-
 import { cva, cx, VariantProps } from 'class-variance-authority'
-
 import { ForwardRefExoticComponent, SVGProps } from 'react'
-import { MsKlimadashboardIconsNaviDownload, MsKlimadashboardIconsNaviKachelImplementieren, MsKlimadashboardIconsNaviTeilen } from '@/components/Icons/Misc/Navi'
+import {
+  MsKlimadashboardIconsNaviDownload,
+  MsKlimadashboardIconsNaviKachelImplementieren,
+  MsKlimadashboardIconsNaviTeilen,
+} from '@/components/Icons/Misc/Navi'
+import {
+  TextDefaultVariants,
+  TextVariants,
+} from '@/utils/variants/TextVariants'
 
 const iconTileTitleStyle = cva('', {
-  variants: {
-    variant: {
-      primary: 'text-primary',
-      secondary: 'text-secondary',
-      mobility: 'text-mobility',
-      successStory: 'text-primary',
-      climate: 'text-climate',
-      building: 'text-buildings',
-      energy: 'text-energy',
-      inverse: 'text-white',
-      data: 'text-secondary',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary',
-  },
+  variants: TextVariants,
+  defaultVariants: TextDefaultVariants,
 })
 
 type TileHeaderProps = VariantProps<typeof iconTileTitleStyle> & {
@@ -32,8 +24,8 @@ type TileHeaderProps = VariantProps<typeof iconTileTitleStyle> & {
   dataURL?: string
   hasMoreDetails?: boolean
   icon?:
-  | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-  | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
+    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
 }
 
 /**
@@ -71,7 +63,7 @@ export default function TileHeader({
           />
         </div>
         {dataURL && (
-          <Link className='fill-inherit' href={dataURL} target="_blank">
+          <Link className="fill-inherit" href={dataURL} target="_blank">
             <MsKlimadashboardIconsNaviDownload className="h-6 stroke-2" />
           </Link>
         )}

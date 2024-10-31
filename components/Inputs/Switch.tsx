@@ -3,29 +3,16 @@ import { useState } from 'react'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import Title from '../Elements/Title'
+import {
+  SwitchDefaultVariants,
+  SwitchVariants,
+} from '@/utils/variants/SwitchVariants'
 
 const switchThumbStyle = cva(
   'flex h-3 w-3 md:h-5 md:w-5 items-center justify-center rounded-full transition-all',
   {
-    variants: {
-      variant: {
-        primary: 'bg-primary',
-        mobility: 'bg-mobility',
-        successStory: 'bg-secondary',
-        climate: 'bg-climate',
-        eistage: 'bg-climate',
-        frosttage: 'bg-primary',
-        heisse_tage: 'bg-energy',
-        sommertage: 'bg-mobility',
-        tropennaechte: 'bg-buildings',
-      },
-      checked: {
-        true: 'translate-x-full',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: SwitchVariants,
+    defaultVariants: SwitchDefaultVariants,
   },
 )
 
@@ -44,22 +31,8 @@ const switchThumbInnerStyle = cva(
 const switchBorderStyle = cva(
   'w-[2.25rem] md:w-[3.25rem] p-1 rounded-full bg-white border-[1px] md:border-2 shadow-inner',
   {
-    variants: {
-      variant: {
-        primary: 'border-primary',
-        mobility: 'border-mobility',
-        successStory: 'border-secondary',
-        climate: 'border-climate',
-        eistage: 'border-climate',
-        frosttage: 'border-primary',
-        heisse_tage: 'border-energy',
-        sommertage: 'border-mobility',
-        tropennaechte: 'border-buildings',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
+    variants: SwitchVariants,
+    defaultVariants: SwitchDefaultVariants,
   },
 )
 
