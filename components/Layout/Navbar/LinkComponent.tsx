@@ -4,11 +4,12 @@ import Link from 'next/link'
 import { SVGProps } from 'react'
 
 export type LinkProps = {
-  title: string
-  icon: (_props: SVGProps<SVGSVGElement>) => JSX.Element
+  title?: string
+  icon?: (_props: SVGProps<SVGSVGElement>) => JSX.Element
   link: string
   variant?: 'primary' | 'inverse'
-  hover?: 'climate' | 'energy' | 'mobility' | 'buildings'
+  hover?: 'primary' | 'secondary'
+  onClick?: () => void
 }
 
 export default function LinkComponent({
@@ -17,24 +18,27 @@ export default function LinkComponent({
   icon,
   variant = 'primary',
   hover,
+  onClick,
 }: LinkProps) {
   const Icon = icon
+
   return (
     <Link href={link}>
       <Button
         hover={hover}
+        onClick={onClick}
         size={'link'}
         startIcon={
-          <Icon
-            className={cx(
-              'h-[26px] transition-colors md:h-[34px]',
-              variant === 'primary' ? 'text-primary' : 'text-white',
-              hover === 'climate' && 'group-hover:text-climate',
-              hover === 'energy' && 'group-hover:text-energy',
-              hover === 'mobility' && 'group-hover:text-mobility',
-              hover === 'buildings' && 'group-hover:text-buildings',
-            )}
-          />
+          Icon ? (
+            <Icon
+              className={cx(
+                'h-[26px] transition-colors md:h-[34px]',
+                variant === 'primary' ? 'text-primary' : 'text-white',
+                hover === 'primary' && 'group-hover:text-primary',
+                hover === 'secondary' && 'group-hover:text-secondary',
+              )}
+            />
+          ) : null
         }
         variant={variant}
       >

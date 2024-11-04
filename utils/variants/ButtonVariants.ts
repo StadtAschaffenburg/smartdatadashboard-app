@@ -17,6 +17,8 @@ export const ButtonVariants = {
     link: 'pr-6 md:pr-10 pl-5 md:pl-8 py-2 md:py-3 text-xl md:text-2xl',
   },
   hover: {
+    primary: 'hover:border-primary',
+    secondary: 'hover:border-primary',
     live: 'hover:border-primary',
     ecology: 'hover:border-ecology',
     society: 'hover:border-society',

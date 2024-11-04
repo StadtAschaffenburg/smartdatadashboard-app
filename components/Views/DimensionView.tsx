@@ -1,6 +1,7 @@
 import React from 'react'
 import BaseView from './BaseView'
 import TileCollection from '@/components/Elements/TileCollection'
+import CategoryType from '@/types/TilesCategory'
 import { getCollection } from '@/lib/cms'
 import {
   ActionDimensionsType,
@@ -10,12 +11,14 @@ import {
 interface DimensionViewProps {
   action_dimension?: ActionDimensionsType
   action_field?: ActionFieldsType
+  category?: CategoryType | null
   search_query?: string
 }
 
 export default async function DimensionView({
   action_dimension,
   action_field,
+  category,
   search_query,
 }: DimensionViewProps) {
   const collection = await getCollection('tiles')
@@ -25,7 +28,7 @@ export default async function DimensionView({
       <TileCollection
         action_dimension={action_dimension}
         action_field={action_field}
-        category="default"
+        category={category}
         collection={collection}
         search_query={search_query}
       />

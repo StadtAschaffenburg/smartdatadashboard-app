@@ -1,3 +1,5 @@
+export const rootPage = 'daten'
+
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
 export type ActionFieldsType =
   | 'arbeit-und-wirtschaft'
@@ -21,67 +23,3 @@ export type DimensionMappingType = {
   fields: FieldMappingType[]
   slug: string
 }
-
-// Defining the dimension mapping
-const dimensionMapping: DimensionMappingType[] = [
-  {
-    id: 'ecology',
-    fields: [
-      {
-        id: 'energie',
-        slug: 'energie',
-      },
-      {
-        id: 'mobilitaet-und-infrastruktur',
-        slug: 'mobilitaet-und-infrastruktur',
-      },
-      {
-        id: 'umwelt-und-ressourcenschutz',
-        slug: 'umwelt-und-ressourcenschutz',
-      },
-      {
-        id: 'wetter-und-klima',
-        slug: 'wetter-und-klima',
-      },
-    ],
-    slug: 'oekologie',
-  },
-  {
-    id: 'society',
-    fields: [
-      {
-        id: 'globale-verantwortung',
-        slug: 'globale-verantwortung',
-      },
-      {
-        id: 'leben-und-wohnen',
-        slug: 'leben-und-wohnen',
-      },
-      {
-        id: 'partizipation-und-teilhabe',
-        slug: 'partizipation-und-teilhabe',
-      },
-    ],
-    slug: 'sozial',
-  },
-  {
-    id: 'economy',
-    fields: [
-      {
-        id: 'arbeit-und-wirtschaft',
-        slug: 'arbeit-und-wirtschaft',
-      },
-      {
-        id: 'digitalisierung',
-        slug: 'digitalisierung',
-      },
-      {
-        id: 'wissenschaft',
-        slug: 'wissenschaft',
-      },
-    ],
-    slug: 'oekonomie',
-  },
-]
-
-export default dimensionMapping

@@ -6,7 +6,6 @@ import Columns from '@/components/Layout/Columns'
 
 export default async function TileCollection({
   collection,
-  type = null,
   category = null,
   action_dimension = null,
   action_field = null,
@@ -16,7 +15,6 @@ export default async function TileCollection({
   // apply filters based on provided props
   const filtered_collection = collection.filter(item => {
     return (
-      (type === null || item.tile_id === type) &&
       (category === null || item.tags.category === category) &&
       (action_dimension === null ||
         item.tags.action_dimension === action_dimension) &&

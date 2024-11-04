@@ -9,17 +9,17 @@ import {
 import { Spinner } from '@/components/Elements/Spinner'
 
 const button = cva(
-  'flex items-center justify-center rounded-full border-2 font-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-70 group transition-colors',
+  'flex items-center justify-center border-2 font-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-70 group transition-colors',
   {
     variants: ButtonVariants,
     defaultVariants: ButtonDefaultVariants,
   },
 )
 
-type IconProps =
-  | { startIcon: React.ReactElement; endIcon?: never }
-  | { endIcon: React.ReactElement; startIcon?: never }
-  | { endIcon?: undefined; startIcon?: undefined }
+type IconProps = {
+  startIcon?: React.ReactElement | null
+  endIcon?: React.ReactElement | null
+}
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button> &

@@ -1,10 +1,12 @@
 import Footer from '@/components/Layout/Footer'
 import Navbar from '@/components/Layout/Navbar'
 import Providers from '@/components/Layout/Providers'
+import Top from '@/components/Layout/Top'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex flex-col">
+      <Top />
       <Navbar />
       <div className="flex-1">
         <Providers>{children}</Providers>

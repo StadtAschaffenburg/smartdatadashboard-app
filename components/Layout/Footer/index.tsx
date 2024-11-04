@@ -1,13 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import StairStepBackground from '../StairStepBackground'
+import Background from '../Background'
 import Title from '@/components/Elements/Title'
 import Container from '../Container'
 
 export default function Footer() {
   return (
-    <StairStepBackground>
+    <Background>
       <Container>
         <div className="flex justify-between gap-4 py-16">
           <Link href="/impressum">
@@ -27,6 +27,6 @@ export default function Footer() {
           </Link>
         </div>
       </Container>
-    </StairStepBackground>
+    </Background>
   )
 }
