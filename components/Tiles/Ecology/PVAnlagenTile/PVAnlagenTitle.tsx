@@ -1,5 +1,3 @@
-import 'server-only'
-
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { ContentProps } from './dt'
 

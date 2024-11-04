@@ -23,7 +23,7 @@ interface TileFactoryProps {
  * @param param TileFactoryProps
  * @returns Tile
  */
-export default async function TileFactory({ type }: TileFactoryProps) {
+export default function TileFactory({ type }: TileFactoryProps) {
   switch (type) {
     // ---- ECOLOGY ----
     case 'ecology-energyConsumption':

@@ -1,5 +1,4 @@
 import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
 import { TileSplitView } from '../../Base/TileSplitView'
 import getTileData from '@/lib/api/getTileData'
 import Title from '@/components/Elements/Title'
@@ -7,27 +6,31 @@ import EnergyConsumptionContent from './EnergyConsumptionContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { InputDataType } from './dt'
 
-export default async function EnergyComsumptionTile() {
+export default async function EnergyConsumptionTile() {
   const tile_id = `${TilePrefix}-energyConsumption`
-  const data = await getTileData(tile_id)
 
-  const waermeDataInput: InputDataType[] = await getSourceData('waerme.csv')
-  const stromDataInput: InputDataType[] = await getSourceData('strom.csv')
+  // Parallelize data fetching for improved performance
+  const [data, waermeDataInput, stromDataInput] = await Promise.all([
+    getTileData(tile_id),
+    getSourceData('waerme.csv'),
+    getSourceData('strom.csv'),
+  ])
 
+  // Render component with fetched data
   return (
     <BaseTile embedId={tile_id}>
       <TileSplitView>
         <TileSplitView.Left>
           <div>
             <EnergyConsumptionContent
-              stromDataInput={stromDataInput}
-              waermeDataInput={waermeDataInput}
+              stromDataInput={stromDataInput as InputDataType[]}
+              waermeDataInput={waermeDataInput as InputDataType[]}
             />
           </div>
         </TileSplitView.Left>
         <TileSplitView.Right>
-          <Title as="h5" variant={'dark'}>
-            {data?.info ?? ''}
+          <Title as="h5" variant="dark">
+            {data?.info ?? 'Information not available'}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

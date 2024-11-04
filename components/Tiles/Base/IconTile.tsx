@@ -1,5 +1,3 @@
-import 'server-only'
-
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 import { cva, cx, VariantProps } from 'class-variance-authority'
@@ -60,8 +58,6 @@ export default async function IconTile({
   if (!variant && data?.tags?.action_dimension) {
     variant = data.tags.action_dimension
   }
-
-  console.log(variant)
 
   return (
     <BaseTile

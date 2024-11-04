@@ -1,20 +1,18 @@
 import TileFactory from '@/utils/TileFactory'
-import { getCollection } from '@/lib/cms'
 import { TileDataType } from '@/types/tiles'
 import NoResults from './noResults'
 import { TileCollectionProps } from './dt'
 import Columns from '@/components/Layout/Columns'
 
 export default async function TileCollection({
+  collection,
   type = null,
   category = null,
   action_dimension = null,
   action_field = null,
   sdg_target = null,
-  search = null,
+  search_query = null,
 }: TileCollectionProps) {
-  const collection: TileDataType[] = await getCollection('tiles')
-
   // apply filters based on provided props
   const filtered_collection = collection.filter(item => {
     return (
@@ -25,8 +23,8 @@ export default async function TileCollection({
       (action_field === null ||
         item.tags.action_field.includes(action_field)) &&
       (sdg_target === null || item.tags.sdg_target.includes(sdg_target)) &&
-      (search === null ||
-        item.search.toLowerCase().includes(search.toLowerCase()))
+      (search_query === null ||
+        item.search.toLowerCase().includes(search_query.toLowerCase()))
     )
   })
 

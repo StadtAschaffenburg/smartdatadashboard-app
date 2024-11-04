@@ -25,6 +25,17 @@ import {
 
 const { theme } = resolveConfig(tailwindConfig)
 
+const colorLookup: Record<
+  IndicesTypes,
+  'blue' | 'primary' | 'economy' | 'green' | 'purple'
+> = {
+  eistage: 'blue',
+  frosttage: 'primary',
+  heisse_tage: 'economy',
+  sommertage: 'green',
+  tropennaechte: 'purple',
+}
+
 const STARTING_YEAR = 1990
 
 const getSeries = (data: ClimateIndex[], property: keyof ClimateIndex) => {
@@ -65,7 +76,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Heiße Tage',
         data: getSeries(data, 'heisse_tage'),
         // @ts-ignore
-        color: theme?.colors?.energy?.DEFAULT || '#6060d6',
+        color: theme?.colors?.economy?.DEFAULT || '#6060d6',
       },
     },
     sommertage: {
@@ -75,7 +86,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Sommertage',
         data: getSeries(data, 'sommertage'),
         // @ts-ignore
-        color: theme?.colors?.mobility?.DEFAULT || '#6060d6',
+        color: theme?.colors?.green?.DEFAULT || '#6060d6',
       },
     },
     tropennaechte: {
@@ -85,7 +96,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Tropennächte',
         data: getSeries(data, 'tropennaechte'),
         // @ts-ignore
-        color: theme?.colors?.buildings?.DEFAULT || '#6060d6',
+        color: theme?.colors?.purple?.DEFAULT || '#6060d6',
       },
     },
     frosttage: {
@@ -105,7 +116,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Eistage',
         data: getSeries(data, 'eistage'),
         // @ts-ignore
-        color: theme?.colors?.climate?.DEFAULT || '#6060d6',
+        color: theme?.colors?.primary?.medium || '#6060d6',
       },
     },
   }
@@ -131,16 +142,18 @@ function ClimateIndiceToggle({
   onChange?: (_checked: boolean) => void
 }) {
   const Icon = indices[type].icon
+  const variant = colorLookup[type]
+
   return (
     <div className="flex w-full flex-row-reverse items-center justify-between gap-2 lg:flex-row lg:justify-normal lg:gap-4">
       <Switch
         defaultChecked={defaultChecked}
         onCheckedChange={onChange}
-        variant={type}
+        variant={variant}
       />
       <div className="flex items-center gap-2 md:w-max md:gap-4">
         <Icon className="aspect-square h-5 md:h-8" />
-        <Title as="h5" variant={type}>
+        <Title as="h5" variant={variant}>
           {indices[type].title}
         </Title>
       </div>

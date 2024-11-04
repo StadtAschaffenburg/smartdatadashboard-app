@@ -1,5 +1,3 @@
-import 'server-only'
-
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { MsKlimadashboardIconsEPvGebaeude } from '@/components/Icons/Energie'

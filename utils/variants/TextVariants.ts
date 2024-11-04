@@ -9,11 +9,9 @@ export const TextVariants = {
     data: 'text-data',
     inverse: 'text-white',
     dark: 'text-zinc-900',
-    eistage: 'text-primary-medium',
-    frosttage: 'text-primary',
-    heisse_tage: 'text-economy',
-    sommertage: 'text-green',
-    tropennaechte: 'text-purple',
+    blue: 'text-primary-medium',
+    green: 'text-green',
+    purple: 'text-purple',
   },
 } as const
 

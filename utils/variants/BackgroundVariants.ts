@@ -9,11 +9,9 @@ export const BackgroundVariants = {
     data: 'bg-secondary',
     inverse: 'bg-white',
     dark: 'bg-zinc-900',
-    eistage: 'bg-primary-medium',
-    frosttage: 'bg-primary',
-    heisse_tage: 'bg-economy',
-    sommertage: 'bg-green',
-    tropennaechte: 'bg-purple',
+    blue: 'bg-primary-medium',
+    green: 'bg-green',
+    purple: 'bg-purple',
   },
 } as const
 
@@ -28,11 +26,9 @@ export const BackgroundLightVariants = {
     data: 'bg-secondary-light',
     inverse: 'bg-white',
     dark: 'bg-zinc-900',
-    eistage: 'bg-primary-light',
-    frosttage: 'bg-primary-light',
-    heisse_tage: 'bg-primary-light',
-    sommertage: 'bg-primary-light',
-    tropennaechte: 'bg-primary-light',
+    blue: 'bg-primary-light',
+    green: 'bg-green-light',
+    purple: 'bg-purple-light',
   },
 } as const
 
