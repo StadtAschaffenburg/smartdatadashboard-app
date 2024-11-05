@@ -37,3 +37,12 @@ export type BackgroundVariant = keyof typeof BackgroundVariants.variant
 export const BackgroundDefaultVariants: { variant: BackgroundVariant } = {
   variant: 'primary',
 }
+
+export const getVariantClass = (
+  variant: BackgroundVariant,
+  light: boolean = false,
+): string => {
+  return light
+    ? BackgroundLightVariants.variant[variant]
+    : BackgroundVariants.variant[variant]
+}

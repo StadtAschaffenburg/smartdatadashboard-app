@@ -7,7 +7,7 @@ import Container from '../Container'
 
 export default function Footer() {
   return (
-    <Background>
+    <Background light>
       <Container>
         <div className="flex justify-between gap-4 py-16">
           <Link href="/impressum">

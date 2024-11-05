@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import DimensionView from '@/components/Views/DimensionView'
+import TileCollectionView from '@/components/Views/TileCollectionView'
 import DimensionFilter from '@/components/Layout/DimensionFilter'
 import { findPage } from '@/lib/sitemap'
 import Container from '@/components/Layout/Container'
@@ -7,8 +7,7 @@ import {
   ActionDimensionsType,
   ActionFieldsType,
 } from '@/types/dimensionMapping'
-
-export const revalidate = 10
+import { getTerm } from '@/utils/search'
 
 interface HandlungsdimensionenProps {
   params: {
@@ -36,9 +35,6 @@ export default function Handlungsdimensionen({
   const field_page = findPage(slugField)
   const action_field = field_page?.id as ActionFieldsType | undefined
 
-  // get the search query from the URL
-  const search_query = searchParams.search || ''
-
   if ((slugDimension && !action_dimension) || (slugField && !action_field)) {
     return notFound() // this will trigger the 404 page
   }
@@ -47,10 +43,10 @@ export default function Handlungsdimensionen({
     <>
       <DimensionFilter action_dimension={action_dimension} />
       <Container>
-        <DimensionView
+        <TileCollectionView
           action_dimension={action_dimension}
           action_field={action_field}
-          search_query={search_query}
+          search_query={getTerm(searchParams)}
         />
       </Container>
     </>

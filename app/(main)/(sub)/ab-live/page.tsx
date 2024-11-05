@@ -1,7 +1,12 @@
-import DimensionView from '@/components/Views/DimensionView'
+import TileCollectionView from '@/components/Views/TileCollectionView'
+import Container from '@/components/Layout/Container'
 
 export const revalidate = 10
 
 export default function AbLive() {
-  return <DimensionView category="ab_live" />
+  return (
+    <Container>
+      <TileCollectionView category="ab_live" />
+    </Container>
+  )
 }

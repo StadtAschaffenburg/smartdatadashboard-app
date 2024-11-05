@@ -86,8 +86,98 @@ export const sitemap: PageMappingType[] = [
       },
     ],
   },
-
-  { id: 'sdg_targets', title: 'SDG-Ziele', slug: 'sdg-ziele' },
+  {
+    id: 'sdg_targets',
+    title: 'SDG-Ziele',
+    slug: 'sdg-ziele',
+    children: [
+      {
+        id: 'keine-armut',
+        title: 'Keine Armut',
+        slug: 'keine-armut',
+      },
+      {
+        id: 'kein-hunger',
+        title: 'Kein Hunger',
+        slug: 'kein-hunger',
+      },
+      {
+        id: 'gesundheit-und-wohlergehen',
+        title: 'Gesundheit und Wohlergehen',
+        slug: 'gesundheit-und-wohlergehen',
+      },
+      {
+        id: 'hochwertige-bildung',
+        title: 'Hochwertige Bildung',
+        slug: 'hochwertige-bildung',
+      },
+      {
+        id: 'geschlechtergleichheit',
+        title: 'Geschlechtergleichheit',
+        slug: 'geschlechtergleichheit',
+      },
+      {
+        id: 'sauberes-wasser-und-sanitaereinrichtungen',
+        title: 'Sauberes Wasser und Sanitäreinrichtungen',
+        slug: 'sauberes-wasser-und-sanitaereinrichtungen',
+      },
+      {
+        id: 'bezahlbare-und-saubere-energie',
+        title: 'Bezahlbare und saubere Energie',
+        slug: 'bezahlbare-und-saubere-energie',
+      },
+      {
+        id: 'menschenwuerdige-arbeit-und-wirtschaftswachstum',
+        title: 'Menschenwürdige Arbeit und Wirtschaftswachstum',
+        slug: 'menschenwuerdige-arbeit-und-wirtschaftswachstum',
+      },
+      {
+        id: 'industrie-innovation-und-infrastruktur',
+        title: 'Industrie, Innovation und Infrastruktur',
+        slug: 'industrie-innovation-und-infrastruktur',
+      },
+      {
+        id: 'weniger-ungleichheiten',
+        title: 'Weniger Ungleichheiten',
+        slug: 'weniger-ungleichheiten',
+      },
+      {
+        id: 'nachhaltige-staedte-und-gemeinden',
+        title: 'Nachhaltige Städte und Gemeinden',
+        slug: 'nachhaltige-staedte-und-gemeinden',
+      },
+      {
+        id: 'nachhaltiger-konsum-und-produktion',
+        title: 'Nachhaltiger Konsum und Produktion',
+        slug: 'nachhaltiger-konsum-und-produktion',
+      },
+      {
+        id: 'massnahmen-zum-klimaschutz',
+        title: 'Maßnahmen zum Klimaschutz',
+        slug: 'massnahmen-zum-klimaschutz',
+      },
+      {
+        id: 'leben-unter-wasser',
+        title: 'Leben unter Wasser',
+        slug: 'leben-unter-wasser',
+      },
+      {
+        id: 'leben-an-land',
+        title: 'Leben an Land',
+        slug: 'leben-an-land',
+      },
+      {
+        id: 'frieden-gerechtigkeit-und-starke-institutionen',
+        title: 'Frieden, Gerechtigkeit und starke Institutionen',
+        slug: 'frieden-gerechtigkeit-und-starke-institutionen',
+      },
+      {
+        id: 'partnerschaften-zur-erreichung-der-ziele',
+        title: 'Partnerschaften zur Erreichung der Ziele',
+        slug: 'partnerschaften-zur-erreichung-der-ziele',
+      },
+    ],
+  },
   { id: 'imprint', title: 'Impressum', slug: 'impressum' },
   { id: 'privacy', title: 'Datenschutzerklärung', slug: 'datenschutz' },
   { id: 'adapt', title: 'Dashboard Adaptieren', slug: 'adaptieren' },
@@ -101,7 +191,9 @@ export function findPage(id_or_slug: string): PageMappingType | null {
       }
       if (page.children) {
         const result = findInchildren(page.children)
-        if (result) {return result}
+        if (result) {
+          return result
+        }
       }
     }
     return null

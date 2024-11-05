@@ -9,14 +9,14 @@ import { InputDataType } from './dt'
 export default async function EnergyConsumptionTile() {
   const tile_id = `${TilePrefix}-energyConsumption`
 
-  // Parallelize data fetching for improved performance
+  // parallelize data fetching for improved performance
   const [data, waermeDataInput, stromDataInput] = await Promise.all([
     getTileData(tile_id),
     getSourceData('waerme.csv'),
     getSourceData('strom.csv'),
   ])
 
-  // Render component with fetched data
+  // render component with fetched data
   return (
     <BaseTile embedId={tile_id}>
       <TileSplitView>
@@ -30,7 +30,7 @@ export default async function EnergyConsumptionTile() {
         </TileSplitView.Left>
         <TileSplitView.Right>
           <Title as="h5" variant="dark">
-            {data?.info ?? 'Information not available'}
+            {data?.info ?? ''}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

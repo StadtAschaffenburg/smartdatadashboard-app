@@ -38,7 +38,7 @@ module.exports = {
         },
         society: {
           DEFAULT: '#8b0f77',
-          light: '##fcdff7',
+          light: '#fcdff7',
         },
         economy: {
           DEFAULT: '#f18a00',

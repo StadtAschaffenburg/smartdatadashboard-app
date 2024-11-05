@@ -5,7 +5,7 @@ import Top from '@/components/Layout/Top'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex min-h-screen flex-col ">
       <Top />
       <Navbar />
       <div className="flex-1">

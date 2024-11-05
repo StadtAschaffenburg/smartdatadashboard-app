@@ -1,28 +1,22 @@
-import type { VariantProps } from 'class-variance-authority'
-import { cva } from 'class-variance-authority'
+import {
+  BackgroundDefaultVariants,
+  BackgroundVariant,
+  getVariantClass,
+} from '@/utils/variants/BackgroundVariants'
 
-const phenomenonStyle = cva('', {
-  variants: {
-    variant: {
-      primary: 'bg-primary text-white',
-      primary_light: 'bg-primary-light',
-      secondary: 'bg-secondary bg-opacity-20',
-      overlay: 'bg-primary backdrop-blur bg-opacity-90',
-    },
-  },
-  defaultVariants: {
-    variant: 'primary_light',
-  },
-})
-
-export type BackgroundProps = VariantProps<typeof phenomenonStyle> & {
+export type BackgroundProps = {
+  light?: boolean
+  variant?: BackgroundVariant
   children: React.ReactNode
 }
 
-export default function Background({ variant, children }: BackgroundProps) {
-  return (
-    <div>
-      <div className={phenomenonStyle({ variant })}>{children}</div>
-    </div>
-  )
+// Background-Komponente ohne cva
+export default function Background({
+  light = false,
+  variant = BackgroundDefaultVariants.variant,
+  children,
+}: BackgroundProps) {
+  const background_class = getVariantClass(variant, light)
+
+  return <div className={background_class}>{children}</div>
 }

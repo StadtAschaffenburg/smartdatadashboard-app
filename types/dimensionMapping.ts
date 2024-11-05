@@ -1,5 +1,3 @@
-export const rootPage = 'daten'
-
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
 export type ActionFieldsType =
   | 'arbeit-und-wirtschaft'
