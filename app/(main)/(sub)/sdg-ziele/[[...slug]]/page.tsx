@@ -11,7 +11,7 @@ interface SdgZieleProps {
     slug?: string[]
   }
   searchParams: {
-    search?: string
+    suche?: string
   }
 }
 

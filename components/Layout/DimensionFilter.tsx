@@ -67,7 +67,7 @@ export default async function DimensionFilter({
         </div>
         <div className="mt-4 flex items-center justify-between gap-4">
           {field_links.map(l => (
-            <LinkComponent key={l.link} variant="primary" {...l} />
+            <LinkComponent key={l.link} size="md" variant="primary" {...l} />
           ))}
         </div>
       </Container>

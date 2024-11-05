@@ -4,6 +4,7 @@ import url from 'url'
 import {
   content_folder,
   fallback_folder,
+  readApiCache,
   readCache,
   writeApiCache,
   writeContentCache,
@@ -73,7 +74,7 @@ export async function getAPI(
   const file_name = api.replace(/\//g, '_')
 
   if (use_cache) {
-    const cache_data = (await readCache(file_name, 'api')) || null
+    const cache_data = (await readApiCache(file_name)) || null
     if (cache_data) {
       return cache_data
     }

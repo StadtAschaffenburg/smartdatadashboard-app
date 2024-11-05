@@ -33,6 +33,10 @@ export async function readCache(
   }
 }
 
+export async function readApiCache(file_name: string) {
+  return readCache('api', false, file_name)
+}
+
 // write data to the cache
 async function writeCache(
   file_path: string,

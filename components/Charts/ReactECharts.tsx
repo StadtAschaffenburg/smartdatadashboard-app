@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { getInstanceByDom, init } from 'echarts'
 import type { CSSProperties } from 'react'
 import type { ECharts, EChartsOption, SetOptionOpts } from 'echarts'
@@ -25,10 +25,35 @@ export function ReactECharts({
   renderer = 'svg',
 }: ReactEChartsProps): JSX.Element {
   const chartRef = useRef<HTMLDivElement>(null)
-
+  const [isVisible, setIsVisible] = useState(false)
   const device = useDevice()
 
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      {
+        threshold: 0.5, // start animation when 50% of the element is visible
+      },
+    )
+
+    if (chartRef.current) {
+      observer.observe(chartRef.current)
+    }
+
+    return () => {
+      if (chartRef.current) {
+        observer.unobserve(chartRef.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isVisible) {return}
+
     // Initialize chart
     let chart: ECharts | undefined
     if (chartRef.current !== null) {
@@ -38,20 +63,21 @@ export function ReactECharts({
     }
 
     // Add chart resize listener
-    // ResizeObserver is leading to a bit janky UX
     function resizeChart() {
       chart?.resize()
     }
     window.addEventListener('resize', resizeChart)
 
-    // Return cleanup function
+    // Cleanup
     return () => {
       chart?.dispose()
       window.removeEventListener('resize', resizeChart)
     }
-  }, [theme])
+  }, [theme, isVisible])
 
   useEffect(() => {
+    if (!isVisible) {return}
+
     // Update chart
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current)
@@ -66,15 +92,17 @@ export function ReactECharts({
       }
       chart!.setOption(myOption, settings)
     }
-  }, [option, settings, theme]) // Whenever theme changes we need to add option and setting due to it being deleted in cleanup function
+  }, [option, settings, theme, isVisible])
 
   useEffect(() => {
-    // Update chart
+    if (!isVisible) {return}
+
+    // Show loading or update chart
     if (chartRef.current !== null) {
       const chart = getInstanceByDom(chartRef.current)
       loading === true ? chart!.showLoading() : chart!.hideLoading()
     }
-  }, [loading, theme])
+  }, [loading, theme, isVisible])
 
   return <div className="h-full w-full" ref={chartRef} style={{ ...style }} />
 }

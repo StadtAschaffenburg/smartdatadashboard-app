@@ -17,14 +17,14 @@ const { theme } = resolveConfig(tailwindConfig)
 const colors = {
   muenster: {
     // @ts-ignore
-    color: theme?.colors?.mobility?.DEFAULT || '#34c17b',
+    color: theme?.colors?.green?.DEFAULT || '#34c17b',
     symbol: `image://${
       require('@/assets/icons/Bicycle/BicycleIconGreen.svg').default.src
     }`,
   },
   other: {
     // @ts-ignore
-    color: theme?.colors?.buildings?.DEFAULT || '#6060d6',
+    color: theme?.colors?.purple?.DEFAULT || '#6060d6',
     symbol: `image://${
       require('@/assets/icons/Bicycle/BicycleIconPurple.svg').default.src
     }`,

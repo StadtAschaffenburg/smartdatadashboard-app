@@ -2,6 +2,7 @@ import { Button } from '@/components/Elements/Button'
 import { cx } from 'class-variance-authority'
 import Link from 'next/link'
 import { SVGProps } from 'react'
+import { ButtonSize } from '@/utils/variants/ButtonVariants'
 
 export type LinkProps = {
   title?: string
@@ -9,6 +10,7 @@ export type LinkProps = {
   link: string
   variant?: 'primary' | 'inverse'
   hover?: 'primary' | 'secondary'
+  size?: ButtonSize
   onClick?: () => void
 }
 
@@ -18,6 +20,7 @@ export default function LinkComponent({
   icon,
   variant = 'primary',
   hover,
+  size = 'link',
   onClick,
 }: LinkProps) {
   const Icon = icon
@@ -27,7 +30,7 @@ export default function LinkComponent({
       <Button
         hover={hover}
         onClick={onClick}
-        size={'link'}
+        size={size}
         startIcon={
           Icon ? (
             <Icon

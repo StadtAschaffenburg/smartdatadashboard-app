@@ -8,8 +8,16 @@ export function setTerm(search_term: string): string {
   return `?${search_parameter}=${encodeURIComponent(search_term)}`
 }
 
-export function removeParameter(): void {
+export function removeParameterLink(): string {
+  if (!window) {
+    return '/'
+  }
+
   const url = new URL(window.location.href)
   url.searchParams.delete(search_parameter)
-  window.location.href = url.toString()
+  return url.toString()
+}
+
+export function removeParameter(): void {
+  window.location.href = removeParameterLink()
 }

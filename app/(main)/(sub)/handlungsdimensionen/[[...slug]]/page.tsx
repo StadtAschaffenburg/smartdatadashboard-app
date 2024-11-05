@@ -14,7 +14,7 @@ interface HandlungsdimensionenProps {
     slug?: string[]
   }
   searchParams: {
-    search?: string
+    suche?: string
   }
 }
 
