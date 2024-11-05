@@ -1,12 +1,10 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import WeatherTileContent from './WeatherTileContent'
 
-export default function WeatherTile() {
-  const tile_id = `${TilePrefix}-weather`
-
+export default function WeatherTile({ type, tile_payload }: TileProps) {
   return (
-    <BaseTile embedId={tile_id} live>
+    <BaseTile embedId={type} live tile_payload={tile_payload}>
       <WeatherTileContent />
     </BaseTile>
   )

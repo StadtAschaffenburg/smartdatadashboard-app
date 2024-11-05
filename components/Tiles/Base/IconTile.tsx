@@ -11,6 +11,20 @@ import {
   TextDefaultVariants,
   TextVariants,
 } from '@/utils/variants/TextVariants'
+import {
+  IconEcology,
+  IconEconomy,
+  IconLive,
+  IconSociety,
+} from '@/components/Icons/Dimensions'
+import { TilePayloadType } from '@/types/tiles'
+
+const iconMap = {
+  ecology: IconEcology,
+  society: IconSociety,
+  economy: IconEconomy,
+  live: IconLive,
+}
 
 const iconTileTitleStyle = cva('', {
   variants: TextVariants,
@@ -32,6 +46,7 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
       | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
       | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
     live?: boolean
+    tile_payload?: TilePayloadType
   }
 
 /**
@@ -49,23 +64,25 @@ export default async function IconTile({
   dataRetrieval,
   dataSource,
   embedId,
+  tile_payload,
 }: IconTileProps) {
-  const Icon = icon
-
-  const data = await getTileData(embedId!)
+  if (!tile_payload) {tile_payload = await getTileData(embedId!)}
 
   // set variant
-  if (!variant && data?.tags?.action_dimension) {
-    variant = data.tags.action_dimension
+  if (!variant && tile_payload?.tags?.action_dimension) {
+    variant = tile_payload.tags.action_dimension
   }
+
+  const Icon = icon || iconMap[variant as keyof typeof iconMap] || (() => <></>)
+  const full_width = tile_payload?.layout === 'full'
 
   return (
     <BaseTile
       embedId={embedId}
       footerCenterElement={live ? <LiveBadge variant={variant} /> : undefined}
-      isFullWidth={data?.full_width}
-      moreInfo={data?.details}
-      source={data?.data_url}
+      isFullWidth={full_width}
+      moreInfo={tile_payload?.details}
+      source={tile_payload?.source}
       variant={variant}
     >
       <div className="n:px-2.5">
@@ -84,11 +101,11 @@ export default async function IconTile({
               className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
-              {data?.title ?? title ?? 'Lade...'}
+              {tile_payload?.title ?? title ?? 'Lade...'}
             </Title>
-            {(data?.subtitle || subtitle) && (
+            {(tile_payload?.subtitle || subtitle) && (
               <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
-                {data?.subtitle ?? subtitle}
+                {tile_payload?.subtitle ?? subtitle}
               </Title>
             )}
           </div>
@@ -101,7 +118,7 @@ export default async function IconTile({
             /> */}
         </div>
 
-        {(data?.title || title) && <Spacer />}
+        {(tile_payload?.title || title) && <Spacer />}
       </div>
       <>
         {!title && !subtitle && (
@@ -114,7 +131,7 @@ export default async function IconTile({
       <>{children}</>
       <Spacer />
 
-      {data?.copy && (
+      {tile_payload?.copy && (
         <ReactMarkdown
           components={{
             h1: props => <Title as={'h2'} {...props} />,
@@ -141,18 +158,18 @@ export default async function IconTile({
           }}
           remarkPlugins={[remarkGfm]}
         >
-          {data?.copy}
+          {tile_payload?.copy}
         </ReactMarkdown>
       )}
-      <>{data?.copy && <Spacer />}</>
+      <>{tile_payload?.copy && <Spacer />}</>
 
       <div className="flex space-x-2 text-xs">
         <Title as="h7" font="semibold" variant={'primary'}>
           Datenstand:{' '}
-          {data?.retrieval ?? dataRetrieval ?? (live ? 'live' : 'unbekannt')}
+          {tile_payload?.retrieval ?? dataRetrieval ?? (live ? 'live' : '?')}
         </Title>
         <Title as="h7" font="normal" variant={'primary'}>
-          Quelle: {data?.source ?? dataSource ?? 'Stadt Aschaffenburg'}
+          Quelle: {tile_payload?.source ?? dataSource ?? 'Stadt Aschaffenburg'}
         </Title>
       </div>
     </BaseTile>

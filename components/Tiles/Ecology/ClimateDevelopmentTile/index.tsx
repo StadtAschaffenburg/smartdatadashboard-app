@@ -1,12 +1,13 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import RadarChart, { AvgTempData } from './RadarChart'
 import getSourceData from '@/lib/api/getSourceData'
 import { ClimateHistoryRecord } from './dt'
 
-export default async function ClimateDevelopmentTile() {
-  const tile_id = `${TilePrefix}-climateDevelopment`
-
+export default async function ClimateDevelopmentTile({
+  type,
+  tile_payload,
+}: TileProps) {
   const climateHistoryData: ClimateHistoryRecord[] = await getSourceData(
     'climate_history.json',
   )
@@ -24,7 +25,7 @@ export default async function ClimateDevelopmentTile() {
   }, {})
 
   return (
-    <BaseTile embedId={tile_id}>
+    <BaseTile embedId={type} tile_payload={tile_payload}>
       <div className="h-[316px] w-full md:h-[528px]">
         <div className="h-full w-full">
           <RadarChart data={climateYears} />

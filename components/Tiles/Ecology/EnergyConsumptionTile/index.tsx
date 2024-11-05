@@ -1,24 +1,24 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import { TileSplitView } from '../../Base/TileSplitView'
-import getTileData from '@/lib/api/getTileData'
 import Title from '@/components/Elements/Title'
 import EnergyConsumptionContent from './EnergyConsumptionContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { InputDataType } from './dt'
 
-export default async function EnergyConsumptionTile() {
-  const tile_id = `${TilePrefix}-energyConsumption`
-
+export default async function EnergyConsumptionTile({
+  type,
+  tile_payload,
+}: TileProps) {
   // parallelize data fetching for improved performance
-  const [data, waermeDataInput, stromDataInput] = await Promise.all([
-    getTileData(tile_id),
+  const [waermeDataInput, stromDataInput] = await Promise.all([
     getSourceData('waerme.csv'),
     getSourceData('strom.csv'),
   ])
 
   // render component with fetched data
   return (
-    <BaseTile embedId={tile_id}>
+    <BaseTile embedId={type} tile_payload={tile_payload}>
       <TileSplitView>
         <TileSplitView.Left>
           <div>
@@ -30,7 +30,7 @@ export default async function EnergyConsumptionTile() {
         </TileSplitView.Left>
         <TileSplitView.Right>
           <Title as="h5" variant="dark">
-            {data?.info ?? ''}
+            {tile_payload?.copy ?? ''}
           </Title>
         </TileSplitView.Right>
       </TileSplitView>

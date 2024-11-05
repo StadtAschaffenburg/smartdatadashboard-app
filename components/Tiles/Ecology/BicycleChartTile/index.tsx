@@ -1,21 +1,19 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 import BicycleChartContent from './BicycleChartContent'
-import getTileData from '@/lib/api/getTileData'
 
-export default async function BicycleChartTile() {
-  const tile_id = `${TilePrefix}-bicycle`
-
-  const tile_data = await getTileData(tile_id)
-
+export default async function BicycleChartTile({
+  type,
+  tile_payload,
+}: TileProps) {
   return (
-    <BaseTile embedId={tile_id}>
+    <BaseTile embedId={type} tile_payload={tile_payload}>
       <>
         <BicycleChartContent />
         <Spacer size={'lg'} />
-        <Title as="h5">{tile_data?.info ?? ''}</Title>
+        <Title as="h5">{tile_payload?.copy ?? ''}</Title>
       </>
     </BaseTile>
   )

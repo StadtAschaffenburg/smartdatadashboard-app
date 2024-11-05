@@ -11,7 +11,10 @@ import BusTile from '@/components/Tiles/Ecology/BusTile'
 import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
 import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
-import { TileType } from '@/types/tiles'
+
+// misc
+import { TilePayloadType, TileType } from '@/types/tiles'
+import getTileData from '@/lib/api/getTileData'
 
 interface TileFactoryProps {
   type: TileType
@@ -23,33 +26,37 @@ interface TileFactoryProps {
  * @param param TileFactoryProps
  * @returns Tile
  */
-export default function TileFactory({ type }: TileFactoryProps) {
+export default async function TileFactory({ type }: TileFactoryProps) {
+  const tile_payload: TilePayloadType = await getTileData(type)
+
+  if (!tile_payload) {return null}
+
   switch (type) {
     // ---- ECOLOGY ----
     case 'ecology-energyConsumption':
-      return <EnergyConsumptionTile />
+      return <EnergyConsumptionTile tile_payload={tile_payload} type={type} />
     case 'ecology-weather':
-      return <WeatherTile />
+      return <WeatherTile tile_payload={tile_payload} type={type} />
     case 'ecology-uv':
-      return <UVTile />
+      return <UVTile tile_payload={tile_payload} type={type} />
     case 'ecology-climateDevelopment':
-      return <ClimateDevelopmentTile />
+      return <ClimateDevelopmentTile tile_payload={tile_payload} type={type} />
     case 'ecology-climateIndices':
-      return <ClimateIndicesTile />
+      return <ClimateIndicesTile tile_payload={tile_payload} type={type} />
     case 'ecology-stadtradeln':
-      return <StadtradelnTile />
+      return <StadtradelnTile tile_payload={tile_payload} type={type} />
     case 'ecology-bicycle':
-      return <BicycleChartTile />
+      return <BicycleChartTile tile_payload={tile_payload} type={type} />
     case 'ecology-passengers':
-      return <PassengerTile />
+      return <PassengerTile tile_payload={tile_payload} type={type} />
     case 'ecology-bus':
-      return <BusTile />
+      return <BusTile tile_payload={tile_payload} type={type} />
     case 'ecology-stadtwerke':
-      return <StadtwerkeTile />
+      return <StadtwerkeTile tile_payload={tile_payload} type={type} />
     case 'ecology-pvanlagen':
-      return <PVAnlagenTile />
+      return <PVAnlagenTile tile_payload={tile_payload} type={type} />
     case 'ecology-lanterns':
-      return <LanternsTile />
+      return <LanternsTile tile_payload={tile_payload} type={type} />
 
     // ---- SOCIETY ----
 

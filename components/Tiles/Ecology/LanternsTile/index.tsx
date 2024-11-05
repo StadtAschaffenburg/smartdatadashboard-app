@@ -1,17 +1,19 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import LanternsTitle from './LanternsTitle'
 import LanternsContent from './LanternsContent'
-import { getTileDatapoint } from '@/lib/api/getTileData'
-import { CountType } from './dt'
+import { getDataPoint } from '@/utils/datapoints'
 
-export default async function LanternsTile() {
-  const tile_id = `${TilePrefix}-lanterns`
-
-  const total: CountType = (await getTileDatapoint(tile_id, 'total')) * 1
+export default async function LanternsTile({ type, tile_payload }: TileProps) {
+  const aktuell: number = getDataPoint(tile_payload, 'aktuell')
+  const total: number = getDataPoint(tile_payload, 'total')
 
   return (
-    <BaseTile embedId={tile_id} title={<LanternsTitle count={total} />}>
+    <BaseTile
+      embedId={type}
+      tile_payload={tile_payload}
+      title={<LanternsTitle count={aktuell} />}
+    >
       <LanternsContent count={total} />
     </BaseTile>
   )
