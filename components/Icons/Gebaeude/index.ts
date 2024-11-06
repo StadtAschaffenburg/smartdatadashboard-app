@@ -1,6 +1,0 @@
-export { default as MsKlimadashboardIconsGBibliothek } from './MsKlimadashboardIconsGBibliothek'
-export { default as MsKlimadashboardIconsGDaecherGruen } from './MsKlimadashboardIconsGDaecherGruen'
-export { default as MsKlimadashboardIconsGDaecherPv } from './MsKlimadashboardIconsGDaecherPv'
-export { default as MsKlimadashboardIconsGSchule } from './MsKlimadashboardIconsGSchule'
-export { default as MsKlimadashboardIconsGArena } from './MsKlimadashboardIconsGArena'
-export { default as MsKlimadashboardIconsGRathaus } from './MsKlimadashboardIconsGRathaus'

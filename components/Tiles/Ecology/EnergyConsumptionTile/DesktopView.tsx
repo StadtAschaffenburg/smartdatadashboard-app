@@ -5,33 +5,9 @@ import Title from '@/components/Elements/Title'
 import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
-import { DataType } from './dt'
-
-import {
-  MsKlimadashboardIconsGArena,
-  MsKlimadashboardIconsGBibliothek,
-  MsKlimadashboardIconsGRathaus,
-  MsKlimadashboardIconsGSchule,
-} from '@/components/Icons/Gebaeude'
-
-type Building = Omit<DataType, 'datum'>
-
-const buildings: Record<keyof Building, string> = {
-  rathaus: 'Rathaus',
-  frankenstolz_arena: 'F.A.N Frankenstolz Arena',
-  stadtbibliothek: 'Stadtbibliothek',
-  brentanoschule: 'Brentanoschule',
-}
-
-const buildingIcon: Record<
-  keyof Building,
-  (_props: SVGProps<SVGSVGElement>) => JSX.Element
-> = {
-  brentanoschule: MsKlimadashboardIconsGSchule,
-  stadtbibliothek: MsKlimadashboardIconsGBibliothek,
-  frankenstolz_arena: MsKlimadashboardIconsGArena,
-  rathaus: MsKlimadashboardIconsGRathaus,
-}
+import { Building, DataType } from './dt'
+import { buildingIcon } from './icons'
+import { buildings } from './buildings'
 
 function getBuildingIcon(
   building: keyof Building,
@@ -89,13 +65,13 @@ export default function DesktopView({
       <div className="flex h-full w-full justify-between gap-8">
         {Object.keys(buildings).map(building => (
           <div className="flex-1 p-2" key={building}>
-            <div className="mx-auto mb-3 flex h-[200px] w-[200px] justify-center">
+            <div className="mx-auto mb-3 flex h-[200px] w-[200px] justify-center fill-ecology">
               {getBuildingIcon(building as keyof Building)}
             </div>
             <Title
               as="h4"
               className="min-h-[5rem] text-center"
-              variant="building"
+              variant="ecology"
             >
               {buildings[building as keyof Building]}
             </Title>
@@ -144,15 +120,15 @@ export default function DesktopView({
               key={building}
             >
               {sum === 0 ? (
-                <Title as="h4" variant="building">
+                <Title as="h4" variant="ecology">
                   fehlende Daten
                 </Title>
               ) : (
                 <>
-                  <Title as="h4" variant="building">
+                  <Title as="h4" variant="ecology">
                     <AnimatedNumber decimals={0}>{sum}</AnimatedNumber>
                   </Title>
-                  <Title as="h4" font="normal" variant="building">
+                  <Title as="h4" font="normal" variant="ecology">
                     kWh
                   </Title>
                 </>

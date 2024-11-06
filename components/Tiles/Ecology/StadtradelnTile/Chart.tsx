@@ -15,7 +15,7 @@ import { ChartProps, InputDataType } from './dt'
 const { theme } = resolveConfig(tailwindConfig)
 
 const colors = {
-  muenster: {
+  primary: {
     // @ts-ignore
     color: theme?.colors?.green?.DEFAULT || '#34c17b',
     symbol: `image://${
@@ -90,17 +90,17 @@ export default function Chart({ data, other }: ChartProps) {
       return
     }
 
-    setSeries(getSeries(data, colors.muenster.color, colors.muenster.symbol))
+    setSeries(getSeries(data, colors.primary.color, colors.primary.symbol))
   }, [data])
 
   useEffect(() => {
     if (!other) {
-      setSeries(getSeries(data, colors.muenster.color, colors.muenster.symbol))
+      setSeries(getSeries(data, colors.primary.color, colors.primary.symbol))
       return
     }
 
     setSeries([
-      ...getSeries(data, colors.muenster.color, colors.muenster.symbol),
+      ...getSeries(data, colors.primary.color, colors.primary.symbol),
       ...getSeries(other, colors.other.color, colors.other.symbol),
     ])
   }, [other])

@@ -74,11 +74,11 @@ const toggleGroupBackgroundStyle = cva<{
 const selectedStyle = cva('px-4 transition-all duration-300 md:py-2 md:px-8', {
   variants: {
     variant: {
-      primary: null,
-      live: null,
-      ecology: null,
-      society: null,
-      economy: null,
+      primary: 'bg-primary',
+      live: 'bg-primary',
+      ecology: 'bg-ecology',
+      society: 'bg-society',
+      economy: 'bg-economy',
     },
     selected: {
       true: 'bg-opacity-100 text-white',

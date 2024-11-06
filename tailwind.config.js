@@ -45,12 +45,16 @@ module.exports = {
           light: '#fff3e4',
         },
         green: {
-          DEFAULT: '#03657a',
-          light: '#ecfbfe',
+          DEFAULT: '#34c17b',
+          light: '#d5f4e5',
         },
         purple: {
           DEFAULT: '#8a0f76',
           light: '#fdeefa',
+        },
+        live: {
+          DEFAULT: '#005096',
+          light: '#dbeeff',
         },
       },
       fontSize: {

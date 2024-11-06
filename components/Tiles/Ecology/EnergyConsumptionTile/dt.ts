@@ -18,3 +18,5 @@ export type EnergyConsumptionContentProps = {
   waermeDataInput: InputDataType[]
   stromDataInput: InputDataType[]
 }
+
+export type Building = Omit<DataType, 'datum'>

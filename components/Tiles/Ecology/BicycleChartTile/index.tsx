@@ -6,7 +6,7 @@ import BicycleChartContent from './BicycleChartContent'
 
 export default async function Tile({ type, tile_payload }: TileProps) {
   return (
-    <BaseTile embedId={type} tile_payload={tile_payload}>
+    <BaseTile embedId={type} live tile_payload={tile_payload}>
       <BicycleChartContent />
       <Spacer size={'lg'} />
       <Title as="h5">{tile_payload?.copy ?? ''}</Title>

@@ -7,9 +7,9 @@ import { conditionMapping, conditionMappingIcon } from '@/lib/brightsky'
 import LongTermAverageDiff from './LongTermAverageDiff'
 import Phenomenon from './Phenomenon'
 import {
-  MsKlimadashboardIconsWetterAtmosphaere,
-  MsKlimadashboardIconsWetterWindgeschw,
-} from '@/components/Icons/Klima'
+  IconWeatherAtmosphaere,
+  IconWeatherWindgeschw,
+} from '@/components/Icons/Weather'
 import { Spinner } from '@/components/Elements/Spinner'
 
 export default function WeatherTileContent() {
@@ -34,7 +34,7 @@ export default function WeatherTileContent() {
       {weather && (
         <div className="mb-8 flex flex-col gap-4">
           <div className="flex flex-1 items-center gap-6 md:gap-2">
-            <Icon className="h-20 text-primary md:mr-12 md:h-36" />
+            <Icon className="fill-live h-20 md:mr-12 md:h-36" />
             <Title as={'h4'} className="my-4 w-3/4 md:w-1/2">
               In Aschaffenburg ist es gerade{' '}
               <span className="text-climate">
@@ -72,7 +72,7 @@ export default function WeatherTileContent() {
 
           <div className="mb-4 flex flex-row items-start md:items-center">
             <div className="w-32">
-              <MsKlimadashboardIconsWetterWindgeschw className="h-10 fill-primary stroke-primary text-primary md:h-10" />
+              <IconWeatherWindgeschw className="fill-live h-10 stroke-primary text-primary md:h-10" />
             </div>
             <div className="flex-1">
               <Phenomenon
@@ -99,7 +99,7 @@ export default function WeatherTileContent() {
 
           <div className="mb-4 flex flex-row items-start md:items-center">
             <div className="w-32">
-              <MsKlimadashboardIconsWetterAtmosphaere className="h-10 fill-primary stroke-primary text-primary md:h-20 md:pl-2" />
+              <IconWeatherAtmosphaere className="fill-live h-10 stroke-primary text-primary md:h-20 md:pl-2" />
             </div>
             <div className="flex-1">
               <Phenomenon

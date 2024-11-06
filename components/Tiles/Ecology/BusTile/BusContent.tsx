@@ -7,10 +7,7 @@ import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
-import {
-  MsKlimadashboardIconsMBusAbgas,
-  MsKlimadashboardIconsMBusElektro,
-} from '@/components/Icons/Mobilitaet'
+import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
 import { BusContentProps, BusDataType } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
@@ -40,7 +37,7 @@ export default function BusContent({ data }: BusContentProps) {
     <div>
       <div className="flex justify-between">
         <div>
-          <Title as="h5" variant={'primary'}>
+          <Title as="h5" variant={'ecology'}>
             Fahrzeuge mit fossilem Antrieb
           </Title>
           <AnimatedNumber className="text-mobility text-2xl">
@@ -48,7 +45,7 @@ export default function BusContent({ data }: BusContentProps) {
           </AnimatedNumber>
         </div>
         <div className="flex flex-col items-end">
-          <Title as="h5" variant={'primary'}>
+          <Title as="h5" variant={'ecology'}>
             Fahrzeuge mit alternativem Antrieb
           </Title>
           <AnimatedNumber className="text-mobility text-2xl">
@@ -69,10 +66,10 @@ export default function BusContent({ data }: BusContentProps) {
             }%`,
           }}
         >
-          <MsKlimadashboardIconsMBusAbgas className="w-full" />
+          <IconBusAbgas className="w-full fill-ecology" />
         </div>
         <div className="flex-1">
-          <MsKlimadashboardIconsMBusElektro className="w-full" />
+          <IconBusElektro className="w-full fill-green" />
         </div>
       </div>
       {width < 1800 && (

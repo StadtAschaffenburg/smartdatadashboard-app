@@ -71,7 +71,9 @@ export default async function IconTile({
   }
 
   // set variant
-  if (!variant && tile_payload?.tags?.action_dimension) {
+  if (tile_payload?.tags?.category === 'ab_live') {
+    variant = 'live'
+  } else if (!variant && tile_payload?.tags?.action_dimension) {
     variant = tile_payload.tags.action_dimension
   }
 
@@ -168,7 +170,9 @@ export default async function IconTile({
       <div className="flex space-x-2 text-xs">
         <Title as="h7" font="semibold" variant={'primary'}>
           Datenstand:{' '}
-          {tile_payload?.retrieval ?? dataRetrieval ?? (live ? 'live' : '?')}
+          {tile_payload?.retrieval ??
+            dataRetrieval ??
+            (live ? 'live' : new Date().getFullYear())}
         </Title>
         <Title as="h7" font="normal" variant={'primary'}>
           Quelle: {tile_payload?.source ?? dataSource ?? 'Stadt Aschaffenburg'}

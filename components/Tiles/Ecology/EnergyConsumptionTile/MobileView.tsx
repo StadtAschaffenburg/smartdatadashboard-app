@@ -5,33 +5,9 @@ import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
 import Carousel from '@/components/Elements/Carousel'
-import { DataType } from './dt'
-
-import {
-  MsKlimadashboardIconsGArena,
-  MsKlimadashboardIconsGBibliothek,
-  MsKlimadashboardIconsGRathaus,
-  MsKlimadashboardIconsGSchule,
-} from '@/components/Icons/Gebaeude'
-
-type Building = Omit<DataType, 'datum'>
-
-const buildings: Record<keyof Building, string> = {
-  rathaus: 'Rathaus',
-  brentanoschule: 'Brentanoschule',
-  stadtbibliothek: 'Stadtbibliothek',
-  frankenstolz_arena: 'F.A.N Frankenstolz Arena',
-}
-
-const buildingIcon: Record<
-  keyof Building,
-  (_props: SVGProps<SVGSVGElement>) => JSX.Element
-> = {
-  brentanoschule: MsKlimadashboardIconsGSchule,
-  stadtbibliothek: MsKlimadashboardIconsGBibliothek,
-  frankenstolz_arena: MsKlimadashboardIconsGArena,
-  rathaus: MsKlimadashboardIconsGRathaus,
-}
+import { Building, DataType } from './dt'
+import { buildingIcon } from './icons'
+import { buildings } from './buildings'
 
 function getBuildingIcon(
   building: keyof Building,
@@ -104,10 +80,10 @@ export default function MobileView({
         return (
           <div key={building}>
             <div className="flex gap-2">
-              <Title as="h4" className="h-20 flex-1" variant="building">
+              <Title as="h4" className="h-20 flex-1" variant="ecology">
                 {buildings[building as keyof Building]}
               </Title>
-              <div className="mx-auto flex h-[80px] w-[80px] justify-end">
+              <div className="mx-auto flex h-[80px] w-[80px] justify-end fill-ecology">
                 {getBuildingIcon(building as keyof Building)}
               </div>
             </div>
@@ -134,15 +110,15 @@ export default function MobileView({
             </LabelSeperator>
             <div className="flex w-full gap-1 p-2">
               {sum === 0 ? (
-                <Title as="h4" variant="building">
+                <Title as="h4" variant="ecology">
                   fehlende Daten
                 </Title>
               ) : (
                 <>
-                  <Title as="h4" variant="building">
+                  <Title as="h4" variant="ecology">
                     <AnimatedNumber decimals={0}>{sum}</AnimatedNumber>
                   </Title>
-                  <Title as="h4" font="normal" variant="building">
+                  <Title as="h4" font="normal" variant="ecology">
                     kWh
                   </Title>
                 </>

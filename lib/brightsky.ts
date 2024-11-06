@@ -1,6 +1,14 @@
-import { MsKlimadashboardIconsWetterGewitter, MsKlimadashboardIconsWetterHagel, MsKlimadashboardIconsWetterNeblig, MsKlimadashboardIconsWetterRegnerisch, MsKlimadashboardIconsWetterSchnee, MsKlimadashboardIconsWetterSchneeregen, MsKlimadashboardIconsWetterSonnig } from '@/components/Icons/Klima';
+import {
+  IconWeatherGewitter,
+  IconWeatherHagel,
+  IconWeatherNeblig,
+  IconWeatherRegnerisch,
+  IconWeatherSchnee,
+  IconWeatherSchneeregen,
+  IconWeatherSonnig,
+} from '@/components/Icons/Weather'
 import { BrightSkyResponse, Condition } from '@/types/brightsky'
-import { SVGProps } from 'react';
+import { SVGProps } from 'react'
 
 export type dwd_station_id = string
 export type coordinates = { lat: number; lng: number }
@@ -41,7 +49,7 @@ type ConditionMappingIcon = {
   [_key in Condition]: (_props: SVGProps<SVGSVGElement>) => React.JSX.Element
 }
 
-// In Münster ist es gerade ...
+// In Aschaffenburg ist es gerade ...
 export const conditionMapping: ConditionMapping = {
   dry: 'trocken',
   fog: 'nebelig',
@@ -52,13 +60,13 @@ export const conditionMapping: ConditionMapping = {
   thunderstorm: 'am Gewittern',
 }
 
-// In Münster ist es gerade ...
+// In Aschaffenburg ist es gerade ...
 export const conditionMappingIcon: ConditionMappingIcon = {
-  dry: MsKlimadashboardIconsWetterSonnig,
-  fog: MsKlimadashboardIconsWetterNeblig,
-  hail: MsKlimadashboardIconsWetterHagel,
-  rain: MsKlimadashboardIconsWetterRegnerisch,
-  sleet: MsKlimadashboardIconsWetterSchneeregen,
-  snow: MsKlimadashboardIconsWetterSchnee,
-  thunderstorm: MsKlimadashboardIconsWetterGewitter,
+  dry: IconWeatherSonnig,
+  fog: IconWeatherNeblig,
+  hail: IconWeatherHagel,
+  rain: IconWeatherRegnerisch,
+  sleet: IconWeatherSchneeregen,
+  snow: IconWeatherSchnee,
+  thunderstorm: IconWeatherGewitter,
 }

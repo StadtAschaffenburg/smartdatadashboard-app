@@ -53,7 +53,7 @@ export default function EnergyConsumptionContent({
               },
             ]}
             onChange={value => setMode(value as 'strom' | 'waerme')}
-            variant={'building'}
+            variant={'ecology'}
           ></ToggleGroup>
         </div>
         <div className="hidden xl:block">
@@ -84,7 +84,7 @@ export default function EnergyConsumptionContent({
         onValueChange={([e]) => {
           setYearIndex(e)
         }}
-        variant={'buildings'}
+        variant={'ecology'}
       />
     </>
   )

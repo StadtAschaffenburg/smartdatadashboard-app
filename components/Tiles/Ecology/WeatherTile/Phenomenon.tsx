@@ -2,8 +2,8 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { cx } from 'class-variance-authority'
 import useDevice from '@/hooks/useDevice'
-
-import { phenomena, PhenomenonProps } from './dt'
+import phenomena from './phenomena'
+import { PhenomenonProps } from './dt'
 
 export default function Phenomenon({
   phenomenon,
@@ -25,19 +25,19 @@ export default function Phenomenon({
         <Icon
           className={cx(
             size === 'md' ? 'aspect-square' : 'w-6',
-            'h-10 fill-primary stroke-primary text-primary md:h-14',
+            'fill-live stroke-live h-10 md:h-14',
           )}
         />
       )}
       <div>
         <Title
-          as={'h5'}
+          as={'h6'}
           dangerouslySetInnerHTML={{
             __html: device === 'mobile' && shortTitle ? shortTitle : title,
           }}
-          variant={'primary'}
+          variant={'live'}
         ></Title>
-        <Title as={valueSize} variant="climate">
+        <Title as={valueSize} variant="live">
           <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit}{' '}
           {meta}
         </Title>

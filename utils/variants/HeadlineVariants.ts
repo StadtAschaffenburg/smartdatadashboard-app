@@ -8,7 +8,7 @@ export const HeadlineVariants = {
     h6: 'text-base lg:text-lg lg:tracking-wide',
     h7: 'text-base leading-7 tracking-wide',
     h8: 'text-sm leading-5 tracking-wide',
-    subtitle: 'text-xl lg:text-3xl',
+    subtitle: 'text-lg lg:text-xl',
   },
 } as const
 

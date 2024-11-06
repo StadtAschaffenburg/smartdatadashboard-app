@@ -1,6 +1,6 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
-import { MsKlimadashboardIconsEPvLanterns } from '@/components/Icons/Energie'
+import { IconLanterns } from '@/components/Icons/Ecology'
 import { ContentProps } from './dt'
 
 export default async function LanternsContent({ count }: ContentProps) {
@@ -8,7 +8,7 @@ export default async function LanternsContent({ count }: ContentProps) {
     <div>
       <div className="mb-4 flex flex-row gap-6">
         <span>
-          <MsKlimadashboardIconsEPvLanterns className="h-20 text-energy md:h-32" />
+          <IconLanterns className="h-20 fill-ecology md:h-32" />
         </span>
         <div className="flex flex-grow flex-col justify-between">
           <Title as={'subtitle'}>

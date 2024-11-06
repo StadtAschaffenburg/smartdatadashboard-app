@@ -8,9 +8,9 @@ import Slider from '@/components/Inputs/Slider'
 import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import {
-  MsKlimadashboardIconsMAwmAbgas,
-  MsKlimadashboardIconsMAwmElektro,
-} from '@/components/Icons/Mobilitaet'
+  IconStadtwerkeAbgas,
+  IconStadtwerkeElektro,
+} from '@/components/Icons/Ecology'
 import { ContentProps, InputData } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
@@ -39,7 +39,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
     <div>
       <div className="flex justify-between">
         <div>
-          <Title as="h5" variant={'primary'}>
+          <Title as="h5" variant={'ecology'}>
             Fahrzeuge mit fossilem Antrieb
           </Title>
           <AnimatedNumber className="text-mobility text-2xl">
@@ -47,7 +47,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           </AnimatedNumber>
         </div>
         <div className="flex flex-col items-end">
-          <Title as="h5" variant={'primary'}>
+          <Title as="h5" variant={'ecology'}>
             Fahrzeuge mit alternativem Antrieb
           </Title>
           <AnimatedNumber className="text-mobility text-2xl">
@@ -66,10 +66,10 @@ export default function StadtwerkeContent({ data }: ContentProps) {
             }%`,
           }}
         >
-          <MsKlimadashboardIconsMAwmAbgas className="w-full" />
+          <IconStadtwerkeAbgas className="w-full fill-ecology" />
         </div>
         <div className="flex-1">
-          <MsKlimadashboardIconsMAwmElektro className="w-full" />
+          <IconStadtwerkeElektro className="w-full fill-green" />
         </div>
       </div>
       {width < 1800 && (
