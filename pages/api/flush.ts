@@ -1,7 +1,10 @@
+'use server'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import { checkSecret } from '@/utils/api'
 import { flushCache } from '@/lib/cache'
 import { getCollection, getContent, getSourceFile } from '@/lib/cms'
+import { getCacheEndpoint } from '@/utils/api'
 
 type Data = {
   message: string
@@ -43,5 +46,27 @@ export default async function handler(
       .json({ message: 'Error rebuilding content', error: String(error) })
   }
 
-  return res.status(200).json({ message: 'Cache cleared, content rebuild' })
+  // revalidate all pages
+  try {
+    const response = await fetch(getCacheEndpoint('revalidate'), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      return res
+        .status(response.status)
+        .json({ message: 'Revalidation failed' })
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error triggering revalidation', error: String(error) })
+  }
+
+  return res
+    .status(200)
+    .json({ message: 'Cache cleared, content rebuild & revalidated' })
 }

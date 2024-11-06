@@ -22,9 +22,9 @@ export default async function handler(
     optionsSuccessStatus: 200, // Some legacy browsers choke on 204
   })
 
-  if (data) {
-    res.status(200).json(data)
-  } else {
-    res.status(404).json({})
+  if (!data) {
+    return res.status(404).json({ content: 'Not found' })
   }
+
+  res.status(200).json(data)
 }

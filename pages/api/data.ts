@@ -13,6 +13,10 @@ export default async function handler(
   const route = req.query.route as string
   const lifetime = parseInt(req.query.lifetime as string, 10)
 
+  if (!route) {
+    return res.status(404).json({ content: 'Not found' })
+  }
+
   const data = await getAPI(route, true, lifetime)
 
   await NextCors(req, res, {

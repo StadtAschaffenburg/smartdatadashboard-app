@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation'
 import StadtLogo from '@/assets/logos/logo_ab.jpg'
 import Image from 'next/image'
 
-export const revalidate = 10
+export const revalidate = false
 
 export default async function Embed({ params }: { params: { id: TileType } }) {
   const { id } = params
