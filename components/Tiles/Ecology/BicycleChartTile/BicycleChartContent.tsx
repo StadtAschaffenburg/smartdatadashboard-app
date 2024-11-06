@@ -47,7 +47,7 @@ export default function BicycleChartContent() {
           onValueChange={([e]) => {
             setDate(lastDays[e])
           }}
-          variant={'mobility'}
+          variant={'ecology'}
         />
       )}
     </>

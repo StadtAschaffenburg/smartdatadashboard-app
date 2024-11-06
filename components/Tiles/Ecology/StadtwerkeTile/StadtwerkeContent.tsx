@@ -12,6 +12,7 @@ import {
   MsKlimadashboardIconsMAwmElektro,
 } from '@/components/Icons/Mobilitaet'
 import { ContentProps, InputData } from './dt'
+import { Spinner } from '@/components/Elements/Spinner'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
   const { width } = useWindowSize()
@@ -31,7 +32,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
   }, [data, yearIndex])
 
   if (!data) {
-    return <p>Lade...</p>
+    return <Spinner />
   }
 
   return (
@@ -41,7 +42,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           <Title as="h5" variant={'primary'}>
             Fahrzeuge mit fossilem Antrieb
           </Title>
-          <AnimatedNumber className="text-2xl text-mobility">
+          <AnimatedNumber className="text-mobility text-2xl">
             {combustionCount}
           </AnimatedNumber>
         </div>
@@ -49,7 +50,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           <Title as="h5" variant={'primary'}>
             Fahrzeuge mit alternativem Antrieb
           </Title>
-          <AnimatedNumber className="text-2xl text-mobility">
+          <AnimatedNumber className="text-mobility text-2xl">
             {hybridCount}
           </AnimatedNumber>
         </div>
@@ -79,7 +80,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           max={data.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
-          variant={'mobility'}
+          variant={'ecology'}
         />
       )}
       {width >= 1800 && (
@@ -90,7 +91,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           max={data.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
-          variant={'mobility'}
+          variant={'ecology'}
         />
       )}
     </div>

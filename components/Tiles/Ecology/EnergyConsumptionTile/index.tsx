@@ -6,10 +6,7 @@ import EnergyConsumptionContent from './EnergyConsumptionContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { InputDataType } from './dt'
 
-export default async function EnergyConsumptionTile({
-  type,
-  tile_payload,
-}: TileProps) {
+export default async function Tile({ type, tile_payload }: TileProps) {
   // parallelize data fetching for improved performance
   const [waermeDataInput, stromDataInput] = await Promise.all([
     getSourceData('waerme.csv'),

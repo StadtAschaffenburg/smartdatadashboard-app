@@ -4,7 +4,7 @@ import BusContent from './BusContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { BusDataType } from './dt'
 
-export default async function BusTile({ type, tile_payload }: TileProps) {
+export default async function Tile({ type, tile_payload }: TileProps) {
   const BusData: BusDataType[] = await getSourceData(
     'stadtwerke-bus-fahrzeuge.csv',
   )

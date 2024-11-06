@@ -87,7 +87,7 @@ export default function ChartContainer({
         />
       </div>
       <div className="flex items-center gap-2 p-4 md:gap-10 md:pl-8">
-        <div className="h-1 w-8 rounded bg-mobility md:w-[52px]" />
+        <div className="bg-mobility h-1 w-8 rounded md:w-[52px]" />
         <Title as={'h5'} variant={'primary'}>
           geradelte Kilometer in Aschaffenburg
         </Title>
@@ -97,7 +97,7 @@ export default function ChartContainer({
           <Switch
             defaultChecked={compare}
             onCheckedChange={setCompare}
-            variant={'mobility'}
+            variant={'ecology'}
           />
           <Title as={'h5'} variant={'primary'}>
             Städtevergleich
@@ -108,7 +108,7 @@ export default function ChartContainer({
             <div className="relative h-6 flex-1">
               <AnimatedRollingElement>
                 <div className="flex items-center gap-2 md:gap-4">
-                  <div className="h-1 w-9 rounded bg-buildings md:w-[52px]" />
+                  <div className="bg-buildings h-1 w-9 rounded md:w-[52px]" />
                   <Title as="h5" variant={'primary'}>
                     {otherData.name}
                   </Title>

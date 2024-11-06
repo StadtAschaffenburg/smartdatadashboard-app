@@ -66,7 +66,9 @@ export default async function IconTile({
   embedId,
   tile_payload,
 }: IconTileProps) {
-  if (!tile_payload) {tile_payload = await getTileData(embedId!)}
+  if (!tile_payload) {
+    tile_payload = await getTileData(embedId!)
+  }
 
   // set variant
   if (!variant && tile_payload?.tags?.action_dimension) {
@@ -101,7 +103,7 @@ export default async function IconTile({
               className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
-              {tile_payload?.title ?? title ?? 'Lade...'}
+              {tile_payload?.title ?? title ?? '...'}
             </Title>
             {(tile_payload?.subtitle || subtitle) && (
               <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>

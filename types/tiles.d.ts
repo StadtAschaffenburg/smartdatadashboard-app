@@ -22,16 +22,16 @@ export type TileDataType = {
 export interface TilePayloadType {
   tile_id: string
   subtitle: string | null
-  title: string
-  copy: string
+  title: string | null
+  copy: string | ReactElement<any, string | JSXElementConstructor<any>> | null
   details: string
   legend: string | null
-  name: string
+  name: string | null
   retrieval: string | null
   source: string | null
-  strings: string[]
+  strings: string[] | null
   datapoints: any[] | null
-  layout: string
+  layout: string | null
   tags: {
     category: CategoryType
     action_dimension: ActionDimensionsType

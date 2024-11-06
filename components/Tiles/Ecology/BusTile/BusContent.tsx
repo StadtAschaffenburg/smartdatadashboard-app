@@ -12,6 +12,7 @@ import {
   MsKlimadashboardIconsMBusElektro,
 } from '@/components/Icons/Mobilitaet'
 import { BusContentProps, BusDataType } from './dt'
+import { Spinner } from '@/components/Elements/Spinner'
 
 export default function BusContent({ data }: BusContentProps) {
   const { width } = useWindowSize()
@@ -32,7 +33,7 @@ export default function BusContent({ data }: BusContentProps) {
   }, [data, yearIndex])
 
   if (!data) {
-    return <p>Lade...</p>
+    return <Spinner />
   }
 
   return (
@@ -42,7 +43,7 @@ export default function BusContent({ data }: BusContentProps) {
           <Title as="h5" variant={'primary'}>
             Fahrzeuge mit fossilem Antrieb
           </Title>
-          <AnimatedNumber className="text-2xl text-mobility">
+          <AnimatedNumber className="text-mobility text-2xl">
             {combustionCount}
           </AnimatedNumber>
         </div>
@@ -50,7 +51,7 @@ export default function BusContent({ data }: BusContentProps) {
           <Title as="h5" variant={'primary'}>
             Fahrzeuge mit alternativem Antrieb
           </Title>
-          <AnimatedNumber className="text-2xl text-mobility">
+          <AnimatedNumber className="text-mobility text-2xl">
             {electroCount + hybridCount + alternativeCount}
           </AnimatedNumber>
         </div>
@@ -82,7 +83,7 @@ export default function BusContent({ data }: BusContentProps) {
           max={years.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
-          variant={'mobility'}
+          variant={'ecology'}
         />
       )}
       {width >= 1800 && (
@@ -93,7 +94,7 @@ export default function BusContent({ data }: BusContentProps) {
           max={years.length - 1}
           min={0}
           onValueChange={([index]) => setYearIndex(index)}
-          variant={'mobility'}
+          variant={'ecology'}
         />
       )}
       <Spacer />

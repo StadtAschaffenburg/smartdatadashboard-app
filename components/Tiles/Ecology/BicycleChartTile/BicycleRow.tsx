@@ -20,7 +20,7 @@ export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
           dangerouslySetInnerHTML={{ __html: name }}
           variant={'primary'}
         />
-        <Title as={'h3'} variant={'mobility'}>
+        <Title as={'h3'} variant={'ecology'}>
           <AnimatedNumber>{count}</AnimatedNumber>
         </Title>
       </div>

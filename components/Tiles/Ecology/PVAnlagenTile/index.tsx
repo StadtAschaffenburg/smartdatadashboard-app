@@ -1,18 +1,18 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import PVAnlagenTitle from './PVAnlagenTitle'
 import PVAnlagenContent from './PVAnlagenContent'
-import { getTileDatapoint } from '@/lib/api/getTileData'
-import { CapacityType } from './dt'
+import { getDataPoint } from '@/utils/payload'
 
-export default async function PVAnlagenTile() {
-  const tile_id = `${TilePrefix}-pvanlagen`
-
-  const capacity: CapacityType =
-    (await getTileDatapoint(tile_id, 'kapazitaet')) * 1
+export default async function Tile({ type, tile_payload }: TileProps) {
+  const capacity: number = getDataPoint(tile_payload, 'kapazitaet')
 
   return (
-    <BaseTile embedId={tile_id} title={<PVAnlagenTitle capacity={capacity} />}>
+    <BaseTile
+      embedId={type}
+      tile_payload={tile_payload}
+      title={<PVAnlagenTitle capacity={capacity} />}
+    >
       <PVAnlagenContent capacity={capacity} />
     </BaseTile>
   )

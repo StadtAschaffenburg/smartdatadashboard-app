@@ -31,7 +31,7 @@ export default function PassengerContent({ data }: PassengerContentProps) {
           <MsKlimadashboardIconsMoepnv className="h-20 fill-primary md:h-32" />
         </span>
         <div className="flex flex-grow flex-col justify-between">
-          <Title as="h3" variant={'mobility'}>
+          <Title as="h3" variant={'ecology'}>
             <AnimatedNumber decimals={2}>{passengerValue}</AnimatedNumber> Mio
           </Title>
           <div className="flex justify-end gap-1 pb-4">
@@ -58,7 +58,7 @@ export default function PassengerContent({ data }: PassengerContentProps) {
               onValueChange={([e]) => {
                 setYearIndex(e)
               }}
-              variant={'mobility'}
+              variant={'ecology'}
             />
           )}
         </div>
@@ -74,7 +74,7 @@ export default function PassengerContent({ data }: PassengerContentProps) {
             onValueChange={([e]) => {
               setYearIndex(e)
             }}
-            variant={'mobility'}
+            variant={'ecology'}
           />
         )}
       </div>

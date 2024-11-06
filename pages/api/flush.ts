@@ -12,6 +12,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
+  const { secret } = req.query
+  const api_secret = process.env.NEXT_PUBLIC_API_SECRET
+
+  console.log(req.method)
+  console.log('checkSecret', secret, api_secret)
+
   if (!checkSecret(req)) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
@@ -31,13 +37,13 @@ export default async function handler(
   // rebuild content (TBD)
   try {
     for (const tile of data.tiles) {
-      const data = getContent('tile', tile.tile_id)
+      getContent('tile', tile.tile_id)
     }
     for (const page of data.pages) {
-      const data = getContent('page', page.slug)
+      getContent('page', page.slug)
     }
     for (const source of data.sources) {
-      const data = getSourceFile(source.file_name)
+      getSourceFile(source.file_name)
     }
   } catch (error) {
     return res

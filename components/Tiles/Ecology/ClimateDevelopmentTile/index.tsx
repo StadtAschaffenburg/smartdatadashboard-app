@@ -4,10 +4,7 @@ import RadarChart, { AvgTempData } from './RadarChart'
 import getSourceData from '@/lib/api/getSourceData'
 import { ClimateHistoryRecord } from './dt'
 
-export default async function ClimateDevelopmentTile({
-  type,
-  tile_payload,
-}: TileProps) {
+export default async function Tile({ type, tile_payload }: TileProps) {
   const climateHistoryData: ClimateHistoryRecord[] = await getSourceData(
     'climate_history.json',
   )

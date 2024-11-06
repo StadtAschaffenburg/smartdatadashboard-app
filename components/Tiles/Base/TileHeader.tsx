@@ -21,7 +21,7 @@ type TileHeaderProps = VariantProps<typeof iconTileTitleStyle> & {
   onMoreInfoClick?: () => void
   onShareClick?: () => void
   children?: React.ReactElement
-  dataURL?: string
+  dataURL?: string | null
   hasMoreDetails?: boolean
   icon?:
     | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>

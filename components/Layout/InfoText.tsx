@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Title from '@/components/Elements/Title'
 import getGlobalData from '@/lib/api/getGlobalData'
+import { Spinner } from '@/components/Elements/Spinner'
 
 export default function SectionText() {
   const [infotext, setInfotext] = useState<string | null>(null)
@@ -25,15 +26,15 @@ export default function SectionText() {
     fetchData()
   }, [])
 
-  if (infotext) {
-    return (
-      <div className="lg:w-2/3 2xl:w-1/3">
-        <Title as={'h5'} variant={'inverse'}>
-          {infotext}
-        </Title>
-      </div>
-    )
+  if (!infotext) {
+    return <Spinner />
   }
 
-  return <p>Lade...</p>
+  return (
+    <div className="lg:w-2/3 2xl:w-1/3">
+      <Title as={'h5'} variant={'inverse'}>
+        {infotext}
+      </Title>
+    </div>
+  )
 }

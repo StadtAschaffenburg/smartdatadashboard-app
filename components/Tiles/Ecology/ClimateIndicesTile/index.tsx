@@ -7,10 +7,7 @@ import Title from '@/components/Elements/Title'
 import getSourceData from '@/lib/api/getSourceData'
 import { ClimateIndex } from './dt'
 
-export default async function ClimateIndicesTile({
-  type,
-  tile_payload,
-}: TileProps) {
+export default async function Tile({ type, tile_payload }: TileProps) {
   const climateIndicesData: ClimateIndex[] = await getSourceData(
     'climate_indices.json',
   )

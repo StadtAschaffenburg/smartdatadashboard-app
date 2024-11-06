@@ -1,12 +1,10 @@
-import BaseTile, { TilePrefix } from '@/components/Tiles/Ecology/EcologyTile'
-
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 import UVTileContent from './UVTileContent'
 
-export default async function UVTile() {
-  const tile_id = `${TilePrefix}-uv`
-
+export default async function Tile({ type, tile_payload }: TileProps) {
   return (
-    <BaseTile embedId={tile_id}>
+    <BaseTile embedId={type} tile_payload={tile_payload}>
       <UVTileContent />
     </BaseTile>
   )

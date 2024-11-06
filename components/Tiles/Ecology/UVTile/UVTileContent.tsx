@@ -5,6 +5,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
 import useUVIndex from '@/hooks/useUVIndex'
 import { Rating } from './dt'
+import { Spinner } from '@/components/Elements/Spinner'
 
 const rating_keys: { [key: number]: Rating } = {
   0: ['Niedrig', 'Kein Schutz erforderlich', '#28965A'],
@@ -38,7 +39,7 @@ export default function UVTileContent() {
   const [rating, advice, rating_color] = getRating(uv_index)
 
   if (!uv_data || !uv_data.length) {
-    return <p>Lade Daten...</p>
+    return <Spinner />
   }
 
   return (
@@ -47,7 +48,7 @@ export default function UVTileContent() {
         <div className="mb-8 flex flex-row content-center gap-6">
           <div className="flex items-center justify-center">
             <div
-              className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-climate bg-transparent"
+              className="border-climate flex h-20 w-20 items-center justify-center rounded-full border-4 bg-transparent"
               style={{ borderColor: rating_color }}
             >
               <span
@@ -77,7 +78,7 @@ export default function UVTileContent() {
         onValueChange={([e]) => {
           setDayIndex(e)
         }}
-        variant={'climate'}
+        variant={'ecology'}
       />
     </div>
   )

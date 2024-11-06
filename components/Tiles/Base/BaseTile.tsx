@@ -46,7 +46,7 @@ export type BaseTileProps = VariantProps<typeof baseTileStyle> &
     className?: string
     footerCenterElement?: React.ReactElement
     moreInfo?: React.ReactNode
-    source?: string
+    source?: string | null
     isFullWidth?: boolean
   }
 
