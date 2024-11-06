@@ -32,6 +32,7 @@ export default function SdgZiele({ params, searchParams }: SdgZieleProps) {
       <TargetFilter sdg_target={sdg_target} />
       <Container>
         <TileCollectionView
+          category={'default'}
           sdg_target={sdg_target}
           search_query={getTerm(searchParams)}
         />

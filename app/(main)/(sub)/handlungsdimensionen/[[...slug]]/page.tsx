@@ -46,6 +46,7 @@ export default function Handlungsdimensionen({
         <TileCollectionView
           action_dimension={action_dimension}
           action_field={action_field}
+          category={'default'}
           search_query={getTerm(searchParams)}
         />
       </Container>
