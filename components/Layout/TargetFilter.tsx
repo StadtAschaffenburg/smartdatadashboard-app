@@ -15,7 +15,7 @@ export default async function TargetFilter({ sdg_target }: TargetFilterProps) {
   const parent_page = findPage('sdg_targets')
   const target_pages = parent_page?.children ?? []
 
-  const current_page = sdg_target ? findPage(sdg_target) : null
+  // const current_page = sdg_target ? findPage(sdg_target) : null
 
   // get the links
   const page_links: LinkProps[] = target_pages.map(page => {

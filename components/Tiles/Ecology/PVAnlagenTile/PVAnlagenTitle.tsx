@@ -1,7 +1,10 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { ContentProps } from './dt'
 
-export default async function LanternsContent({ capacity }: ContentProps) {
+export default async function LanternsContent({
+  capacity,
+}: {
+  capacity: number
+}) {
   return (
     <>
       <AnimatedNumber>{capacity ?? 0}</AnimatedNumber> PV-Anlagen

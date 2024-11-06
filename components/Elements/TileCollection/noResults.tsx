@@ -4,7 +4,7 @@ import { Button } from '@/components/Elements/Button'
 import Link from 'next/link'
 import { removeParameterLink } from '@/utils/search'
 
-export default async function NoResults() {
+export default function NoResults() {
   return (
     <>
       <div className="bg-primary-light text-primary">

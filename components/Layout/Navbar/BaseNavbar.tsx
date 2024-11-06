@@ -39,14 +39,12 @@ const links: LinkProps[] = [
 
 type BaseNavbarProps = {
   title?: string
-  variant?: 'primary' | 'secondary' | 'overlay'
-  children?: React.ReactElement | React.ReactElement[]
+  variant?: 'primary' | 'secondary'
 }
 
 export default function BaseNavbar({
   title,
   variant = 'primary',
-  children,
 }: BaseNavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
 

@@ -95,10 +95,12 @@ export async function writeFile(file_path: string, data: any) {
     // write data to the file
     await fs.promises.writeFile(file_path, file_data, 'utf8')
 
+    // eslint-disable-next-line no-console
     console.log('💾 Saved file:', file_path)
 
     return true
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('🚫 Error saving file:', error)
     return false
   }

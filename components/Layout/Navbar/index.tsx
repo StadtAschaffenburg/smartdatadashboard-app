@@ -13,9 +13,11 @@ export default function Navbar() {
   const title_arr: string[] = []
 
   const segments = url.split('/').filter(Boolean)
-  segments.forEach((segment, index) => {
+  segments.forEach(segment => {
     const page_title = findTitle(segment)
-    if (page_title) {title_arr.push(page_title)}
+    if (page_title) {
+      title_arr.push(page_title)
+    }
   })
 
   const title = title_arr.length > 0 ? title_arr.join(' - ') : defaultTitle

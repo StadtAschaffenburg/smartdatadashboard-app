@@ -1,6 +1,6 @@
 {
   "name": "smartdatadashboard-ab",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
@@ -50,6 +50,7 @@
     "@svgr/cli": "^8.1.0",
     "@types/geojson": "^7946.0.10",
     "@types/node": "20.6.0",
+    "@types/papaparse": "^5.3.15",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/share-api-polyfill": "^1.0.3",

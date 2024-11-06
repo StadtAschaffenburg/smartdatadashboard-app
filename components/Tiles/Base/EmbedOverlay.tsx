@@ -5,7 +5,7 @@ import Title from '@/components/Elements/Title'
 import { ComponentPropsWithRef } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import BaseOverlay from './BaseOverlay'
-import { TileType } from '@/utils/TileFactory'
+import { TileType } from '@/types/tiles'
 import { Button } from '@/components/Elements/Button'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 

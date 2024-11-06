@@ -12,12 +12,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
-  const { secret } = req.query
-  const api_secret = process.env.NEXT_PUBLIC_API_SECRET
-
-  console.log(req.method)
-  console.log('checkSecret', secret, api_secret)
-
   if (!checkSecret(req)) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
@@ -31,8 +25,6 @@ export default async function handler(
   for (const collection of collections) {
     data[collection] = await getCollection(collection)
   }
-
-  console.log(data)
 
   // rebuild content (TBD)
   try {

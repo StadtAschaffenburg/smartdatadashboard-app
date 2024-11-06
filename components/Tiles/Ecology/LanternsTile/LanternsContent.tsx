@@ -1,9 +1,8 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { IconLanterns } from '@/components/Icons/Ecology'
-import { ContentProps } from './dt'
 
-export default async function LanternsContent({ count }: ContentProps) {
+export default async function LanternsContent({ count }: { count: number }) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
