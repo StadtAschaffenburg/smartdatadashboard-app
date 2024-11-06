@@ -207,4 +207,28 @@ export function findTitle(id_or_slug: string): string | null {
   return page ? page.title : null
 }
 
+export function getPermalink(
+  id_or_slug: string,
+  node?: PageMappingType[],
+  parent_path = '',
+): string | null {
+  node = node || sitemap
+  for (const page of node) {
+    const current_path = `${parent_path}/${page.slug}`.replace(/\/+$/, '')
+
+    if (page.id === id_or_slug || page.slug === id_or_slug) {
+      return current_path || '/'
+    }
+
+    if (page.children) {
+      const child_path = getPermalink(id_or_slug, page.children, current_path)
+      if (child_path) {
+        return child_path
+      }
+    }
+  }
+
+  return null
+}
+
 export default sitemap

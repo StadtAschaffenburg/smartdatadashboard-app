@@ -5,7 +5,7 @@ import { useState } from 'react'
 import styles from './Collapsible.module.css'
 
 type CollapsibleProps = {
-  trigger: React.ReactElement
+  trigger?: React.ReactElement
   children: React.ReactElement
   isOpen?: boolean
   onOpenChange?: (open: boolean) => void

@@ -19,7 +19,7 @@ import {
 } from '@/components/Icons/Dimensions'
 import { TilePayloadType } from '@/types/tiles'
 
-const iconMap = {
+export const iconMap = {
   ecology: IconEcology,
   society: IconSociety,
   economy: IconEconomy,
@@ -102,7 +102,7 @@ export default async function IconTile({
           <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
             <Title
               as={'h1'}
-              className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
+              className={cx('mb-4 min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
               {tile_payload?.title ?? title ?? '...'}

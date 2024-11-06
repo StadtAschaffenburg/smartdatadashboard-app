@@ -9,6 +9,7 @@ import {
   ActionFieldsType,
 } from '@/types/dimensionMapping'
 import { findPage } from '@/lib/sitemap'
+import { ButtonVariant } from '@/utils/variants/ButtonVariants'
 
 interface DimensionFilterProps {
   action_dimension?: ActionDimensionsType
@@ -25,6 +26,7 @@ export default async function DimensionFilter({
   const current_dimension_page = action_dimension
     ? findPage(action_dimension)
     : null
+
   // const current_field_page = action_field ? findPage(action_field) : null
 
   // get the dimension links
@@ -35,6 +37,7 @@ export default async function DimensionFilter({
     return {
       link: `/${parent_page?.slug}/${!active ? dimension_page.slug : ''}`,
       title: dimension_page.title, // 'label' korrigiert zu 'title'
+      variant: dimension_id as ButtonVariant,
       active: active,
     }
   })
@@ -50,6 +53,7 @@ export default async function DimensionFilter({
     return {
       link: `/handlungsdimensionen/${current_dimension_page?.slug}/${!active ? field_page.slug : ''}`,
       title: field_page.title,
+      variant: current_dimension_page?.id as ButtonVariant,
       active: active,
     }
   })
@@ -57,17 +61,19 @@ export default async function DimensionFilter({
   const default_variant = 'primary'
   const variant = action_dimension ? action_dimension : default_variant
 
+  console.log('variant:', variant)
+
   return (
     <Background light variant={variant}>
       <Container>
         <div className="mt-4 flex items-center justify-between gap-4">
           {dimension_links.map(l => (
-            <LinkComponent key={l.link} variant="primary" {...l} />
+            <LinkComponent key={l.link} variant={variant} {...l} />
           ))}
         </div>
         <div className="mt-4 flex items-center justify-between gap-4">
           {field_links.map(l => (
-            <LinkComponent key={l.link} size="md" variant="primary" {...l} />
+            <LinkComponent key={l.link} size="md" variant={variant} {...l} />
           ))}
         </div>
       </Container>

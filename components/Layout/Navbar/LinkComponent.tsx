@@ -2,13 +2,13 @@ import { Button } from '@/components/Elements/Button'
 import { cx } from 'class-variance-authority'
 import Link from 'next/link'
 import { SVGProps } from 'react'
-import { ButtonSize } from '@/utils/variants/ButtonVariants'
+import { ButtonSize, ButtonVariant } from '@/utils/variants/ButtonVariants'
 
 export type LinkProps = {
   title?: string
   icon?: (_props: SVGProps<SVGSVGElement>) => JSX.Element
   link: string
-  variant?: 'primary' | 'inverse'
+  variant?: ButtonVariant
   hover?: 'primary' | 'secondary'
   size?: ButtonSize
   onClick?: () => void

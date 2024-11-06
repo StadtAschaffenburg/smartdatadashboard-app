@@ -2,25 +2,40 @@
 
 import { usePathname } from 'next/navigation'
 import BaseNavbar from './BaseNavbar'
+import Breadcrumbs, { BreadcrumbType } from './Breadcrumbs'
 import React from 'react'
-import { findTitle } from '@/lib/sitemap'
+import { findTitle, getPermalink } from '@/lib/sitemap'
 
 const defaultTitle = 'Smart Data Dashboard'
 
 export default function Navbar() {
   const pathname: string = usePathname() ?? '/'
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
-  const title_arr: string[] = []
+  let breadcrumbs: BreadcrumbType[] = []
 
   const segments = url.split('/').filter(Boolean)
   segments.forEach(segment => {
     const page_title = findTitle(segment)
-    if (page_title) {
-      title_arr.push(page_title)
+    const permalink = getPermalink(segment)
+    const breadcrumb: BreadcrumbType = {
+      title: page_title ?? segment,
+      link: permalink,
     }
+    breadcrumbs.push(breadcrumb)
   })
 
-  const title = title_arr.length > 0 ? title_arr.join(' - ') : defaultTitle
+  if (breadcrumbs.length === 0) {
+    breadcrumbs = [
+      {
+        title: defaultTitle,
+        link: '/',
+      },
+    ]
+  }
 
-  return <BaseNavbar title={title} />
+  return (
+    <BaseNavbar>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </BaseNavbar>
+  )
 }

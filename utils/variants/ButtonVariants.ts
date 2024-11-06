@@ -2,12 +2,12 @@ export const ButtonVariants = {
   variant: {
     primary: 'border-primary text-primary',
     secondary: 'border-secondary text-secondary',
-    inverse: 'text-white border-white',
+    live: 'border-primary',
+    ecology: 'border-ecology text-ecology',
+    society: 'border-society text-society',
+    economy: 'border-economy text-economy',
+    inverse: 'text-white border-white text-white',
     danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
-    goToLive: 'border-primary text-primary',
-    goToEcology: 'border-ecology text-primary',
-    goToSociety: 'border-society text-primary',
-    goToEconomy: 'border-economy text-primary',
     overlay: 'border-secondary text-white',
   },
   size: {
@@ -23,6 +23,9 @@ export const ButtonVariants = {
     ecology: 'hover:border-ecology',
     society: 'hover:border-society',
     economy: 'hover:border-economy',
+    inverse: 'text-white border-white text-white',
+    danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
+    overlay: 'border-secondary text-white',
   },
 } as const
 

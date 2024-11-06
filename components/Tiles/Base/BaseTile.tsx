@@ -16,13 +16,7 @@ import {
   BackgroundDefaultVariants,
   BackgroundLightVariants,
 } from '@/utils/variants/BackgroundVariants'
-
-import {
-  MsKlimadashboardIconsButtonAktivEnergieV1,
-  MsKlimadashboardIconsButtonAktivGebaeude,
-  MsKlimadashboardIconsButtonAktivKlima,
-  MsKlimadashboardIconsButtonAktivMobil,
-} from '@/components/Icons/Misc'
+import { iconMap } from './IconTile'
 
 const baseTileStyle = cva(
   'relative flex flex-col md:flex-row h-fit overflow-hidden',
@@ -100,30 +94,17 @@ export function BaseTile({
     setShowShareOverlay(true)
   }
 
-  const chooseIcon = function (variant: string | null | undefined) {
-    switch (variant) {
-      case 'energy':
-        return MsKlimadashboardIconsButtonAktivEnergieV1
-      case 'mobility':
-        return MsKlimadashboardIconsButtonAktivMobil
-      case 'climate':
-        return MsKlimadashboardIconsButtonAktivKlima
-      case 'building':
-        return MsKlimadashboardIconsButtonAktivGebaeude
-      default:
-        return undefined
-    }
-  }
+  const Icon = iconMap[variant as keyof typeof iconMap] || (() => <></>)
 
   return (
-    <div className="pb-5">
+    <div className="pb-4 md:pb-8">
       <div className={cx(baseTileStyle({ variant }), className)}>
         {startImage}
         <div className="flex w-full flex-col justify-between px-4 py-8 lg:p-16">
           <TileHeader
             dataURL={source}
             hasMoreDetails={!!moreInfo}
-            icon={chooseIcon(variant)}
+            icon={Icon}
             onEmbedClick={() => setShowEmbedOverlay(true)}
             onShareClick={openShareDialog}
             variant={variant}

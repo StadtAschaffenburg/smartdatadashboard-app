@@ -1,0 +1,46 @@
+import Link from 'next/link'
+import Image from 'next/image'
+
+const sdgImages = [
+  require('@/assets/icons/SDG/SDG-icon-DE-01.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-02.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-03.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-04.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-05.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-06.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-07.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-08.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-09.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-10.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-11.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-12.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-13.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-14.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-15.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-16.jpg').default.src,
+  require('@/assets/icons/SDG/SDG-icon-DE-17.jpg').default.src,
+]
+
+export type SdgLinkProps = {
+  index: number
+  link: string
+  active: boolean
+}
+
+export default function SdgLink({ index, link, active }: SdgLinkProps) {
+  const imageSrc = sdgImages[index]
+  const alt = `Nachhaltigkeitsziel Nummer ${index}`
+
+  return (
+    <Link className={active ? 'active' : ''} href={link}>
+      <Image
+        alt={alt}
+        className="aspect-square w-32 border-4 border-transparent transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary"
+        height={256}
+        loading="lazy"
+        src={imageSrc}
+        width={256}
+      />
+    </Link>
+  )
+}

@@ -5,6 +5,8 @@ import { findPage } from '@/lib/sitemap'
 import Container from '@/components/Layout/Container'
 import { TargetType } from '@/types/targetMapping'
 import { getTerm } from '@/utils/search'
+import Title from '@/components/Elements/Title'
+import Background from '@/components/Layout/Background'
 
 interface SdgZieleProps {
   params: {
@@ -29,7 +31,17 @@ export default function SdgZiele({ params, searchParams }: SdgZieleProps) {
 
   return (
     <>
-      <TargetFilter sdg_target={sdg_target} />
+      <Background light variant="primary">
+        <Container className="flex flex-col gap-8 pt-4">
+          <div className="mb-4">
+            <Title as={'h1'} className="mb-4" font={'normal'} variant="primary">
+              Was sind die SDG-Ziele?
+            </Title>
+            <p>TBD</p>
+          </div>
+          <TargetFilter sdg_target={sdg_target} />
+        </Container>
+      </Background>
       <Container>
         <TileCollectionView
           category={'default'}
