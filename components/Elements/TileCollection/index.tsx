@@ -20,7 +20,7 @@ export default async function TileCollection({
         item.tags.action_dimension === action_dimension) &&
       (action_field === null ||
         item.tags.action_field.includes(action_field)) &&
-      (sdg_target === null || item.tags.sdg_target.includes(sdg_target)) &&
+      (sdg_target === null || item.tags.sdg_target?.includes(sdg_target)) &&
       (search_query === null ||
         item.search.toLowerCase().includes(search_query.toLowerCase()))
     )

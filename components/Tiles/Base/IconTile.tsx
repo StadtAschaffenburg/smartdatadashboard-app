@@ -38,7 +38,7 @@ export type DataSourceProps = {
 export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
   DataSourceProps &
   EmbedTileProps & {
-    children: React.ReactElement | React.ReactElement[]
+    children?: React.ReactElement | React.ReactElement[]
     title?: string | React.ReactElement
     subtitle?: string | React.ReactElement
     dataSource?: string
@@ -132,7 +132,7 @@ export default async function IconTile({
         )}
       </>
 
-      <>{children}</>
+      <>{children ?? 'TBD'}</>
       <Spacer />
 
       {tile_payload?.copy && (

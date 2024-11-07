@@ -2,8 +2,6 @@ import axios from 'axios'
 import https from 'https'
 import url from 'url'
 import {
-  content_folder,
-  fallback_folder,
   readApiCache,
   readCache,
   writeApiCache,
@@ -42,11 +40,6 @@ export async function handleRequest(
     // save the data to the cache
     await writeContentCache(content_type, collection, id, payload)
     return payload
-  }
-
-  // get fallback data for content collectiono
-  if (content_type === content_folder) {
-    return readCache(fallback_folder, collection, id, true) || null
   }
 
   return null

@@ -11,8 +11,10 @@ import BusTile from '@/components/Tiles/Ecology/BusTile'
 import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
 import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
+import LightningTile from '@/components/Tiles/Ecology/LightningTile'
 
 // misc
+import FallbackTile from '@/components/Tiles/FallbackTile'
 import { TilePayloadType, TileType } from '@/types/tiles'
 import getTileData from '@/lib/api/getTileData'
 
@@ -29,7 +31,9 @@ interface TileFactoryProps {
 export default async function TileFactory({ type }: TileFactoryProps) {
   const tile_payload: TilePayloadType = await getTileData(type)
 
-  if (!tile_payload) {return null}
+  if (!tile_payload) {
+    return null
+  }
 
   switch (type) {
     // ---- ECOLOGY ----
@@ -57,12 +61,14 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <PVAnlagenTile tile_payload={tile_payload} type={type} />
     case 'ecology-lanterns':
       return <LanternsTile tile_payload={tile_payload} type={type} />
+    case 'ecology-lightning':
+      return <LightningTile tile_payload={tile_payload} type={type} />
 
     // ---- SOCIETY ----
 
     // ---- ECONOMY ----
 
     default:
-      return null
+      return <FallbackTile tile_payload={tile_payload} type={type} />
   }
 }
