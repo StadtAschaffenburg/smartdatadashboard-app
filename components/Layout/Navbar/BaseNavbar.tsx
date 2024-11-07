@@ -15,7 +15,7 @@ const links: LinkProps[] = [
   {
     title: 'Aschaffenburg Live',
     icon: IconFlash,
-    link: '/ab-live',
+    link: '/aschaffenburg-live',
     hover: 'secondary',
   },
   {

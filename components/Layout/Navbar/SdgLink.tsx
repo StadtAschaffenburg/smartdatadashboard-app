@@ -37,7 +37,6 @@ export default function SdgLink({ index, link, active }: SdgLinkProps) {
         alt={alt}
         className="aspect-square w-32 border-4 border-transparent transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary"
         height={256}
-        loading="lazy"
         src={imageSrc}
         width={256}
       />

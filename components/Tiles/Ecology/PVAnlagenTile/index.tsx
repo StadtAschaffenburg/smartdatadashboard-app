@@ -5,13 +5,14 @@ import PVAnlagenContent from './PVAnlagenContent'
 import { getDataPoint } from '@/utils/payload'
 
 export default async function Tile({ type, tile_payload }: TileProps) {
+  const count: number = getDataPoint(tile_payload, 'anzahl')
   const capacity: number = getDataPoint(tile_payload, 'kapazitaet')
 
   return (
     <BaseTile
       embedId={type}
       tile_payload={tile_payload}
-      title={<PVAnlagenTitle capacity={capacity} />}
+      title={<PVAnlagenTitle count={count} />}
     >
       <PVAnlagenContent capacity={capacity} />
     </BaseTile>

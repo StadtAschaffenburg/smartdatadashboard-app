@@ -1,13 +1,14 @@
 import { notFound } from 'next/navigation'
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import DimensionFilter from '@/components/Layout/DimensionFilter'
-import { findPage } from '@/lib/sitemap'
+import { findPage } from '@/utils/content'
 import Container from '@/components/Layout/Container'
 import {
   ActionDimensionsType,
   ActionFieldsType,
 } from '@/types/dimensionMapping'
 import { getTerm } from '@/utils/search'
+import PageIntro from '@/components/Elements/PageIntro'
 
 interface HandlungsdimensionenProps {
   params: {
@@ -41,6 +42,7 @@ export default function Handlungsdimensionen({
 
   return (
     <>
+      <PageIntro container slug="handlungdimensionen" />
       <DimensionFilter action_dimension={action_dimension} />
       <Container>
         <TileCollectionView

@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation'
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import TargetFilter from '@/components/Layout/TargetFilter'
-import { findPage } from '@/lib/sitemap'
+import { findPage } from '@/utils/content'
 import Container from '@/components/Layout/Container'
 import { TargetType } from '@/types/targetMapping'
 import { getTerm } from '@/utils/search'
-import Title from '@/components/Elements/Title'
+import PageIntro from '@/components/Elements/PageIntro'
 import Background from '@/components/Layout/Background'
 
 interface SdgZieleProps {
@@ -17,7 +17,10 @@ interface SdgZieleProps {
   }
 }
 
-export default function SdgZiele({ params, searchParams }: SdgZieleProps) {
+export default async function SdgZiele({
+  params,
+  searchParams,
+}: SdgZieleProps) {
   // extract dimension and field from the slug array
   const [slugTarget] = params.slug ?? []
 
@@ -33,12 +36,7 @@ export default function SdgZiele({ params, searchParams }: SdgZieleProps) {
     <>
       <Background light variant="primary">
         <Container className="flex flex-col gap-8 pt-4">
-          <div className="mb-4">
-            <Title as={'h1'} className="mb-4" font={'normal'} variant="primary">
-              Was sind die SDG-Ziele?
-            </Title>
-            <p>TBD</p>
-          </div>
+          <PageIntro slug="sdg-ziele" />
           <TargetFilter sdg_target={sdg_target} />
         </Container>
       </Background>

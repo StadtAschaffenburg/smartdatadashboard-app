@@ -166,3 +166,29 @@ async function fetchFile(endpoint: string): Promise<any> {
     return null
   }
 }
+
+export async function rebuildCache() {
+  const collections = ['tiles', 'sources', 'pages', 'sections']
+  const data: any = {}
+
+  for (const collection of collections) {
+    data[collection] = await getCollection(collection)
+  }
+
+  // rebuild content (TBD)
+  try {
+    for (const tile of data.tiles) {
+      getContent('tile', tile.tile_id)
+    }
+    for (const page of data.pages) {
+      getContent('page', page.slug)
+    }
+    for (const source of data.sources) {
+      getSourceFile(source.file_name)
+    }
+
+    return true
+  } catch (error) {
+    return false
+  }
+}

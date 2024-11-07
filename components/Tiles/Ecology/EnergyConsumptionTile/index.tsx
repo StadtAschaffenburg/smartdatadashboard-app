@@ -1,7 +1,6 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import { TileSplitView } from '../../Base/TileSplitView'
-import Title from '@/components/Elements/Title'
 import EnergyConsumptionContent from './EnergyConsumptionContent'
 import getSourceData from '@/lib/api/getSourceData'
 import { InputDataType } from './dt'
@@ -25,11 +24,6 @@ export default async function Tile({ type, tile_payload }: TileProps) {
             />
           </div>
         </TileSplitView.Left>
-        <TileSplitView.Right>
-          <Title as="h5" variant="dark">
-            {tile_payload?.copy ?? ''}
-          </Title>
-        </TileSplitView.Right>
       </TileSplitView>
     </BaseTile>
   )

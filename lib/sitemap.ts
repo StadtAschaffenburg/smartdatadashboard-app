@@ -7,7 +7,7 @@ export type PageMappingType = {
 
 export const sitemap: PageMappingType[] = [
   { id: 'home', title: 'Smart Data Dashboard', slug: '' },
-  { id: 'ab_live', title: 'Aschaffenburg Live', slug: 'ab-live' },
+  { id: 'ab_live', title: 'Aschaffenburg Live', slug: 'aschaffenburg-live' },
   {
     id: 'dimensions',
     title: 'Handlungsdimensionen',
@@ -183,52 +183,7 @@ export const sitemap: PageMappingType[] = [
   { id: 'adapt', title: 'Dashboard Adaptieren', slug: 'adaptieren' },
 ]
 
-export function findPage(id_or_slug: string): PageMappingType | null {
-  const findInchildren = (pages: PageMappingType[]): PageMappingType | null => {
-    for (const page of pages) {
-      if (page.id === id_or_slug || page.slug === id_or_slug) {
-        return page
-      }
-      if (page.children) {
-        const result = findInchildren(page.children)
-        if (result) {
-          return result
-        }
-      }
-    }
-    return null
-  }
-
-  return findInchildren(sitemap)
+export default async function getSitemap(): Promise<PageMappingType[]> {
+  // TODO (optional): fetch page titles from CMS
+  return sitemap
 }
-
-export function findTitle(id_or_slug: string): string | null {
-  const page = findPage(id_or_slug)
-  return page ? page.title : null
-}
-
-export function getPermalink(
-  id_or_slug: string,
-  node?: PageMappingType[],
-  parent_path = '',
-): string | null {
-  node = node || sitemap
-  for (const page of node) {
-    const current_path = `${parent_path}/${page.slug}`.replace(/\/+$/, '')
-
-    if (page.id === id_or_slug || page.slug === id_or_slug) {
-      return current_path || '/'
-    }
-
-    if (page.children) {
-      const child_path = getPermalink(id_or_slug, page.children, current_path)
-      if (child_path) {
-        return child_path
-      }
-    }
-  }
-
-  return null
-}
-
-export default sitemap

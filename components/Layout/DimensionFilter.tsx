@@ -8,7 +8,7 @@ import {
   ActionDimensionsType,
   ActionFieldsType,
 } from '@/types/dimensionMapping'
-import { findPage } from '@/lib/sitemap'
+import { findPage } from '@/utils/content'
 import { ButtonVariant } from '@/utils/variants/ButtonVariants'
 
 interface DimensionFilterProps {
@@ -60,8 +60,6 @@ export default async function DimensionFilter({
 
   const default_variant = 'primary'
   const variant = action_dimension ? action_dimension : default_variant
-
-  console.log('variant:', variant)
 
   return (
     <Background light variant={variant}>

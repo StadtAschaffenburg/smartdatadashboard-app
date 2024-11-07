@@ -1,13 +1,9 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 
-export default async function LanternsContent({
-  capacity,
-}: {
-  capacity: number
-}) {
+export default async function PVAnlagenTitle({ count }: { count: number }) {
   return (
     <>
-      <AnimatedNumber>{capacity ?? 0}</AnimatedNumber> PV-Anlagen
+      <AnimatedNumber>{count ?? 0}</AnimatedNumber> PV-Anlagen
     </>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
 import { TargetType } from '@/types/targetMapping'
-import { findPage } from '@/lib/sitemap'
+import { findPage } from '@/utils/content'
 
 interface TargetFilterProps {
   sdg_target?: TargetType
@@ -27,7 +27,7 @@ export default async function TargetFilter({ sdg_target }: TargetFilterProps) {
   })
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4">
+    <div className="flex flex-wrap items-center justify-start gap-4">
       {page_links.map((l, index) => (
         <SdgLink key={l.link} {...l} />
       ))}

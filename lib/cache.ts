@@ -1,11 +1,11 @@
 import * as fs from 'fs'
 import path from 'path'
 import { getCachePath } from '@/utils/filesystem'
+import { getCacheEndpoint } from '@/utils/api'
 
 export const api_folder = 'api'
 export const collection_folder = 'collection'
 export const content_folder = 'content'
-export const fallback_folder = 'fallback'
 
 // read the data from the cache
 export async function readCache(
@@ -69,9 +69,6 @@ export async function writeContentCache(
   lifetime: number | boolean = false,
 ) {
   await writeCache(getCachePath(content_type, folder_path, id), data, lifetime) // write the data to the cache
-  if (content_type === 'content') {
-    await writeCache(getCachePath(fallback_folder, folder_path, id), data) // write the data to the cache
-  }
 }
 
 // write API data to the cache
@@ -96,7 +93,7 @@ export async function writeFile(file_path: string, data: any) {
     await fs.promises.writeFile(file_path, file_data, 'utf8')
 
     // eslint-disable-next-line no-console
-    console.log('💾 Saved file:', file_path)
+    console.log('💾 Saved file:', file_path.split('/assets/')[1])
 
     return true
   } catch (error) {
@@ -121,4 +118,23 @@ export async function flushCache() {
   }
 
   return true
+}
+
+export async function revalidateContent() {
+  try {
+    const response = await fetch(getCacheEndpoint('revalidate'), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    if (!response.ok) {
+      return false
+    }
+
+    return true
+  } catch (error) {
+    return false
+  }
 }
