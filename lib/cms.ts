@@ -168,14 +168,14 @@ async function fetchFile(endpoint: string): Promise<any> {
 }
 
 export async function rebuildCache() {
-  const collections = ['tiles', 'sources', 'pages', 'sections']
+  const collections = ['tiles', 'sources', 'pages']
   const data: any = {}
 
   for (const collection of collections) {
     data[collection] = await getCollection(collection)
   }
 
-  // rebuild content (TBD)
+  // rebuild content
   try {
     for (const tile of data.tiles) {
       getContent('tile', tile.tile_id)

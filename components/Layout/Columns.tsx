@@ -10,7 +10,7 @@ export default function Columns({ columns = 2, children }: ColumnsProps) {
       case 3:
         return 'columns-1 gap-4 md:columns-2 md:gap-8 lg:columns-3 xl:columns-3'
       case 2:
-        return 'columns-1 gap-4 md:columns-2 md:gap-8 lg:columns-1 xl:columns-2'
+        return 'columns-1 gap-4 lg:columns-2 md:gap-8'
       default:
         return 'w-full'
     }

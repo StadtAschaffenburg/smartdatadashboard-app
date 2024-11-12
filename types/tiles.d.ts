@@ -38,6 +38,7 @@ export interface TilePayloadType {
     action_field: ActionFieldsType
     sdg_target: TargetType
   }
+  live: boolean | null
 }
 
 export interface TileProps {

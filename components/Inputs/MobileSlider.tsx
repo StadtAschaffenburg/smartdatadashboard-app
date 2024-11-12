@@ -2,23 +2,12 @@
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import Title from '../Elements/Title'
-import { cva, VariantProps } from 'class-variance-authority'
+import { cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
-import {
-  BackgroundDefaultVariants,
-  BackgroundVariants,
-} from '@/utils/variants/BackgroundVariants'
-
-const sliderStyle = cva(
-  'relative h-3 md:h-5 flex-1 rounded-full bg-opacity-20',
-  {
-    variants: BackgroundVariants,
-    defaultVariants: BackgroundDefaultVariants,
-  },
-)
+import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
 
 export type SliderProps = SliderPrimitive.SliderProps &
-  VariantProps<typeof sliderStyle> & {
+  VariantProps<typeof BackgroundStyle> & {
     firstValueMobile?: number
     labels?: string[]
   }
@@ -26,17 +15,18 @@ export type SliderProps = SliderPrimitive.SliderProps &
 export default function MobileSlider({
   firstValueMobile,
   labels,
-  variant,
+  variant = 'primary',
+  className,
   ...props
 }: SliderProps) {
   const [value, setValue] = useState<number>(firstValueMobile || 0)
 
   return (
-    <div>
+    <div className={`slider-component ${className ?? 'xl:hidden'}`}>
       <div className="flex w-full items-center">
         {labels && (
           <div className="block">
-            <Title as="h5" className="mr-2" variant={'primary'}>
+            <Title as={'h6'} className={'mr-2'} tag={'span'} variant={variant}>
               {labels[value]}
             </Title>
           </div>
@@ -50,8 +40,18 @@ export default function MobileSlider({
             setValue(e)
           }}
         >
-          <SliderPrimitive.Track className={sliderStyle({ variant })} />
-          <SliderPrimitive.Thumb className="block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary md:h-9" />
+          <SliderPrimitive.Track
+            className={cx(
+              BackgroundStyle({ variant }),
+              'relative h-3 flex-1 rounded-full bg-opacity-20 md:h-5',
+            )}
+          />
+          <SliderPrimitive.Thumb
+            className={cx(
+              BackgroundStyle({ variant }),
+              'block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary md:h-9',
+            )}
+          />
         </SliderPrimitive.Root>
       </div>
     </div>

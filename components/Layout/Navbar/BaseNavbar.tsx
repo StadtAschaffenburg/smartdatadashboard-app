@@ -4,7 +4,7 @@ import Collapsible from '@/components/Elements/Collapsible'
 import Container from '@/components/Layout/Container'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import LinkComponent, { LinkProps } from './LinkComponent'
-import { IconFlash, IconHome } from '@/components/Icons/Navigation'
+import { IconGear, IconHome } from '@/components/Icons/Navigation'
 
 const links: LinkProps[] = [
   {
@@ -14,32 +14,30 @@ const links: LinkProps[] = [
   },
   {
     title: 'Aschaffenburg Live',
-    icon: IconFlash,
+    icon: IconGear,
     link: '/aschaffenburg-live',
     hover: 'secondary',
   },
   {
     title: 'Handlungsdimensionen',
-    icon: IconFlash,
+    icon: IconGear,
     link: '/handlungsdimensionen',
     hover: 'secondary',
   },
   {
     title: 'SDG-Ziele',
-    icon: IconFlash,
+    icon: IconGear,
     link: '/sdg-ziele',
     hover: 'secondary',
   },
 ]
 
 type BaseNavbarProps = {
-  title?: string
   children?: React.ReactNode
   variant?: 'primary' | 'secondary'
 }
 
 export default function BaseNavbar({
-  title,
   children,
   variant = 'primary',
 }: BaseNavbarProps) {

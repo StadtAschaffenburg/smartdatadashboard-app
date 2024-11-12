@@ -1,3 +1,5 @@
+import { cva } from 'class-variance-authority'
+
 export const BackgroundVariants = {
   variant: {
     primary: 'bg-primary',
@@ -13,7 +15,7 @@ export const BackgroundVariants = {
     green: 'bg-green',
     purple: 'bg-purple',
   },
-} as const
+}
 
 export const BackgroundLightVariants = {
   variant: {
@@ -30,7 +32,7 @@ export const BackgroundLightVariants = {
     green: 'bg-green-light',
     purple: 'bg-purple-light',
   },
-} as const
+}
 
 export type BackgroundVariant = keyof typeof BackgroundVariants.variant
 
@@ -46,3 +48,13 @@ export const getVariantClass = (
     ? BackgroundLightVariants.variant[variant]
     : BackgroundVariants.variant[variant]
 }
+
+export const BackgroundStyle = cva('', {
+  variants: BackgroundVariants,
+  defaultVariants: BackgroundDefaultVariants,
+})
+
+export const BackgroundLightStyle = cva('', {
+  variants: BackgroundLightVariants,
+  defaultVariants: BackgroundDefaultVariants,
+})

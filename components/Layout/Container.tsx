@@ -1,21 +1,22 @@
 import { cx } from 'class-variance-authority'
 import { HTMLAttributes } from 'react'
+import {
+  ContainerStyle,
+  ContainerVariant,
+} from '@/utils/variants/ContainerVariants'
 
-export type ContainerProps = HTMLAttributes<HTMLDivElement>
+export type ContainerProps = HTMLAttributes<HTMLDivElement> & {
+  variant?: ContainerVariant
+}
 
 export default function Container({
   className,
   children,
+  variant = 'default',
   ...props
 }: ContainerProps) {
   return (
-    <div
-      className={cx(
-        'mx-auto max-w-[1920px] px-2 py-4 xs:px-[16px] md:px-[32px] md:py-16 xl:px-[82px]',
-        className,
-      )}
-      {...props}
-    >
+    <div className={cx(ContainerStyle({ variant }), className)} {...props}>
       {children}
     </div>
   )

@@ -5,7 +5,6 @@ import Title from '@/components/Elements/Title'
 
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
-import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import {
   IconStadtwerkeAbgas,
@@ -15,8 +14,6 @@ import { ContentProps, InputData } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
-  const { width } = useWindowSize()
-
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
   const [hybridCount, setHybridCount] = useState(0)
@@ -72,28 +69,25 @@ export default function StadtwerkeContent({ data }: ContentProps) {
           <IconStadtwerkeElektro className="w-full fill-green" />
         </div>
       </div>
-      {width < 1800 && (
-        <MobileSlider
-          defaultValue={[yearIndex]}
-          firstValueMobile={data.length - 1}
-          labels={data.map(e => e.ZEIT.toString())}
-          max={data.length - 1}
-          min={0}
-          onValueChange={([index]) => setYearIndex(index)}
-          variant={'ecology'}
-        />
-      )}
-      {width >= 1800 && (
-        <Slider
-          defaultValue={[yearIndex]}
-          firstValueMobile={data.length - 1}
-          labels={data.map(e => e.ZEIT.toString())}
-          max={data.length - 1}
-          min={0}
-          onValueChange={([index]) => setYearIndex(index)}
-          variant={'ecology'}
-        />
-      )}
+      <MobileSlider
+        defaultValue={[yearIndex]}
+        firstValueMobile={data.length - 1}
+        labels={data.map(e => e.ZEIT.toString())}
+        max={data.length - 1}
+        min={0}
+        onValueChange={([index]) => setYearIndex(index)}
+        variant={'ecology'}
+      />
+      <Slider
+        className={'hidden xl:block'}
+        defaultValue={[yearIndex]}
+        firstValueMobile={data.length - 1}
+        labels={data.map(e => e.ZEIT.toString())}
+        max={data.length - 1}
+        min={0}
+        onValueChange={([index]) => setYearIndex(index)}
+        variant={'ecology'}
+      />
     </div>
   )
 }

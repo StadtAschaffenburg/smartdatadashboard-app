@@ -21,3 +21,5 @@ export type DimensionMappingType = {
   fields: FieldMappingType[]
   slug: string
 }
+
+export type VariantType = ActionDimensionsType | 'live'

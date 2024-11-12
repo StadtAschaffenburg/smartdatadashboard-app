@@ -3,7 +3,6 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import { useWindowSize } from 'react-use'
 import { useEffect, useState } from 'react'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
@@ -12,7 +11,6 @@ import { BusContentProps, BusDataType } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
 export default function BusContent({ data }: BusContentProps) {
-  const { width } = useWindowSize()
   const [combustionCount, setCombustionCount] = useState(0)
   const [electroCount, setElectroCount] = useState(0)
   const [alternativeCount, setAlternativeCount] = useState(0)
@@ -72,28 +70,25 @@ export default function BusContent({ data }: BusContentProps) {
           <IconBusElektro className="w-full fill-green" />
         </div>
       </div>
-      {width < 1800 && (
-        <MobileSlider
-          defaultValue={[years.length - 1]}
-          firstValueMobile={years.length - 1}
-          labels={years}
-          max={years.length - 1}
-          min={0}
-          onValueChange={([index]) => setYearIndex(index)}
-          variant={'ecology'}
-        />
-      )}
-      {width >= 1800 && (
-        <Slider
-          defaultValue={[years.length - 1]}
-          firstValueMobile={years.length - 1}
-          labels={years}
-          max={years.length - 1}
-          min={0}
-          onValueChange={([index]) => setYearIndex(index)}
-          variant={'ecology'}
-        />
-      )}
+      <MobileSlider
+        defaultValue={[years.length - 1]}
+        firstValueMobile={years.length - 1}
+        labels={years}
+        max={years.length - 1}
+        min={0}
+        onValueChange={([index]) => setYearIndex(index)}
+        variant={'ecology'}
+      />
+      <Slider
+        className={'hidden xl:block'}
+        defaultValue={[years.length - 1]}
+        firstValueMobile={years.length - 1}
+        labels={years}
+        max={years.length - 1}
+        min={0}
+        onValueChange={([index]) => setYearIndex(index)}
+        variant={'ecology'}
+      />
       <Spacer />
     </div>
   )

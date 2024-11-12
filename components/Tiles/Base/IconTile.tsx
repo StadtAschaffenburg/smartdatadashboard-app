@@ -45,7 +45,7 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
     icon?:
       | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
       | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
-    live?: boolean
+    live?: boolean | null
     tile_payload?: TilePayloadType
   }
 
@@ -66,16 +66,20 @@ export default async function IconTile({
   embedId,
   tile_payload,
 }: IconTileProps) {
+  // get tile data if not provided
   if (!tile_payload) {
     tile_payload = await getTileData(embedId!)
   }
 
-  // set variant
+  // if category "ab_live" is set, use live tile variant, else use action_dimension
   if (tile_payload?.tags?.category === 'ab_live') {
     variant = 'live'
   } else if (!variant && tile_payload?.tags?.action_dimension) {
     variant = tile_payload.tags.action_dimension
   }
+
+  // if live (live-tag) is not set, use tile_payload.live
+  live = live ?? tile_payload?.live
 
   const Icon = icon || iconMap[variant as keyof typeof iconMap] || (() => <></>)
   const full_width = tile_payload?.layout === 'full'
@@ -132,7 +136,7 @@ export default async function IconTile({
         )}
       </>
 
-      <>{children ?? 'TBD'}</>
+      <>{children}</>
       <Spacer />
 
       {tile_payload?.copy && <Markdown content={tile_payload.copy} />}

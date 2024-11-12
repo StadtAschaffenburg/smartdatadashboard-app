@@ -13,8 +13,3 @@ export function getDataPoint(
 
   return 0
 }
-
-export function getVariant(tile_payload: TilePayloadType): string {
-  // TBD
-  return ''
-}

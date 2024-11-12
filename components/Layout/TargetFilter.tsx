@@ -28,7 +28,7 @@ export default async function TargetFilter({ sdg_target }: TargetFilterProps) {
 
   return (
     <div className="flex flex-wrap items-center justify-start gap-4">
-      {page_links.map((l, index) => (
+      {page_links.map(l => (
         <SdgLink key={l.link} {...l} />
       ))}
     </div>

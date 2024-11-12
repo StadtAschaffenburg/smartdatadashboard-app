@@ -1,3 +1,5 @@
+import { cva } from 'class-variance-authority'
+
 export const TextVariants = {
   variant: {
     primary: 'text-primary',
@@ -20,3 +22,8 @@ export type TextVariant = keyof typeof TextVariants.variant
 export const TextDefaultVariants: { variant: TextVariant } = {
   variant: 'primary',
 }
+
+export const TextStyle = cva('', {
+  variants: TextVariants,
+  defaultVariants: TextDefaultVariants,
+})

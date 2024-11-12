@@ -2,41 +2,32 @@
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import Title from '../Elements/Title'
-import { cva, VariantProps } from 'class-variance-authority'
+import { cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
-import {
-  BackgroundDefaultVariants,
-  BackgroundVariants,
-} from '@/utils/variants/BackgroundVariants'
-
-const sliderStyle = cva(
-  'relative h-3 md:h-5 flex-1 rounded-full bg-opacity-20',
-  {
-    variants: BackgroundVariants,
-    defaultVariants: BackgroundDefaultVariants,
-  },
-)
+import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
 
 export type SliderProps = SliderPrimitive.SliderProps &
-  VariantProps<typeof sliderStyle> & {
+  VariantProps<typeof BackgroundStyle> & {
     labels?: string[]
     firstValueMobile?: number
+    className?: string
   }
 
 export default function Slider({
   firstValueMobile,
   labels,
-  variant,
+  variant = 'primary',
+  className,
   ...props
 }: SliderProps) {
   const [value, setValue] = useState<number>(firstValueMobile || 0)
 
   return (
-    <div>
+    <div className={`slider-component ${className}`}>
       <div className="flex w-full items-center">
         {labels && (
           <div className="block md:hidden">
-            <Title as="h5" className="mr-2" variant={'primary'}>
+            <Title as="h5" className="mr-2" variant={variant}>
               {labels[value]}
             </Title>
           </div>
@@ -50,15 +41,25 @@ export default function Slider({
             setValue(e)
           }}
         >
-          <SliderPrimitive.Track className={sliderStyle({ variant })} />
-          <SliderPrimitive.Thumb className="block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary md:h-9" />
+          <SliderPrimitive.Track
+            className={cx(
+              BackgroundStyle({ variant }),
+              'relative h-3 flex-1 rounded-full bg-opacity-20 md:h-5',
+            )}
+          />
+          <SliderPrimitive.Thumb
+            className={cx(
+              BackgroundStyle({ variant }),
+              'md:h-9" block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary',
+            )}
+          />
         </SliderPrimitive.Root>
       </div>
       {labels &&
         (labels.length != 12 ? (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
-              <Title as={'h5'} key={i} variant={'primary'}>
+              <Title as={'h6'} key={i} tag={'span'} variant={variant}>
                 {l}
               </Title>
             ))}
@@ -66,7 +67,7 @@ export default function Slider({
         ) : (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
-              <Title as={'h8'} key={i} variant={'primary'}>
+              <Title as={'h8'} key={i} tag={'span'} variant={variant}>
                 {l}
               </Title>
             ))}

@@ -1,4 +1,6 @@
 // import all tiles
+
+// ecology
 import EnergyConsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
 import WeatherTile from '@/components/Tiles/Ecology/WeatherTile'
 import UVTile from '@/components/Tiles/Ecology/UVTile'
@@ -12,6 +14,12 @@ import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
 import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
 import LightningTile from '@/components/Tiles/Ecology/LightningTile'
+
+import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbefaelleTile'
+
+// economy
+import OnlinediensteTile from '@/components/Tiles/Economy/OnlinediensteTile'
+import PendlerTile from '@/components/Tiles/Economy/PendlerTile'
 
 // misc
 import FallbackTile from '@/components/Tiles/FallbackTile'
@@ -65,9 +73,18 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <LightningTile tile_payload={tile_payload} type={type} />
 
     // ---- SOCIETY ----
+    case 'society-GeburtenSterbefaelle':
+      return (
+        <GeburtenSterbefaelleTile tile_payload={tile_payload} type={type} />
+      )
 
     // ---- ECONOMY ----
+    case 'economy-onlinedienste':
+      return <OnlinediensteTile tile_payload={tile_payload} type={type} />
+    case 'economy-pendler':
+      return <PendlerTile tile_payload={tile_payload} type={type} />
 
+    // ---- FALLBACK ----
     default:
       return <FallbackTile tile_payload={tile_payload} type={type} />
   }

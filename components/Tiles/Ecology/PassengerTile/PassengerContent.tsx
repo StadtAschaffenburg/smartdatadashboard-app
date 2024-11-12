@@ -7,11 +7,9 @@ import { IconOepnvBus, IconOepnvGast } from '@/components/Icons/Ecology'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
-import { useWindowSize } from 'react-use'
 import { PassengerContentProps } from './dt'
 
 export default function PassengerContent({ data }: PassengerContentProps) {
-  const { width } = useWindowSize()
   const years = data.map(e => e.ZEIT.toString())
   const [yearIndex, setYearIndex] = useState(
     years.length > 0 ? years.length - 1 : 0,
@@ -45,35 +43,32 @@ export default function PassengerContent({ data }: PassengerContentProps) {
               <IconOepnvGast className="hidden h-10 lg:block lg:h-14" />
             </span>
           </div>
-          {width >= 1800 && (
-            <Slider
-              defaultValue={[years.length - 1]}
-              firstValueMobile={years.length - 1}
-              labels={years}
-              max={years.length - 1}
-              min={0}
-              onValueChange={([e]) => {
-                setYearIndex(e)
-              }}
-              variant={'ecology'}
-            />
-          )}
         </div>
       </div>
       <div className="flex-1">
-        {width < 1800 && (
-          <MobileSlider
-            defaultValue={[years.length - 1]}
-            firstValueMobile={years.length - 1}
-            labels={years}
-            max={years.length - 1}
-            min={0}
-            onValueChange={([e]) => {
-              setYearIndex(e)
-            }}
-            variant={'ecology'}
-          />
-        )}
+        <Slider
+          className={'hidden xl:block'}
+          defaultValue={[years.length - 1]}
+          firstValueMobile={years.length - 1}
+          labels={years}
+          max={years.length - 1}
+          min={0}
+          onValueChange={([e]) => {
+            setYearIndex(e)
+          }}
+          variant={'ecology'}
+        />
+        <MobileSlider
+          defaultValue={[years.length - 1]}
+          firstValueMobile={years.length - 1}
+          labels={years}
+          max={years.length - 1}
+          min={0}
+          onValueChange={([e]) => {
+            setYearIndex(e)
+          }}
+          variant={'ecology'}
+        />
       </div>
     </div>
   )

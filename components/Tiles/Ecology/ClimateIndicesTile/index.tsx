@@ -16,7 +16,6 @@ export default async function Tile({ type, tile_payload }: TileProps) {
     <BaseTile
       dataRetrieval={format(new Date(), '01.MM.yyyy')}
       embedId={type}
-      live
       tile_payload={tile_payload}
     >
       <TileSplitView>
