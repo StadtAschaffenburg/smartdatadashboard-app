@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority'
 export const ContainerVariants = {
   variant: {
     default: 'py-4 md:py-16',
+    none: 'py-0',
     compact: 'py-4 md:py-8',
     large: 'py-4 md:py-24',
   },

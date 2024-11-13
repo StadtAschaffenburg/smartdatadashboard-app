@@ -15,17 +15,17 @@ export async function readCache(
   ignore_stale: boolean = false,
 ) {
   try {
-    const cache_path = getCachePath(content_type, folder, id)
-    const cache_data = fs.readFileSync(cache_path, 'utf8')
-    const json_data = JSON.parse(cache_data)
+    //const cache_path = getCachePath(content_type, folder, id)
+    //const cache_data = fs.readFileSync(cache_path, 'utf8')
+    //const json_data = JSON.parse(cache_data)
 
-    // check if the data is stale
-    const stale = json_data.expiry
-      ? Date.now() > (json_data?.expiry || 0)
-      : false
-    if (stale && !ignore_stale) {
-      return null
-    }
+    const response = await fetch(
+      getCacheEndpoint('cache') +
+        `?content_type=${content_type}&folder=${folder}&id=${id}&ignore_stale=${ignore_stale}`,
+      { next: { tags: ['cached_data'] } },
+    )
+    const cache_data = await response.text()
+    const json_data = JSON.parse(cache_data)
 
     return json_data.payload ?? json_data
   } catch (err) {

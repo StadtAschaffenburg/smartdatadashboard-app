@@ -63,7 +63,7 @@ export default async function DimensionFilter({
 
   return (
     <Background light variant={variant}>
-      <Container>
+      <Container variant="compact">
         <div className="mt-4 flex items-center justify-between gap-4">
           {dimension_links.map(l => (
             <LinkComponent key={l.link} variant={variant} {...l} />

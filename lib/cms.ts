@@ -153,7 +153,7 @@ export async function getSourceFile(file_name: string): Promise<any> {
 
 async function fetchFile(endpoint: string): Promise<any> {
   try {
-    const response = await fetch(endpoint, { next: { tags: ['cached_data'] } })
+    const response = await fetch(endpoint, { next: { tags: ['cached_files'] } })
 
     if (response.status !== 200) {
       return null

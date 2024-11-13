@@ -3,11 +3,13 @@ import {
   BackgroundVariant,
   getVariantClass,
 } from '@/utils/variants/BackgroundVariants'
+import { cx } from 'class-variance-authority'
 
 export type BackgroundProps = {
   light?: boolean
   variant?: BackgroundVariant
   children: React.ReactNode
+  className?: string
 }
 
 // Background-Komponente ohne cva
@@ -15,8 +17,11 @@ export default function Background({
   light = false,
   variant = BackgroundDefaultVariants.variant,
   children,
+  className,
 }: BackgroundProps) {
-  const background_class = getVariantClass(variant, light)
-
-  return <div className={background_class}>{children}</div>
+  return (
+    <div className={cx(className, getVariantClass(variant, light))}>
+      {children}
+    </div>
+  )
 }

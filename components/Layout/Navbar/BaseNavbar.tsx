@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Background from '@/components/Layout/Background'
 import Collapsible from '@/components/Elements/Collapsible'
 import Container from '@/components/Layout/Container'
@@ -42,6 +42,24 @@ export default function BaseNavbar({
   variant = 'primary',
 }: BaseNavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isSticky, setIsSticky] = useState(false)
+  const navbarRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navbarRef.current) {
+        const { top } = navbarRef.current.getBoundingClientRect()
+        if (window?.scrollY === 0) {
+          setIsSticky(false)
+        } else if (top <= 0) {
+          setIsSticky(true)
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const handleLinkClick = () => {
     setIsOpen(false)
@@ -57,9 +75,17 @@ export default function BaseNavbar({
   }
 
   return (
-    <div className="sticky top-0 z-50">
+    <div
+      className={`sticky top-0 z-50 ${isSticky ? 'is-sticky' : 'not-sticky'}`}
+      ref={navbarRef}
+    >
       <Background variant={variant}>
-        <Container>
+        <Container
+          className={
+            'py-12 transition-all [.is-sticky_&]:py-4 [.is-sticky_&]:shadow-lg'
+          }
+          variant="none"
+        >
           <div className="flex flex-col justify-between gap-4">
             <div className="flex items-center justify-between gap-8">
               {children || 'Smart Data Dashboard'}

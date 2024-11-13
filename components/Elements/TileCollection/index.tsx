@@ -13,6 +13,14 @@ export default async function TileCollection({
   search_query = null,
 }: TileCollectionProps) {
   // apply filters based on provided props
+
+  console.log('====================================')
+  console.log(collection)
+
+  if (collection.length === 0) {
+    return <NoResults />
+  }
+
   const filtered_collection = collection.filter(item => {
     return (
       (category === null || item.tags.category === category) &&

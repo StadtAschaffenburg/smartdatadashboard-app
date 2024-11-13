@@ -7,7 +7,7 @@ export function getDataPath(filename: string | boolean = false) {
 }
 
 export function getCacheFolderPath(
-  content_type: string = 'content',
+  content_type: string | null = 'content',
   folder: string | boolean = false,
 ) {
   return [getCachedContentPath(), content_type, folder]
@@ -17,7 +17,7 @@ export function getCacheFolderPath(
 
 // get the file path for the cache
 export function getCachePath(
-  content_type: string = 'content',
+  content_type: string | null = 'content',
   folder: string | boolean = false,
   id: string | number | boolean,
 ) {
