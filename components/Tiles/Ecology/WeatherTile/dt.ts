@@ -22,6 +22,9 @@ export type PhenomenaType = {
 export type PhenomenonProps = {
   phenomenon: keyof typeof phenomena
   value: number
+  icon?:
+    | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+    | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
   size?: 'md' | 'xl'
   meta?: string
   hide_icon?: boolean

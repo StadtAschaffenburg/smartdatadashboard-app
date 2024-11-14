@@ -59,6 +59,26 @@ const phenomena: PhenomenaType = {
     unit: 'hPa',
     icon: IconWeatherSonnig,
   },
+  stickstoffdioxid: {
+    title: 'Stickstoffdioxid (NO<sub>2</sub>)',
+    unit: 'μg/m³',
+    icon: IconWeatherSonnig,
+  },
+  feinstaub_1000: {
+    title: 'Feinstaub (PM<sub>10</sub>)',
+    unit: 'μg/m³',
+    icon: IconWeatherSonnig,
+  },
+  ozon: {
+    title: 'Ozon (O<sub>3</sub>)',
+    unit: 'μg/m³',
+    icon: IconWeatherSonnig,
+  },
+  feinstaub_250: {
+    title: 'Feinstaub (PM<sub>2.5</sub>)',
+    unit: 'μg/m³',
+    icon: IconWeatherSonnig,
+  },
 }
 
 export default phenomena

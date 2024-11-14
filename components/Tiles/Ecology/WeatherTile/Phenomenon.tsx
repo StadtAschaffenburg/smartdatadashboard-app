@@ -9,16 +9,24 @@ export default function Phenomenon({
   phenomenon,
   value,
   meta = '',
+  icon,
   size = 'md',
   hide_icon = false,
 }: PhenomenonProps) {
-  const { title, unit, icon, decimals, shortTitle } = phenomena[phenomenon]
+  const {
+    title,
+    unit,
+    icon: phenomIcon,
+    decimals,
+    shortTitle,
+  } = phenomena[phenomenon]
 
   const valueSize: 'h1' | 'h4' = size === 'xl' ? 'h1' : 'h4'
 
   const device = useDevice()
 
-  const Icon = icon
+  const Icon = icon ? icon : phenomIcon
+
   return (
     <div className="my-1 flex items-center gap-3 md:my-2">
       {!hide_icon && (
