@@ -3,8 +3,8 @@
 import Title from '@/components/Elements/Title'
 import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
-import useUVIndex from '@/hooks/useUVIndex'
-import { Rating } from './dt'
+import useApi from '@/hooks/useApi'
+import { DataProps, Rating } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
 const rating_keys: { [key: number]: Rating } = {
@@ -24,7 +24,7 @@ function getRating(index: number): Rating {
 }
 
 export default function UVTileContent() {
-  const uv_data = useUVIndex()
+  const uv_data = useApi('uvi') as DataProps[]
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() + index)

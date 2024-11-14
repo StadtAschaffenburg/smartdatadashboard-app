@@ -9,10 +9,9 @@ export function setTerm(search_term: string): string {
 }
 
 export function removeParameterLink(): string {
-  if (!window) {
+  if (typeof window === 'undefined') {
     return '/'
   }
-
   const url = new URL(window.location.href)
   url.searchParams.delete(search_parameter)
   return url.toString()
