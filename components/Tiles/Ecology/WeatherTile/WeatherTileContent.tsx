@@ -11,10 +11,14 @@ import {
   IconWeatherWindgeschw,
 } from '@/components/Icons/Weather'
 import { Spinner } from '@/components/Elements/Spinner'
+import useApi from '@/hooks/useApi'
 
 export default function WeatherTileContent() {
   const weather = useWeather({ lat: 49.98, lng: 9.15 }, new Date())
   const local_weather = useLocalWeather()
+  const perceived_temperature: number | null = useApi(
+    'dwd/perceived_temperature',
+  ) as any
 
   function getWindDirection(degrees: number): string {
     const directions: string[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']
@@ -50,6 +54,13 @@ export default function WeatherTileContent() {
                 size="xl"
                 value={local_weather?.temperature ?? weather.temperature}
               />
+              {perceived_temperature && (
+                <Phenomenon
+                  hide_icon={true}
+                  phenomenon="perceived_temperature"
+                  value={perceived_temperature}
+                />
+              )}
             </div>
 
             <div className="flex flex-1">

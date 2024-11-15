@@ -15,6 +15,12 @@ const phenomena: PhenomenaType = {
     icon: IconWeatherTemperatur,
     decimals: 0,
   },
+  perceived_temperature: {
+    title: 'Gefühlte Temperatur',
+    unit: '°C',
+    icon: IconWeatherTemperatur,
+    decimals: 0,
+  },
   precipitation: {
     title: 'Niederschlag',
     unit: 'mm',
