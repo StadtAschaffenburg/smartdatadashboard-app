@@ -37,7 +37,7 @@ function aggregateByMonth(data: DataType): MonthlyData {
 }
 
 export default function LightningTileContent() {
-  const lightning_data = useApi('thingsboard/lightning') as DataType
+  const lightning_data = useApi('thingsboard/lightning', 60 * 24) as DataType
 
   if (!lightning_data || !lightning_data.length) {
     return <Spinner />

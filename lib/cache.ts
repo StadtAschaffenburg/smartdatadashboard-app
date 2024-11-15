@@ -3,10 +3,6 @@ import path from 'path'
 import { getCachePath } from '@/utils/filesystem'
 import { getCacheEndpoint } from '@/utils/api'
 
-export const api_folder = 'api'
-export const collection_folder = 'collection'
-export const content_folder = 'content'
-
 // read the data from the cache
 export async function readCache(
   content_type: string,
@@ -15,10 +11,6 @@ export async function readCache(
   ignore_stale: boolean = false,
 ) {
   try {
-    //const cache_path = getCachePath(content_type, folder, id)
-    //const cache_data = fs.readFileSync(cache_path, 'utf8')
-    //const json_data = JSON.parse(cache_data)
-
     const response = await fetch(
       getCacheEndpoint('cache') +
         `?content_type=${content_type}&folder=${folder}&id=${id}&ignore_stale=${ignore_stale}`,
@@ -105,10 +97,10 @@ export async function writeFile(file_path: string, data: any) {
 
 // clear the content cache
 export async function flushCache() {
-  const wipe_dirs = [api_folder, content_folder, collection_folder]
+  const wipe_dirs = ['cache/api', 'cache/collection', 'cache/content', 'data']
 
   for (const dir of wipe_dirs) {
-    const cache_dir = path.join(process.cwd(), 'assets/cache', dir)
+    const cache_dir = path.join(process.cwd(), 'assets', dir)
 
     if (fs.existsSync(cache_dir)) {
       fs.rmdirSync(cache_dir, { recursive: true })
