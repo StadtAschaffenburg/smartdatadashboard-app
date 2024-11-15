@@ -10,7 +10,7 @@ import {
 } from '@/lib/cache'
 import { getCacheEndpoint, getCMSEndpoint } from '@/utils/api'
 import path from 'path'
-import { getDataPath } from '@/utils/filesystem'
+import { getSourcePath } from '@/utils/filesystem'
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
@@ -148,7 +148,7 @@ export async function getSourceFile(file_name: string): Promise<any> {
     return false
   }
 
-  await writeFile(getDataPath(sanitized_file_name), content)
+  await writeFile(getSourcePath(sanitized_file_name), content)
 }
 
 async function fetchFile(endpoint: string): Promise<any> {

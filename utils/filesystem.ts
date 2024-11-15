@@ -1,9 +1,15 @@
 function getCachedContentPath() {
-  return [process.cwd(), 'assets', 'cache'].filter(Boolean).join('/')
+  return [process.cwd(), 'assets/cache'].filter(Boolean).join('/')
 }
 
 export function getDataPath(filename: string | boolean = false) {
-  return [process.cwd(), 'assets', 'data', filename].filter(Boolean).join('/')
+  return [process.cwd(), 'assets/data', filename].filter(Boolean).join('/')
+}
+
+export function getSourcePath(filename: string | boolean = false) {
+  return [process.cwd(), 'assets/cache/source', filename]
+    .filter(Boolean)
+    .join('/')
 }
 
 export function getCacheFolderPath(

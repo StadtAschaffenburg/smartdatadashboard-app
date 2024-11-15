@@ -4,11 +4,11 @@ import BaseTile from '@/components/Tiles/Base/IconTile'
 import ClimateIndicesChart from './ClimateIndicesChart'
 import { TileSplitView } from '../../Base/TileSplitView'
 import Title from '@/components/Elements/Title'
-import getSourceData from '@/lib/api/getSourceData'
+import getDataFile from '@/lib/api/getDataFile'
 import { ClimateIndex } from './dt'
 
 export default async function Tile({ type, tile_payload }: TileProps) {
-  const climateIndicesData: ClimateIndex[] = await getSourceData(
+  const climateIndicesData: ClimateIndex[] = await getDataFile(
     'climate_indices.json',
   )
 

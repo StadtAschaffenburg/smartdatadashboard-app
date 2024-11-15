@@ -48,13 +48,14 @@ const transformCsvData = (input: CsvDataType[]): TransformedDataType => {
 const findMaxKm = (data: TransformedDataType, key?: string): number => {
   if (key) {
     const entry = data[key]
-    if (!entry) {return 0}
+    if (!entry) {
+      return 0
+    }
     const maxKm = Math.max(...entry.data.map(item => sanitizeValue(item.km)), 0)
     return maxKm
   }
 
   const maxKm = Object.values(data).reduce((max, entry) => {
-    console.log(entry)
     const entryMax = Math.max(
       ...entry.data.map(item => sanitizeValue(item.km)),
       0,
@@ -73,8 +74,6 @@ export default function ChartContainer({ CsvData }: ChartContainerProps) {
   const otherCities = getOtherCities(StadtradelnData)
   const maxKmAb = findMaxKm(StadtradelnData, 'aschaffenburg')
   const maxKmAll = findMaxKm(StadtradelnData)
-
-  console.log('maxKmAll', maxKmAll)
 
   const [compare, setCompare] = useState(false)
   const [otherData, setOtherData] = useState<InputDataType>()

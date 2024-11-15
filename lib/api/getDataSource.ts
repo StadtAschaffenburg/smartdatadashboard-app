@@ -2,8 +2,8 @@ import path from 'path'
 import fs from 'fs'
 import Papa from 'papaparse'
 
-export default async function getSourceData(file: string) {
-  const file_path = path.join(process.cwd(), 'assets/data', file)
+export default async function getDataSource(file: string) {
+  const file_path = path.join(process.cwd(), 'assets/cache/source', file)
 
   if (!fs.existsSync(file_path)) {
     throw new Error(`Data source not found: ${file}`)

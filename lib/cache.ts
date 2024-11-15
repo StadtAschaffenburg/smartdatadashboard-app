@@ -97,7 +97,12 @@ export async function writeFile(file_path: string, data: any) {
 
 // clear the content cache
 export async function flushCache() {
-  const wipe_dirs = ['cache/api', 'cache/collection', 'cache/content', 'data']
+  const wipe_dirs = [
+    'cache/api',
+    'cache/collection',
+    'cache/content',
+    'cache/source',
+  ]
 
   for (const dir of wipe_dirs) {
     const cache_dir = path.join(process.cwd(), 'assets', dir)

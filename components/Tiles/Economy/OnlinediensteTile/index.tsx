@@ -1,11 +1,11 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import TileContent from './TileContent'
-import getSourceData from '@/lib/api/getSourceData'
+import getDataSource from '@/lib/api/getDataSource'
 import { DataType } from './dt'
 
 export default async function Tile({ type, tile_payload }: TileProps) {
-  const Data: DataType[] = await getSourceData('onlinedienste.csv')
+  const Data: DataType[] = await getDataSource('onlinedienste.csv')
 
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
