@@ -15,6 +15,7 @@ import PVAnlagenTile from '@/components/Tiles/Ecology/PVAnlagenTile'
 import LanternsTile from '@/components/Tiles/Ecology/LanternsTile'
 import LightningTile from '@/components/Tiles/Ecology/LightningTile'
 import AirqualityTile from '@/components/Tiles/Ecology/AirqualityTile'
+import PollenTile from '@/components/Tiles/Ecology/PollenTile'
 
 import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbefaelleTile'
 
@@ -74,6 +75,8 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <LightningTile tile_payload={tile_payload} type={type} />
     case 'ecology-airquality':
       return <AirqualityTile tile_payload={tile_payload} type={type} />
+    case 'ecology-pollen':
+      return <PollenTile tile_payload={tile_payload} type={type} />
 
     // ---- SOCIETY ----
     case 'society-GeburtenSterbefaelle':

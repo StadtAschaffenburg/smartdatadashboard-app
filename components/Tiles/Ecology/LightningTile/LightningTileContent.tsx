@@ -44,6 +44,7 @@ export default function LightningTileContent() {
   }
 
   const monthly_data = aggregateByMonth(lightning_data)
+  monthly_data.splice(0, Math.max(0, monthly_data.length - 12)) // limit to last 12 values
 
   return (
     <div className="h-72">

@@ -24,7 +24,7 @@ function getRating(index: number): Rating {
 }
 
 export default function UVTileContent() {
-  const uv_data = useApi('uvi') as DataProps[]
+  const uv_data = useApi('dwd/uvi') as DataProps[]
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() + index)

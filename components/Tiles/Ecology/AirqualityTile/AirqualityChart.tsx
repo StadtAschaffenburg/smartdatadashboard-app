@@ -34,15 +34,15 @@ const qualityToIcon = (quality: number) => {
 const getMaxQualityIndex = (readings: AirQualityReading[]): number | null => {
   const validReadings = readings.filter(reading => reading.value !== null)
 
-  if (validReadings.length === 0) {return null}
+  if (validReadings.length === 0) {
+    return null
+  }
 
   return Math.max(...validReadings.map(reading => reading.quality_index))
 }
 
 export default function AirqualityChart() {
-  const readings = useApi('airquality') as unknown as AirQualityReading[]
-
-  console.log(readings)
+  const readings = useApi('lfu/airquality') as AirQualityReading[]
 
   if (!readings || !readings.length) {
     return <Spinner />
