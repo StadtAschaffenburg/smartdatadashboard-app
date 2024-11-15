@@ -1,15 +1,11 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import ChartContainer from './ChartContainer'
-import getSourceData from '@/lib/api/getSourceData'
-import { CsvDataType } from './dt'
+import Content from './WeatherStationsContent'
 
 export default async function Tile({ type, tile_payload }: TileProps) {
-  const CsvData: CsvDataType[] = await getSourceData('stadtradeln.csv')
-
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
-      <ChartContainer CsvData={CsvData} />
+      <Content />
     </BaseTile>
   )
 }

@@ -168,7 +168,7 @@ async function fetchFile(endpoint: string): Promise<any> {
 }
 
 export async function rebuildCache() {
-  const collections = ['tiles', 'sources', 'pages']
+  const collections = ['pages', 'sources', 'tiles']
   const data: any = {}
 
   for (const collection of collections) {

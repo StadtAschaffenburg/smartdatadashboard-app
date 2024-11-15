@@ -6,7 +6,7 @@ import useApi from '@/hooks/useApi'
 import { PollenResult } from './dt'
 
 export default function PollenContent() {
-  const readings = useApi('dwd/pollen') as PollenResult[]
+  const readings = useApi('dwd/pollen', 60 * 2) as PollenResult[]
 
   if (!readings || !readings.length) {
     return <Spinner />

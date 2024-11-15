@@ -13,6 +13,8 @@ import useDevice from '@/hooks/useDevice'
 import { ChartProps, InputDataType } from './dt'
 
 const { theme } = resolveConfig(tailwindConfig)
+const default_size = 0.75
+const other_size = 0.5
 
 const colors = {
   primary: {
@@ -31,13 +33,18 @@ const colors = {
   },
 }
 
-export default function Chart({ data, other }: ChartProps) {
+export default function Chart({ data, max, other }: ChartProps) {
   const [series, setSeries] = useState<SeriesOption[]>()
 
   const device = useDevice()
 
   const getSeries = useCallback(
-    (data: InputDataType, color: string, symbol: string) => {
+    (
+      data: InputDataType,
+      color: string,
+      symbol: string,
+      symbol_size: number = 1,
+    ) => {
       const lineSeries: LineSeriesOption = {
         data: data.data.map(({ year, km }) => [year, km]),
         type: 'line',
@@ -70,8 +77,14 @@ export default function Chart({ data, other }: ChartProps) {
         data: data.data.map(({ year, km }) => [year, km]),
         type: 'pictorialBar',
         symbol: symbol,
-        symbolSize: device === 'desktop' ? [61, 61] : [30, 30],
-        symbolOffset: device === 'desktop' ? [0, -60] : [0, -30],
+        symbolSize:
+          device === 'desktop'
+            ? [61 * symbol_size, 61 * symbol_size]
+            : [30 * symbol_size, 30 * symbol_size],
+        symbolOffset:
+          device === 'desktop'
+            ? [0 * symbol_size, -60 * symbol_size]
+            : [0 * symbol_size, -30 * symbol_size],
         symbolRotate: 15,
         barWidth: 3,
         barGap: 2,
@@ -90,18 +103,37 @@ export default function Chart({ data, other }: ChartProps) {
       return
     }
 
-    setSeries(getSeries(data, colors.primary.color, colors.primary.symbol))
+    setSeries(
+      getSeries(
+        data,
+        colors.primary.color,
+        colors.primary.symbol,
+        default_size,
+      ),
+    )
   }, [data])
 
   useEffect(() => {
     if (!other) {
-      setSeries(getSeries(data, colors.primary.color, colors.primary.symbol))
+      setSeries(
+        getSeries(
+          data,
+          colors.primary.color,
+          colors.primary.symbol,
+          default_size,
+        ),
+      )
       return
     }
 
     setSeries([
-      ...getSeries(data, colors.primary.color, colors.primary.symbol),
-      ...getSeries(other, colors.other.color, colors.other.symbol),
+      ...getSeries(
+        data,
+        colors.primary.color,
+        colors.primary.symbol,
+        default_size,
+      ),
+      ...getSeries(other, colors.other.color, colors.other.symbol, other_size),
     ])
   }, [other])
 
@@ -143,7 +175,7 @@ export default function Chart({ data, other }: ChartProps) {
             yAxis: {
               type: 'value',
               interval: 100_000,
-              max: 400_000,
+              max: Math.ceil(max / 100000) * 100000,
               axisLabel: {
                 fontSize: device === 'mobile' ? 12 : 20,
                 formatter: (value: number) =>

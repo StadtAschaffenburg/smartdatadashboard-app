@@ -3,7 +3,7 @@ import { getContent } from '@/lib/cms'
 import { PageContentType } from '@/types/PageContent'
 import PageIntro from '@/components/Elements/PageIntro'
 import LinkTile from '@/components/Elements/LinkTile'
-import Columns from '@/components/Layout/Columns'
+import Grid from '@/components/Layout/Grid'
 
 export const revalidate = false
 
@@ -19,11 +19,11 @@ export default async function Home() {
           headline={page_content?.headline}
         />
 
-        <Columns columns={3}>
+        <Grid columns={3}>
           {tiles.map((tile, index) => {
             return <LinkTile key={index} {...tile} />
           })}
-        </Columns>
+        </Grid>
       </div>
     </Container>
   )

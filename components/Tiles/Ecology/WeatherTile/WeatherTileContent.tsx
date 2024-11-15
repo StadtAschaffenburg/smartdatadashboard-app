@@ -18,6 +18,7 @@ export default function WeatherTileContent() {
   const local_weather = useLocalWeather()
   const perceived_temperature: number | null = useApi(
     'dwd/perceived_temperature',
+    10,
   ) as any
 
   function getWindDirection(degrees: number): string {

@@ -7,24 +7,74 @@ import { animated, useSpring } from '@react-spring/web'
 import { ProgressCircle } from '@/components/Charts/Progress/ProgressCircle'
 import AnimatedRollingElement from '@/components/Elements/Animated/AnimatedRollingElement'
 import Title from '@/components/Elements/Title'
-import { ChartContainerProps, InputDataType } from './dt'
+import {
+  ChartContainerProps,
+  CsvDataType,
+  InputDataType,
+  TransformedDataType,
+} from './dt'
+import { sanitizeName, sanitizeValue } from '@/utils/sanitize'
 
-function getOtherCities(StadtradelnData: InputDataType) {
-  return (
-    Object.keys(StadtradelnData)
-      .filter(k => k !== 'aschaffenburg')
-      // @ts-ignore
-      .map(k => StadtradelnData[k] as InputDataType)
+function getOtherCities(StadtradelnData: TransformedDataType) {
+  return Object.keys(StadtradelnData)
+    .filter(k => k !== 'aschaffenburg')
+    .map(k => StadtradelnData[k] as InputDataType)
+}
+
+const transformCsvData = (input: CsvDataType[]): TransformedDataType => {
+  return input.reduce(
+    (result, item) => {
+      const { Stadtnamen, ...years } = item
+      const sanitizedKey = sanitizeName(Stadtnamen ?? '')
+
+      const data = Object.entries(years)
+        .filter(([key, value]) => !isNaN(Number(key)) && value !== undefined)
+        .map(([year, km]) => ({
+          year: Number(year),
+          km: sanitizeValue(km ?? 0) > 0 ? sanitizeValue(km) : '', // filter out 0 values
+        }))
+
+      result[sanitizedKey] = {
+        name: Stadtnamen ?? '',
+        data,
+      }
+
+      return result
+    },
+    {} as Record<string, InputDataType>,
   )
+}
+
+const findMaxKm = (data: TransformedDataType, key?: string): number => {
+  if (key) {
+    const entry = data[key]
+    if (!entry) {return 0}
+    const maxKm = Math.max(...entry.data.map(item => sanitizeValue(item.km)), 0)
+    return maxKm
+  }
+
+  const maxKm = Object.values(data).reduce((max, entry) => {
+    console.log(entry)
+    const entryMax = Math.max(
+      ...entry.data.map(item => sanitizeValue(item.km)),
+      0,
+    )
+    return Math.max(max, entryMax)
+  }, 0)
+
+  return maxKm
 }
 
 const COMPARE_INTERVAL = 5000
 const AnimatedProgressCircle = animated(ProgressCircle)
 
-export default function ChartContainer({
-  StadtradelnData,
-}: ChartContainerProps) {
+export default function ChartContainer({ CsvData }: ChartContainerProps) {
+  const StadtradelnData = transformCsvData(CsvData)
   const otherCities = getOtherCities(StadtradelnData)
+  const maxKmAb = findMaxKm(StadtradelnData, 'aschaffenburg')
+  const maxKmAll = findMaxKm(StadtradelnData)
+
+  console.log('maxKmAll', maxKmAll)
 
   const [compare, setCompare] = useState(false)
   const [otherData, setOtherData] = useState<InputDataType>()
@@ -81,8 +131,8 @@ export default function ChartContainer({
       <div className="flex h-[350px] w-full items-center justify-center md:h-[500px]">
         <Chart
           compare={compare}
-          // @ts-ignore
           data={StadtradelnData.aschaffenburg}
+          max={compare ? maxKmAll : maxKmAb}
           other={otherData}
         />
       </div>
@@ -92,7 +142,7 @@ export default function ChartContainer({
           geradelte Kilometer in Aschaffenburg
         </Title>
       </div>
-      <div className="flex hidden w-full flex-col justify-between gap-2 rounded border border-dashed border-primary p-2 md:flex-row md:items-center md:space-x-4 md:p-4 md:pl-8">
+      <div className="flex w-full flex-col justify-between gap-2 rounded border border-dashed border-primary p-2 md:flex-row md:items-center md:space-x-4 md:p-4 md:pl-8">
         <div className="flex flex-shrink-0 items-center gap-2 md:gap-10">
           <Switch
             defaultChecked={compare}
@@ -108,7 +158,7 @@ export default function ChartContainer({
             <div className="relative h-6 flex-1">
               <AnimatedRollingElement>
                 <div className="flex items-center gap-2 md:gap-4">
-                  <div className="bg-buildings h-1 w-9 rounded md:w-[52px]" />
+                  <div className="h-1 w-9 rounded bg-purple md:w-[52px]" />
                   <Title as="h5" variant={'primary'}>
                     {otherData.name}
                   </Title>
