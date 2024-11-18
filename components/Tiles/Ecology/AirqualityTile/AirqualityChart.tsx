@@ -52,7 +52,7 @@ export default function AirqualityChart() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-4">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-1 items-center gap-6 md:gap-2">
           <IconLuftqualitaet className="h-20 text-primary md:mr-12 md:h-36" />
           <div className="my-4 grow">
@@ -73,7 +73,7 @@ export default function AirqualityChart() {
             )}
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4 pt-8">
+        <div className="grid grid-cols-2 gap-4">
           {readings.map(
             ({ id, value, quality_index }) =>
               value !== null && (

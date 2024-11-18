@@ -88,8 +88,8 @@ export const sitemap: PageMappingType[] = [
   },
   {
     id: 'sdg_targets',
-    title: 'SDG-Ziele',
-    slug: 'sdg-ziele',
+    title: 'Nachhaltigkeitsziele',
+    slug: 'nachhaltigkeitsziele',
     children: [
       {
         id: 'keine-armut',

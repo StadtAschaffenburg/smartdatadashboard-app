@@ -43,30 +43,28 @@ export default function UVTileContent() {
   }
 
   return (
-    <div>
-      <div>
-        <div className="mb-8 flex flex-row content-center gap-6">
-          <div className="flex items-center justify-center">
-            <div
-              className="border-climate flex h-20 w-20 items-center justify-center rounded-full border-4 bg-transparent"
-              style={{ borderColor: rating_color }}
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-row content-center items-center gap-6">
+        <div className="flex items-center justify-center">
+          <div
+            className="border-climate flex h-20 w-20 items-center justify-center rounded-full border-4 bg-transparent"
+            style={{ borderColor: rating_color }}
+          >
+            <span
+              className="text-[40px] font-bold"
+              style={{ color: rating_color }}
             >
-              <span
-                className="text-[40px] font-bold"
-                style={{ color: rating_color }}
-              >
-                {uv_index}
-              </span>
+              {uv_index}
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-grow flex-col justify-between">
+          <Title as={'subtitle'}>
+            <div>
+              Gefahr: <span className="text-climate">{rating}</span>
             </div>
-          </div>
-          <div className="flex flex-grow flex-col justify-between">
-            <Title as={'subtitle'}>
-              <div>
-                Gefahr: <span className="text-climate">{rating}</span>
-              </div>
-              <div>{advice}</div>
-            </Title>
-          </div>
+            <div>{advice}</div>
+          </Title>
         </div>
       </div>
       <Slider

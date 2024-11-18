@@ -1,31 +1,54 @@
 export const ButtonVariants = {
   variant: {
-    primary: 'border-primary text-primary',
-    secondary: 'border-secondary text-secondary',
+    primary: 'border-primary text-primary fill-primary stroke-primary',
+    secondary:
+      'border-secondary text-secondary fill-secondary stroke-secondary',
     live: 'border-primary',
-    ecology: 'border-ecology text-ecology',
-    society: 'border-society text-society',
-    economy: 'border-economy text-economy',
+    ecology: 'border-ecology text-ecology fill-ecology stroke-ecology',
+    society: 'border-society text-society fill-society stroke-society',
+    economy: 'border-economy text-economy fill-economy stroke-economy',
     inverse: 'text-white border-white text-white',
     danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
     overlay: 'border-secondary text-white',
+    barebone: '',
   },
   size: {
     sm: 'py-1 px-3 text-sm',
     md: 'py-2 px-5 text-md',
     lg: 'py-3 px-5 text-lg',
     link: 'pr-6 md:pr-10 pl-5 md:pl-8 py-2 md:py-3 text-xl md:text-2xl',
+    main_menu: 'py-3 px-5 text-lg min-h-12',
+    filter_dimensions: 'py-3 px-5 text-lg lg:text-xl min-h-24',
   },
   hover: {
-    primary: 'hover:border-primary',
-    secondary: 'hover:border-primary',
-    live: 'hover:border-primary',
-    ecology: 'hover:border-ecology',
-    society: 'hover:border-society',
-    economy: 'hover:border-economy',
-    inverse: 'text-white border-white text-white',
-    danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
-    overlay: 'border-secondary text-white',
+    primary:
+      'hover:fill-white hover:stroke-white hover:text-white hover:bg-primary',
+    secondary: '',
+    live: '',
+    ecology:
+      'hover:fill-white hover:stroke-white hover:text-white hover:bg-ecology',
+    society:
+      'hover:fill-white hover:stroke-white hover:text-white hover:bg-society',
+    economy:
+      'hover:fill-white hover:stroke-white hover:text-white hover:bg-economy',
+    inverse: 'hover:text-primary hover:border-white hover:bg-white',
+    danger: '',
+    overlay: '',
+    barebone: '',
+  },
+  active: {
+    primary: '',
+    secondary: '',
+    live: '',
+    ecology:
+      '[.active_&]:text-white [.active_&]:stroke-white [.active_&]:bg-ecology',
+    society: '',
+    economy: '',
+    inverse:
+      '[.active_&]:text-primary [.active_&]:border-white [.active_&]:bg-white',
+    danger: '',
+    overlay: '',
+    barebone: '',
   },
 } as const
 

@@ -14,8 +14,8 @@ export default function PollenContent() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col gap-4">
-        <div className="grid grid-cols-2 gap-4 pt-8">
+      <div className="flex flex-col gap-4">
+        <div className="grid grid-cols-2 gap-4">
           {readings.map(
             ({ key, label, value, integer }) =>
               value !== null && (

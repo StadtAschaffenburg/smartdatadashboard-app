@@ -1,10 +1,11 @@
-import { cx, VariantProps } from 'class-variance-authority'
+import { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import { HTMLAttributes } from 'react'
 import {
   TileDefaultVariants,
   TileVariants,
 } from '@/utils/variants/TileVariants'
+import Text from './Text'
 
 const TitleStyle = cva('block', {
   variants: TileVariants,
@@ -12,28 +13,7 @@ const TitleStyle = cva('block', {
 })
 
 type TitleProps = VariantProps<typeof TitleStyle> &
-  HTMLAttributes<HTMLSpanElement> & {
-    tag?: string
-  }
-
-const validHtmlTags = [
-  'span',
-  'div',
-  'h1',
-  'h2',
-  'h3',
-  'h4',
-  'h5',
-  'h6',
-] as const
-
-type ValidHtmlTag = (typeof validHtmlTags)[number]
-
-const getValidTag = (tag: string | null | undefined): ValidHtmlTag => {
-  return validHtmlTags.includes(tag as ValidHtmlTag)
-    ? (tag as ValidHtmlTag)
-    : 'span'
-}
+  HTMLAttributes<HTMLSpanElement>
 
 export default function Title({
   as,
@@ -41,18 +21,17 @@ export default function Title({
   font,
   children,
   className,
-  tag,
   ...props
 }: TitleProps) {
-  const Tag = getValidTag(tag || as)
-
   return (
-    <Tag
+    <Text
+      as={as}
+      className={className}
+      tag={as as string}
+      variant={variant}
       {...props}
-      className={cx(TitleStyle({ as, variant, font }), className)}
-      style={{ hyphens: 'auto', ...props.style }}
     >
       {children}
-    </Tag>
+    </Text>
   )
 }

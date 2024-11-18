@@ -1,4 +1,4 @@
-import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
 import { StationsValue } from './dt'
 
 export type WeatherStationsProps = {
@@ -13,9 +13,9 @@ export default function WeatherStationsEntry({
   return (
     <div className="">
       <div>
-        <Title as={'h4'} tag={'span'}>
+        <Text as={'h4'} tag={'span'}>
           {title}
-        </Title>
+        </Text>
         {values.map(({ id, value }) => (
           <div key={id}>
             {id}: {value} °C

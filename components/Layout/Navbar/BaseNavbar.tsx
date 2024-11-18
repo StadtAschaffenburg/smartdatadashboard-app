@@ -2,43 +2,42 @@ import React, { useEffect, useRef, useState } from 'react'
 import Background from '@/components/Layout/Background'
 import Collapsible from '@/components/Elements/Collapsible'
 import Container from '@/components/Layout/Container'
-import { Bars3Icon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import LinkComponent, { LinkProps } from './LinkComponent'
-import { IconGear, IconHome } from '@/components/Icons/Navigation'
+import { IconHome } from '@/components/Icons/Navigation'
+import PulsatingCircle from '@/components/Icons/PulsatingCircle'
+
+const link_home: LinkProps = {
+  icon: IconHome,
+  title: 'Startseite',
+  link: '/',
+}
 
 const links: LinkProps[] = [
   {
-    icon: IconHome,
-    link: '/',
-    hover: 'secondary',
-  },
-  {
+    icon: PulsatingCircle,
     title: 'Aschaffenburg Live',
-    icon: IconGear,
     link: '/aschaffenburg-live',
-    hover: 'secondary',
   },
   {
     title: 'Handlungsdimensionen',
-    icon: IconGear,
     link: '/handlungsdimensionen',
-    hover: 'secondary',
   },
   {
-    title: 'SDG-Ziele',
-    icon: IconGear,
-    link: '/sdg-ziele',
-    hover: 'secondary',
+    title: 'Nachhaltigkeitsziele',
+    link: '/nachhaltigkeitsziele',
   },
 ]
 
 type BaseNavbarProps = {
   children?: React.ReactNode
+  current_url: string
   variant?: 'primary' | 'secondary'
 }
 
 export default function BaseNavbar({
   children,
+  current_url,
   variant = 'primary',
 }: BaseNavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
@@ -74,6 +73,11 @@ export default function BaseNavbar({
     setIsOpen(!isOpen)
   }
 
+  const button_variants: Partial<LinkProps> = {
+    variant: 'inverse',
+    size: 'main_menu',
+  }
+
   return (
     <div
       className={`sticky top-0 z-50 ${isSticky ? 'is-sticky' : 'not-sticky'}`}
@@ -82,7 +86,7 @@ export default function BaseNavbar({
       <Background variant={variant}>
         <Container
           className={
-            'py-12 transition-all [.is-sticky_&]:py-4 [.is-sticky_&]:shadow-lg'
+            'py-6 transition-all [.is-sticky_&]:py-4 [.is-sticky_&]:shadow-lg'
           }
           variant="none"
         >
@@ -90,26 +94,41 @@ export default function BaseNavbar({
             <div className="flex items-center justify-between gap-8">
               {children || 'Smart Data Dashboard'}
               <div
-                className="flex items-center gap-4 font-bold text-white [.collapsible-open_&]:text-secondary"
+                className="flex cursor-pointer items-center gap-4 font-medium text-white "
                 onClick={toggleMenu}
               >
-                <div>MENÜ</div>{' '}
-                <div className="border-2 border-white p-4 [.collapsible-open_&]:border-secondary">
-                  <Bars3Icon className="w-5 stroke-2 text-white md:w-6" />
+                <div>Menü</div>{' '}
+                <div className="group overflow-hidden rounded border border-white">
+                  {isOpen ? (
+                    <XMarkIcon className="stroke w-8 bg-white p-2 text-primary transition-all md:w-12" />
+                  ) : (
+                    <Bars3Icon className="stroke w-8 p-2 text-white transition-all group-hover:bg-white group-hover:text-primary md:w-12" />
+                  )}
                 </div>
               </div>
             </div>
           </div>
           <Collapsible isOpen={isOpen} onOpenChange={setIsOpen}>
-            <div className="mt-4 flex items-center justify-between">
-              {links.map(l => (
-                <LinkComponent
-                  key={l.link}
-                  variant={variant === 'primary' ? 'inverse' : 'primary'}
-                  {...l}
-                  onClick={handleLinkClick}
-                />
-              ))}
+            <div className="mt-4 flex flex-nowrap items-center justify-between gap-8">
+              <LinkComponent
+                {...button_variants}
+                {...link_home}
+                LinkClass={current_url === '' ? 'active' : ''}
+                onClick={handleLinkClick}
+              />
+              <div className="flex items-center gap-4">
+                {links.map(l => (
+                  <LinkComponent
+                    key={l.link}
+                    {...button_variants}
+                    {...l}
+                    LinkClass={
+                      l.link.replace(/^\//, '') === current_url ? 'active' : ''
+                    }
+                    onClick={handleLinkClick}
+                  />
+                ))}
+              </div>
             </div>
           </Collapsible>
         </Container>

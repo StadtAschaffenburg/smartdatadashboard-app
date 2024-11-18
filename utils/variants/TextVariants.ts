@@ -14,6 +14,7 @@ export const TextVariants = {
     blue: 'text-primary-medium',
     green: 'text-green',
     purple: 'text-purple',
+    white: 'text-white',
   },
 } as const
 

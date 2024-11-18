@@ -16,13 +16,11 @@ export default function WeatherStationsContent() {
   }
 
   return (
-    <div>
-      <div className="mb-8 flex flex-col gap-4">
-        <div className="grid grid-cols-2 gap-4 pt-8">
-          {weatherstations.map(({ label, values }) => (
-            <Entry key={label} title={label} values={values} />
-          ))}
-        </div>
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 gap-4">
+        {weatherstations.map(({ label, values }) => (
+          <Entry key={label} title={label} values={values} />
+        ))}
       </div>
     </div>
   )

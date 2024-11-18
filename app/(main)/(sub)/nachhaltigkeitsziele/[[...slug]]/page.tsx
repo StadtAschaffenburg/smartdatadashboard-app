@@ -36,7 +36,7 @@ export default async function SdgZiele({
     <>
       <Background light variant="primary">
         <Container className="flex flex-col gap-8 pt-4">
-          <PageIntro slug="sdg-ziele" />
+          <PageIntro slug="nachhaltigkeitsziele" />
           <TargetFilter sdg_target={sdg_target} />
         </Container>
       </Background>

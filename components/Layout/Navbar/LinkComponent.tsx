@@ -1,5 +1,4 @@
 import { Button } from '@/components/Elements/Button'
-import { cx } from 'class-variance-authority'
 import Link from 'next/link'
 import { SVGProps } from 'react'
 import { ButtonSize, ButtonVariant } from '@/utils/variants/ButtonVariants'
@@ -9,9 +8,11 @@ export type LinkProps = {
   icon?: (_props: SVGProps<SVGSVGElement>) => JSX.Element
   link: string
   variant?: ButtonVariant
-  hover?: 'primary' | 'secondary'
+  hover?: ButtonVariant
   size?: ButtonSize
   onClick?: () => void
+  LinkClass?: string
+  ButtonClass?: string
 }
 
 export default function LinkComponent({
@@ -22,24 +23,24 @@ export default function LinkComponent({
   hover,
   size = 'link',
   onClick,
+  LinkClass,
+  ButtonClass,
 }: LinkProps) {
   const Icon = icon
 
   return (
-    <Link href={link}>
+    <Link className={LinkClass} href={link}>
       <Button
-        hover={hover}
+        className={ButtonClass}
+        hover={hover ?? variant}
         onClick={onClick}
         size={size}
         startIcon={
           Icon ? (
             <Icon
-              className={cx(
-                'h-[26px] transition-colors md:h-[34px]',
-                variant === 'primary' ? 'text-primary' : 'text-white',
-                hover === 'primary' && 'group-hover:text-primary',
-                hover === 'secondary' && 'group-hover:text-secondary',
-              )}
+              className={
+                'h-4 text-white transition-colors group-hover:text-primary md:h-6 [.active_&]:text-primary'
+              }
             />
           ) : null
         }

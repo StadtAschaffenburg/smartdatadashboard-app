@@ -14,6 +14,7 @@ export default function Navbar({ sitemap }: { sitemap: PageMappingType[] }) {
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
   let breadcrumbs: BreadcrumbType[] = []
 
+  // split the URL into segments and filter out empty strings
   const segments = url.split('/').filter(Boolean)
   segments.forEach(segment => {
     const page_title = findTitle(segment, sitemap)
@@ -35,7 +36,7 @@ export default function Navbar({ sitemap }: { sitemap: PageMappingType[] }) {
   }
 
   return (
-    <BaseNavbar>
+    <BaseNavbar current_url={segments[0]}>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
     </BaseNavbar>
   )

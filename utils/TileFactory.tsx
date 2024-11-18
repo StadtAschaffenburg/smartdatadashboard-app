@@ -81,7 +81,7 @@ export default async function TileFactory({ type }: TileFactoryProps) {
       return <PollenTile tile_payload={tile_payload} type={type} />
     case 'ecology-weatherStations':
       return <WeatherStationsTile tile_payload={tile_payload} type={type} />
-    case 'ecology-hitzewarnung':
+    case 'ecology-thermalHazard':
       return <ThermalHazardTile tile_payload={tile_payload} type={type} />
 
     // ---- SOCIETY ----

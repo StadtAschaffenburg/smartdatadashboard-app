@@ -1,3 +1,5 @@
+import { IconPlaceholder } from '@/components/Icons/ActionFields'
+
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
 export type ActionFieldsType =
   | 'arbeit-und-wirtschaft'
@@ -23,3 +25,16 @@ export type DimensionMappingType = {
 }
 
 export type VariantType = ActionDimensionsType | 'live'
+
+export const ActionFieldsIconMap = {
+  'arbeit-und-wirtschaft': IconPlaceholder,
+  digitalisierung: IconPlaceholder,
+  energie: IconPlaceholder,
+  'globale-verantwortung': IconPlaceholder,
+  'leben-und-wohnen': IconPlaceholder,
+  'mobilitaet-und-infrastruktur': IconPlaceholder,
+  'partizipation-und-teilhabe': IconPlaceholder,
+  'umwelt-und-ressourcenschutz': IconPlaceholder,
+  'wetter-und-klima': IconPlaceholder,
+  wissenschaft: IconPlaceholder,
+}

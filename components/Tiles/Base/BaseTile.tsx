@@ -16,10 +16,10 @@ import {
   BackgroundDefaultVariants,
   BackgroundLightVariants,
 } from '@/utils/variants/BackgroundVariants'
-import { iconMap } from './IconTile'
+import { ForwardRefExoticComponent, SVGProps } from 'react'
 
 const baseTileStyle = cva(
-  'relative flex flex-col md:flex-row h-fit overflow-hidden',
+  'relative flex flex-col md:flex-row h-fit overflow-hidden rounded',
   {
     variants: BackgroundLightVariants,
     defaultVariants: BackgroundDefaultVariants,
@@ -42,6 +42,9 @@ export type BaseTileProps = VariantProps<typeof baseTileStyle> &
     moreInfo?: React.ReactNode
     source?: string | null
     isFullWidth?: boolean
+    icon?:
+      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
+      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
   }
 
 const transitionOpts = {
@@ -66,6 +69,7 @@ export function BaseTile({
   moreInfo,
   source,
   isFullWidth,
+  icon,
 }: BaseTileProps) {
   const [showEmbedOverlay, setShowEmbedOverlay] = useState(false)
   const [showShareOverlay, setShowShareOverlay] = useState(false)
@@ -94,8 +98,6 @@ export function BaseTile({
     setShowShareOverlay(true)
   }
 
-  const Icon = iconMap[variant as keyof typeof iconMap] || (() => <></>)
-
   return (
     <div className="pb-4 md:pb-8">
       <div className={cx(baseTileStyle({ variant }), className)}>
@@ -104,7 +106,7 @@ export function BaseTile({
           <TileHeader
             dataURL={source}
             hasMoreDetails={!!moreInfo}
-            icon={Icon}
+            icon={icon}
             onEmbedClick={() => setShowEmbedOverlay(true)}
             onShareClick={openShareDialog}
             variant={variant}

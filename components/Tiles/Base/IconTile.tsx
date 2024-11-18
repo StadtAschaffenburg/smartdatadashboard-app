@@ -6,25 +6,12 @@ import { BaseTile, EmbedTileProps } from './BaseTile'
 import Markdown from '@/components/Elements/Markdown'
 import LiveBadge from './LiveBadge'
 import getTileData from '@/lib/api/getTileData'
-
+import { ActionFieldsIconMap } from '@/types/dimensionMapping'
 import {
   TextDefaultVariants,
   TextVariants,
 } from '@/utils/variants/TextVariants'
-import {
-  IconEcology,
-  IconEconomy,
-  IconLive,
-  IconSociety,
-} from '@/components/Icons/Dimensions'
 import { TilePayloadType } from '@/types/tiles'
-
-export const iconMap = {
-  ecology: IconEcology,
-  society: IconSociety,
-  economy: IconEconomy,
-  live: IconLive,
-}
 
 const iconTileTitleStyle = cva('', {
   variants: TextVariants,
@@ -77,17 +64,22 @@ export default async function IconTile({
   } else if (!variant && tile_payload?.tags?.action_dimension) {
     variant = tile_payload.tags.action_dimension
   }
-
   // if live (live-tag) is not set, use tile_payload.live
   live = live ?? tile_payload?.live
 
-  const Icon = icon || iconMap[variant as keyof typeof iconMap] || (() => <></>)
+  const Icon =
+    icon ||
+    ActionFieldsIconMap[
+      tile_payload?.tags?.action_field as keyof typeof ActionFieldsIconMap
+    ] ||
+    (() => <></>)
   const full_width = tile_payload?.layout === 'full'
 
   return (
     <BaseTile
       embedId={embedId}
       footerCenterElement={live ? <LiveBadge variant={variant} /> : undefined}
+      icon={icon}
       isFullWidth={full_width}
       moreInfo={tile_payload?.details}
       source={tile_payload?.source}
@@ -143,16 +135,17 @@ export default async function IconTile({
 
       <>{tile_payload?.copy && <Spacer />}</>
 
-      <div className="flex space-x-2 text-xs">
-        <Title as="h7" font="semibold" variant={'primary'}>
-          Datenstand:{' '}
+      <div className="flex gap-8 text-sm text-primary">
+        <div className="">
+          <span className="font-semibold">Datenstand:</span>{' '}
           {tile_payload?.retrieval ??
             dataRetrieval ??
             (live ? 'live' : new Date().getFullYear())}
-        </Title>
-        <Title as="h7" font="normal" variant={'primary'}>
-          Quelle: {tile_payload?.source ?? dataSource ?? 'Stadt Aschaffenburg'}
-        </Title>
+        </div>
+        <div className="text-sm">
+          <span className="font-semibold">Quelle:</span>{' '}
+          {tile_payload?.source ?? dataSource ?? 'Stadt Aschaffenburg'}
+        </div>
       </div>
     </BaseTile>
   )

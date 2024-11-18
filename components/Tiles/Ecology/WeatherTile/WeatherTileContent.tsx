@@ -37,7 +37,7 @@ export default function WeatherTileContent() {
   return (
     <div>
       {weather && (
-        <div className="mb-8 flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-1 items-center gap-6 md:gap-2">
             <Icon className="fill-live h-20 md:mr-12 md:h-36" />
             <Title as={'h4'} className="my-4 w-3/4 md:w-1/2">

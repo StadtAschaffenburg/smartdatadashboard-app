@@ -1,7 +1,7 @@
 'use client'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
-import Title from '../Elements/Title'
+import Text from '../Elements/Text'
 import { cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
@@ -26,9 +26,9 @@ export default function MobileSlider({
       <div className="flex w-full items-center">
         {labels && (
           <div className="block">
-            <Title as={'h6'} className={'mr-2'} tag={'span'} variant={variant}>
+            <Text as={'h6'} className={'mr-2'} tag={'span'} variant={variant}>
               {labels[value]}
-            </Title>
+            </Text>
           </div>
         )}
         <SliderPrimitive.Root

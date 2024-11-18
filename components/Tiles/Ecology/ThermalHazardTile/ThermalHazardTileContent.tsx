@@ -8,11 +8,11 @@ import { DataProps, Rating } from './dt'
 import { Spinner } from '@/components/Elements/Spinner'
 
 const rating_keys: { [key: number]: Rating } = {
-  0: ['Niedrig', 'Kein Schutz erforderlich', '#28965A'],
-  3: ['Mittel', 'Schutz erforderlich', '#F7E55B'],
-  6: ['Hoch', 'Schutz erforderlich', '#F2994A'],
-  8: ['Hoch', 'Schutz absolut erforderlich', '#EB5757'],
-  11: ['Extrem', 'Schutz absolut erforderlich', '#BB2D3B'],
+  0: ['Keine', 'Keine gesundheitliche Gefährdung', '#28965A'],
+  1: ['Gering', 'Geringe gesundheitliche Gefährdung', '#28965A'],
+  2: ['Mittel', 'Mittlere gesundheitliche Gefährdung', '#F7E55B'],
+  3: ['Hoch', 'Hohe gesundheitliche Gefährdung', '#F2994A'],
+  4: ['Sehr Hoch', 'Sehr hohe gesundheitliche Gefährdung', '#EB5757'],
 }
 
 function getRating(index: number): Rating {
@@ -24,7 +24,8 @@ function getRating(index: number): Rating {
 }
 
 export default function ThermalHazardTileContent() {
-  const uv_data = useApi('dwd/uvi') as DataProps[]
+  const harzard_data = useApi('dwd/thermal_hazard') as DataProps[]
+
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() + index)
@@ -35,39 +36,36 @@ export default function ThermalHazardTileContent() {
   })
 
   const [dayIndex, setDayIndex] = useState<number>(0)
-  const uv_index: number = uv_data[dayIndex] as any // not proud of this
-  const [rating, advice, rating_color] = getRating(uv_index)
+  const harzard_index: number = harzard_data[dayIndex] as any // not proud of this
+  const [rating, advice, rating_color] = getRating(harzard_index)
 
-  if (!uv_data || !uv_data.length) {
+  if (!harzard_data || !harzard_data.length) {
     return <Spinner />
   }
 
   return (
-    <div>
-      <div>WIP</div>
-      <div>
-        <div className="mb-8 flex flex-row content-center gap-6">
-          <div className="flex items-center justify-center">
-            <div
-              className="border-climate flex h-20 w-20 items-center justify-center rounded-full border-4 bg-transparent"
-              style={{ borderColor: rating_color }}
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-row content-center items-center gap-6">
+        <div className="flex items-center justify-center">
+          <div
+            className="border-climate flex h-20 w-20 items-center justify-center rounded-full border-4 bg-transparent"
+            style={{ borderColor: rating_color }}
+          >
+            <span
+              className="text-[40px] font-bold"
+              style={{ color: rating_color }}
             >
-              <span
-                className="text-[40px] font-bold"
-                style={{ color: rating_color }}
-              >
-                {uv_index}
-              </span>
+              {harzard_index}
+            </span>
+          </div>
+        </div>
+        <div className="flex flex-grow flex-col justify-between">
+          <Title as={'subtitle'}>
+            <div>
+              Gefahr: <span className="text-climate">{rating}</span>
             </div>
-          </div>
-          <div className="flex flex-grow flex-col justify-between">
-            <Title as={'subtitle'}>
-              <div>
-                Gefahr: <span className="text-climate">{rating}</span>
-              </div>
-              <div>{advice}</div>
-            </Title>
-          </div>
+            <div>{advice}</div>
+          </Title>
         </div>
       </div>
       <Slider

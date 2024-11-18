@@ -17,10 +17,7 @@ export const markdownComponents = {
     <ul className="list-disc px-6" {...props} />
   ),
   p: (props: MarkdownComponentProps) => (
-    <p
-      className="mb-2 text-base font-medium lg:text-xl lg:leading-6 lg:tracking-wide"
-      {...props}
-    />
+    <p className="mb-2 text-base font-normal lg:text-lg" {...props} />
   ),
   a: (props: MarkdownComponentProps & { href?: string }) => (
     <a

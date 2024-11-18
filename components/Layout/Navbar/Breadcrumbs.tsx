@@ -13,7 +13,7 @@ type BreadcrumbsProps = {
 
 export default function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <nav className="breadcrumb-container flex gap-2 text-xl text-white lg:text-2xl">
+    <nav className="breadcrumb-container flex gap-2 text-lg font-medium text-white lg:text-xl">
       {breadcrumbs.map((crumb, index) => (
         <React.Fragment key={index}>
           {index > 0 && <span className="mx-4">›</span>}

@@ -60,6 +60,9 @@ module.exports = {
       fontSize: {
         headline: '4rem',
       },
+      borderRadius: {
+        DEFAULT: '0.5rem',
+      },
     },
   },
 }

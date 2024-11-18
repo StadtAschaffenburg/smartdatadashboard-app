@@ -1,7 +1,7 @@
 'use client'
 
 import * as SliderPrimitive from '@radix-ui/react-slider'
-import Title from '../Elements/Title'
+import Text from '../Elements/Text'
 import { cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
@@ -27,9 +27,9 @@ export default function Slider({
       <div className="flex w-full items-center">
         {labels && (
           <div className="block md:hidden">
-            <Title as="h5" className="mr-2" variant={variant}>
+            <Text as="h5" className="mr-2" variant={variant}>
               {labels[value]}
-            </Title>
+            </Text>
           </div>
         )}
         <SliderPrimitive.Root
@@ -59,17 +59,17 @@ export default function Slider({
         (labels.length != 12 ? (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
-              <Title as={'h6'} key={i} tag={'span'} variant={variant}>
+              <Text as={'h6'} key={i} tag={'span'} variant={variant}>
                 {l}
-              </Title>
+              </Text>
             ))}
           </div>
         ) : (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
-              <Title as={'h8'} key={i} tag={'span'} variant={variant}>
+              <Text as={'h8'} key={i} tag={'span'} variant={variant}>
                 {l}
-              </Title>
+              </Text>
             ))}
           </div>
         ))}
