@@ -14,6 +14,7 @@ export const BackgroundVariants = {
     blue: 'bg-primary-medium',
     green: 'bg-green',
     purple: 'bg-purple',
+    white: 'bg-white',
   },
 }
 
@@ -31,6 +32,7 @@ export const BackgroundLightVariants = {
     blue: 'bg-primary-light',
     green: 'bg-green-light',
     purple: 'bg-purple-light',
+    white: 'bg-white',
   },
 }
 

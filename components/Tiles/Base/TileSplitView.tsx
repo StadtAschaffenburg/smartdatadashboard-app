@@ -10,5 +10,5 @@ TileSplitView.Left = function LeftView(props: HTMLAttributes<HTMLDivElement>) {
 }
 
 TileSplitView.Right = function Rightiew(props: HTMLAttributes<HTMLDivElement>) {
-  return <div {...props} className="lg:max-w-[272px]" />
+  return <div {...props} className="lg:max-w-80" />
 }

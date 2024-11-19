@@ -84,14 +84,13 @@ export default async function DimensionFilter({
     <Background light variant={variant}>
       <Container variant="compact">
         <div className="flex flex-col gap-8">
-          <div className="flex w-full justify-stretch gap-8">
+          <div className="flex w-full gap-8">
             {dimension_links.map(l => (
               <LinkComponent
                 key={l.link.title}
                 {...l.link}
-                ButtonClass={cx(
-                  getVariantClass(l.link.variant as ActionDimensionsType),
-                  'w-full border-0 shadow',
+                ButtonClass={getVariantClass(
+                  l.link.variant as ActionDimensionsType,
                 )}
                 LinkClass={cx(
                   'flex-grow hover:scale-105 transition-all',
@@ -102,14 +101,16 @@ export default async function DimensionFilter({
             ))}
           </div>
           {field_links.length > 0 && (
-            <div className="flex items-center gap-8">
+            <div className="flex w-full gap-8">
               {field_links.map(l => (
                 <LinkComponent
-                  key={l.link.title}
-                  size="md"
-                  variant={variant}
                   {...l.link}
-                  icon={getFieldIcon(l.field_id)}
+                  icon={getFieldIcon(l.field_id as ActionFieldsType)}
+                  IconClass={'h-6 md:h-8'}
+                  key={l.link.title}
+                  LinkClass={cx('flex-grow self-stretch', l.active && 'active')}
+                  size={'filter_fields'}
+                  variant={variant}
                 />
               ))}
             </div>

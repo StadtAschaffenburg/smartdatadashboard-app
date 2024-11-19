@@ -10,6 +10,11 @@ export const HeadlineVariants = {
     h8: 'text-sm',
     subtitle: 'text-lg lg:text-xl',
     base: 'text-base',
+    xl: 'text-xl lg:text-2xl',
+    lg: 'text-lg lg:text-xl',
+    md: 'text-base lg:text-lg',
+    sm: 'text-sm lg:text-base',
+    xs: 'text-xs lg:text-sm',
   },
 } as const
 

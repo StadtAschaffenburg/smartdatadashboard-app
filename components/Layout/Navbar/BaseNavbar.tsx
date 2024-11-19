@@ -11,6 +11,8 @@ const link_home: LinkProps = {
   icon: IconHome,
   title: 'Startseite',
   link: '/',
+  IconClass:
+    'h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary',
 }
 
 const links: LinkProps[] = [
@@ -18,6 +20,8 @@ const links: LinkProps[] = [
     icon: PulsatingCircle,
     title: 'Aschaffenburg Live',
     link: '/aschaffenburg-live',
+    IconClass:
+      'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary',
   },
   {
     title: 'Handlungsdimensionen',
@@ -85,10 +89,8 @@ export default function BaseNavbar({
     >
       <Background variant={variant}>
         <Container
-          className={
-            'py-6 transition-all [.is-sticky_&]:py-4 [.is-sticky_&]:shadow-lg'
-          }
-          variant="none"
+          className={'py-4 transition-all [.is-sticky_&]:shadow-lg'}
+          variant={'flat'}
         >
           <div className="flex flex-col justify-between gap-4">
             <div className="flex items-center justify-between gap-8">

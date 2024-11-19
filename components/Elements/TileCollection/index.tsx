@@ -4,7 +4,7 @@ import NoResults from './noResults'
 import { TileCollectionProps } from './dt'
 import Columns from '@/components/Layout/Columns'
 
-export default async function TileCollection({
+export default function TileCollection({
   collection,
   category = null,
   action_dimension = null,
@@ -60,7 +60,11 @@ export default async function TileCollection({
       {groupedTiles.map((group, index) => (
         <Columns columns={group.layout === 'default' ? 2 : 1} key={index}>
           {group.tiles.map((tile: TileDataType) => (
-            <TileFactory key={tile.tile_id} type={tile.tile_id} />
+            <TileFactory
+              key={tile.tile_id}
+              tile_data={tile.content}
+              type={tile.tile_id}
+            />
           ))}
         </Columns>
       ))}

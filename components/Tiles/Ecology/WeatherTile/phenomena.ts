@@ -13,13 +13,13 @@ const phenomena: PhenomenaType = {
     title: 'Temperatur',
     unit: '°C',
     icon: IconWeatherTemperatur,
-    decimals: 0,
+    decimals: 1,
   },
   perceived_temperature: {
     title: 'Gefühlte Temperatur',
     unit: '°C',
     icon: IconWeatherTemperatur,
-    decimals: 0,
+    decimals: 1,
   },
   precipitation: {
     title: 'Niederschlag',

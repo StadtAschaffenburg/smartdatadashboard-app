@@ -20,6 +20,7 @@ export type PhenomenaType = {
 }
 
 export type PhenomenonProps = {
+  animate?: boolean
   phenomenon: keyof typeof phenomena
   value: number
   icon?:

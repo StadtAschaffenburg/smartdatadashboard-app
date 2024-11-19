@@ -43,7 +43,10 @@ export default function Handlungsdimensionen({
   return (
     <>
       <PageIntro container slug="handlungdimensionen" />
-      <DimensionFilter action_dimension={action_dimension} />
+      <DimensionFilter
+        action_dimension={action_dimension}
+        action_field={action_field}
+      />
       <Container>
         <TileCollectionView
           action_dimension={action_dimension}

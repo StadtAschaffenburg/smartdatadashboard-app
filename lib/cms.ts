@@ -18,27 +18,28 @@ const agent = new https.Agent({
 
 export async function handleRequest(
   content_type: string = 'content',
-  collection: string = 'tile',
+  collection_id: string = 'tile',
   id: string | number | boolean = false,
   use_cache: boolean = true,
 ): Promise<any> {
   // get the content from the cache or the API
   if (use_cache) {
-    const cache_data = (await readCache(content_type, collection, id)) || null
+    const cache_data =
+      (await readCache(content_type, collection_id, id)) || null
     if (cache_data) {
       return cache_data // return the cached data
     }
   }
 
   // get the data from the API
-  const endpoint = `${getCMSEndpoint()}${content_type}/${collection}${
+  const endpoint = `${getCMSEndpoint()}${content_type}/${collection_id}${
     id ? `/${id}` : ''
   }`
   const payload = await fetchJSON(endpoint) // fetch the data from the API
 
   if (payload) {
     // save the data to the cache
-    await writeContentCache(content_type, collection, id, payload)
+    await writeContentCache(content_type, collection_id, id, payload)
     return payload
   }
 
@@ -46,17 +47,35 @@ export async function handleRequest(
 }
 
 export async function getContent(
-  collection: string = 'tiles',
+  collection_id: string = 'tiles',
   id: string | number | boolean = false,
   use_cache: boolean = true,
 ): Promise<any> {
-  return handleRequest('content', collection, id, use_cache)
+  const singular_id = collection_id.endsWith('s')
+    ? collection_id.slice(0, -1)
+    : collection_id
+
+  return handleRequest('content', singular_id, id, use_cache)
 }
 
 export async function getCollection(
-  collection: string = 'tiles',
+  collection_id: string = 'tiles',
 ): Promise<any> {
-  return handleRequest('collection', collection)
+  return handleRequest('collection', collection_id)
+}
+
+export async function getPopulatedCollection(
+  collection_id: string = 'tiles',
+): Promise<any> {
+  const collection = await handleRequest('collection', collection_id)
+
+  await Promise.all(
+    collection.map(async (entry: any) => {
+      entry.content = await getContent(collection_id, entry.tile_id)
+    }),
+  )
+
+  return collection
 }
 
 export async function getAPI(

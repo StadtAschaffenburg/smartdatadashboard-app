@@ -3,7 +3,7 @@ import BaseView from './BaseView'
 import TileCollection from '@/components/Elements/TileCollection'
 import CategoryType from '@/types/TilesCategory'
 import Searchbox from '@/components/Elements/Searchbox'
-import { getCollection } from '@/lib/cms'
+import { getPopulatedCollection } from '@/lib/cms'
 import {
   ActionDimensionsType,
   ActionFieldsType,
@@ -25,10 +25,10 @@ export default async function DimensionView({
   search_query,
   sdg_target,
 }: DimensionViewProps) {
-  const collection = await getCollection('tiles')
+  const collection = await getPopulatedCollection('tiles')
 
   return (
-    <BaseView type="building">
+    <BaseView>
       <TileCollection
         action_dimension={action_dimension}
         action_field={action_field}

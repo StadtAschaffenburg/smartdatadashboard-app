@@ -10,6 +10,7 @@ export type BackgroundProps = {
   variant?: BackgroundVariant
   children: React.ReactNode
   className?: string
+  rounded?: boolean
 }
 
 // Background-Komponente ohne cva
@@ -18,9 +19,16 @@ export default function Background({
   variant = BackgroundDefaultVariants.variant,
   children,
   className,
+  rounded = false,
 }: BackgroundProps) {
   return (
-    <div className={cx(className, getVariantClass(variant, light))}>
+    <div
+      className={cx(
+        className,
+        getVariantClass(variant, light),
+        rounded && 'rounded',
+      )}
+    >
       {children}
     </div>
   )

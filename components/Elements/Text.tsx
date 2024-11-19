@@ -6,12 +6,12 @@ import {
   TileVariants,
 } from '@/utils/variants/TileVariants'
 
-const TitleStyle = cva('block', {
+const TextStyle = cva('block', {
   variants: TileVariants,
   defaultVariants: TileDefaultVariants,
 })
 
-type TextProps = VariantProps<typeof TitleStyle> &
+type TextProps = VariantProps<typeof TextStyle> &
   HTMLAttributes<HTMLSpanElement> & {
     tag?: string
   }
@@ -49,7 +49,7 @@ export default function Text({
   return (
     <Tag
       {...props}
-      className={cx(TitleStyle({ as, variant, font }), className)}
+      className={cx(TextStyle({ as, variant, font }), className)}
       style={{ hyphens: 'auto', ...props.style }}
     >
       {children}

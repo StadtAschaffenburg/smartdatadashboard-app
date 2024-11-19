@@ -12,6 +12,7 @@ export default function Phenomenon({
   icon,
   size = 'md',
   hide_icon = false,
+  animate = true,
 }: PhenomenonProps) {
   const {
     title,
@@ -46,8 +47,17 @@ export default function Phenomenon({
           variant={'live'}
         ></Title>
         <Title as={valueSize} variant="live">
-          <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber> {unit}{' '}
-          {meta}
+          {animate && (
+            <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber>
+          )}
+          {!animate && (
+            <span>
+              {new Intl.NumberFormat('de-DE', {
+                maximumFractionDigits: decimals || 0,
+              }).format(value)}
+            </span>
+          )}{' '}
+          {unit} {meta}
         </Title>
       </div>
     </div>

@@ -6,4 +6,8 @@ export type StationsValue = {
 export type StationsResult = {
   label: string
   values: StationsValue[]
+  position: {
+    lat: number
+    lng: number
+  }
 }

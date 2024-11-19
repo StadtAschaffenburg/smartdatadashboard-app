@@ -1,5 +1,7 @@
-import Text from '@/components/Elements/Text'
 import { StationsValue } from './dt'
+import Phenomenon from '../WeatherTile/Phenomenon'
+import Background from '@/components/Layout/Background'
+import Title from '@/components/Elements/Title'
 
 export type WeatherStationsProps = {
   title: string
@@ -11,17 +13,32 @@ export default function WeatherStationsEntry({
   values,
 }: WeatherStationsProps) {
   return (
-    <div className="">
-      <div>
-        <Text as={'h4'} tag={'span'}>
-          {title}
-        </Text>
-        {values.map(({ id, value }) => (
-          <div key={id}>
-            {id}: {value} °C
+    <div className="flex flex-col gap-4">
+      <Background
+        className={'w-full overflow-hidden'}
+        rounded
+        variant={'white'}
+      >
+        <div className="">
+          <div className="bg-primary px-6 py-4 text-white">
+            <div className="text-primary-light">Wetterstation</div>
+            <Title as={'h4'} variant={'white'}>
+              {title}
+            </Title>
           </div>
-        ))}
-      </div>
+          <div className="flex flex-col gap-4 px-6 py-4">
+            {values.map(({ id, value }) => (
+              <Phenomenon
+                animate={false}
+                key={id}
+                phenomenon={id}
+                size="md"
+                value={value as number}
+              />
+            ))}
+          </div>
+        </div>
+      </Background>
     </div>
   )
 }

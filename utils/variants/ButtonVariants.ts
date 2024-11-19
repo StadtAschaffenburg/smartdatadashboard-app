@@ -18,7 +18,9 @@ export const ButtonVariants = {
     lg: 'py-3 px-5 text-lg',
     link: 'pr-6 md:pr-10 pl-5 md:pl-8 py-2 md:py-3 text-xl md:text-2xl',
     main_menu: 'py-3 px-5 text-lg min-h-12',
-    filter_dimensions: 'py-3 px-5 text-lg lg:text-xl min-h-24',
+    filter_dimensions:
+      'py-3 px-5 text-xl lg:text-2xl min-h-24 w-full border-0 shadow',
+    filter_fields: 'py-3 px-5 text-lg min-h-16 w-full h-full',
   },
   hover: {
     primary:
@@ -42,8 +44,10 @@ export const ButtonVariants = {
     live: '',
     ecology:
       '[.active_&]:text-white [.active_&]:stroke-white [.active_&]:bg-ecology',
-    society: '',
-    economy: '',
+    society:
+      '[.active_&]:text-white [.active_&]:stroke-white [.active_&]:bg-society',
+    economy:
+      '[.active_&]:text-white [.active_&]:stroke-white [.active_&]:bg-economy',
     inverse:
       '[.active_&]:text-primary [.active_&]:border-white [.active_&]:bg-white',
     danger: '',

@@ -123,7 +123,7 @@ export default async function IconTile({
       <>
         {!title && !subtitle && (
           <div className={cx('relative', iconTileTitleStyle({ variant }))}>
-            <Icon className=" absolute right-0 top-0 hidden h-[50px] w-auto opacity-40 2xl:block" />
+            <Icon className="absolute right-0 top-0 hidden h-[50px] w-auto opacity-40 2xl:block" />
           </div>
         )}
       </>

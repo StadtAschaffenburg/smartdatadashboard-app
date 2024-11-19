@@ -4,6 +4,7 @@ import TileFactory from '@/utils/TileFactory'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import StadtLogo from '@/assets/logos/logo_ab.jpg'
+import { getContent } from '@/lib/cms'
 import Image from 'next/image'
 
 export const revalidate = false
@@ -15,9 +16,11 @@ export default async function Embed({ params }: { params: { id: TileType } }) {
     return notFound()
   }
 
+  const tile_data = await getContent('tile', id)
+
   return (
     <div>
-      <TileFactory type={id} />
+      <TileFactory tile_data={tile_data} type={id} />
 
       <div className="mt-4 flex h-full w-full flex-col justify-end gap-4 md:flex-row md:items-center">
         <Image

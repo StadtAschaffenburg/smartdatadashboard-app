@@ -181,6 +181,8 @@ export const sitemap: PageMappingType[] = [
   { id: 'imprint', title: 'Impressum', slug: 'impressum' },
   { id: 'privacy', title: 'Datenschutzerklärung', slug: 'datenschutz' },
   { id: 'adapt', title: 'Dashboard Adaptieren', slug: 'adaptieren' },
+  { id: 'share', title: 'Teilen', slug: 'share' },
+  { id: 'embed', title: 'Einbetten', slug: 'embed' },
 ]
 
 export default async function getSitemap(): Promise<PageMappingType[]> {

@@ -2,6 +2,7 @@ import { Button } from '@/components/Elements/Button'
 import Link from 'next/link'
 import { SVGProps } from 'react'
 import { ButtonSize, ButtonVariant } from '@/utils/variants/ButtonVariants'
+import { cx } from 'class-variance-authority'
 
 export type LinkProps = {
   title?: string
@@ -13,6 +14,7 @@ export type LinkProps = {
   onClick?: () => void
   LinkClass?: string
   ButtonClass?: string
+  IconClass?: string
 }
 
 export default function LinkComponent({
@@ -25,6 +27,7 @@ export default function LinkComponent({
   onClick,
   LinkClass,
   ButtonClass,
+  IconClass,
 }: LinkProps) {
   const Icon = icon
 
@@ -36,13 +39,7 @@ export default function LinkComponent({
         onClick={onClick}
         size={size}
         startIcon={
-          Icon ? (
-            <Icon
-              className={
-                'h-4 text-white transition-colors group-hover:text-primary md:h-6 [.active_&]:text-primary'
-              }
-            />
-          ) : null
+          Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null
         }
         variant={variant}
       >

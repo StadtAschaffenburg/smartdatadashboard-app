@@ -6,19 +6,6 @@ export type TileTypePrefix = 'ecology' | 'society' | 'economy'
 
 export type TileType = `${TileTypePrefix}-${string}`
 
-export type TileDataType = {
-  tile_id: TileIdType
-  title: string
-  layout: 'default' | 'full'
-  tags: {
-    category: CategoryType
-    action_dimension: ActionDimensionsType
-    action_field: ActionFieldsType
-    sdg_target: TargetType
-  }
-  search: string
-}
-
 export interface TilePayloadType {
   tile_id: string
   subtitle: string | null
@@ -44,4 +31,18 @@ export interface TilePayloadType {
 export interface TileProps {
   type: TileType
   tile_payload: TilePayloadType
+}
+
+export type TileDataType = {
+  tile_id: TileIdType
+  title: string
+  layout: 'default' | 'full'
+  tags: {
+    category: CategoryType
+    action_dimension: ActionDimensionsType
+    action_field: ActionFieldsType
+    sdg_target: TargetType
+  }
+  search: string
+  content?: TilePayloadType
 }
