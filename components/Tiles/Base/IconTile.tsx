@@ -5,13 +5,13 @@ import { ForwardRefExoticComponent, SVGProps } from 'react'
 import { BaseTile, EmbedTileProps } from './BaseTile'
 import Markdown from '@/components/Elements/Markdown'
 import LiveBadge from './LiveBadge'
-import getTileData from '@/lib/api/getTileData'
 import { ActionFieldsIconMap } from '@/types/dimensionMapping'
 import {
   TextDefaultVariants,
   TextVariants,
 } from '@/utils/variants/TextVariants'
 import { TilePayloadType } from '@/types/tiles'
+import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
 
 const iconTileTitleStyle = cva('', {
   variants: TextVariants,
@@ -41,7 +41,7 @@ export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
  * @param IconTileProps properties of the Icon tile
  * @returns Mobility Tile
  */
-export default async function IconTile({
+export default function IconTile({
   children,
   live,
   title,
@@ -53,11 +53,6 @@ export default async function IconTile({
   embedId,
   tile_payload,
 }: IconTileProps) {
-  // get tile data if not provided
-  if (!tile_payload) {
-    tile_payload = await getTileData(embedId!)
-  }
-
   // if category "ab_live" is set, use live tile variant, else use action_dimension
   if (tile_payload?.tags?.category === 'ab_live') {
     variant = 'live'
@@ -78,7 +73,9 @@ export default async function IconTile({
   return (
     <BaseTile
       embedId={embedId}
-      footerCenterElement={live ? <LiveBadge variant={variant} /> : undefined}
+      footerCenterElement={
+        live ? <LiveBadge variant={variant as BackgroundVariant} /> : undefined
+      }
       icon={icon}
       isFullWidth={full_width}
       moreInfo={tile_payload?.details}

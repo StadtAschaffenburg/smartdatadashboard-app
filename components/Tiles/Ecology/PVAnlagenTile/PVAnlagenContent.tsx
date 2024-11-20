@@ -2,11 +2,7 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { IconPv } from '@/components/Icons/Ecology'
 
-export default async function PVAnlagenContent({
-  capacity,
-}: {
-  capacity: number
-}) {
+export default function PVAnlagenContent({ capacity }: { capacity: number }) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">

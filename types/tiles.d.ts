@@ -26,6 +26,11 @@ export interface TilePayloadType {
     sdg_target: TargetType
   }
   live: boolean | null
+  files: string[] | null
+  sources: {
+    name: string
+    content: any
+  }[]
 }
 
 export interface TileProps {

@@ -3,24 +3,28 @@ import fs from 'fs'
 import Papa from 'papaparse'
 
 export default async function getDataSource(file: string) {
-  const file_path = path.join(process.cwd(), 'assets/cache/source', file)
+  const paths = ['assets/data', 'assets/cache/source']
 
-  if (!fs.existsSync(file_path)) {
-    throw new Error(`Data source not found: ${file}`)
-  }
+  for (const p of paths) {
+    const file_path = path.join(process.cwd(), p, file)
 
-  const file_data = fs.readFileSync(file_path, 'utf8')
+    if (!fs.existsSync(file_path)) {
+      continue
+    }
 
-  if (!file_data) {
-    return false
-  }
+    const file_data = fs.readFileSync(file_path, 'utf8')
 
-  const ext = path.extname(file).toLowerCase()
+    if (!file_data) {
+      return false
+    }
 
-  if (ext === '.csv') {
-    return Papa.parse(file_data, { header: true }).data
-  } else if (ext === '.json') {
-    return JSON.parse(file_data)
+    const ext = path.extname(file).toLowerCase()
+
+    if (ext === '.csv') {
+      return Papa.parse(file_data, { header: true }).data
+    } else if (ext === '.json') {
+      return JSON.parse(file_data)
+    }
   }
 
   return false

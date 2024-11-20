@@ -4,7 +4,7 @@ import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
 import BicycleChartContent from './BicycleChartContent'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
+export default function Tile({ type, tile_payload }: TileProps) {
   return (
     <BaseTile embedId={type} live tile_payload={tile_payload}>
       <BicycleChartContent />

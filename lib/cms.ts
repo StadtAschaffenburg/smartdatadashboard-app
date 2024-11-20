@@ -11,6 +11,7 @@ import {
 import { getCacheEndpoint, getCMSEndpoint } from '@/utils/api'
 import path from 'path'
 import { getSourcePath } from '@/utils/filesystem'
+import getDataSource from '@/lib/api/getDataSource'
 
 const agent = new https.Agent({
   rejectUnauthorized: false,
@@ -58,6 +59,28 @@ export async function getContent(
   return handleRequest('content', singular_id, id, use_cache)
 }
 
+export async function getPopulatedContent(
+  collection_id: string = 'tiles',
+  id: string | number | boolean = false,
+  use_cache: boolean = true,
+): Promise<any> {
+  const result = await getContent(collection_id, id, use_cache)
+
+  if (result.files) {
+    result.sources = await Promise.all(
+      result.files.map(async (file: string) => {
+        const content = await getDataSource(file)
+        return {
+          name: file,
+          content,
+        }
+      }),
+    )
+  }
+
+  return result
+}
+
 export async function getCollection(
   collection_id: string = 'tiles',
 ): Promise<any> {
@@ -71,7 +94,7 @@ export async function getPopulatedCollection(
 
   await Promise.all(
     collection.map(async (entry: any) => {
-      entry.content = await getContent(collection_id, entry.tile_id)
+      entry.content = await getPopulatedContent(collection_id, entry.tile_id)
     }),
   )
 

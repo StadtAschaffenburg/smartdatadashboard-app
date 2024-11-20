@@ -1,18 +1,18 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { removeParameter, setTerm } from '@/utils/search'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Container from '@/components/Layout/Container'
 
-interface SearchComponentProps {
-  search_query?: string
-}
-
-function SearchComponent({ search_query = '' }: SearchComponentProps) {
+function SearchComponent() {
   const [is_open, setIsOpen] = useState(false)
   const [search_term, setSearchTerm] = useState('')
   const input_field = useRef<HTMLInputElement>(null)
+
+  const searchParams = useSearchParams()
+  const search_query = searchParams?.get('suche') || null
 
   useEffect(() => {
     if (search_query) {

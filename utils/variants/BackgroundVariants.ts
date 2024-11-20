@@ -15,6 +15,7 @@ export const BackgroundVariants = {
     green: 'bg-green',
     purple: 'bg-purple',
     white: 'bg-white',
+    inherit: 'bg-inherit',
   },
 }
 
@@ -33,6 +34,7 @@ export const BackgroundLightVariants = {
     green: 'bg-green-light',
     purple: 'bg-purple-light',
     white: 'bg-white',
+    inherit: 'bg-inherit',
   },
 }
 

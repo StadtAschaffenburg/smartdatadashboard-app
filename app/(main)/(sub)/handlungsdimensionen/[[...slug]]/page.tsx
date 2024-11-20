@@ -7,7 +7,6 @@ import {
   ActionDimensionsType,
   ActionFieldsType,
 } from '@/types/dimensionMapping'
-import { getTerm } from '@/utils/search'
 import PageIntro from '@/components/Elements/PageIntro'
 
 interface HandlungsdimensionenProps {
@@ -52,7 +51,6 @@ export default function Handlungsdimensionen({
           action_dimension={action_dimension}
           action_field={action_field}
           category={'default'}
-          search_query={getTerm(searchParams)}
         />
       </Container>
     </>

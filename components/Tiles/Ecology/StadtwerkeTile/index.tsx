@@ -1,11 +1,14 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import StadtwerkeContent from './StadtwerkeContent'
-import getDataSource from '@/lib/api/getDataSource'
 import { InputData } from './dt'
+import { getSourceByName } from '@/utils/payload'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
-  const MobilityData: InputData[] = await getDataSource('e-mobilitaet.csv')
+export default function Tile({ type, tile_payload }: TileProps) {
+  const MobilityData: InputData[] = getSourceByName(
+    tile_payload,
+    'e-mobilitaet.csv',
+  )
 
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>

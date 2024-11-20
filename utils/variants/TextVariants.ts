@@ -15,6 +15,7 @@ export const TextVariants = {
     green: 'text-green',
     purple: 'text-purple',
     white: 'text-white',
+    inherit: 'text-inherit',
   },
 } as const
 

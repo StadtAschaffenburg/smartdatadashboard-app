@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
 import { TargetType } from '@/types/targetMapping'
@@ -7,11 +9,9 @@ interface TargetFilterProps {
   sdg_target?: TargetType
 }
 
-export default async function TargetFilter({ sdg_target }: TargetFilterProps) {
+export default function TargetFilter({ sdg_target }: TargetFilterProps) {
   const parent_page = findPage('sdg_targets')
   const target_pages = parent_page?.children ?? []
-
-  // const current_page = sdg_target ? findPage(sdg_target) : null
 
   // get the links
   const page_links: SdgLinkProps[] = target_pages.map((page, index) => {

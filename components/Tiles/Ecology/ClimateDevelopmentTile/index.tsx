@@ -1,11 +1,12 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import RadarChart, { AvgTempData } from './RadarChart'
-import getDataFile from '@/lib/api/getDataFile'
 import { ClimateHistoryRecord } from './dt'
+import { getSourceByName } from '@/utils/payload'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
-  const climateHistoryData: ClimateHistoryRecord[] = await getDataFile(
+export default function Tile({ type, tile_payload }: TileProps) {
+  const climateHistoryData: ClimateHistoryRecord[] = getSourceByName(
+    tile_payload,
     'climate_history.json',
   )
 

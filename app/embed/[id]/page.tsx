@@ -4,7 +4,7 @@ import TileFactory from '@/utils/TileFactory'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import StadtLogo from '@/assets/logos/logo_ab.jpg'
-import { getContent } from '@/lib/cms'
+import { getPopulatedContent } from '@/lib/cms'
 import Image from 'next/image'
 
 export const revalidate = false
@@ -16,7 +16,7 @@ export default async function Embed({ params }: { params: { id: TileType } }) {
     return notFound()
   }
 
-  const tile_data = await getContent('tile', id)
+  const tile_data = await getPopulatedContent('tile', id)
 
   return (
     <div>

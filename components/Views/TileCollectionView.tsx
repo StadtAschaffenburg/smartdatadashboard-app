@@ -37,7 +37,7 @@ export default async function DimensionView({
         sdg_target={sdg_target}
         search_query={search_query}
       />
-      <Searchbox search_query={search_query} />
+      <Searchbox />
     </BaseView>
   )
 }

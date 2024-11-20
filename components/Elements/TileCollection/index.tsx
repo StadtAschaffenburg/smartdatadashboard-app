@@ -1,8 +1,11 @@
+'use client'
+
 import TileFactory from '@/utils/TileFactory'
 import { TileDataType } from '@/types/tiles'
 import NoResults from './noResults'
 import { TileCollectionProps } from './dt'
 import Columns from '@/components/Layout/Columns'
+import { useSearchParams } from 'next/navigation'
 
 export default function TileCollection({
   collection,
@@ -12,6 +15,10 @@ export default function TileCollection({
   sdg_target = null,
   search_query = null,
 }: TileCollectionProps) {
+  // get search query from the URL if not provided
+  const searchParams = useSearchParams()
+  search_query = search_query ?? searchParams?.get('suche') ?? null
+
   // apply filters based on provided props
   if (collection.length === 0) {
     return <NoResults />

@@ -1,11 +1,12 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import BusContent from './BusContent'
-import getDataSource from '@/lib/api/getDataSource'
 import { BusDataType } from './dt'
+import { getSourceByName } from '@/utils/payload'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
-  const BusData: BusDataType[] = await getDataSource(
+export default function Tile({ type, tile_payload }: TileProps) {
+  const BusData: BusDataType[] = getSourceByName(
+    tile_payload,
     'stadtwerke-bus-fahrzeuge.csv',
   )
 

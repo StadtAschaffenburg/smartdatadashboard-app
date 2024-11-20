@@ -14,7 +14,7 @@ type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
 export default function AnimatedNumber({
   children,
   decimals,
-  variant = 'primary',
+  variant = 'inherit',
   className,
 }: AnimatedNumberProps) {
   const [inView, setInView] = useState(false) // control whether the number is in view

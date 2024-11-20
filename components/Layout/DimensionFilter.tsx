@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import Background from '@/components/Layout/Background'
 import Container from '@/components/Layout/Container'
@@ -28,7 +30,7 @@ interface ExtendedLinkProps {
   link: LinkProps
 }
 
-export default async function DimensionFilter({
+export default function DimensionFilter({
   action_dimension,
   action_field,
 }: DimensionFilterProps) {
@@ -38,8 +40,6 @@ export default async function DimensionFilter({
   const current_dimension_page = action_dimension
     ? findPage(action_dimension)
     : null
-
-  // const current_field_page = action_field ? findPage(action_field) : null
 
   // get the dimension links
   const dimension_links: ExtendedLinkProps[] = dimension_pages.map(

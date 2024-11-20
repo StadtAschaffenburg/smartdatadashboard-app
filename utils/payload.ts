@@ -13,3 +13,11 @@ export function getDataPoint(
 
   return 0
 }
+
+export function getSourceByName(
+  tile_payload: TilePayloadType,
+  name: string,
+): any | null {
+  const item = tile_payload.sources.find(entry => entry.name === name)
+  return item ? item.content : null
+}

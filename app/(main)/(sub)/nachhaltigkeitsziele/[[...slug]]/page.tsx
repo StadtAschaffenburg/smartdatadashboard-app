@@ -4,7 +4,6 @@ import TargetFilter from '@/components/Layout/TargetFilter'
 import { findPage } from '@/utils/content'
 import Container from '@/components/Layout/Container'
 import { TargetType } from '@/types/targetMapping'
-import { getTerm } from '@/utils/search'
 import PageIntro from '@/components/Elements/PageIntro'
 import Background from '@/components/Layout/Background'
 
@@ -41,11 +40,7 @@ export default async function SdgZiele({
         </Container>
       </Background>
       <Container>
-        <TileCollectionView
-          category={'default'}
-          sdg_target={sdg_target}
-          search_query={getTerm(searchParams)}
-        />
+        <TileCollectionView category={'default'} sdg_target={sdg_target} />
       </Container>
     </>
   )

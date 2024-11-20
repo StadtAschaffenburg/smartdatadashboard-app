@@ -11,6 +11,7 @@ export const ButtonVariants = {
     danger: 'bg-red-600 text-white hover:bg-red-50:text-red-600',
     overlay: 'border-secondary text-white',
     barebone: '',
+    inherit: 'border-inherit text-inherit',
   },
   size: {
     sm: 'py-1 px-3 text-sm',
@@ -37,6 +38,7 @@ export const ButtonVariants = {
     danger: '',
     overlay: '',
     barebone: '',
+    inherit: '',
   },
   active: {
     primary: '',
@@ -53,6 +55,7 @@ export const ButtonVariants = {
     danger: '',
     overlay: '',
     barebone: '',
+    inherit: '',
   },
 } as const
 

@@ -2,15 +2,18 @@ import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import { TileSplitView } from '../../Base/TileSplitView'
 import EnergyConsumptionContent from './EnergyConsumptionContent'
-import getDataSource from '@/lib/api/getDataSource'
 import { InputDataType } from './dt'
+import { getSourceByName } from '@/utils/payload'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
-  // parallelize data fetching for improved performance
-  const [waermeDataInput, stromDataInput] = await Promise.all([
-    getDataSource('waerme.csv'),
-    getDataSource('strom.csv'),
-  ])
+export default function Tile({ type, tile_payload }: TileProps) {
+  const waermeDataInput: InputDataType[] = getSourceByName(
+    tile_payload,
+    'waerme.csv',
+  )
+  const stromDataInput: InputDataType[] = getSourceByName(
+    tile_payload,
+    'strom.csv',
+  )
 
   // render component with fetched data
   return (
@@ -19,8 +22,8 @@ export default async function Tile({ type, tile_payload }: TileProps) {
         <TileSplitView.Left>
           <div>
             <EnergyConsumptionContent
-              stromDataInput={stromDataInput as InputDataType[]}
-              waermeDataInput={waermeDataInput as InputDataType[]}
+              stromDataInput={stromDataInput}
+              waermeDataInput={waermeDataInput}
             />
           </div>
         </TileSplitView.Left>

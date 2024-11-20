@@ -4,7 +4,7 @@ import PVAnlagenTitle from './PVAnlagenTitle'
 import PVAnlagenContent from './PVAnlagenContent'
 import { getDataPoint } from '@/utils/payload'
 
-export default async function Tile({ type, tile_payload }: TileProps) {
+export default function Tile({ type, tile_payload }: TileProps) {
   const count: number = getDataPoint(tile_payload, 'anzahl')
   const capacity: number = getDataPoint(tile_payload, 'kapazitaet')
 
