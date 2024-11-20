@@ -50,13 +50,15 @@ export default function SdgLink({
       href={link}
       onClick={handleClick} // Attach the click handler
     >
-      <Image
-        alt={alt}
-        className="aspect-square w-32 border-4 border-transparent transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary"
-        height={256}
-        src={imageSrc}
-        width={256}
-      />
+      <div className="aspect-square w-32 border-4 border-white bg-white shadow transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary">
+        <Image
+          alt={alt}
+          className="aspect-square w-32"
+          height={256}
+          src={imageSrc}
+          width={256}
+        />
+      </div>
     </Link>
   )
 }

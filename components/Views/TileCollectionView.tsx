@@ -28,17 +28,14 @@ export default function DimensionView({
   const [action_field, setActionField] = useState<ActionFieldsType | null>(null)
   const [sdg_target, setSdgTarget] = useState<string | null>(null)
 
-  useEffect(() => {
+  const updateStateFromURL = () => {
     if (structure) {
-      // parse structure and URL
       const structure_parts = structure.split('/')
       const path_parts = window.location.pathname.split('/').filter(Boolean)
 
-      // dynamically map structure to URL parts
       structure_parts.forEach((part, index) => {
         const slug = path_parts[index + 1]
         const page = findPage(slug)
-        console.log('page', page)
 
         if (part === 'action_dimension') {
           setActionDimension((page?.id as ActionDimensionsType) || null)
@@ -51,7 +48,41 @@ export default function DimensionView({
         }
       })
     }
+  }
+
+  useEffect(() => {
+    // Initial sync
+    updateStateFromURL()
+
+    // Patch History API
+    const originalPushState = history.pushState
+    const originalReplaceState = history.replaceState
+
+    const handleHistoryChange = () => {
+      updateStateFromURL()
+    }
+
+    history.pushState = function (...args) {
+      originalPushState.apply(this, args)
+      handleHistoryChange()
+    }
+
+    history.replaceState = function (...args) {
+      originalReplaceState.apply(this, args)
+      handleHistoryChange()
+    }
+
+    // Listener for popstate events
+    window.addEventListener('popstate', handleHistoryChange)
+
+    return () => {
+      // Cleanup
+      history.pushState = originalPushState
+      history.replaceState = originalReplaceState
+      window.removeEventListener('popstate', handleHistoryChange)
+    }
   }, [structure])
+
   return (
     <BaseView>
       <TileCollection
