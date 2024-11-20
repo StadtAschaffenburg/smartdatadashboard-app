@@ -1,6 +1,6 @@
 import { Button } from '@/components/Elements/Button'
 import Link from 'next/link'
-import { SVGProps } from 'react'
+import { MouseEvent, SVGProps } from 'react'
 import { ButtonSize, ButtonVariant } from '@/utils/variants/ButtonVariants'
 import { cx } from 'class-variance-authority'
 
@@ -15,6 +15,7 @@ export type LinkProps = {
   LinkClass?: string
   ButtonClass?: string
   IconClass?: string
+  preventDefault?: boolean
 }
 
 export default function LinkComponent({
@@ -28,15 +29,24 @@ export default function LinkComponent({
   LinkClass,
   ButtonClass,
   IconClass,
+  preventDefault,
 }: LinkProps) {
   const Icon = icon
 
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      onClick()
+      if (preventDefault) {
+        event.preventDefault()
+      }
+    }
+  }
+
   return (
-    <Link className={LinkClass} href={link}>
+    <Link className={LinkClass} href={link} onClick={handleClick}>
       <Button
         className={ButtonClass}
         hover={hover ?? variant}
-        onClick={onClick}
         size={size}
         startIcon={
           Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null

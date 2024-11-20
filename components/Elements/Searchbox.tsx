@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { removeParameter, setTerm } from '@/utils/search'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Container from '@/components/Layout/Container'
 
@@ -27,6 +26,16 @@ function SearchComponent() {
     }
   }, [is_open])
 
+  const updateQueryString = (key: string, value: string | null) => {
+    const url = new URL(window.location.href)
+    if (value) {
+      url.searchParams.set(key, value)
+    } else {
+      url.searchParams.delete(key)
+    }
+    window.history.pushState({}, '', url.toString())
+  }
+
   const handleToggle = () => {
     if (is_open && search_term.length > 0) {
       handleSearch(new Event('submit') as unknown as React.FormEvent)
@@ -44,17 +53,16 @@ function SearchComponent() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
     if (search_term.length > 0 && search_term.length <= 32) {
-      window.location.href = setTerm(search_term)
-    }
-    if (search_term.length === 0) {
-      removeParameter()
+      updateQueryString('suche', search_term)
+    } else if (search_term.length === 0) {
+      updateQueryString('suche', null)
     }
   }
 
   const clearSearch = () => {
     if (search_query) {
       setSearchTerm('')
-      window.location.href = setTerm('')
+      updateQueryString('suche', null)
     }
   }
 

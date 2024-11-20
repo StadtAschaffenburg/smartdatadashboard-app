@@ -48,6 +48,8 @@ export default function AirqualityChart() {
     return <Spinner />
   }
 
+  console.log(readings)
+
   const air_quality_index = getMaxQualityIndex(readings)
 
   return (

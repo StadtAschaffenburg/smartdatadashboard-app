@@ -1,19 +1,16 @@
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import Container from '@/components/Layout/Container'
 import PageIntro from '@/components/Elements/PageIntro'
+import { getPopulatedCollection } from '@/lib/cms'
 
-interface AbLiveProps {
-  searchParams: {
-    suche?: string
-  }
-}
+export default async function AbLive() {
+  const collection = await getPopulatedCollection('tiles')
 
-export default function AbLive({ searchParams }: AbLiveProps) {
   return (
     <>
       <PageIntro container slug="aschaffenburg-live" />
       <Container>
-        <TileCollectionView category={'ab_live'} />
+        <TileCollectionView category={'ab_live'} collection={collection} />
       </Container>
     </>
   )

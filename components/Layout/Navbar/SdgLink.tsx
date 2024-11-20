@@ -25,14 +25,31 @@ export type SdgLinkProps = {
   index: number
   link: string
   active: boolean
+  onClick?: () => void
 }
 
-export default function SdgLink({ index, link, active }: SdgLinkProps) {
+export default function SdgLink({
+  index,
+  link,
+  active,
+  onClick,
+}: SdgLinkProps) {
   const imageSrc = sdgImages[index]
   const alt = `Nachhaltigkeitsziel Nummer ${index}`
 
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (onClick) {
+      event.preventDefault() // Prevent link navigation
+      onClick()
+    }
+  }
+
   return (
-    <Link className={active ? 'active' : ''} href={link}>
+    <Link
+      className={active ? 'active' : ''}
+      href={link}
+      onClick={handleClick} // Attach the click handler
+    >
       <Image
         alt={alt}
         className="aspect-square w-32 border-4 border-transparent transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary"

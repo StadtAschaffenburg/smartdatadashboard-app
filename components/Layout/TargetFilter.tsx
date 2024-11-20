@@ -1,17 +1,28 @@
 'use client'
 
-import React from 'react'
 import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
 import { TargetType } from '@/types/targetMapping'
 import { findPage } from '@/utils/content'
+import React, { useEffect, useState } from 'react'
 
-interface TargetFilterProps {
-  sdg_target?: TargetType
-}
+export default function TargetFilter() {
+  const [sdg_target, setSdgTarget] = useState<string | null>(null)
 
-export default function TargetFilter({ sdg_target }: TargetFilterProps) {
+  useEffect(() => {
+    const path_segments = window.location.pathname.split('/').filter(Boolean)
+    if (path_segments[1]) {
+      setSdgTarget(path_segments[1])
+    }
+  }, [])
+
   const parent_page = findPage('sdg_targets')
   const target_pages = parent_page?.children ?? []
+
+  const navigateTo = (sdg_target: string) => {
+    const new_url = `/nachhaltigkeitsziele/${sdg_target}`
+    setSdgTarget(sdg_target)
+    window.history.pushState(null, '', new_url)
+  }
 
   // get the links
   const page_links: SdgLinkProps[] = target_pages.map((page, index) => {
@@ -29,7 +40,11 @@ export default function TargetFilter({ sdg_target }: TargetFilterProps) {
   return (
     <div className="flex flex-wrap items-center justify-start gap-4">
       {page_links.map(l => (
-        <SdgLink key={l.link} {...l} />
+        <SdgLink
+          key={l.link}
+          {...l}
+          onClick={() => navigateTo(l.link.split('/').pop()!)}
+        />
       ))}
     </div>
   )
