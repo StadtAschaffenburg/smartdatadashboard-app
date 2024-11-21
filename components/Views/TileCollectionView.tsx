@@ -50,11 +50,13 @@ export default function DimensionView({
     }
   }
 
+  // we use the history API to keep the state in sync with the URL
+  // alternatively, we could pass the state as props from the parent component
   useEffect(() => {
-    // Initial sync
+    // initial sync
     updateStateFromURL()
 
-    // Patch History API
+    // patch history API
     const originalPushState = history.pushState
     const originalReplaceState = history.replaceState
 
@@ -72,11 +74,10 @@ export default function DimensionView({
       handleHistoryChange()
     }
 
-    // Listener for popstate events
+    // listener for popstate events
     window.addEventListener('popstate', handleHistoryChange)
 
     return () => {
-      // Cleanup
       history.pushState = originalPushState
       history.replaceState = originalReplaceState
       window.removeEventListener('popstate', handleHistoryChange)

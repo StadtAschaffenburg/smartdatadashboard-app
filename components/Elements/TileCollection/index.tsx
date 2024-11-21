@@ -7,6 +7,34 @@ import { TileCollectionProps } from './dt'
 import Columns from '@/components/Layout/Columns'
 import { useSearchParams } from 'next/navigation'
 
+// Normalizes a string for consistent comparison
+function normalizeString(str: string): string {
+  return str
+    .toLowerCase()
+    .replace(/[-\s]/g, '') // Removes dashes and spaces
+    .normalize('NFD') // Breaks down accented characters
+    .replace(/[\u0300-\u036f]/g, '') // Removes diacritics
+}
+
+// Smart search function to check if needle exists in haystack
+function smartSearch(needle: string | null, haystack: string): boolean {
+  if (!needle) {
+    return true
+  }
+
+  const normalizedNeedle = normalizeString(needle)
+  const normalizedHaystack = normalizeString(haystack)
+
+  // Split haystack into words (space, comma, or dash as separator)
+  const haystackTerms = normalizedHaystack.split(/[\s,-]+/)
+
+  // Check if the normalized needle is found in any term or the whole haystack
+  return (
+    haystackTerms.some(term => term.includes(normalizedNeedle)) ||
+    normalizedHaystack.includes(normalizedNeedle)
+  )
+}
+
 export default function TileCollection({
   collection,
   category = null,
@@ -15,16 +43,16 @@ export default function TileCollection({
   sdg_target = null,
   search_query = null,
 }: TileCollectionProps) {
-  // get search query from the URL if not provided
+  // Get search query from the URL if not provided
   const searchParams = useSearchParams()
   search_query = search_query ?? searchParams?.get('suche') ?? null
 
-  // apply filters based on provided props
+  // Apply filters based on provided props
   if (collection.length === 0) {
     return <NoResults />
   }
 
-  const filtered_collection = collection.filter(item => {
+  const filteredCollection = collection.filter(item => {
     return (
       (category === null || item.tags.category === category) &&
       (action_dimension === null ||
@@ -32,21 +60,20 @@ export default function TileCollection({
       (action_field === null ||
         item.tags.action_field.includes(action_field)) &&
       (sdg_target === null || item.tags.sdg_target?.includes(sdg_target)) &&
-      (search_query === null ||
-        item.search.toLowerCase().includes(search_query.toLowerCase()))
+      smartSearch(search_query, item.search)
     )
   })
 
-  if (filtered_collection.length === 0) {
+  if (filteredCollection.length === 0) {
     return <NoResults />
   }
 
-  // arrange in groups
+  // Arrange in groups
   const groupedTiles = []
-  let currentLayout: any = null
-  let currentGroup: any = []
+  let currentLayout: string | null = null
+  let currentGroup: TileDataType[] = []
 
-  filtered_collection.forEach(tile => {
+  filteredCollection.forEach(tile => {
     if (tile.layout !== currentLayout) {
       if (currentGroup.length > 0) {
         groupedTiles.push({ layout: currentLayout, tiles: currentGroup })
@@ -57,13 +84,13 @@ export default function TileCollection({
     currentGroup.push(tile)
   })
 
-  // add the last group
+  // Add the last group
   if (currentGroup.length > 0) {
     groupedTiles.push({ layout: currentLayout, tiles: currentGroup })
   }
 
   return (
-    <>
+    <div id="tile-collection">
       {groupedTiles.map((group, index) => (
         <Columns columns={group.layout === 'default' ? 2 : 1} key={index}>
           {group.tiles.map((tile: TileDataType) => (
@@ -75,6 +102,6 @@ export default function TileCollection({
           ))}
         </Columns>
       ))}
-    </>
+    </div>
   )
 }

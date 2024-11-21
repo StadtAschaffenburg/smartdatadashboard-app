@@ -115,7 +115,7 @@ export default function BaseNavbar({
               <LinkComponent
                 {...button_variants}
                 {...link_home}
-                LinkClass={current_url === '' ? 'active' : ''}
+                LinkClass={current_url === undefined ? 'active' : ''}
                 onClick={handleLinkClick}
               />
               <div className="flex items-center gap-4">

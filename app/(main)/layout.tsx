@@ -17,7 +17,7 @@ export default async function Layout({
     <div className="flex min-h-screen flex-col ">
       <Top />
       <Navbar sitemap={sitemap} />
-      <div className="flex-1">
+      <div className="flex-1" id="content">
         <Providers>{children}</Providers>
       </div>
       <Footer />
