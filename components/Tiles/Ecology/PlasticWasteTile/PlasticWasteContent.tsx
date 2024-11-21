@@ -2,20 +2,19 @@
 
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
-import { IconOepnvBus, IconOepnvGast } from '@/components/Icons/Ecology'
-
+import IconPlaceholder from '@/components/Icons/Placeholder'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
-import { DataValue, PassengerContentProps } from './dt'
+import { ContentProps, DataValue } from './dt'
 
-export default function PassengerContent({ data }: PassengerContentProps) {
+export default function PlasticWasteContent({ data }: ContentProps) {
   const years = data.map(e => e.ZEIT.toString())
+
   const [yearIndex, setYearIndex] = useState(
     years.length > 0 ? years.length - 1 : 0,
   )
-
-  const [passengerValue, setPassengerValue] = useState<DataValue>({
+  const [value, setValue] = useState<DataValue>({
     current: 0,
     previous: null,
   })
@@ -24,41 +23,26 @@ export default function PassengerContent({ data }: PassengerContentProps) {
     const current = data[yearIndex]
     const previous = yearIndex > 0 ? data[yearIndex - 1] : null
 
-    setPassengerValue({
-      current: current.value / 1000000,
-      previous: previous ? previous.value / 1000000 : null,
+    setValue({
+      current: current.muellmenge * 1,
+      previous: previous ? previous.muellmenge * 1 : null,
     })
   }, [yearIndex])
+
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
         <span>
-          <IconOepnvBus className="h-20 fill-ecology md:h-32" />
+          <IconPlaceholder className="h-20 fill-ecology md:h-32" />
         </span>
-        <div className="flex flex-grow flex-col justify-between">
-          <Title as="h3" variant={'ecology'}>
-            <AnimatedNumber
-              decimals={2}
-              previous_value={passengerValue.previous}
-            >
-              {passengerValue.current}
+        <div className="flex flex-grow flex-col justify-center">
+          <Title as="h4" variant={'ecology'}>
+            <span>Müllmenge:</span>{' '}
+            <AnimatedNumber decimals={0} previous_value={value.previous}>
+              {value.current}
             </AnimatedNumber>{' '}
-            Mio
+            <span>t</span>
           </Title>
-          <div className="flex justify-end gap-1 fill-ecology pb-4">
-            <span>
-              <IconOepnvGast className="h-10 lg:h-14" />
-            </span>
-            <span>
-              <IconOepnvGast className="h-10lg:h-14" />
-            </span>
-            <span>
-              <IconOepnvGast className="h-10 lg:h-14" />
-            </span>
-            <span>
-              <IconOepnvGast className="hidden h-10 lg:block lg:h-14" />
-            </span>
-          </div>
         </div>
       </div>
       <div className="flex-1">
