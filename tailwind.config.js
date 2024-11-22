@@ -5,7 +5,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './utils/**/*.{js,ts,jsx,tsx}',
   ],
-  safelist: ['min-h-24', 'lg:max-w-80', 'min-w-80'],
+  safelist: [],
   theme: {
     screens: {
       xs: '540px',

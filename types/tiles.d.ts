@@ -6,6 +6,15 @@ export type TileTypePrefix = 'ecology' | 'society' | 'economy'
 
 export type TileType = `${TileTypePrefix}-${string}`
 
+export type TileStringType = {
+  [key: string]: string
+}
+
+export type TileDatapointType = {
+  id: string
+  val: number
+}
+
 export interface TilePayloadType {
   tile_id: string
   subtitle: string | null
@@ -16,8 +25,8 @@ export interface TilePayloadType {
   name: string | null
   retrieval: string | null
   source: string | null
-  strings: string[] | null
-  datapoints: any[] | null
+  strings: TileStringType[] | null
+  datapoints: TileDatapointType[] | null
   layout: string | null
   tags: {
     category: CategoryType

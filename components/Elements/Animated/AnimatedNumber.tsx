@@ -24,7 +24,7 @@ export default function AnimatedNumber({
   const ref = useRef<HTMLSpanElement>(null) // ref to the span element
 
   const springProps = useSpring({
-    val: inView ? children : 0, // animate only if in view
+    val: inView ? children * 1 : 0, // animate only if in view, make sure to convert children to number
     from: { val: 0 },
     config: { tension: 170, friction: 26 },
   })

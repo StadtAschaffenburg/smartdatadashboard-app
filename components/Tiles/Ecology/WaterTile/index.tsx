@@ -1,18 +1,14 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import Content from './WaterContent'
-import { InputDataType } from './dt'
-import { getSourceByName } from '@/utils/payload'
+import Content from '@/components/Tiles/Partials/IconValues'
+import IconPlaceholder from '@/components/Icons/Placeholder'
 
 export default function Tile({ type, tile_payload }: TileProps) {
-  const InputData: InputDataType[] = getSourceByName(
-    tile_payload,
-    'wasserverbrauch.csv',
-  )
-
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
-      <Content data={InputData}></Content>
+      <Content tile_payload={tile_payload}>
+        <IconPlaceholder className="h-20 fill-ecology md:h-32" />
+      </Content>
     </BaseTile>
   )
 }

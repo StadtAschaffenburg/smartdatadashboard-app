@@ -1,8 +1,8 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import PVAnlagenTitle from './PVAnlagenTitle'
 import PVAnlagenContent from './PVAnlagenContent'
 import { getDataPoint } from '@/utils/payload'
+import AnimatedTitle from '@/components/Tiles/Partials/AnimatedTitle'
 
 export default function Tile({ type, tile_payload }: TileProps) {
   const count: number = getDataPoint(tile_payload, 'anzahl')
@@ -12,7 +12,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
     <BaseTile
       embedId={type}
       tile_payload={tile_payload}
-      title={<PVAnlagenTitle count={count} />}
+      title={<AnimatedTitle count={count} title={tile_payload.title ?? ''} />}
     >
       <PVAnlagenContent capacity={capacity} />
     </BaseTile>

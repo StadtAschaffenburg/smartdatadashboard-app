@@ -14,8 +14,10 @@ export default function NoResults() {
             Keine Ergebnisse gefunden
           </Title>
           <Text as="md">
-            <p>Es wurden keine passenden Kacheln gefunden.</p>
-            <p>Versuchen Sie es gegebenenfalls mit anderen Suchbegriffen.</p>
+            <p>
+              Es wurden keine Inhalte gefunden, die mit den gewählten Filtern
+              bzw. dem Suchbegriff übereinstimmen.
+            </p>
           </Text>
         </div>
       </Container>
