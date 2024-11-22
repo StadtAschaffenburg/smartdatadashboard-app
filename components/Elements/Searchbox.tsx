@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Container from '@/components/Layout/Container'
+import { scrollToElement } from '@/utils/scroll'
 
 function SearchComponent() {
   const [is_open, setIsOpen] = useState(false)
@@ -17,6 +18,8 @@ function SearchComponent() {
     if (search_query) {
       setSearchTerm(search_query)
       setIsOpen(true)
+
+      scrollToElement('tile-collection', -100)
     }
   }, [search_query])
 
@@ -57,6 +60,8 @@ function SearchComponent() {
     } else if (search_term.length === 0) {
       updateQueryString('suche', null)
     }
+
+    scrollToElement('tile-collection', -100)
   }
 
   const clearSearch = () => {

@@ -38,3 +38,5 @@ export const ActionFieldsIconMap = {
   'wetter-und-klima': IconPlaceholder,
   wissenschaft: IconPlaceholder,
 }
+
+export type TileVariantsType = DimensionMappingType & 'primary'

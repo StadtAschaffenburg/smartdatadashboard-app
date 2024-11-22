@@ -6,3 +6,8 @@ export type PassengerDataType = {
 export type PassengerContentProps = {
   data: PassengerDataType[]
 }
+
+export interface DataValue {
+  current: number
+  previous: number | null
+}

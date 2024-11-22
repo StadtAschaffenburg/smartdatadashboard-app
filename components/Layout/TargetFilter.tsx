@@ -4,6 +4,7 @@ import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
 import { TargetType } from '@/types/targetMapping'
 import { findPage } from '@/utils/content'
 import React, { useEffect, useState } from 'react'
+import { scrollToElement } from '@/utils/scroll'
 
 export default function TargetFilter() {
   const [sdg_target, setSdgTarget] = useState<string | null>(null)
@@ -22,6 +23,9 @@ export default function TargetFilter() {
     const new_url = `/nachhaltigkeitsziele/${sdg_target}`
     setSdgTarget(sdg_target)
     window.history.pushState(null, '', new_url)
+    if (sdg_target) {
+      scrollToElement('tile-collection', -100)
+    }
   }
 
   // get the links

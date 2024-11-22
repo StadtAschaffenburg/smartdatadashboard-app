@@ -16,6 +16,7 @@ import { getVariantClass } from '@/utils/variants/ActionDimensionLink'
 import { ActionFieldsIconMap } from '@/types/dimensionMapping'
 import { useEffect, useState } from 'react'
 import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
+import { scrollToElement } from '@/utils/scroll'
 
 function getFieldIcon(field: ActionFieldsType) {
   return ActionFieldsIconMap[field]
@@ -96,6 +97,7 @@ export default function DimensionFilter() {
     setActionDimension(dimension as ActionDimensionsType)
     setActionField(field ? (field as ActionFieldsType) : null)
     window.history.pushState(null, '', new_url)
+    scrollToElement()
   }
 
   return (
