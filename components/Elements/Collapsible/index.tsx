@@ -8,6 +8,7 @@ type CollapsibleProps = {
   trigger?: React.ReactElement
   children: React.ReactElement
   isOpen?: boolean
+  // @ts-ignore
   onOpenChange?: (open: boolean) => void
 }
 

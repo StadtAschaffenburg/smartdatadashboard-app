@@ -1,6 +1,6 @@
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import { cva, cx, VariantProps } from 'class-variance-authority'
+import { cva, cx } from 'class-variance-authority'
 import { ForwardRefExoticComponent, SVGProps } from 'react'
 import { BaseTile, EmbedTileProps } from './BaseTile'
 import Markdown from '@/components/Elements/Markdown'
@@ -12,6 +12,7 @@ import {
 } from '@/utils/variants/TextVariants'
 import { TilePayloadType } from '@/types/tiles'
 import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
+import { getVariantType, TileVariantTypes } from '@/utils/payload'
 
 const iconTileTitleStyle = cva('', {
   variants: TextVariants,
@@ -22,9 +23,9 @@ export type DataSourceProps = {
   dataRetrieval?: string
 }
 
-export type IconTileProps = VariantProps<typeof iconTileTitleStyle> &
-  DataSourceProps &
+export type IconTileProps = DataSourceProps &
   EmbedTileProps & {
+    variant?: TileVariantTypes
     children?: React.ReactElement | React.ReactElement[]
     title?: string | React.ReactElement
     subtitle?: string | React.ReactElement
@@ -53,14 +54,16 @@ export default function IconTile({
   embedId,
   tile_payload,
 }: IconTileProps) {
-  // if category "ab_live" is set, use live tile variant, else use action_dimension
-  if (tile_payload?.tags?.category === 'ab_live') {
-    variant = 'live'
-  } else if (!variant && tile_payload?.tags?.action_dimension) {
-    variant = tile_payload.tags.action_dimension
+  if (!tile_payload) {
+    return <></>
   }
+
   // if live (live-tag) is not set, use tile_payload.live
   live = live ?? tile_payload?.live
+
+  if (!variant && !live) {
+    variant = getVariantType(tile_payload)
+  }
 
   const Icon =
     icon ||
@@ -98,7 +101,7 @@ export default function IconTile({
               className={cx('mb-4 min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
-              {tile_payload?.title ?? title ?? '...'}
+              {title ?? tile_payload?.title ?? '...'}
             </Title>
             {(tile_payload?.subtitle || subtitle) && (
               <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
