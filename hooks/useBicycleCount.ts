@@ -9,7 +9,7 @@ const getBicycleData = async () => {
     const payload = await getLiveData(`ecocounter?step=day&limit=${limit}`)
     return payload !== null ? payload : false
   } catch (error) {
-    return false;
+    return false
   }
 }
 
@@ -43,18 +43,22 @@ export function useBicycleCount(timestamp: Date) {
   const [totalMin, setTotalMin] = useState(0)
   const [totalMax, setTotalMax] = useState(0)
 
-  const isFetching = useRef(false);
+  const isFetching = useRef(false)
 
   useEffect(() => {
-    if (isFetching.current) { return };
-    isFetching.current = true;
-    
-    getBicycleData().then(result => {
-      setData(result);
-    }).catch(() => {
-    }).finally(() => {
-      isFetching.current = false;
-    });
+    if (isFetching.current) {
+      return
+    }
+    isFetching.current = true
+
+    getBicycleData()
+      .then(result => {
+        setData(result)
+      })
+      .catch(() => {})
+      .finally(() => {
+        isFetching.current = false
+      })
   }, [])
 
   useEffect(() => {
@@ -97,6 +101,6 @@ export function useBicycleCount(timestamp: Date) {
     min: totalMin,
     max: totalMax,
     data: filteredData,
-    stationCount: 2,
+    stationCount: 4,
   }
 }

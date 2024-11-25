@@ -60,10 +60,7 @@ export default function IconTile({
 
   // if live (live-tag) is not set, use tile_payload.live
   live = live ?? tile_payload?.live
-
-  if (!variant && !live) {
-    variant = getVariantType(tile_payload)
-  }
+  variant = variant ?? getVariantType(tile_payload)
 
   const Icon =
     icon ||

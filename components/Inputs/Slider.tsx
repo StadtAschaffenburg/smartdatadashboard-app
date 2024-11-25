@@ -8,7 +8,7 @@ import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
 
 export type SliderProps = SliderPrimitive.SliderProps &
   VariantProps<typeof BackgroundStyle> & {
-    labels?: string[]
+    labels?: string[] | number[]
     firstValueMobile?: number
     className?: string
   }

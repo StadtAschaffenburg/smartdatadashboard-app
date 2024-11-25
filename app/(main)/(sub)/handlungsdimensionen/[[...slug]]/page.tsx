@@ -13,7 +13,6 @@ export default async function Handlungsdimensionen() {
       <DimensionFilter />
       <Container>
         <TileCollectionView
-          category={'default'}
           collection={collection}
           structure={'action_dimension/action_field'}
         />

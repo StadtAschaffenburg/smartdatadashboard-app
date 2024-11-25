@@ -1,19 +1,16 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import TileContent from './TileContent'
-import { DataType } from './dt'
-import { getSourceByName } from '@/utils/payload'
-import { getAllStrings } from '@/utils/payload'
+import TileContent from '@/components/Tiles/Partials/CompareIconValues'
+import IconPlaceholder from '@/components/Icons/Placeholder'
 
 export default function Tile({ type, tile_payload }: TileProps) {
-  const Data: DataType[] = getSourceByName(
-    tile_payload,
-    'geburten_und_sterbefaelle.csv',
-  )
-
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
-      <TileContent data={Data} {...getAllStrings(tile_payload)} />
+      <TileContent
+        iconLeft={<IconPlaceholder />}
+        iconRight={<IconPlaceholder />}
+        tile_payload={tile_payload}
+      />
     </BaseTile>
   )
 }

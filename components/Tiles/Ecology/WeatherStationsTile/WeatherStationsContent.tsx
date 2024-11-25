@@ -1,14 +1,61 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Entry from './WeatherStationsEntry'
 import { Spinner } from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
-import CityMap from '@/assets/images/map.png'
+import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
+
+const ZOOM_LEVEL = 4
+
+const map_dimensions = {
+  lat_start: 50.017128,
+  lat_end: 49.932586,
+  long_start: 9.03235,
+  long_end: 9.245222,
+}
+
+function getLatitude(lat: number) {
+  return (
+    ((lat - map_dimensions.lat_start) /
+      (map_dimensions.lat_end - map_dimensions.lat_start)) *
+    100
+  )
+}
+
+function getLongitude(lng: number) {
+  return (
+    ((lng - map_dimensions.long_start) /
+      (map_dimensions.long_end - map_dimensions.long_start)) *
+    100
+  )
+}
+
+function getMapCenter(stations: StationsResult[]) {
+  const latitudes = stations.map(station => station.position.lat)
+  const longitudes = stations.map(station => station.position.lng)
+
+  const center_lat = (Math.max(...latitudes) + Math.min(...latitudes)) / 2
+  const center_lng = (Math.max(...longitudes) + Math.min(...longitudes)) / 2
+
+  return { center_lat, center_lng }
+}
+
+function getMapTransform(stations: StationsResult[], zoomLevel: number) {
+  const { center_lat, center_lng } = getMapCenter(stations)
+  const x_percent = getLongitude(center_lng)
+  const y_percent = getLatitude(center_lat)
+
+  return {
+    scale: zoomLevel,
+    translateX: `${50 - x_percent}%`,
+    translateY: `${50 - y_percent}%`,
+  }
+}
 
 export default function WeatherStationsContent() {
   const weatherstations = useApi(
@@ -16,8 +63,35 @@ export default function WeatherStationsContent() {
     10,
   ) as StationsResult[]
 
-  const [selectedIndex, setSelectedIndex] = useState<number>(0)
-  const [autoRotate, setAutoRotate] = useState<boolean>(true)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [autoRotate, setAutoRotate] = useState(true)
+  const mapContainerRef = useRef(null)
+  const [zoomLevel, setZoomLevel] = useState(1)
+
+  useEffect(() => {
+    if (
+      !weatherstations ||
+      weatherstations.length === 0 ||
+      !mapContainerRef.current
+    ) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setZoomLevel(ZOOM_LEVEL)
+        } else {
+          setZoomLevel(1)
+        }
+      },
+      { threshold: 0.1 },
+    )
+
+    observer.observe(mapContainerRef.current)
+
+    return () => observer.disconnect()
+  }, [weatherstations])
 
   useEffect(() => {
     if (weatherstations.length > 0 && autoRotate) {
@@ -29,65 +103,63 @@ export default function WeatherStationsContent() {
     }
   }, [weatherstations, autoRotate])
 
-  if (!weatherstations || !weatherstations.length) {
-    return <Spinner />
-  }
-
   const selectedStation = weatherstations[selectedIndex]
-
-  function getLatitute(latitute: number) {
-    const lat_start = 100
-    const lat_end = 200
-    return ((latitute - lat_start) / (lat_end - lat_start)) * 100
-  }
-
-  function getLongitute(longitute: number) {
-    const long_start = 100
-    const long_end = 200
-    return ((longitute - long_start) / (long_end - long_start)) * 100
-  }
+  const mapTransform = getMapTransform(weatherstations, zoomLevel)
 
   function handleStationClick(index: number) {
     setSelectedIndex(index)
-    setAutoRotate(false) // Stop automatic rotation when a station is manually selected
+    setAutoRotate(false)
+  }
+
+  if (!weatherstations || weatherstations.length === 0) {
+    return <Spinner />
   }
 
   return (
     <TileSplitView>
       <TileSplitView.Left>
-        <div className="relative overflow-hidden rounded">
-          <Image
-            alt="Karte der Stadt Aschaffenburg"
-            className="w-full"
-            src={CityMap}
-          />
+        <div className="relative overflow-hidden rounded" ref={mapContainerRef}>
+          <div
+            className="relative transition-all duration-1000"
+            style={{
+              transform: `scale(${mapTransform.scale}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
+              transformOrigin: 'center',
+            }}
+          >
+            <Image
+              alt="Karte der Stadt Aschaffenburg"
+              className="w-full"
+              loading="lazy"
+              src={CityMap}
+            />
 
-          <div className="absolute bottom-0 left-0 right-0 top-0 border">
-            {weatherstations.map(({ label, position }, index) => (
-              <div
-                className="absolute -translate-x-4 -translate-y-4 cursor-pointer"
-                key={label}
-                onClick={() => handleStationClick(index)}
-                style={{
-                  top: getLongitute(position.lng) + '%',
-                  left: getLatitute(position.lat) + '%',
-                }}
-              >
+            <div className="absolute bottom-0 left-0 right-0 top-0">
+              {weatherstations.map(({ label, position }, index) => (
                 <div
-                  className={`h-8 w-8 transition-all hover:scale-110 ${
-                    selectedIndex === index ? 'scale-110' : ''
-                  }`}
+                  className="absolute -translate-x-4 -translate-y-4 scale-50 cursor-pointer"
+                  key={label}
+                  onClick={() => handleStationClick(index)}
+                  style={{
+                    left: getLongitude(position.lng) + '%',
+                    top: getLatitude(position.lat) + '%',
+                  }}
                 >
-                  <PulsatingCircle
-                    className={`h-full w-full fill-primary stroke-primary ${
-                      selectedIndex === index
-                        ? 'fill-secondary stroke-secondary'
-                        : 'fill-primary stroke-primary'
+                  <div
+                    className={`h-8 w-8 transition-all hover:scale-110 ${
+                      selectedIndex === index ? 'scale-110' : ''
                     }`}
-                  />
+                  >
+                    <PulsatingCircle
+                      className={`h-full w-full fill-primary stroke-primary ${
+                        selectedIndex === index
+                          ? 'fill-secondary stroke-secondary'
+                          : 'fill-primary stroke-primary'
+                      }`}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </TileSplitView.Left>

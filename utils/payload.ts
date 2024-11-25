@@ -42,18 +42,12 @@ export function getAllStrings(tile_payload: TilePayloadType): {
   )
 }
 
-export type TileVariantTypes = 'primary' | 'ecology' | 'economy' | 'society'
+export type TileVariantTypes = 'ecology' | 'economy' | 'society'
 
 export function getVariantType(
   tile_payload: TilePayloadType,
 ): TileVariantTypes {
-  // if category "ab_live" is set, use live tile variant, else use action_dimension
-  if (tile_payload?.tags?.category === 'ab_live') {
-    return 'primary'
-  } else if (tile_payload?.tags?.action_dimension) {
-    return tile_payload.tags.action_dimension
-  }
-  return 'primary'
+  return tile_payload.tags.action_dimension
 }
 
 export function getAllSources(
@@ -64,9 +58,8 @@ export function getAllSources(
 
   if (get_first) {
     return sources.length > 0 ? sources[0].content : null
-  } 
-    return sources
-  
+  }
+  return sources
 }
 
 export function getSourceByName(

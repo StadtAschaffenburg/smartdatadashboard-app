@@ -9,7 +9,7 @@ import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
 export type SliderProps = SliderPrimitive.SliderProps &
   VariantProps<typeof BackgroundStyle> & {
     firstValueMobile?: number
-    labels?: string[]
+    labels?: string[] | number[]
   }
 
 export default function MobileSlider({

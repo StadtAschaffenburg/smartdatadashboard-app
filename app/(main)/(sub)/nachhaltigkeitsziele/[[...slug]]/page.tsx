@@ -17,11 +17,7 @@ export default async function SdgZiele() {
         </Container>
       </Background>
       <Container>
-        <TileCollectionView
-          category={'default'}
-          collection={collection}
-          structure={'sdg_target'}
-        />
+        <TileCollectionView collection={collection} structure={'sdg_target'} />
       </Container>
     </>
   )

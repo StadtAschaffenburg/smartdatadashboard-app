@@ -21,12 +21,16 @@ export default function AnimatedNumber({
   previous_value,
 }: AnimatedNumberProps) {
   const [inView, setInView] = useState(false) // control whether the number is in view
+  const [lastValue, setLastValue] = useState<number | null>(null)
   const ref = useRef<HTMLSpanElement>(null) // ref to the span element
 
   const springProps = useSpring({
     val: inView ? children * 1 : 0, // animate only if in view, make sure to convert children to number
     from: { val: 0 },
     config: { tension: 170, friction: 26 },
+    onChange: ({ value }) => {
+      setLastValue(value.val) // Aktualisiert den letzten Wert während der Animation
+    },
   })
 
   useEffect(() => {
@@ -51,19 +55,24 @@ export default function AnimatedNumber({
   }, [])
 
   return (
-    <span className="whitespace-nowrap">
+    <span
+      className={cx(TextStyle({ variant }), className, 'whitespace-nowrap')}
+    >
       {previous_value !== undefined && (
         <Indicator current={children} previous={previous_value} />
       )}
-      <animated.span
-        className={cx(TextStyle({ variant }), className)}
-        ref={ref}
-      >
-        {springProps.val.to(val =>
-          new Intl.NumberFormat('de-DE', {
-            maximumFractionDigits: decimals || 0,
-          }).format(val),
-        )}
+      <animated.span ref={ref}>
+        {lastValue === children
+          ? new Intl.NumberFormat('de-DE', {
+              minimumFractionDigits: decimals || 0,
+              maximumFractionDigits: decimals || 0,
+            }).format(children)
+          : springProps.val.to(val => {
+              return new Intl.NumberFormat('de-DE', {
+                minimumFractionDigits: decimals || 0,
+                maximumFractionDigits: decimals || 0,
+              }).format(val)
+            })}
       </animated.span>
     </span>
   )

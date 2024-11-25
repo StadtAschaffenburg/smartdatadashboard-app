@@ -30,8 +30,12 @@ export default function EnergyConsumptionContent({
   waermeDataInput,
   stromDataInput,
 }: EnergyConsumptionContentProps) {
-  const waermeData: DataType[] = convertData(waermeDataInput)
-  const stromData: DataType[] = convertData(stromDataInput)
+  const waermeData: DataType[] = waermeDataInput
+    ? convertData(waermeDataInput)
+    : []
+  const stromData: DataType[] = stromDataInput
+    ? convertData(stromDataInput)
+    : []
   const years = setYears(stromData)
 
   const [mode, setMode] = useState<'strom' | 'waerme'>('strom')

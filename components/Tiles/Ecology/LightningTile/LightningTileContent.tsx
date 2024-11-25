@@ -22,6 +22,7 @@ const monthNames = [
 
 function aggregateByMonth(data: DataType): MonthlyData {
   return data.reduce((acc, { ts, value }) => {
+    // @ts-ignore
     const [day, month, year] = ts.split('.')
     const date = `${month}/${year}`
     const month_key = `${monthNames[parseInt(month, 10) - 1]}`
