@@ -10,3 +10,9 @@ export const sanitizeValue = (value: string | number): number => {
   }
   return parseFloat(value.toString()) || 0
 }
+
+export const sanitizeLocalizedValue = (value: string | number): number => {
+  const valueAsString = value.toString()
+  const sanitized = valueAsString.replace(/\./g, '').replace(/,/g, '.')
+  return parseFloat(sanitized) || 0
+}

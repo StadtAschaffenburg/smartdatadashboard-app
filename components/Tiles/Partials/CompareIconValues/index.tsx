@@ -15,21 +15,21 @@ import { getRow, getYears, InputDataType } from '@/utils/sources'
 
 export default function CompareIconValues({
   tile_payload,
-  key_string,
+  keys,
   iconLeft,
   iconRight,
 }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
-  const keys = (
-    key_string ? key_string : getString(tile_payload, 'schluessel')
-  ).split(';')
   const variant = getVariantType(tile_payload)
+
+  if (!keys) {
+    keys = tile_payload.table_keys ?? []
+  }
 
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(data.length - 1)
   const values = getRow(data, yearIndex)
 
-  // Sicherstellen, dass Zugriff funktioniert
   const leftCount = values[keys[0]]?.current ?? 0
   const rightCount = values[keys[1]]?.current ?? 0
 

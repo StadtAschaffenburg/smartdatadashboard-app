@@ -6,6 +6,7 @@ export type InputDataType = {
 }
 
 export type ContentProps = {
+  keys?: string[]
   tile_payload: TilePayloadType
   children?: React.ReactElement | React.ReactElement[]
 }

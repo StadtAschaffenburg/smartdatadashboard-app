@@ -10,17 +10,33 @@ import { getAllSources } from '@/utils/payload'
 import { getDataPoint, getString, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
 
-export default function IconValues({ children, tile_payload }: ContentProps) {
+export default function IconValues({
+  children,
+  keys,
+  tile_payload,
+}: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const variant = getVariantType(tile_payload)
   const modifier = getDataPoint(tile_payload, 'modifier', 1)
   const unit: string = getString(tile_payload, 'einheit')
+
+  if (!keys) {
+    keys = tile_payload.table_keys ?? []
+  }
 
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(
     years.length > 0 ? years.length - 1 : 0,
   )
   const values = getRow(data, yearIndex, modifier)
+
+  if (keys) {
+    Object.keys(values).forEach(key => {
+      if (keys && !keys.includes(key)) {
+        delete values[key]
+      }
+    })
+  }
 
   return (
     <div>

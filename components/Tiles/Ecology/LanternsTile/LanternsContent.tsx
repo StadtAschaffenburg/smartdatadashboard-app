@@ -1,8 +1,13 @@
-import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
+import DynamicText from '@/components/Elements/DynamicText'
 import { IconLanterns } from '@/components/Icons/Ecology'
+import { TilePayloadType } from '@/types/tiles'
 
-export default function LanternsContent({ count }: { count: number }) {
+export default function LanternsContent({
+  tile_payload,
+}: {
+  tile_payload: TilePayloadType
+}) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
@@ -10,15 +15,11 @@ export default function LanternsContent({ count }: { count: number }) {
           <IconLanterns className="h-20 fill-ecology md:h-32" />
         </span>
         <div className="flex flex-grow flex-col justify-between">
-          <Title as={'subtitle'}>
-            in Aschaffenburg sind bereits mit modernster LED-Technik
-            ausgestattet. Die Stadt Aschaffenburg saniert nach und nach all rund{' '}
-            <span className="text-energy">
-              <AnimatedNumber>{count ?? 0}</AnimatedNumber> Straßenlaternen
-            </span>{' '}
-            im Stadtgebiet mit LED-Technik, um Energie zu sparen und den
-            CO2-Ausstoß zu mindern
-          </Title>
+          <Text as={'subtitle'}>
+            <DynamicText tile_payload={tile_payload}>
+              {tile_payload?.legend ?? ''}
+            </DynamicText>
+          </Text>
         </div>
       </div>
     </div>

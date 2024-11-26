@@ -83,14 +83,6 @@ export default function IconTile({
       variant={variant}
     >
       <div className="n:px-2.5">
-        <div className="absolute right-16 top-16 hidden lg:block">
-          <Icon
-            className={cx(
-              'h-[29px] w-auto flex-shrink-0 opacity-40 md:h-[50px]',
-              iconTileTitleStyle({ variant }),
-            )}
-          />
-        </div>
         <div className="relative flex items-center justify-between">
           <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
             <Title

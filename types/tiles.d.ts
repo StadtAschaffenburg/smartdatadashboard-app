@@ -27,6 +27,7 @@ export interface TilePayloadType {
   source: string | null
   strings: TileStringType[] | null
   datapoints: TileDatapointType[] | null
+  table_keys: string[] | null
   layout: string | null
   tags: {
     category: CategoryType

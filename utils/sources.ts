@@ -1,3 +1,5 @@
+import { sanitizeLocalizedValue } from '@/utils/sanitize'
+
 export interface DataValue {
   current: number
   previous: number | null
@@ -35,11 +37,11 @@ export function getRow(
     newValues[key] = {
       current:
         current && current[key] !== undefined
-          ? (current[key] ?? 0) * modifier
+          ? sanitizeLocalizedValue(current[key] ?? 0) * modifier
           : 0,
       previous:
         previous && previous[key] !== undefined
-          ? (previous[key] ?? 0) * modifier
+          ? sanitizeLocalizedValue(previous[key] ?? 0) * modifier
           : null,
     }
   })

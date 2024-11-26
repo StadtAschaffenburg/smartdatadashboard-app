@@ -1,8 +1,13 @@
-import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import Title from '@/components/Elements/Title'
 import { IconPv } from '@/components/Icons/Ecology'
+import { TilePayloadType } from '@/types/tiles'
+import DynamicText from '@/components/Elements/DynamicText'
+import Text from '@/components/Elements/Text'
 
-export default function PVAnlagenContent({ capacity }: { capacity: number }) {
+export default function PVAnlagenContent({
+  tile_payload,
+}: {
+  tile_payload: TilePayloadType
+}) {
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
@@ -10,13 +15,11 @@ export default function PVAnlagenContent({ capacity }: { capacity: number }) {
           <IconPv className="h-20 fill-ecology md:h-32" />
         </span>
         <div className="flex flex-grow flex-col justify-between">
-          <Title as={'subtitle'}>
-            sind im Moment auf Gebäuden der Stadtverwaltung installiert. Das
-            entspricht einer Leistung von{' '}
-            <span className="text-energy">
-              <AnimatedNumber decimals={0}>{capacity ?? 0}</AnimatedNumber> kWp.
-            </span>{' '}
-          </Title>
+          <Text as={'subtitle'}>
+            <DynamicText tile_payload={tile_payload}>
+              {tile_payload?.legend ?? ''}
+            </DynamicText>
+          </Text>
         </div>
       </div>
     </div>

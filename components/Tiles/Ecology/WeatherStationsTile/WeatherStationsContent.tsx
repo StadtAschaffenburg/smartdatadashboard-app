@@ -131,6 +131,7 @@ export default function WeatherStationsContent() {
               className="w-full"
               loading="lazy"
               src={CityMap}
+              width={2560}
             />
 
             <div className="absolute bottom-0 left-0 right-0 top-0">

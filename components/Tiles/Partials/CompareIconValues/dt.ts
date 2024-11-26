@@ -2,7 +2,7 @@ import { TilePayloadType } from '@/types/tiles'
 
 export type ContentProps = {
   tile_payload: TilePayloadType
-  key_string?: string
+  keys?: string[]
   iconLeft: React.ReactElement
   iconRight: React.ReactElement
 }

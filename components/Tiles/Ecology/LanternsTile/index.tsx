@@ -2,21 +2,21 @@
 
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import AnimatedTitle from '@/components/Tiles/Partials/AnimatedTitle'
+import DynamicText from '@/components/Elements/DynamicText'
 import LanternsContent from './LanternsContent'
-import { getDataPoint } from '@/utils/payload'
 
 export default function Tile({ type, tile_payload }: TileProps) {
-  const aktuell: number = getDataPoint(tile_payload, 'aktuell')
-  const total: number = getDataPoint(tile_payload, 'total')
-
   return (
     <BaseTile
       embedId={type}
       tile_payload={tile_payload}
-      title={<AnimatedTitle count={aktuell} title={tile_payload.title ?? ''} />}
+      title={
+        <DynamicText tile_payload={tile_payload}>
+          {tile_payload.title ?? ''}
+        </DynamicText>
+      }
     >
-      <LanternsContent count={total} />
+      <LanternsContent tile_payload={tile_payload} />
     </BaseTile>
   )
 }
