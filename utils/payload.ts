@@ -56,8 +56,8 @@ export function getAllSources(
 ): any | null {
   const sources = tile_payload.sources
 
-  if (get_first) {
-    return sources.length > 0 ? sources[0].content : null
+  if (get_first && sources && sources.length > 0) {
+    return sources[0].content
   }
   return sources
 }
@@ -67,6 +67,6 @@ export function getSourceByName(
   name: string,
   fallback: any = null,
 ): any | null {
-  const item = tile_payload.sources.find(entry => entry.name === name)
+  const item = tile_payload?.sources?.find(entry => entry.name === name)
   return item ? item.content : fallback
 }

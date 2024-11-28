@@ -1,7 +1,7 @@
 'use client'
 
 import PollenEntry from './PollenEntry'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 import { PollenResult } from './dt'
 

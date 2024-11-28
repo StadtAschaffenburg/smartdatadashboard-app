@@ -25,6 +25,7 @@ import PlasticWasteTile from '@/components/Tiles/Ecology/PlasticWasteTile'
 import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbefaelleTile'
 import KulturTile from '@/components/Tiles/Society/KulturTile'
 import BevoelkerungTile from '@/components/Tiles/Society/BevoelkerungTile'
+import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
 // economy
 import OnlinediensteTile from '@/components/Tiles/Economy/OnlinediensteTile'
@@ -99,6 +100,8 @@ export default function TileFactory({ type, tile_data }: TileFactoryProps) {
       return <KulturTile tile_payload={tile_data} type={type} />
     case 'society-bevoelkerung':
       return <BevoelkerungTile tile_payload={tile_data} type={type} />
+    case 'society-stadtteil':
+      return <StadtteilTile tile_payload={tile_data} type={type} />
 
     // ---- ECONOMY ----
     case 'economy-onlinedienste':

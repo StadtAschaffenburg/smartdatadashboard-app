@@ -3,16 +3,21 @@ import BaseTile from '@/components/Tiles/Base/IconTile'
 import PassengerContent from './PassengerContent'
 import { PassengerDataType } from './dt'
 import { getSourceByName } from '@/utils/payload'
+import Spinner from '@/components/Elements/Spinner'
 
 export default function Tile({ type, tile_payload }: TileProps) {
-  const PassengerData: PassengerDataType[] = getSourceByName(
+  const passenger_data = getSourceByName(
     tile_payload,
     'passenger_data.csv',
-  )
+  ) as PassengerDataType[]
 
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
-      <PassengerContent data={PassengerData}></PassengerContent>
+      {passenger_data ? (
+        <PassengerContent data={passenger_data} />
+      ) : (
+        <Spinner />
+      )}
     </BaseTile>
   )
 }

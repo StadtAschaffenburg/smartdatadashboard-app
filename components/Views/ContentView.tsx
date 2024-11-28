@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
 import getPageData from '@/lib/api/getPageData'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import Container from '@/components/Layout/Container'
 
 interface Props {

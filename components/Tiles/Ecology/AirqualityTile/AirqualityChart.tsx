@@ -9,7 +9,7 @@ import {
   IconLuftqualitaetPositiv,
 } from '@/components/Icons/Ecology'
 import Phenomenon from '../WeatherTile/Phenomenon'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 import { AirQualityReading } from './dt'
 

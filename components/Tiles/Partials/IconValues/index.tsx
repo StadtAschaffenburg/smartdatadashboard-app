@@ -9,6 +9,7 @@ import { ContentProps } from './dt'
 import { getAllSources } from '@/utils/payload'
 import { getDataPoint, getString, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
+import Spinner from '@/components/Elements/Spinner'
 
 export default function IconValues({
   children,
@@ -20,23 +21,21 @@ export default function IconValues({
   const modifier = getDataPoint(tile_payload, 'modifier', 1)
   const unit: string = getString(tile_payload, 'einheit')
 
-  if (!keys) {
-    keys = tile_payload.table_keys ?? []
-  }
-
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(
     years.length > 0 ? years.length - 1 : 0,
   )
-  const values = getRow(data, yearIndex, modifier)
 
-  if (keys) {
-    Object.keys(values).forEach(key => {
-      if (keys && !keys.includes(key)) {
-        delete values[key]
-      }
-    })
+  if (!data) {
+    return <Spinner />
   }
+
+  const values = getRow(
+    data,
+    yearIndex,
+    tile_payload.table_keys ?? [],
+    modifier,
+  )
 
   return (
     <div>

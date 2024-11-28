@@ -18,3 +18,4 @@ export { default as MsKlimadashboardIconsUnterseiteEnergieV1 } from './MsKlimada
 export { default as MsKlimadashboardIconsUnterseiteGebaude } from './MsKlimadashboardIconsUnterseiteGebaude'
 export { default as MsKlimadashboardIconsUnterseiteKlima } from './MsKlimadashboardIconsUnterseiteKlima'
 export { default as MsKlimadashboardIconsUnterseiteMobil } from './MsKlimadashboardIconsUnterseiteMobil'
+export { default as StadtAbMap } from './StadtAbMap'

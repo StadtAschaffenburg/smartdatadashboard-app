@@ -30,7 +30,11 @@ export type SpinnerProps = VariantProps<typeof spinner> & {
  * @param SpinnerProps size and variant of the spinner
  * @returns Animated spinner
  */
-export function Spinner({ size, variant, className = '' }: SpinnerProps) {
+export default function Spinner({
+  size,
+  variant,
+  className = '',
+}: SpinnerProps) {
   return (
     <div className="flex min-h-32 w-full items-center justify-center">
       <svg

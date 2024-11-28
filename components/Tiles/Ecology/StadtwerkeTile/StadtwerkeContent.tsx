@@ -11,7 +11,7 @@ import {
   IconStadtwerkeElektro,
 } from '@/components/Icons/Ecology'
 import { ContentProps, InputData } from './dt'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
   const [combustionCount, setCombustionCount] = useState(0)

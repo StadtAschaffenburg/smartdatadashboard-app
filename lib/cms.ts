@@ -179,18 +179,15 @@ export async function fetchJSON(endpoint: string): Promise<any> {
   }
 }
 
-export async function getSourceFile(file_name: string): Promise<any> {
-  // security: sanitize file_name (no directory traversal)
-  const sanitized_file_name = path.basename(file_name)
-
-  const endpoint = getCMSEndpoint(path.join('source', sanitized_file_name))
+async function getSourceFile(file_name: string): Promise<any> {
+  const endpoint = getCMSEndpoint(path.join('source', file_name))
   const content = await fetchFile(endpoint)
 
   if (!content) {
     return false
   }
 
-  await writeFile(getSourcePath(sanitized_file_name), content)
+  await writeFile(getSourcePath(file_name), content)
 }
 
 async function fetchFile(endpoint: string): Promise<any> {
@@ -205,6 +202,7 @@ async function fetchFile(endpoint: string): Promise<any> {
 
     return content
   } catch (error) {
+    console.error('fetchFile error:', error)
     return null
   }
 }
@@ -220,10 +218,10 @@ export async function rebuildCache() {
   // rebuild content
   try {
     for (const tile of data.tiles) {
-      getContent('tile', tile.tile_id)
+      getContent('tile', tile.tile_id, false)
     }
     for (const page of data.pages) {
-      getContent('page', page.slug)
+      getContent('page', page.slug, false)
     }
     for (const source of data.sources) {
       getSourceFile(source.file_name)

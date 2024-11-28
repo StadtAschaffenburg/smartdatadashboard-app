@@ -5,7 +5,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
 import useApi from '@/hooks/useApi'
 import { DataProps, Rating } from './dt'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 
 const rating_keys: { [key: number]: Rating } = {
   0: ['Keine', 'Keine gesundheitliche Gefährdung', '#28965A'],

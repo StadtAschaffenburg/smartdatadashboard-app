@@ -8,7 +8,7 @@ import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
 import { BusContentProps, BusDataType } from './dt'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 
 export default function BusContent({ data }: BusContentProps) {
   const [combustionCount, setCombustionCount] = useState(0)

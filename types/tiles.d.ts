@@ -41,6 +41,7 @@ export interface TilePayloadType {
     name: string
     content: any
   }[]
+  search: string
 }
 
 export interface TileProps {

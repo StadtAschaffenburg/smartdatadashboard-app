@@ -1,5 +1,5 @@
 import { ReactECharts } from '@/components/Charts/ReactECharts'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import {
   BarSeriesOption,
   LineSeriesOption,

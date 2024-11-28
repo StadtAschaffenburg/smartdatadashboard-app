@@ -5,7 +5,7 @@ import {
   ButtonDefaultVariants,
   ButtonVariants,
 } from '@/utils/variants/ButtonVariants'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 
 const button = cva(
   'flex items-center justify-center border font-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-70 group transition-colors rounded',

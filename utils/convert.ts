@@ -28,3 +28,10 @@ export const convertToUnixTimestamp = (dateStr: string): number => {
   const date = new Date(year, month, 1) // Month in Date object is 0-based
   return Math.floor(date.getTime() / 1000)
 }
+
+export function getSaveId(id: string): string {
+  return id
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+}

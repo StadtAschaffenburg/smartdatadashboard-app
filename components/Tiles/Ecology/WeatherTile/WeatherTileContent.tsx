@@ -10,7 +10,7 @@ import {
   IconWeatherAtmosphaere,
   IconWeatherWindgeschw,
 } from '@/components/Icons/Weather'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 
 export default function WeatherTileContent() {

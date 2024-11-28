@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Entry from './WeatherStationsEntry'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'

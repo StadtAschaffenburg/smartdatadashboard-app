@@ -24,6 +24,7 @@ export function getYears(
 export function getRow(
   data: InputDataType[],
   yearIndex: number,
+  keys: string[] = [],
   modifier: number = 1,
 ): Record<string, DataValue> {
   const current = data[yearIndex]
@@ -45,6 +46,14 @@ export function getRow(
           : null,
     }
   })
+
+  if (keys.length > 0) {
+    Object.keys(newValues).forEach(key => {
+      if (!keys.includes(key)) {
+        delete newValues[key]
+      }
+    })
+  }
 
   return newValues
 }

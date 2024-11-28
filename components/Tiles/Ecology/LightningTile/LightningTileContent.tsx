@@ -1,7 +1,7 @@
 'use client'
 
 import useApi from '@/hooks/useApi'
-import { Spinner } from '@/components/Elements/Spinner'
+import Spinner from '@/components/Elements/Spinner'
 import { DataType, MonthlyData } from './dt'
 import LightningChart from './LightningChart'
 
