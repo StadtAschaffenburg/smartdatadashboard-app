@@ -120,9 +120,13 @@ export default function StadtteilContent({
     return <Spinner />
   }
 
-  const currentValues = destrict_map.map(d => d.value.current)
-  const minValue = Math.min(...currentValues)
-  const maxValue = Math.max(...currentValues)
+  const currentValues = destrict_map
+    .map(d => d.value.current)
+    .filter(value => typeof value === 'number' && !isNaN(value)) // Nur gültige Werte
+
+  const minValue = currentValues.length > 0 ? Math.min(...currentValues) : 0 // Fallback 0
+  const maxValue = currentValues.length > 0 ? Math.max(...currentValues) : 1 // Fallback 1
+
   const minRadius = 8
   const maxRadius = 60
 
@@ -132,11 +136,17 @@ export default function StadtteilContent({
     destrict.title = getString(tile_payload, destrict.id, destrict.id)
 
     const { current } = destrict.value
-    destrict.radius =
-      minRadius +
-      ((current - minValue) * (maxRadius - minRadius)) /
-        (maxValue - minValue || 1)
+
+    if (maxValue === minValue) {
+      destrict.radius = minRadius
+    } else {
+      destrict.radius =
+        minRadius +
+        ((current - minValue) * (maxRadius - minRadius)) / (maxValue - minValue)
+    }
   })
+
+  console.log('destrict_map', destrict_map)
 
   return (
     <>
