@@ -1,14 +1,16 @@
 import { PhenomenaType } from './dt'
 
 import {
+  IconWeatherAtmosphaere,
   IconWeatherNiederschlag,
   IconWeatherSonnig,
   IconWeatherTemperatur,
   IconWeatherWindgeschw,
   IconWeatherWolkendichte,
 } from '@/components/Icons/Weather'
+import IconPlaceholder from '@/components/Icons/Placeholder'
 
-const phenomena: PhenomenaType = {
+const Phenomena: PhenomenaType = {
   temperature: {
     title: 'Temperatur',
     unit: '°C',
@@ -58,33 +60,33 @@ const phenomena: PhenomenaType = {
   humidity: {
     title: 'Luft&shy;feuchtigkeit',
     unit: '%',
-    icon: IconWeatherSonnig,
+    icon: IconWeatherAtmosphaere,
   },
   pressure: {
     title: 'Luft&shy;druck',
     unit: 'hPa',
-    icon: IconWeatherSonnig,
+    icon: IconWeatherAtmosphaere,
   },
   stickstoffdioxid: {
     title: 'Stickstoffdioxid (NO<sub>2</sub>)',
     unit: 'μg/m³',
-    icon: IconWeatherSonnig,
+    icon: IconPlaceholder,
   },
   feinstaub_1000: {
     title: 'Feinstaub (PM<sub>10</sub>)',
     unit: 'μg/m³',
-    icon: IconWeatherSonnig,
+    icon: IconPlaceholder,
   },
   ozon: {
     title: 'Ozon (O<sub>3</sub>)',
     unit: 'μg/m³',
-    icon: IconWeatherSonnig,
+    icon: IconPlaceholder,
   },
   feinstaub_250: {
     title: 'Feinstaub (PM<sub>2.5</sub>)',
     unit: 'μg/m³',
-    icon: IconWeatherSonnig,
+    icon: IconPlaceholder,
   },
 }
 
-export default phenomena
+export default Phenomena

@@ -2,7 +2,7 @@
 
 import Title from '@/components/Elements/Title'
 import Slider from '@/components/Inputs/Slider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
 import { DataProps, Rating } from './dt'
 import Spinner from '@/components/Elements/Spinner'
@@ -35,8 +35,22 @@ export default function UVTileContent() {
   })
 
   const [dayIndex, setDayIndex] = useState<number>(0)
-  const uv_index: number = uv_data[dayIndex] as any // not proud of this
-  const [rating, advice, rating_color] = getRating(uv_index)
+  const [uv_index, setUvIndex] = useState<number>(0)
+  const [rating, setRating] = useState<string>('Unbekannt')
+  const [advice, setAdvice] = useState<string>('')
+  const [rating_color, setRatingColor] = useState<string>('')
+
+  // Dynamische Logik mit useEffect
+  useEffect(() => {
+    if (uv_data && uv_data.length > 0) {
+      const index = uv_data[dayIndex] as any // Unsicherer Typ, wie im Original
+      setUvIndex(index)
+      const [ratingText, ratingAdvice, color] = getRating(index)
+      setRating(ratingText)
+      setAdvice(ratingAdvice)
+      setRatingColor(color)
+    }
+  }, [uv_data, dayIndex]) // Abhängig von den UV-Daten und dem ausgewählten Tag
 
   if (!uv_data || !uv_data.length) {
     return <Spinner />

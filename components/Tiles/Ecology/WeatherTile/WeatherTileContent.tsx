@@ -5,7 +5,7 @@ import useWeather from '@/hooks/useWeather'
 import useLocalWeather from '@/hooks/useLocalWeather'
 import { conditionMapping, conditionMappingIcon } from '@/lib/brightsky'
 import LongTermAverageDiff from './LongTermAverageDiff'
-import Phenomenon from './Phenomenon'
+import Phenomenon from '@/components/Elements/Phenomenon'
 import {
   IconWeatherAtmosphaere,
   IconWeatherWindgeschw,
@@ -39,7 +39,7 @@ export default function WeatherTileContent() {
       {weather && (
         <div className="flex flex-col gap-4">
           <div className="flex flex-1 items-center gap-6 md:gap-2">
-            <Icon className="fill-live h-20 md:mr-12 md:h-36" />
+            <Icon className="h-20 fill-live md:mr-12 md:h-36" />
             <Title as={'h4'} className="my-4 w-3/4 md:w-1/2">
               In Aschaffenburg ist es gerade{' '}
               <span className="text-climate">
@@ -84,7 +84,7 @@ export default function WeatherTileContent() {
 
           <div className="mb-4 flex flex-row items-start md:items-center">
             <div className="w-32">
-              <IconWeatherWindgeschw className="fill-live h-10 stroke-primary text-primary md:h-10" />
+              <IconWeatherWindgeschw className="h-10 fill-live stroke-primary text-primary md:h-10" />
             </div>
             <div className="flex-1">
               <Phenomenon
@@ -111,7 +111,7 @@ export default function WeatherTileContent() {
 
           <div className="mb-4 flex flex-row items-start md:items-center">
             <div className="w-32">
-              <IconWeatherAtmosphaere className="fill-live h-10 stroke-primary text-primary md:h-20 md:pl-2" />
+              <IconWeatherAtmosphaere className="h-10 fill-live stroke-primary text-primary md:h-20 md:pl-2" />
             </div>
             <div className="flex-1">
               <Phenomenon

@@ -2,7 +2,7 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import { cx } from 'class-variance-authority'
 import useDevice from '@/hooks/useDevice'
-import phenomena from './phenomena'
+import Phenomena from './Phenomena'
 import { PhenomenonProps } from './dt'
 
 export default function Phenomenon({
@@ -14,17 +14,21 @@ export default function Phenomenon({
   hide_icon = false,
   animate = true,
 }: PhenomenonProps) {
+  const device = useDevice()
+
+  if (!Phenomena[phenomenon]) {
+    return <></>
+  }
+
   const {
-    title,
-    unit,
-    icon: phenomIcon,
-    decimals,
-    shortTitle,
-  } = phenomena[phenomenon]
+    title = '',
+    unit = '',
+    icon: phenomIcon = () => <></>,
+    decimals = 0,
+    shortTitle = '',
+  } = Phenomena[phenomenon]
 
   const valueSize: 'h1' | 'h4' = size === 'xl' ? 'h1' : 'h4'
-
-  const device = useDevice()
 
   const Icon = icon ? icon : phenomIcon
 
@@ -34,7 +38,7 @@ export default function Phenomenon({
         <Icon
           className={cx(
             size === 'md' ? 'aspect-square' : 'w-6',
-            'fill-live stroke-live h-10 md:h-14',
+            'h-10 fill-live stroke-live md:h-14',
           )}
         />
       )}

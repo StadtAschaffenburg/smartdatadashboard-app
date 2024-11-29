@@ -8,10 +8,11 @@ import {
   IconLuftqualitaetNegativ,
   IconLuftqualitaetPositiv,
 } from '@/components/Icons/Ecology'
-import Phenomenon from '../WeatherTile/Phenomenon'
+import Phenomenon from '@/components/Elements/Phenomenon'
 import Spinner from '@/components/Elements/Spinner'
 import useApi from '@/hooks/useApi'
 import { AirQualityReading } from './dt'
+import { useEffect, useState } from 'react'
 
 const qualityMapping: Record<number, string> = {
   0: 'sehr gut',
@@ -44,11 +45,17 @@ const getMaxQualityIndex = (readings: AirQualityReading[]): number | null => {
 export default function AirqualityChart() {
   const readings = useApi('lfu/airquality') as AirQualityReading[]
 
+  const [air_quality_index, setAirQualityIndex] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (readings && readings.length > 0) {
+      setAirQualityIndex(getMaxQualityIndex(readings))
+    }
+  }, [readings])
+
   if (!readings || !readings.length) {
     return <Spinner />
   }
-
-  const air_quality_index = getMaxQualityIndex(readings)
 
   return (
     <div>

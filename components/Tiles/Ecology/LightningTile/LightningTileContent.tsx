@@ -5,7 +5,7 @@ import Spinner from '@/components/Elements/Spinner'
 import { DataType, MonthlyData } from './dt'
 import LightningChart from './LightningChart'
 import Slider from '@/components/Inputs/Slider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const monthCount = 5 // Anzahl der angezeigten Monate
 
@@ -24,39 +24,38 @@ const monthNames = [
   'DEZ',
 ]
 
-function aggregateByMonth(data: DataType): MonthlyData {
-  return data.reduce((acc, { ts, value }) => {
-    const [day, month, year] = ts.split('.')
-    const date = `${month}/${year}`
-    const month_key = `${monthNames[parseInt(month, 10) - 1]}`
-
-    const existing = acc.find(item => item.date === date)
-    if (existing) {
-      existing.total += value
-    } else {
-      acc.push({
-        date,
-        month: month_key,
-        label: `${month_key} ${year}`,
-        total: value,
-      })
+function transformData(data: DataType[]): MonthlyData[] {
+  return data.map(({ ts, value }) => {
+    const [month, year] = ts.split('.') // Split auf "month.year"
+    const month_key = `${monthNames[parseInt(month, 10) - 1]}` // Monatname aus Monatnummer
+    return {
+      date: `${month}.${year}`,
+      month: month_key,
+      label: `${month_key} ${year}`,
+      total: value,
     }
-    return acc
-  }, [] as MonthlyData)
+  })
 }
 
 export default function LightningTileContent() {
-  const lightning_data = useApi('thingsboard/lightning', 60 * 24) as DataType
-  const monthly_data = lightning_data ? aggregateByMonth(lightning_data) : []
+  const lightning_data = useApi('thingsboard/lightning', 60 * 24) as DataType[]
+  const [monthly_data, setMonthlyData] = useState<MonthlyData[]>([])
+  const [month_index, setMonthIndex] = useState(0)
 
-  const [month_index, setMonthIndex] = useState(11)
+  useEffect(() => {
+    if (lightning_data && lightning_data.length > 0) {
+      const transformed = transformData(lightning_data)
+      setMonthlyData(transformed)
+      setMonthIndex(transformed.length - 1)
+    }
+  }, [lightning_data])
 
   const visible_months = monthly_data.slice(
     Math.max(0, month_index - (monthCount - 1)),
     month_index + 1,
   )
 
-  if (!lightning_data || !lightning_data.length) {
+  if (!monthly_data || !monthly_data.length) {
     return <Spinner />
   }
 

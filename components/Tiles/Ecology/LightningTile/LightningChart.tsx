@@ -3,7 +3,7 @@ import useDevice from '@/hooks/useDevice'
 import { MonthlyData } from './dt'
 
 interface Props {
-  data: MonthlyData
+  data: MonthlyData[]
 }
 
 export default function LightningChart({ data }: Props) {

@@ -8,7 +8,7 @@ export const sanitizeValue = (value: string | number): number => {
   if (typeof value === 'string') {
     return parseFloat(value.replace(/\./g, '')) || 0
   }
-  return parseFloat(value.toString()) || 0
+  return parseFloat(value ? value.toString() : '') || 0
 }
 
 export const sanitizeLocalizedValue = (value: string | number): number => {

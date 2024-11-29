@@ -20,7 +20,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
     <BaseTile embedId={type} tile_payload={tile_payload}>
       <TileSplitView>
         <TileSplitView.Left>
-          <div>
+          <div className="mt-4">
             <EnergyConsumptionContent
               stromDataInput={stromDataInput}
               waermeDataInput={waermeDataInput}

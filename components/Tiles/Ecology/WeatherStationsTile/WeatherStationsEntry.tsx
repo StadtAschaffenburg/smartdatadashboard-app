@@ -1,5 +1,5 @@
 import { StationsValue } from './dt'
-import Phenomenon from '../WeatherTile/Phenomenon'
+import Phenomenon from '@/components/Elements/Phenomenon'
 import Background from '@/components/Layout/Background'
 import Title from '@/components/Elements/Title'
 

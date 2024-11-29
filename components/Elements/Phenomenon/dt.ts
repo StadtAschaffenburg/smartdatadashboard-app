@@ -1,4 +1,4 @@
-import phenomena from './phenomena'
+import phenomena from './Phenomena'
 import { ForwardRefExoticComponent, SVGProps } from 'react'
 
 export type PhenomenaType = {
