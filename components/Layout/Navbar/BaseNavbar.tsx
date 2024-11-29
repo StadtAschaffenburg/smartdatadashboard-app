@@ -6,6 +6,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import LinkComponent, { LinkProps } from './LinkComponent'
 import { IconHome } from '@/components/Icons/Navigation'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
+import { cx } from 'class-variance-authority'
 
 const link_home: LinkProps = {
   icon: IconHome,
@@ -111,19 +112,21 @@ export default function BaseNavbar({
             </div>
           </div>
           <Collapsible isOpen={isOpen} onOpenChange={setIsOpen}>
-            <div className="mt-4 flex flex-nowrap items-center justify-between gap-8">
+            <div className="mt-4 flex flex-col flex-nowrap items-center justify-between gap-4 md:flex-row md:gap-8">
               <LinkComponent
                 {...button_variants}
                 {...link_home}
-                LinkClass={current_url === undefined ? 'active' : ''}
+                ButtonClass="min-w-80"
+                LinkClass={cx(current_url === undefined ? 'active' : '')}
                 onClick={handleLinkClick}
               />
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col items-center gap-4 md:flex-row">
                 {links.map(l => (
                   <LinkComponent
                     key={l.link}
                     {...button_variants}
                     {...l}
+                    ButtonClass="min-w-80"
                     LinkClass={
                       l.link.replace(/^\//, '') === current_url ? 'active' : ''
                     }

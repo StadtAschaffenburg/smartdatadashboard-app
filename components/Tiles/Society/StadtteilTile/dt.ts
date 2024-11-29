@@ -1,9 +1,8 @@
-
 export type DestrictMapping = {
   id: string
   title?: string
   position: { x: number; y: number }
-  radius: number
+  share: number
   value: {
     current: number
     previous: number
@@ -14,7 +13,7 @@ export interface StadtteilMapProps {
   destict_data: DestrictMapping[]
 }
 
-export type LineData = {
+export type MapDataType = {
   id: string
   x1: number
   y1: number

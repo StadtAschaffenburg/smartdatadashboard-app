@@ -64,7 +64,7 @@ export default function TileFooter({
 
   return (
     <div className="mt-6">
-      <div className="hidden w-full flex-row items-center justify-between gap-2 lg:flex">
+      <div className="flex w-full flex-row items-center justify-between gap-2">
         <IconButtons />
         <div className="flex flex-[2_2_0%] justify-center">{children}</div>
         {hasMoreDetails && (
@@ -73,22 +73,6 @@ export default function TileFooter({
           </div>
         )}
         {!hasMoreDetails && <div className="flex flex-1 justify-end"></div>}
-      </div>
-      <div className="flex flex-col gap-2 lg:hidden">
-        {/* <IconButtons /> */}
-
-        <div className="flex w-full items-center justify-between">
-          {hasMoreDetails && (
-            <div
-              className="flex flex-1 justify-start"
-              onClick={onMoreInfoClick}
-            >
-              <MoreDetails variant={variant} />
-            </div>
-          )}
-          {!hasMoreDetails && <div className="flex flex-1 justify-start"></div>}
-          <div className="flex flex-1 justify-end">{children}</div>
-        </div>
       </div>
     </div>
   )

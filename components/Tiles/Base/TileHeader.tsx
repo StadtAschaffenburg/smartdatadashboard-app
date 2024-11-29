@@ -71,16 +71,11 @@ export default function TileHeader({
           <div className="flex w-full justify-end lg:hidden">
             <Icon
               className={cx(
-                'h-[29px] w-auto flex-shrink-0 opacity-40  lg:h-[50px]',
+                'h-[29px] w-auto flex-shrink-0 opacity-40 lg:h-[50px]',
                 iconTileTitleStyle({ variant }),
               )}
             />
           </div>
-          //   <Icon
-          //     className={cx(
-          //       'absolute right-0 top-0 h-[29px] w-auto flex-shrink-0 opacity-40 md:block md:h-[50px]',
-          //     )}
-          //   ></Icon>
         )}
       </div>
     )
@@ -88,7 +83,7 @@ export default function TileHeader({
 
   return (
     <div className="">
-      <div className="relative flex flex-col gap-2 px-2.5 pb-10 lg:hidden">
+      <div className="relative flex flex-col gap-2 pb-10 lg:hidden">
         <IconButtons />
       </div>
     </div>

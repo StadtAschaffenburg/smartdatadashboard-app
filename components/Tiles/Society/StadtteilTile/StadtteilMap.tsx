@@ -3,23 +3,23 @@
 import { useEffect, useRef, useState } from 'react'
 import StadtteilMapRow from './StadtteilMapRow'
 import { StadtAbMap } from '@/components/Icons/Misc'
-import { LineData, StadtteilMapProps } from './dt'
+import { MapDataType, StadtteilMapProps } from './dt'
 import { getSaveId } from '@/utils/convert'
 import StadteilOverlay from './StadtteilOverlay'
 
 export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [lines, setLines] = useState<LineData[]>([])
+  const [map_data, setMapData] = useState<MapDataType[]>([])
 
   useEffect(() => {
-    const calculateLines = () => {
+    const calculateMapData = () => {
       if (!containerRef.current) {
         return
       }
 
       const containerRect = containerRef.current.getBoundingClientRect()
 
-      const newLines = destict_data.map(item => {
+      const data = destict_data.map(item => {
         const entryElement = document.getElementById(`entry-${item.id}`)
         const mapElement = document.getElementById(`map-${getSaveId(item.id)}`)
 
@@ -32,25 +32,29 @@ export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
           const x2 = mapRect.left + mapRect.width / 2 - containerRect.left
           const y2 = mapRect.top + mapRect.height / 2 - containerRect.top
 
-          return { id: item.id, x1, y1, x2, y2, radius: item.radius }
+          return {
+            id: item.id,
+            x1,
+            y1,
+            x2,
+            y2,
+            radius: Math.max(10, item.share * 1.75),
+          }
         }
 
         return { id: item.id, x1: 0, y1: 0, x2: 0, y2: 0, radius: 10 } // Fallback
       })
 
-      setLines(newLines)
+      setMapData(data)
     }
 
-    calculateLines()
-    window.addEventListener('resize', calculateLines) // Recalculate on resize
-    return () => window.removeEventListener('resize', calculateLines)
-  }, [destict_data]) // destict_data ist die Abhängigkeit
+    calculateMapData()
+    window.addEventListener('resize', calculateMapData) // recalculate on resize
+    return () => window.removeEventListener('resize', calculateMapData)
+  }, [destict_data])
 
   return (
-    <div
-      className="relative h-full w-full overflow-hidden"
-      ref={containerRef} // Referenz für den Container
-    >
+    <div className="relative h-full w-full overflow-hidden" ref={containerRef}>
       <div className="relative z-30 flex h-full justify-between p-4 py-8">
         <StadtteilMapRow
           anchor_class="right-0"
@@ -66,7 +70,7 @@ export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
         ></StadtteilMapRow>
       </div>
       <div className="absolute left-0 top-0 z-10 h-full w-full">
-        <StadteilOverlay lines={lines} />
+        <StadteilOverlay map_data={map_data} />
       </div>
       <div className="absolute left-0 top-0 z-0 h-full w-full">
         <StadtAbMap className="absolute left-1/2 top-1/2 z-10 h-full -translate-x-1/2 -translate-y-1/2" />

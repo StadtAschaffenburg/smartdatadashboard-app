@@ -109,7 +109,7 @@ function SearchComponent() {
             </form>
           )}
           <div
-            className="align-center flex bg-primary p-3"
+            className="align-center flex w-14 bg-primary p-3"
             onClick={handleToggle}
           >
             <MagnifyingGlassIcon className="w-8 stroke-white group-hover:stroke-primary-light" />

@@ -12,6 +12,7 @@ type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
     children: number
     decimals?: number
     previous_value?: number | null
+    unit?: string
   }
 
 export default function AnimatedNumber({
@@ -20,6 +21,7 @@ export default function AnimatedNumber({
   variant = 'inherit',
   className,
   previous_value,
+  unit,
 }: AnimatedNumberProps) {
   const [inView, setInView] = useState(false) // control whether the number is in view
   const [lastValue, setLastValue] = useState<number | null>(null)
@@ -76,6 +78,7 @@ export default function AnimatedNumber({
               }).format(val)
             })}
       </animated.span>
+      {unit && <span>&nbsp;{unit}</span>}
     </span>
   )
 }

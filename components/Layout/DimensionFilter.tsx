@@ -103,8 +103,8 @@ export default function DimensionFilter() {
   return (
     <Background light variant={variant as BackgroundVariant}>
       <Container variant="compact">
-        <div className="flex flex-col gap-8">
-          <div className="flex w-full gap-8">
+        <div className="flex flex-col gap-4 md:gap-8">
+          <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
             {dimension_links.map(l => (
               <LinkComponent
                 key={l.link.title}
@@ -113,8 +113,8 @@ export default function DimensionFilter() {
                   l.link.variant as ActionDimensionsType,
                 )}
                 LinkClass={cx(
-                  'flex-grow hover:scale-105 transition-all',
-                  (!action_dimension || l.active) && 'active',
+                  'flex-grow md:hover:scale-105 transition-all',
+                  !action_dimension || l.active ? 'active' : 'max-md:hidden',
                 )}
                 onClick={() => navigateTo(l.link.link.split('/').pop()!)}
                 preventDefault
@@ -123,7 +123,7 @@ export default function DimensionFilter() {
             ))}
           </div>
           {field_links.length > 0 && (
-            <div className="flex w-full gap-8">
+            <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
               {field_links.map(l => (
                 <LinkComponent
                   {...l.link}

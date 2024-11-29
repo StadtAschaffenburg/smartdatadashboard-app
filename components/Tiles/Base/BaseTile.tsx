@@ -11,7 +11,6 @@ import { TileType } from '@/types/tiles'
 import ReactMarkdown from 'react-markdown'
 import Title from '@/components/Elements/Title'
 import remarkGfm from 'remark-gfm'
-import TileHeader from './TileHeader'
 import {
   BackgroundDefaultVariants,
   BackgroundLightVariants,
@@ -42,6 +41,7 @@ export type BaseTileProps = VariantProps<typeof baseTileStyle> &
     moreInfo?: React.ReactNode
     source?: string | null
     isFullWidth?: boolean
+    dataUrl?: string
     icon?:
       | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
       | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
@@ -70,6 +70,7 @@ export function BaseTile({
   source,
   isFullWidth,
   icon,
+  dataUrl,
 }: BaseTileProps) {
   const [showEmbedOverlay, setShowEmbedOverlay] = useState(false)
   const [showShareOverlay, setShowShareOverlay] = useState(false)
@@ -102,21 +103,10 @@ export function BaseTile({
     <div className="pb-4 md:pb-8">
       <div className={cx(baseTileStyle({ variant }), className)}>
         {startImage}
-        <div className="flex w-full flex-col justify-between px-4 py-8 lg:p-16">
-          <TileHeader
-            dataURL={source}
-            hasMoreDetails={!!moreInfo}
-            icon={icon}
-            onEmbedClick={() => setShowEmbedOverlay(true)}
-            onShareClick={openShareDialog}
-            variant={variant}
-          >
-            <></>
-          </TileHeader>
-
+        <div className="flex w-full flex-col justify-between p-4 xs:p-8 md:p-12 lg:px-8 lg:py-6 xl:px-16 xl:py-12">
           <div>{children}</div>
           <TileFooter
-            dataURL={source}
+            dataURL={dataUrl ?? null}
             hasMoreDetails={!!moreInfo}
             onEmbedClick={() => setShowEmbedOverlay(true)}
             onMoreInfoClick={() => setShowMoreInfo(true)}

@@ -22,6 +22,7 @@ export default function CompareIconValues({
 }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const variant = getVariantType(tile_payload)
+  const unit: string = getString(tile_payload, 'einheit')
 
   if (!keys) {
     keys = tile_payload.table_keys ?? []
@@ -59,6 +60,7 @@ export default function CompareIconValues({
           <AnimatedNumber
             className={'text-2xl'}
             previous_value={values[keys[0]]?.previous}
+            unit={unit}
             variant={variant}
           >
             {leftCount}
@@ -77,6 +79,7 @@ export default function CompareIconValues({
           <AnimatedNumber
             className={'text-2xl'}
             previous_value={values[keys[1]]?.previous}
+            unit={unit}
             variant={variant}
           >
             {rightCount}

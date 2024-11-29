@@ -52,10 +52,13 @@ export default function IconValues({
                 )}
                 :
               </span>{' '}
-              <AnimatedNumber decimals={0} previous_value={value.previous}>
+              <AnimatedNumber
+                decimals={0}
+                previous_value={value.previous}
+                unit={unit}
+              >
                 {value.current}
               </AnimatedNumber>{' '}
-              {unit}
             </Title>
           ))}
         </div>

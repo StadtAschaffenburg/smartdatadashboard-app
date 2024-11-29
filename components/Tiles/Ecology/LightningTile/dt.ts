@@ -6,5 +6,6 @@ export type DataType = {
 export type MonthlyData = {
   date: string
   month: string
+  label: string
   total: number
 }[]

@@ -76,47 +76,43 @@ export default function IconTile({
       footerCenterElement={
         live ? <LiveBadge variant={variant as BackgroundVariant} /> : undefined
       }
-      icon={icon}
+      icon={Icon}
       isFullWidth={full_width}
       moreInfo={tile_payload?.details}
       source={tile_payload?.source}
       variant={variant}
     >
-      <div className="n:px-2.5">
-        <div className="relative flex items-center justify-between">
-          <div className="flex flex-wrap items-center justify-start gap-x-4 lg:max-w-[87%]">
+      <div className="flex flex-col gap-2">
+        <div className="relative flex items-stretch gap-4">
+          <div className="flex flex-grow flex-wrap items-center justify-start gap-x-4">
             <Title
               as={'h1'}
-              className={cx('mb-4 min-w-fit', iconTileTitleStyle({ variant }))}
+              className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
               {title ?? tile_payload?.title ?? '...'}
             </Title>
-            {(tile_payload?.subtitle || subtitle) && (
-              <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
-                {tile_payload?.subtitle ?? subtitle}
-              </Title>
-            )}
           </div>
-
-          {/* <Icon
-              className={cx(
-                'absolute right-0 top-0 hidden h-[29px] w-auto flex-shrink-0 opacity-40 md:h-[50px] 2xl:block',
-                iconTileTitleStyle({ variant }),
-              )}
-            /> */}
+          <div className="min-w-12 lg:min-w-16">
+            {
+              <Icon
+                className={cx(
+                  'w-auto opacity-40',
+                  iconTileTitleStyle({ variant }),
+                )}
+              />
+            }
+          </div>
         </div>
-
+        <div>
+          {(tile_payload?.subtitle || subtitle) && (
+            <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
+              {tile_payload?.subtitle ?? subtitle}
+            </Title>
+          )}
+        </div>
         {(tile_payload?.title || title) && <Spacer />}
       </div>
-      <>
-        {!title && !subtitle && (
-          <div className={cx('relative', iconTileTitleStyle({ variant }))}>
-            <Icon className="absolute right-0 top-0 hidden h-[50px] w-auto opacity-40 2xl:block" />
-          </div>
-        )}
-      </>
-
       <>{children}</>
       <Spacer />
 

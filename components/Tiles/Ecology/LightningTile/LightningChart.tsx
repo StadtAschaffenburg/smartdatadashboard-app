@@ -13,7 +13,7 @@ export default function LightningChart({ data }: Props) {
     <ReactECharts
       option={{
         grid: {
-          left: 0,
+          left: 40,
           top: 5,
           right: 0,
           bottom: 32,
@@ -33,7 +33,7 @@ export default function LightningChart({ data }: Props) {
         },
         xAxis: {
           type: 'category',
-          data: data.map(item => item.month),
+          data: data.map(item => item.label),
           axisLine: {
             show: false,
           },
@@ -49,16 +49,37 @@ export default function LightningChart({ data }: Props) {
         },
         yAxis: {
           type: 'value',
-          show: false,
+          show: true,
+          axisLabel: {
+            show: true,
+            color: 'rgb(0, 80, 150)',
+            fontSize: 12,
+            formatter: (value: number) => {
+              return value
+                .toLocaleString('de-DE', {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 2,
+                })
+                .replace(',', '.')
+            },
+          },
+          splitLine: {
+            lineStyle: {
+              color: 'rgba(0, 80, 150, 0.1)',
+            },
+          },
         },
         series: [
           {
             data: data.map(item => item.total),
             type: 'bar',
             color: 'rgb(0, 80, 150)',
-            barWidth: '11px',
-            itemStyle: {
-              //opacity: 0.77,
+            barWidth: '80%',
+            label: {
+              show: true, // Enable labels
+              position: 'top', // Position labels above the bars
+              color: 'rgb(0, 80, 150)', // Label text color
+              fontSize: device === 'mobile' ? 12 : 16,
             },
           },
         ],
