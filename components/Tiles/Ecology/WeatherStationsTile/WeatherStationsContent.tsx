@@ -10,20 +10,26 @@ import PulsatingCircle from '@/components/Icons/PulsatingCircle'
 import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
 
-const ZOOM_LEVEL = 4
+const ZOOM_LEVEL = 3
 
 const map_dimensions = {
-  lat_start: 50.017128,
-  lat_end: 49.932586,
-  long_start: 9.03235,
-  long_end: 9.245222,
+  lat_start: 50.008889877698266,
+  lat_end: 49.93574670873378,
+  long_start: 9.051106278835075,
+  long_end: 9.233342108624324,
+}
+
+const position_corrections = {
+  x: -1.5,
+  y: 0,
 }
 
 function getLatitude(lat: number) {
   return (
     ((lat - map_dimensions.lat_start) /
       (map_dimensions.lat_end - map_dimensions.lat_start)) *
-    100
+      100 +
+    position_corrections.y
   )
 }
 
@@ -31,7 +37,8 @@ function getLongitude(lng: number) {
   return (
     ((lng - map_dimensions.long_start) /
       (map_dimensions.long_end - map_dimensions.long_start)) *
-    100
+      100 +
+    position_corrections.x
   )
 }
 
@@ -85,7 +92,7 @@ export default function WeatherStationsContent() {
           setZoomLevel(1)
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.5 },
     )
 
     observer.observe(mapContainerRef.current)

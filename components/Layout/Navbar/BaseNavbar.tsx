@@ -112,21 +112,21 @@ export default function BaseNavbar({
             </div>
           </div>
           <Collapsible isOpen={isOpen} onOpenChange={setIsOpen}>
-            <div className="mt-4 flex flex-col flex-nowrap items-center justify-between gap-4 md:flex-row md:gap-8">
+            <div className="mt-4 flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-8">
               <LinkComponent
                 {...button_variants}
                 {...link_home}
-                ButtonClass="min-w-80"
+                ButtonClass="max-lg:min-w-80"
                 LinkClass={cx(current_url === undefined ? 'active' : '')}
                 onClick={handleLinkClick}
               />
-              <div className="flex flex-col items-center gap-4 md:flex-row">
+              <div className="flex flex-col items-center gap-4 lg:flex-row">
                 {links.map(l => (
                   <LinkComponent
                     key={l.link}
                     {...button_variants}
                     {...l}
-                    ButtonClass="min-w-80"
+                    ButtonClass="max-lg:min-w-80 hyphens-auto"
                     LinkClass={
                       l.link.replace(/^\//, '') === current_url ? 'active' : ''
                     }
