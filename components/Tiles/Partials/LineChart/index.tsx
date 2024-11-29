@@ -3,37 +3,34 @@
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import { LineSeriesOption } from 'echarts'
 import { parse } from 'date-fns'
-import Switch from '@/components/Inputs/Switch'
 import Title from '@/components/Elements/Title'
 import { useState } from 'react'
+import useDevice from '@/hooks/useDevice'
+import { InputDataType } from '@/utils/sources'
+import { ChartProps, InstitutionIndices } from './dt'
+import { getAllSources } from '@/utils/payload'
+import indicesData from './indicesData'
+import Toggle from './Toggle'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
-import useDevice from '@/hooks/useDevice'
-import IconPlaceholder from '@/components/Icons/Placeholder'
-
-import {
-  IndicesChartProps,
-  IndicesTypes,
-  InputDataType,
-  InstitutionIndices,
-} from './dt'
-
 const { theme } = resolveConfig(tailwindConfig)
 
-const colorLookup: Record<
-  IndicesTypes,
-  'blue' | 'primary' | 'economy' | 'green' | 'purple'
-> = {
-  stadthalle: 'economy',
-  stadttheater: 'primary',
+const getColor = (variant: string) => {
+  // @ts-ignore
+  return theme?.colors?.[variant]?.DEFAULT || '#6060d6'
 }
 
 const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
   const aggregatedData: Record<string, number> = data.reduce(
     (acc, item) => {
       const year = item.ZEIT
-      const value = parseInt(item[property].toString(), 10)
-      acc[year] = (acc[year] || 0) + value
+      const value = parseInt(item[property]?.toString() || '0', 10) // Sicherer Zugriff auf den Wert
+
+      if (!isNaN(value)) {
+        // Nur Zahlen hinzufügen
+        acc[year] = (acc[year] || 0) + value
+      }
+
       return acc
     },
     {} as Record<string, number>,
@@ -48,68 +45,24 @@ const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
 /**
  * All the indices that are on the chart
  */
-function getIndices(data: InputDataType[]) {
-  const indices: InstitutionIndices = {
-    stadthalle: {
-      title: 'Stadthalle',
-      icon: IconPlaceholder,
-      seriesOption: {
-        name: 'Stadthalle',
-        data: getSeries(data, 'stadthalle'),
-        // @ts-ignore
-        color: theme?.colors?.economy?.DEFAULT || '#6060d6',
-      },
-    },
-    stadttheater: {
-      title: 'Stadttheater',
-      icon: IconPlaceholder,
-      seriesOption: {
-        name: 'Stadttheater',
-        data: getSeries(data, 'stadttheater'),
-        // @ts-ignore
-        color: theme?.colors?.primary?.DEFAULT || '#6060d6',
-      },
-    },
-  }
+function getIndices(keys: string[], data: InputDataType[]) {
+  const filteredIndices: InstitutionIndices = {}
 
-  return indices
-}
+  keys.forEach(key => {
+    const indexData = indicesData[key]
+    if (indexData) {
+      filteredIndices[key] = {
+        ...indexData,
+        seriesOption: {
+          name: indexData.title,
+          data: getSeries(data, key),
+          color: indexData.color ?? getColor(indexData.variant),
+        },
+      }
+    }
+  })
 
-/**
- *
- * @param type: the type of the icon
- * @param onChange: on toggle change
- * @returns Toggle with Icon and text
- */
-function ClimateIndiceToggle({
-  indices,
-  type,
-  defaultChecked,
-  onChange,
-}: {
-  indices: InstitutionIndices
-  type: IndicesTypes
-  defaultChecked?: boolean
-  onChange?: (_checked: boolean) => void
-}) {
-  const Icon = indices[type].icon
-  const variant = colorLookup[type]
-
-  return (
-    <div className="flex w-full flex-row-reverse items-center justify-between gap-2 lg:flex-row lg:justify-normal lg:gap-4">
-      <Switch
-        defaultChecked={defaultChecked}
-        onCheckedChange={onChange}
-        variant={variant}
-      />
-      <div className="flex items-center gap-2 md:w-max md:gap-4">
-        <Icon className="aspect-square h-5 md:h-8" />
-        <Title as="h5" variant={variant}>
-          {indices[type].title}
-        </Title>
-      </div>
-    </div>
-  )
+  return filteredIndices
 }
 
 const getStartYear = (data: InputDataType[]): string => {
@@ -117,28 +70,35 @@ const getStartYear = (data: InputDataType[]): string => {
   return Math.min(...years).toString()
 }
 
-/**
- *
- * @returns The Climate Indices Chart
- */
-export default function ClimateIndicesChart({ data }: IndicesChartProps) {
+export default function LineChart({ tile_payload }: ChartProps) {
   const device = useDevice()
-  const indices = getIndices(data)
+  const data: InputDataType[] = getAllSources(tile_payload, true)
+  const keys = tile_payload.table_keys ?? []
+
+  // get the indices that are on the chart
+  const indices = getIndices(keys, data)
 
   // fetch the start year and the max visitors
   const start_year = getStartYear(data)
 
-  const [seriesVisible, setSeriesVisible] = useState<
-    Record<IndicesTypes, boolean>
-  >({
-    stadthalle: true,
-    stadttheater: true,
-  })
+  const initialVisibility = keys.reduce(
+    (acc, key) => {
+      const index = indicesData[key]
+      if (index) {
+        acc[key] = index.visible ?? false
+      }
+      return acc
+    },
+    {} as Record<string, boolean>,
+  )
+
+  const [seriesVisible, setSeriesVisible] =
+    useState<Record<string, boolean>>(initialVisibility)
 
   const series: LineSeriesOption[] = Object.keys(indices)
-    .filter(e => seriesVisible[e as IndicesTypes])
+    .filter(e => seriesVisible[e as string])
     .map(e => ({
-      ...indices[e as IndicesTypes].seriesOption,
+      ...indices[e as string].seriesOption,
       type: 'line',
       itemStyle: {
         opacity: 0,
@@ -198,20 +158,20 @@ export default function ClimateIndicesChart({ data }: IndicesChartProps) {
         </div>
       </div>
       <div className="flex h-full flex-col justify-evenly gap-1">
-        <ClimateIndiceToggle
-          defaultChecked={seriesVisible.stadthalle}
-          indices={indices}
-          onChange={c => setSeriesVisible({ ...seriesVisible, stadthalle: c })}
-          type="stadthalle"
-        />
-        <ClimateIndiceToggle
-          defaultChecked={seriesVisible.stadttheater}
-          indices={indices}
-          onChange={c =>
-            setSeriesVisible({ ...seriesVisible, stadttheater: c })
-          }
-          type="stadttheater"
-        />
+        {Object.keys(indices).map(key => (
+          <Toggle
+            defaultChecked={seriesVisible[key]}
+            indices={indices}
+            key={key}
+            onChange={checked =>
+              setSeriesVisible(prev => ({
+                ...prev,
+                [key]: checked,
+              }))
+            }
+            type={key}
+          />
+        ))}
       </div>
     </div>
   )

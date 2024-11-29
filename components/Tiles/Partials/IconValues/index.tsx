@@ -33,7 +33,7 @@ export default function IconValues({
   const values = getRow(
     data,
     yearIndex,
-    tile_payload.table_keys ?? [],
+    keys ?? tile_payload.table_keys ?? [],
     modifier,
   )
 

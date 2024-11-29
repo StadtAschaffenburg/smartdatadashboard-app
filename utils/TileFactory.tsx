@@ -20,10 +20,12 @@ import WeatherStationsTile from '@/components/Tiles/Ecology/WeatherStationsTile'
 import ThermalHazardTile from '@/components/Tiles/Ecology/ThermalHazardTile'
 import WaterTile from '@/components/Tiles/Ecology/WaterTile'
 import PlasticWasteTile from '@/components/Tiles/Ecology/PlasticWasteTile'
+import BiomassTile from '@/components/Tiles/Ecology/BiomassTile'
 
 // society
 import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbefaelleTile'
 import KulturTile from '@/components/Tiles/Society/KulturTile'
+import FreizeitTile from '@/components/Tiles/Society/FreizeitTile'
 import BevoelkerungTile from '@/components/Tiles/Society/BevoelkerungTile'
 import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
@@ -92,12 +94,16 @@ export default function TileFactory({ type, tile_data }: TileFactoryProps) {
       return <WaterTile tile_payload={tile_data} type={type} />
     case 'ecology-plastikmuell':
       return <PlasticWasteTile tile_payload={tile_data} type={type} />
+    case 'ecology-BiomassEnergy':
+      return <BiomassTile tile_payload={tile_data} type={type} />
 
     // ---- SOCIETY ----
     case 'society-GeburtenSterbefaelle':
       return <GeburtenSterbefaelleTile tile_payload={tile_data} type={type} />
     case 'society-kultureinrichtungen':
       return <KulturTile tile_payload={tile_data} type={type} />
+    case 'society-freizeiteinrichtungen':
+      return <FreizeitTile tile_payload={tile_data} type={type} />
     case 'society-bevoelkerung':
       return <BevoelkerungTile tile_payload={tile_data} type={type} />
     case 'society-stadtteil':

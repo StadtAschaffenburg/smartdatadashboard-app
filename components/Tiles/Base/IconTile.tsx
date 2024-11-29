@@ -82,7 +82,7 @@ export default function IconTile({
       source={tile_payload?.source}
       variant={variant}
     >
-      <div className="flex flex-col gap-2">
+      <div className="mb-4 flex flex-col gap-2">
         <div className="relative flex items-stretch gap-4">
           <div className="flex flex-grow flex-wrap items-center justify-start gap-x-4">
             <Title
@@ -106,12 +106,13 @@ export default function IconTile({
         </div>
         <div>
           {(tile_payload?.subtitle || subtitle) && (
-            <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
-              {tile_payload?.subtitle ?? subtitle}
-            </Title>
+            <>
+              <Title as={'subtitle'} className="2xl:max-w-[85%]" color={'dark'}>
+                {tile_payload?.subtitle ?? subtitle}
+              </Title>
+            </>
           )}
         </div>
-        {(tile_payload?.title || title) && <Spacer />}
       </div>
       <>{children}</>
       <Spacer />

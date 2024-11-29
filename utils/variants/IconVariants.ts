@@ -10,6 +10,12 @@ export const IconVariants = {
     economy: 'fill-economy stroke-economy text-economy',
     green: 'fill-green stroke-green text-green',
     purple: 'fill-purple stroke-purple text-purple',
+    data: 'fill-data stroke-data text-data',
+    inverse: 'fill-inverse stroke-inverse text-inverse',
+    dark: 'fill-dark stroke-dark text-dark',
+    blue: 'fill-blue stroke-blue text-blue',
+    white: 'fill-white stroke-white text-white',
+    inherit: 'fill-inherit stroke-inherit text-inherit',
   },
 } as const
 
