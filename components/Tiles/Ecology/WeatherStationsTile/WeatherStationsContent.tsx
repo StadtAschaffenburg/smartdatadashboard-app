@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Entry from './WeatherStationsEntry'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import useApi from '@/hooks/useApi'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'
@@ -101,7 +101,7 @@ export default function WeatherStationsContent() {
   }, [weatherstations])
 
   useEffect(() => {
-    if (weatherstations.length > 0 && autoRotate) {
+    if (weatherstations && weatherstations.length > 0 && autoRotate) {
       const interval = setInterval(() => {
         setSelectedIndex(prevIndex => (prevIndex + 1) % weatherstations.length)
       }, 5000)
@@ -111,7 +111,7 @@ export default function WeatherStationsContent() {
   }, [weatherstations, autoRotate])
 
   if (!weatherstations || weatherstations.length === 0) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const selectedStation = weatherstations[selectedIndex]

@@ -9,7 +9,7 @@ import { ContentProps } from './dt'
 import { getAllSources } from '@/utils/payload'
 import { getDataPoint, getString, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 export default function IconValues({
   children,
@@ -27,7 +27,7 @@ export default function IconValues({
   )
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const values = getRow(

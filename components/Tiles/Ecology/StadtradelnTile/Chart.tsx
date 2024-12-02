@@ -1,5 +1,5 @@
 import { ReactECharts } from '@/components/Charts/ReactECharts'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import {
   BarSeriesOption,
   LineSeriesOption,
@@ -138,7 +138,7 @@ export default function Chart({ data, max, other }: ChartProps) {
   }, [other])
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (

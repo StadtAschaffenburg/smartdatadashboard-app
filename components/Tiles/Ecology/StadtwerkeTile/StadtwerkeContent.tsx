@@ -11,7 +11,7 @@ import {
   IconStadtwerkeElektro,
 } from '@/components/Icons/Ecology'
 import { ContentProps } from './dt'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { getRow, getYears } from '@/utils/sources'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
@@ -20,7 +20,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
   const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const values = getRow(data, yearIndex, [

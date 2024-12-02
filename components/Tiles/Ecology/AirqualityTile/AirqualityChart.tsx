@@ -9,7 +9,7 @@ import {
   IconLuftqualitaetPositiv,
 } from '@/components/Icons/Ecology'
 import Phenomenon from '@/components/Elements/Phenomenon'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import useApi from '@/hooks/useApi'
 import { AirQualityReading } from './dt'
 import { useEffect, useState } from 'react'
@@ -54,7 +54,7 @@ export default function AirqualityChart() {
   }, [readings])
 
   if (!readings || !readings.length) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (

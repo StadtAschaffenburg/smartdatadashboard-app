@@ -5,7 +5,7 @@ import StadtteilMap from './StadtteilMap'
 import { TilePayloadType } from '@/types/tiles'
 import { getAllSources, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { DestrictMapping } from './dt'
 import { getString } from '@/utils/payload'
 
@@ -121,7 +121,7 @@ export default function StadtteilContent({
   }, [data, yearIndex, tile_payload])
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (

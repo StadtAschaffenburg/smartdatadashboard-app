@@ -5,7 +5,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
 import { DataProps, Rating } from './dt'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 const thermal_limit = 10
 
@@ -87,7 +87,7 @@ export default function ThermalHazardTileContent() {
   }, [perceived_temperature, harzard_data, day_index])
 
   if (!harzard_data || !harzard_data.length || !perceived_temperature) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const [rating, advice, rating_color] = getRating(harzard_index ?? 0)

@@ -3,7 +3,7 @@ import BaseTile from '@/components/Tiles/Base/IconTile'
 import PassengerContent from './PassengerContent'
 import { PassengerDataType } from './dt'
 import { getSourceByName } from '@/utils/payload'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 export default function Tile({ type, tile_payload }: TileProps) {
   const passenger_data = getSourceByName(
@@ -16,7 +16,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
       {passenger_data ? (
         <PassengerContent data={passenger_data} />
       ) : (
-        <Spinner />
+        <RequestIndicator />
       )}
     </BaseTile>
   )

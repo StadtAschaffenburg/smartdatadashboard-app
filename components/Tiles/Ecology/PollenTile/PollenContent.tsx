@@ -1,7 +1,7 @@
 'use client'
 
 import PollenEntry from './PollenEntry'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import useApi from '@/hooks/useApi'
 import { PollenResult } from './dt'
 
@@ -9,7 +9,7 @@ export default function PollenContent() {
   const readings = useApi('dwd/pollen', 60 * 2) as PollenResult[]
 
   if (!readings || !readings.length) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (

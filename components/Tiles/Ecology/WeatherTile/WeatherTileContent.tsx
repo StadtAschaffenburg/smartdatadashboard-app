@@ -10,7 +10,7 @@ import {
   IconWeatherAtmosphaere,
   IconWeatherWindgeschw,
 } from '@/components/Icons/Weather'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import useApi from '@/hooks/useApi'
 
 export default function WeatherTileContent() {
@@ -29,7 +29,7 @@ export default function WeatherTileContent() {
   }
 
   if (!weather || !local_weather) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const Icon = conditionMappingIcon[weather?.condition]

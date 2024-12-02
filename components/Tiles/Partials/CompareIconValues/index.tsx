@@ -12,7 +12,7 @@ import { cx } from 'class-variance-authority'
 import { getAllSources } from '@/utils/payload'
 import { getString, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 export default function CompareIconValues({
   tile_payload,
@@ -32,7 +32,7 @@ export default function CompareIconValues({
   const [yearIndex, setYearIndex] = useState(data.length - 1)
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const values = getRow(data, yearIndex, keys)

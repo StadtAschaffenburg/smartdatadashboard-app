@@ -8,7 +8,7 @@ import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
 import { BusContentProps } from './dt'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { getRow, getYears } from '@/utils/sources'
 
 export default function BusContent({ data }: BusContentProps) {
@@ -16,7 +16,7 @@ export default function BusContent({ data }: BusContentProps) {
   const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
   if (!data) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   const values = getRow(data, yearIndex, [

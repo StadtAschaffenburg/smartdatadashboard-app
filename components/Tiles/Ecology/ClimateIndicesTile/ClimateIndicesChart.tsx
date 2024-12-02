@@ -22,7 +22,7 @@ import {
   ClimateIndicesChartProps,
   IndicesTypes,
 } from './dt'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -185,7 +185,7 @@ export default function ClimateIndicesChart({
   if (!data || !data.length) {
     return (
       <div className="align-center flex h-full w-full justify-center">
-        <Spinner />
+        <RequestIndicator />
       </div>
     )
   }

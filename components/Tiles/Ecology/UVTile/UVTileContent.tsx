@@ -5,7 +5,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
 import { DataProps, Rating } from './dt'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 const rating_keys: { [key: number]: Rating } = {
   0: ['Niedrig', 'Kein Schutz erforderlich', '#28965A'],
@@ -53,7 +53,7 @@ export default function UVTileContent() {
   }, [uv_data, dayIndex]) // Abhängig von den UV-Daten und dem ausgewählten Tag
 
   if (!uv_data || !uv_data.length) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (

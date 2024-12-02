@@ -1,7 +1,7 @@
 'use client'
 
 import useApi from '@/hooks/useApi'
-import Spinner from '@/components/Elements/Spinner'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { DataType, MonthlyData } from './dt'
 import LightningChart from './LightningChart'
 import Slider from '@/components/Inputs/Slider'
@@ -56,7 +56,7 @@ export default function LightningTileContent() {
   )
 
   if (!monthly_data || !monthly_data.length) {
-    return <Spinner />
+    return <RequestIndicator />
   }
 
   return (
