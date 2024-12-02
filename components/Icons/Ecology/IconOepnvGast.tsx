@@ -3,7 +3,7 @@ import type { SVGProps } from 'react'
 function Icon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      color="text-mobility"
+      color="text-ecology"
       data-name="Ebene 1"
       id="MS_Klimadashboard_Icons_m_o\u0308pnv_gast_svg__Ebene_1"
       viewBox="0 0 16.62 36.25"

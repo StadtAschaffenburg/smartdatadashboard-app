@@ -6,7 +6,8 @@ import Background from '@/components/Layout/Background'
 import { getPopulatedCollection } from '@/lib/cms'
 
 export default async function SdgZiele() {
-  const collection = await getPopulatedCollection('tiles')
+  const collection = await getPopulatedCollection('tiles', true, false)
+  const sources = await getPopulatedCollection('sources', true, false)
 
   return (
     <>
@@ -17,7 +18,11 @@ export default async function SdgZiele() {
         </Container>
       </Background>
       <Container>
-        <TileCollectionView collection={collection} structure={'sdg_target'} />
+        <TileCollectionView
+          collection={collection}
+          sources={sources}
+          structure={'sdg_target'}
+        />
       </Container>
     </>
   )

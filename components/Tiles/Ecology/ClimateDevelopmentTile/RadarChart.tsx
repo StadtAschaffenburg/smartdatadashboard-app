@@ -3,6 +3,7 @@
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import Title from '@/components/Elements/Title'
 import { useEffect, useRef, useState } from 'react'
+import Spinner from '@/components/Elements/Spinner'
 
 export type AvgTempData = {
   [x: string]: {
@@ -63,6 +64,14 @@ export default function RadarChart({ data }: { data: AvgTempData }) {
     })
     setSeriesData(mySeriesData)
   }, [years])
+
+  if (!seriesData || !seriesData.length) {
+    return (
+      <div className="align-center flex h-full w-full justify-center">
+        <Spinner />
+      </div>
+    )
+  }
 
   return (
     <div

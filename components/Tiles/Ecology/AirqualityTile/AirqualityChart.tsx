@@ -65,7 +65,7 @@ export default function AirqualityChart() {
           <div className="my-4 grow">
             <Title as={'h4'}>
               Die Luftqualität in Aschaffenburg ist aktuell{' '}
-              <span className="text-climate">
+              <span className="text-ecology">
                 {air_quality_index !== null
                   ? qualityMapping[air_quality_index]
                   : 'unbekannt'}

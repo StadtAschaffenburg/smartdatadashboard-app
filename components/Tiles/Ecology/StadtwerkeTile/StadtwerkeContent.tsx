@@ -5,50 +5,68 @@ import Title from '@/components/Elements/Title'
 
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   IconStadtwerkeAbgas,
   IconStadtwerkeElektro,
 } from '@/components/Icons/Ecology'
-import { ContentProps, InputData } from './dt'
+import { ContentProps } from './dt'
 import Spinner from '@/components/Elements/Spinner'
+import { getRow, getYears } from '@/utils/sources'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
-  const [combustionCount, setCombustionCount] = useState(0)
-  const [electroCount, setElectroCount] = useState(0)
-  const [hybridCount, setHybridCount] = useState(0)
-  const [LNGCount, setLNGCount] = useState(0)
-  const [yearIndex, setYearIndex] = useState(data.length - 1)
+  const years = getYears(data)
 
-  useEffect(() => {
-    const row: InputData = data[yearIndex]
-    setElectroCount(parseInt(row.Elektroantrieb.toString(), 10))
-    setHybridCount(parseInt(row.Hybridantrieb.toString(), 10))
-    setCombustionCount(parseInt(row.Dieselantrieb.toString(), 10))
-    setLNGCount(parseInt(row.Erdgasantrieb.toString(), 10))
-  }, [data, yearIndex])
+  const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
   if (!data) {
     return <Spinner />
   }
 
+  const values = getRow(data, yearIndex, [
+    'Elektroantrieb',
+    'Hybridantrieb',
+    'Dieselantrieb',
+    'Erdgasantrieb',
+  ])
+
+  const fossil = values.Dieselantrieb
+  const modern = Object.keys(values)
+    .filter(key => key !== 'Dieselantrieb')
+    .reduce(
+      (acc, key) => {
+        acc.current += values[key].current
+        acc.previous += values[key]?.previous || 0
+        return acc
+      },
+      { current: 0, previous: 0 },
+    )
+
+  const ratio = modern.current
+    ? fossil.current / (fossil.current + modern.current)
+    : 1
+
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="mb-2 flex justify-between gap-4">
         <div>
-          <Title as="h5" variant={'ecology'}>
-            Fahrzeuge mit fossilem Antrieb
-          </Title>
-          <AnimatedNumber className="text-mobility text-2xl">
-            {combustionCount}
+          <Title as="h5">Fahrzeuge mit fossilem Antrieb</Title>
+          <AnimatedNumber
+            className="text-2xl"
+            previous_value={fossil.previous}
+            variant={'ecology'}
+          >
+            {fossil.current}
           </AnimatedNumber>
         </div>
         <div className="flex flex-col items-end">
-          <Title as="h5" variant={'ecology'}>
-            Fahrzeuge mit alternativem Antrieb
-          </Title>
-          <AnimatedNumber className="text-mobility text-2xl">
-            {hybridCount}
+          <Title as="h5">Fahrzeuge mit alternativem Antrieb</Title>
+          <AnimatedNumber
+            className="text-2xl"
+            previous_value={modern.previous}
+            variant={'ecology'}
+          >
+            {modern.current}
           </AnimatedNumber>
         </div>
       </div>
@@ -56,11 +74,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
         <div
           className="flex-none transition-all"
           style={{
-            width: `${
-              (combustionCount /
-                (hybridCount + electroCount + LNGCount + combustionCount) ||
-                0.5) * 100
-            }%`,
+            width: `${ratio * 100}%`,
           }}
         >
           <IconStadtwerkeAbgas className="w-full fill-ecology" />
@@ -72,7 +86,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
       <MobileSlider
         defaultValue={[yearIndex]}
         firstValueMobile={data.length - 1}
-        labels={data.map(e => e.ZEIT.toString())}
+        labels={years}
         max={data.length - 1}
         min={0}
         onValueChange={([index]) => setYearIndex(index)}
@@ -82,7 +96,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
         className={'hidden xl:block'}
         defaultValue={[yearIndex]}
         firstValueMobile={data.length - 1}
-        labels={data.map(e => e.ZEIT.toString())}
+        labels={years}
         max={data.length - 1}
         min={0}
         onValueChange={([index]) => setYearIndex(index)}

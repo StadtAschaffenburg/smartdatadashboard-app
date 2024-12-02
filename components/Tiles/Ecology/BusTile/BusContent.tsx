@@ -3,51 +3,66 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
-import { BusContentProps, BusDataType } from './dt'
+import { BusContentProps } from './dt'
 import Spinner from '@/components/Elements/Spinner'
+import { getRow, getYears } from '@/utils/sources'
 
 export default function BusContent({ data }: BusContentProps) {
-  const [combustionCount, setCombustionCount] = useState(0)
-  const [electroCount, setElectroCount] = useState(0)
-  const [alternativeCount, setAlternativeCount] = useState(0)
-  const [hybridCount, setHybridCount] = useState(0)
-  const years: string[] = data.map(e => e.ZEIT.toString())
-  const [yearIndex, setYearIndex] = useState(data.length - 1)
-
-  useEffect(() => {
-    const row: BusDataType = data[yearIndex]
-
-    setElectroCount(parseInt(row.elektro.toString(), 10))
-    setHybridCount(parseInt(row.hybrid.toString(), 10))
-    setAlternativeCount(parseInt(row.alternativ.toString(), 10))
-    setCombustionCount(parseInt(row.fossil.toString(), 10))
-  }, [data, yearIndex])
+  const years = getYears(data)
+  const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
   if (!data) {
     return <Spinner />
   }
 
+  const values = getRow(data, yearIndex, [
+    'fossil',
+    'elektro',
+    'hybrid',
+    'alternativ',
+  ])
+
+  const fossil = values.fossil
+  const modern = Object.keys(values)
+    .filter(key => key !== 'fossil')
+    .reduce(
+      (acc, key) => {
+        acc.current += values[key].current
+        acc.previous += values[key]?.previous || 0
+        return acc
+      },
+      { current: 0, previous: 0 },
+    )
+
+  const ratio = modern.current
+    ? fossil.current / (fossil.current + modern.current)
+    : 1
+
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="mb-2 flex justify-between gap-4">
         <div>
-          <Title as="h5" variant={'ecology'}>
-            Fahrzeuge mit fossilem Antrieb
-          </Title>
-          <AnimatedNumber className="text-mobility text-2xl">
-            {combustionCount}
+          <Title as="h5">Fahrzeuge mit fossilem Antrieb</Title>
+          <AnimatedNumber
+            className="text-2xl"
+            previous_value={fossil.previous}
+            variant={'ecology'}
+          >
+            {fossil.current}
           </AnimatedNumber>
         </div>
         <div className="flex flex-col items-end">
-          <Title as="h5" variant={'ecology'}>
-            Fahrzeuge mit alternativem Antrieb
-          </Title>
-          <AnimatedNumber className="text-mobility text-2xl">
-            {electroCount + hybridCount + alternativeCount}
+          <Title as="h5">Fahrzeuge mit alternativem Antrieb</Title>
+          <AnimatedNumber
+            className="text-2xl"
+            previous_value={modern.previous}
+            variant={'ecology'}
+          >
+            {modern.current}
           </AnimatedNumber>
         </div>
       </div>
@@ -55,13 +70,7 @@ export default function BusContent({ data }: BusContentProps) {
         <div
           className="flex-none transition-all"
           style={{
-            width: `${
-              (combustionCount /
-                (electroCount +
-                  hybridCount +
-                  alternativeCount +
-                  combustionCount) || 0.5) * 100
-            }%`,
+            width: `${ratio * 100}%`,
           }}
         >
           <IconBusAbgas className="w-full fill-ecology" />

@@ -22,6 +22,7 @@ import {
   ClimateIndicesChartProps,
   IndicesTypes,
 } from './dt'
+import Spinner from '@/components/Elements/Spinner'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -180,6 +181,14 @@ export default function ClimateIndicesChart({
     sommertage: false,
     tropennaechte: false,
   })
+
+  if (!data || !data.length) {
+    return (
+      <div className="align-center flex h-full w-full justify-center">
+        <Spinner />
+      </div>
+    )
+  }
 
   const series: LineSeriesOption[] = Object.keys(indices)
     .filter(e => seriesVisible[e as IndicesTypes])

@@ -1,5 +1,6 @@
-import phenomena from './Phenomena'
+import Phenomena from './Phenomena'
 import { ForwardRefExoticComponent, SVGProps } from 'react'
+import { TextVariant } from '@/utils/variants/TextVariants'
 
 export type PhenomenaType = {
   [key: string]: {
@@ -21,7 +22,7 @@ export type PhenomenaType = {
 
 export type PhenomenonProps = {
   animate?: boolean
-  phenomenon: keyof typeof phenomena
+  phenomenon: keyof typeof Phenomena
   value: number
   icon?:
     | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
@@ -29,4 +30,5 @@ export type PhenomenonProps = {
   size?: 'md' | 'xl'
   meta?: string
   hide_icon?: boolean
+  variant?: TextVariant
 }

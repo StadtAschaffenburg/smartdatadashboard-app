@@ -70,7 +70,7 @@ const COMPARE_INTERVAL = 5000
 const AnimatedProgressCircle = animated(ProgressCircle)
 
 export default function ChartContainer({ CsvData }: ChartContainerProps) {
-  const StadtradelnData = transformCsvData(CsvData)
+  const StadtradelnData = CsvData ? transformCsvData(CsvData) : {}
   const otherCities = getOtherCities(StadtradelnData)
   const maxKmAb = findMaxKm(StadtradelnData, 'aschaffenburg')
   const maxKmAll = findMaxKm(StadtradelnData)

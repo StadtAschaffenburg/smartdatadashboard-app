@@ -1,7 +1,7 @@
 import TileFactory from '@/utils/TileFactory'
 import { TileType } from '@/types/tiles'
 import { notFound } from 'next/navigation'
-import { getPopulatedContent } from '@/lib/cms'
+import { getContent } from '@/lib/cms'
 
 export const revalidate = false
 
@@ -12,7 +12,7 @@ export default async function Share({ params }: { params: { id: TileType } }) {
     return notFound()
   }
 
-  const tile_data = await getPopulatedContent('tile', id)
+  const tile_data = await getContent('tile', id, true, true)
 
   return <TileFactory tile_data={tile_data} type={id} />
 }

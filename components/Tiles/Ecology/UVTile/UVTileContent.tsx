@@ -75,7 +75,7 @@ export default function UVTileContent() {
         <div className="flex flex-grow flex-col justify-between">
           <Title as={'subtitle'}>
             <div>
-              Gefahr: <span className="text-climate">{rating}</span>
+              Gefahr: <span className="text-ecology">{rating}</span>
             </div>
             <div>{advice}</div>
           </Title>

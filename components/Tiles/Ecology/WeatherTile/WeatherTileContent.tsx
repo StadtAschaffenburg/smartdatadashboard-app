@@ -42,7 +42,7 @@ export default function WeatherTileContent() {
             <Icon className="h-20 fill-live md:mr-12 md:h-36" />
             <Title as={'h4'} className="my-4 w-3/4 md:w-1/2">
               In Aschaffenburg ist es gerade{' '}
-              <span className="text-climate">
+              <span className="text-ecology">
                 {conditionMapping[weather?.condition]}
               </span>
             </Title>

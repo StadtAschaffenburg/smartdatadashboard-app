@@ -14,6 +14,10 @@ export function getYears(
   data: InputDataType[],
   key: string = 'ZEIT',
 ): number[] {
+  if (!data || data.length === 0) {
+    return []
+  }
+
   return (
     data
       .map(e => e[key])

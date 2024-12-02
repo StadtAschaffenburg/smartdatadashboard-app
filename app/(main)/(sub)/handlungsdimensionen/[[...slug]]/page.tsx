@@ -5,7 +5,8 @@ import PageIntro from '@/components/Elements/PageIntro'
 import { getPopulatedCollection } from '@/lib/cms'
 
 export default async function Handlungsdimensionen() {
-  const collection = await getPopulatedCollection('tiles')
+  const collection = await getPopulatedCollection('tiles', true, false)
+  const sources = await getPopulatedCollection('sources', true, false)
 
   return (
     <>
@@ -14,6 +15,7 @@ export default async function Handlungsdimensionen() {
       <Container>
         <TileCollectionView
           collection={collection}
+          sources={sources}
           structure={'action_dimension/action_field'}
         />
       </Container>

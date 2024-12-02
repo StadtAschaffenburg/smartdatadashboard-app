@@ -46,7 +46,7 @@ export default function CompareIconValues({
 
   return (
     <div>
-      <div className="flex justify-between">
+      <div className="mb-2 flex justify-between gap-4">
         <div>
           {keys[0] !== undefined && keys[0] !== '' && (
             <Title as="h5">

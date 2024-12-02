@@ -19,10 +19,14 @@ export default function TileContent({
 }: ContentProps) {
   const [totalCount, setTotalCount] = useState(0)
   const [digitalCount, setDigitalCount] = useState(0)
-  const years: string[] = data.map(e => e.ZEIT.toString())
-  const [yearIndex, setYearIndex] = useState(data.length - 1)
+  const years: string[] = data ? data.map(e => e.ZEIT.toString()) : []
+  const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
   useEffect(() => {
+    if (!data) {
+      return
+    }
+
     const row: DataType = data[yearIndex]
 
     setTotalCount(parseInt(row.total.toString(), 10))

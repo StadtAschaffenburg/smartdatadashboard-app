@@ -15,7 +15,6 @@ import {
   BackgroundDefaultVariants,
   BackgroundLightVariants,
 } from '@/utils/variants/BackgroundVariants'
-import { ForwardRefExoticComponent, SVGProps } from 'react'
 
 const baseTileStyle = cva(
   'relative flex flex-col md:flex-row h-fit overflow-hidden rounded',
@@ -39,12 +38,8 @@ export type BaseTileProps = VariantProps<typeof baseTileStyle> &
     className?: string
     footerCenterElement?: React.ReactElement
     moreInfo?: React.ReactNode
-    source?: string | null
     isFullWidth?: boolean
     dataUrl?: string
-    icon?:
-      | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
-      | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
   }
 
 const transitionOpts = {
@@ -67,9 +62,7 @@ export function BaseTile({
   footerCenterElement,
   embedId,
   moreInfo,
-  source,
   isFullWidth,
-  icon,
   dataUrl,
 }: BaseTileProps) {
   const [showEmbedOverlay, setShowEmbedOverlay] = useState(false)

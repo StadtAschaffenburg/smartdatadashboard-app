@@ -110,16 +110,16 @@ export default function WeatherStationsContent() {
     }
   }, [weatherstations, autoRotate])
 
+  if (!weatherstations || weatherstations.length === 0) {
+    return <Spinner />
+  }
+
   const selectedStation = weatherstations[selectedIndex]
   const mapTransform = getMapTransform(weatherstations, zoomLevel)
 
   function handleStationClick(index: number) {
     setSelectedIndex(index)
     setAutoRotate(false)
-  }
-
-  if (!weatherstations || weatherstations.length === 0) {
-    return <Spinner />
   }
 
   return (

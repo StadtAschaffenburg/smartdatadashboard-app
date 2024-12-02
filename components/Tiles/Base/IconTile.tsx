@@ -76,10 +76,8 @@ export default function IconTile({
       footerCenterElement={
         live ? <LiveBadge variant={variant as BackgroundVariant} /> : undefined
       }
-      icon={Icon}
       isFullWidth={full_width}
       moreInfo={tile_payload?.details}
-      source={tile_payload?.source}
       variant={variant}
     >
       <div className="mb-4 flex flex-col gap-2">

@@ -15,6 +15,11 @@ export type TileDatapointType = {
   val: number
 }
 
+export type TileSourceType = {
+  file_name: string
+  content: any
+}
+
 export interface TilePayloadType {
   tile_id: string
   subtitle: string | null
@@ -37,10 +42,7 @@ export interface TilePayloadType {
   }
   live: boolean | null
   files: string[] | null
-  sources: {
-    name: string
-    content: any
-  }[]
+  sources: TileSourceType[]
   search: string
 }
 

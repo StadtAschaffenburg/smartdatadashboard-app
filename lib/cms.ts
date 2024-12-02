@@ -51,27 +51,20 @@ export async function getContent(
   collection_id: string = 'tiles',
   id: string | number | boolean = false,
   use_cache: boolean = true,
+  populate: boolean = false,
 ): Promise<any> {
   const singular_id = collection_id.endsWith('s')
     ? collection_id.slice(0, -1)
     : collection_id
 
-  return handleRequest('content', singular_id, id, use_cache)
-}
+  const result = await handleRequest('content', singular_id, id, use_cache)
 
-export async function getPopulatedContent(
-  collection_id: string = 'tiles',
-  id: string | number | boolean = false,
-  use_cache: boolean = true,
-): Promise<any> {
-  const result = await getContent(collection_id, id, use_cache)
-
-  if (result.files) {
+  if (result?.files && populate) {
     result.sources = await Promise.all(
       result.files.map(async (file: string) => {
         const content = await getDataSource(file)
         return {
-          name: file,
+          file_name: file,
           content,
         }
       }),
@@ -89,13 +82,41 @@ export async function getCollection(
 
 export async function getPopulatedCollection(
   collection_id: string = 'tiles',
+  use_cache: boolean = true,
+  popuplate_content: boolean = true,
 ): Promise<any> {
+  if (use_cache) {
+    const cache_data =
+      (await readCache('collection', `${collection_id}.populated`)) || null
+    if (cache_data) {
+      return cache_data // return the cached data
+    }
+  }
+
   const collection = await handleRequest('collection', collection_id)
 
   await Promise.all(
     collection.map(async (entry: any) => {
-      entry.content = await getPopulatedContent(collection_id, entry.tile_id)
+      if (entry.tile_id) {
+        entry.content = await getContent(
+          collection_id,
+          entry.tile_id,
+          true,
+          popuplate_content,
+        )
+      }
+
+      if (entry.file_name) {
+        entry.content = await getDataSource(entry.file_name)
+      }
     }),
+  )
+
+  await writeContentCache(
+    'collection',
+    `${collection_id}.populated`,
+    false,
+    collection,
   )
 
   return collection
@@ -217,14 +238,20 @@ export async function rebuildCache() {
 
   // rebuild content
   try {
+    // get all content from the CMS
     for (const tile of data.tiles) {
-      getContent('tile', tile.tile_id, false)
+      await getContent('tile', tile.tile_id, false)
     }
     for (const page of data.pages) {
-      getContent('page', page.slug, false)
+      await getContent('page', page.slug, false)
     }
     for (const source of data.sources) {
-      getSourceFile(source.file_name)
+      await getSourceFile(source.file_name)
+    }
+
+    // rebuild collections
+    for (const collection of collections) {
+      getPopulatedCollection(collection, false, false)
     }
 
     return true

@@ -1,12 +1,10 @@
-export type BusDataType = {
-  ZEIT: string
-  total: number
-  fossil: number
-  hybrid: number
-  alternativ: number
-  elektro: number
-}
+import { InputDataType } from '@/utils/sources'
 
 export type BusContentProps = {
-  data: BusDataType[]
+  data: InputDataType[]
+}
+
+export type BusDataType = {
+  ZEIT: number
+  [key: string]: number | undefined
 }

@@ -31,12 +31,12 @@ export default function LongTermAverageDiff() {
 
   return (
     <Title as={'h4'}>
-      <span className="text-climate">
+      <span className="text-ecology">
         <AnimatedNumber decimals={2}>{Math.abs(difference)}</AnimatedNumber>{' '}
         Grad {difference > 0 ? 'wärmer' : 'kälter'}
       </span>{' '}
       ist der{' '}
-      <span className="text-climate">
+      <span className="text-ecology">
         {format(new Date(), 'LLLL', { locale: de })}
       </span>{' '}
       bisher im Vergleich zum langjährigen Mittel (1961-1990).

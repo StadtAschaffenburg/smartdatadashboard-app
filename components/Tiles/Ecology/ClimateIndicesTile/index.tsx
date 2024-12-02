@@ -5,11 +5,10 @@ import ClimateIndicesChart from './ClimateIndicesChart'
 import { TileSplitView } from '../../Base/TileSplitView'
 import Title from '@/components/Elements/Title'
 import { ClimateIndex } from './dt'
-import { getSourceByName } from '@/utils/payload'
+import useSourceFile from '@/hooks/useSourceFile'
 
 export default function Tile({ type, tile_payload }: TileProps) {
-  const climateIndicesData: ClimateIndex[] = getSourceByName(
-    tile_payload,
+  const climateIndicesData: ClimateIndex[] = useSourceFile(
     'climate_indices.json',
   )
 

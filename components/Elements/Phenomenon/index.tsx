@@ -13,6 +13,7 @@ export default function Phenomenon({
   size = 'md',
   hide_icon = false,
   animate = true,
+  variant = 'primary',
 }: PhenomenonProps) {
   const device = useDevice()
 
@@ -50,7 +51,7 @@ export default function Phenomenon({
           }}
           variant={'live'}
         ></Title>
-        <Title as={valueSize} variant="live">
+        <Title as={valueSize} variant={variant}>
           {animate && (
             <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber>
           )}

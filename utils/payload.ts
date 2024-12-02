@@ -64,9 +64,11 @@ export function getAllSources(
 
 export function getSourceByName(
   tile_payload: TilePayloadType,
-  name: string,
+  file_name: string,
   fallback: any = null,
 ): any | null {
-  const item = tile_payload?.sources?.find(entry => entry.name === name)
+  const item = tile_payload?.sources?.find(
+    entry => entry.file_name === file_name,
+  )
   return item ? item.content : fallback
 }

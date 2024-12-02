@@ -12,10 +12,10 @@ import { SVGProps } from 'react'
 const sectionHeaderStyle = cva('', {
   variants: {
     variant: {
-      climate: 'text-climate border-climate',
-      mobility: 'text-mobility border-mobility',
-      building: 'text-buildings border-buildings',
-      energy: 'text-energy border-energy',
+      climate: 'text-ecology border-climate',
+      mobility: 'text-ecology border-mobility',
+      building: 'text-ecology border-buildings',
+      energy: 'text-ecology border-energy',
       impressum: 'text-white',
       datenschutz: 'text-white',
       adaptieren: 'text-white',
