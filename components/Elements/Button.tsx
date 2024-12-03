@@ -42,6 +42,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref,
   ) => {
+    if (!hover) {
+      hover = variant
+    }
     if (!active) {
       active = hover
     }

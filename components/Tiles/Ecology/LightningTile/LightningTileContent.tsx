@@ -38,12 +38,16 @@ function transformData(data: DataType[]): MonthlyData[] {
 }
 
 export default function LightningTileContent() {
-  const lightning_data = useApi('thingsboard/lightning', 60 * 24) as DataType[]
+  const { data: lightning_data, status } = useApi<DataType[]>(
+    'thingsboard/lightning',
+    10,
+  )
+
   const [monthly_data, setMonthlyData] = useState<MonthlyData[]>([])
   const [month_index, setMonthIndex] = useState(0)
 
   useEffect(() => {
-    if (lightning_data && lightning_data.length > 0) {
+    if (Array.isArray(lightning_data) && lightning_data.length > 0) {
       const transformed = transformData(lightning_data)
       setMonthlyData(transformed)
       setMonthIndex(transformed.length - 1)
@@ -55,8 +59,8 @@ export default function LightningTileContent() {
     month_index + 1,
   )
 
-  if (!monthly_data || !monthly_data.length) {
-    return <RequestIndicator />
+  if (!monthly_data || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
   }
 
   return (

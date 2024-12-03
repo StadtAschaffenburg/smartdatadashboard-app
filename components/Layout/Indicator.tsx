@@ -18,7 +18,7 @@ export function Indicator({
     difference != null && previous != null ? (difference / previous) * 100 : 0
 
   const Icon =
-    previous == null || percentDifference < 1
+    previous == null || percentDifference <= 3
       ? IconNeutral
       : current > previous
         ? IconUp

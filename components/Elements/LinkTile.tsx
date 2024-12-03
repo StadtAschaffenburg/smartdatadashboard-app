@@ -14,10 +14,10 @@ export default async function LinkTile({
   link?: string | null
 }) {
   return (
-    <Background light>
-      <div className="flex w-full flex-col justify-between gap-8 px-4 py-8 lg:p-16 ">
+    <Background light rounded>
+      <div className="flex w-full flex-col justify-between gap-6 px-4 py-8 lg:px-12 lg:py-8">
         {headline && (
-          <Title as="h1" font="normal" variant="primary">
+          <Title as="h3" font="normal" variant="primary">
             {headline}
           </Title>
         )}

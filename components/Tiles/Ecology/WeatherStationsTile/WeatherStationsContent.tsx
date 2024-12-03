@@ -65,10 +65,10 @@ function getMapTransform(stations: StationsResult[], zoomLevel: number) {
 }
 
 export default function WeatherStationsContent() {
-  const weatherstations = useApi(
+  const { data: weatherstations, status } = useApi<StationsResult[]>(
     'thingsboard/weatherstations',
     10,
-  ) as StationsResult[]
+  )
 
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
@@ -110,8 +110,8 @@ export default function WeatherStationsContent() {
     }
   }, [weatherstations, autoRotate])
 
-  if (!weatherstations || weatherstations.length === 0) {
-    return <RequestIndicator />
+  if (!weatherstations || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
   }
 
   const selectedStation = weatherstations[selectedIndex]

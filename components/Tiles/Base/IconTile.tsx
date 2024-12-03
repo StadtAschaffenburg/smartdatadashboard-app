@@ -13,6 +13,7 @@ import {
 import { TilePayloadType } from '@/types/tiles'
 import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
 import { getVariantType, TileVariantTypes } from '@/utils/payload'
+import DynamicText from '@/components/Elements/DynamicText'
 
 const iconTileTitleStyle = cva('', {
   variants: TextVariants,
@@ -88,7 +89,11 @@ export default function IconTile({
               className={cx('min-w-fit', iconTileTitleStyle({ variant }))}
               font={'normal'}
             >
-              {title ?? tile_payload?.title ?? '...'}
+              {title ?? (
+                <DynamicText tile_payload={tile_payload}>
+                  {tile_payload?.title ?? ''}
+                </DynamicText>
+              )}
             </Title>
           </div>
           <div className="min-w-12 lg:min-w-16">
@@ -112,11 +117,13 @@ export default function IconTile({
           )}
         </div>
       </div>
+
       <>{children}</>
-      <Spacer />
+      <>{children && <Spacer />}</>
 
-      {tile_payload?.copy && <Markdown content={tile_payload.copy} />}
-
+      {tile_payload?.copy && (
+        <Markdown content={tile_payload.copy} tile_payload={tile_payload} />
+      )}
       <>{tile_payload?.copy && <Spacer />}</>
 
       <div className="flex gap-8 text-sm text-primary">

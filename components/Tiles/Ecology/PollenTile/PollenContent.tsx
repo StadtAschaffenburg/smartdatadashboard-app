@@ -6,10 +6,10 @@ import useApi from '@/hooks/useApi'
 import { PollenResult } from './dt'
 
 export default function PollenContent() {
-  const readings = useApi('dwd/pollen', 60 * 2) as PollenResult[]
+  const { data: readings, status } = useApi<PollenResult[]>('dwd/pollen', 10)
 
-  if (!readings || !readings.length) {
-    return <RequestIndicator />
+  if (!readings || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
   }
 
   return (

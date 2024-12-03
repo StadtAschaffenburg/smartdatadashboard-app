@@ -4,65 +4,54 @@ import Text from '@/components/Elements/Text'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
-import { DataProps, Rating } from './dt'
+import { DataProps, RatingStrings } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 const thermal_limit = 10
 
-const rating_keys: { [key: number]: Rating } = {
-  '-4': [
-    'Sehr Hoch',
-    'Sehr hohe gesundheitliche Gefährdung aufgrund von Kältestress',
-    '#0600ff',
-  ],
-  '-3': [
-    'Hoch',
-    'Hohe gesundheitliche Gefährdung aufgrund von Kältestress',
-    '#006dff',
-  ],
-  '-2': [
-    'Mittel',
-    'Mittlere gesundheitliche Gefährdung durch Kälte',
-    '#00cdff',
-  ],
-  '-1': [
-    'Gering',
-    'Geringe gesundheitliche Gefährdung aufgrund von Kältestress',
-    '#82ffff',
-  ],
-  0: ['Keine', 'Keine gesundheitliche Gefährdung', '#7eff02'],
-  1: [
-    'Gering',
-    'Geringe gesundheitliche Gefährdung aufgrund von Wärmebelastung',
-    '#ffff02',
-  ],
-  2: [
-    'Mittel',
-    'Mittlere gesundheitliche Gefährdung aufgrund von Wärmebelastung',
-    '#ffc800',
-  ],
-  3: [
-    'Hoch',
-    'Hohe gesundheitliche Gefährdung aufgrund von Wärmebelastung',
-    '#ff0000',
-  ],
-  4: [
-    'Sehr Hoch',
-    'Sehr hohe gesundheitliche Gefährdung aufgrund von Wärmebelastung',
-    '#dd00ff',
-  ],
+const rating_colors: { [key: number]: string } = {
+  '-4': '#0600ff',
+  '-3': '#006dff',
+  '-2': '#00cdff',
+  '-1': '#82ffff',
+  0: '#7eff02',
+  1: '#ffff02',
+  2: '#ffc800',
+  3: '#ff0000',
+  4: '#dd00ff',
 }
 
-function getRating(index: number): Rating {
-  return rating_keys[index] ?? ['Unbekannt', '', '']
+const rating_strings: { [key: number]: RatingStrings } = {
+  0: ['Keine', 'Keine gesundheitliche Gefährdung'],
+  1: ['Gering', 'Geringe gesundheitliche Gefährdung'],
+  2: ['Mittel', 'Mittlere gesundheitliche Gefährdung'],
+  3: ['Hoch', 'Hohe gesundheitliche Gefährdung'],
+  4: ['Sehr Hoch', 'Sehr hohe gesundheitliche Gefährdung'],
+}
+
+function getRating(index: number): [string, string, string, string] {
+  let temp_rating = ''
+  if (index > 0) {
+    temp_rating = 'Wärmebelastung'
+  } else if (index < 0) {
+    temp_rating = 'Kältestress'
+  }
+
+  const strings = rating_strings[Math.abs(index)] ?? ['Unbekannt', '']
+  const color = rating_colors[index] ?? '#000000'
+
+  return [...strings, color, temp_rating]
 }
 
 export default function ThermalHazardTileContent() {
-  const harzard_data = useApi('dwd/thermal_hazard') as DataProps[]
-  const perceived_temperature: number | null = useApi(
-    'dwd/perceived_temperature',
+  const { data: harzard_data, status: status_data } = useApi<DataProps[]>(
+    'dwd/thermal_hazard',
     10,
-  ) as any
+  )
+
+  const { data: perceived_temperature, status: status_temp } = useApi<
+    number[] | null
+  >('dwd/perceived_temperature', 10)
 
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
@@ -79,18 +68,30 @@ export default function ThermalHazardTileContent() {
   useEffect(() => {
     const index = harzard_data
       ? (harzard_data[day_index] as any) *
-        (perceived_temperature !== null && perceived_temperature < thermal_limit
+        (perceived_temperature !== null &&
+        perceived_temperature[day_index] < thermal_limit
           ? -1
           : 1)
       : 0
     setHazardIndex(index)
   }, [perceived_temperature, harzard_data, day_index])
 
-  if (!harzard_data || !harzard_data.length || !perceived_temperature) {
-    return <RequestIndicator />
+  if (
+    !harzard_data ||
+    !perceived_temperature ||
+    status_data !== 'success' ||
+    status_temp !== 'success'
+  ) {
+    return (
+      <RequestIndicator
+        failed={status_data === 'error' || status_temp === 'error'}
+      />
+    )
   }
 
-  const [rating, advice, rating_color] = getRating(harzard_index ?? 0)
+  const [rating, advice, rating_color, temperature_rating] = getRating(
+    harzard_index ?? 0,
+  )
 
   return (
     <div className="flex flex-col gap-8">
@@ -105,7 +106,19 @@ export default function ThermalHazardTileContent() {
         </div>
         <div className="flex flex-grow flex-col justify-between">
           <Text as={'base'}>
-            <div>{advice}</div>
+            <div>
+              {advice}
+              {temperature_rating !== '' && (
+                <span>
+                  {' '}
+                  aufgrund von{' '}
+                  <span className="whitespace-nowrap font-bold text-ecology">
+                    {temperature_rating}
+                  </span>
+                  .
+                </span>
+              )}
+            </div>
           </Text>
         </div>
       </div>

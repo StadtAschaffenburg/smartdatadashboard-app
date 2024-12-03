@@ -24,7 +24,8 @@ function getRating(index: number): Rating {
 }
 
 export default function UVTileContent() {
-  const uv_data = useApi('dwd/uvi') as DataProps[]
+  const { data: uv_data, status } = useApi<DataProps[]>('dwd/uvi', 10)
+
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() + index)
@@ -52,8 +53,8 @@ export default function UVTileContent() {
     }
   }, [uv_data, dayIndex]) // Abhängig von den UV-Daten und dem ausgewählten Tag
 
-  if (!uv_data || !uv_data.length) {
-    return <RequestIndicator />
+  if (!uv_data || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
   }
 
   return (

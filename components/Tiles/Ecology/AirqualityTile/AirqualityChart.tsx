@@ -43,7 +43,10 @@ const getMaxQualityIndex = (readings: AirQualityReading[]): number | null => {
 }
 
 export default function AirqualityChart() {
-  const readings = useApi('lfu/airquality') as AirQualityReading[]
+  const { data: readings, status } = useApi<AirQualityReading[]>(
+    'lfu/airquality',
+    10,
+  )
 
   const [air_quality_index, setAirQualityIndex] = useState<number | null>(null)
 
@@ -53,8 +56,8 @@ export default function AirqualityChart() {
     }
   }, [readings])
 
-  if (!readings || !readings.length) {
-    return <RequestIndicator />
+  if (!readings || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
   }
 
   return (

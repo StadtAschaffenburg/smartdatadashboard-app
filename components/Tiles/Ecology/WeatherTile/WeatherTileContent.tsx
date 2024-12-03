@@ -16,10 +16,10 @@ import useApi from '@/hooks/useApi'
 export default function WeatherTileContent() {
   const weather = useWeather({ lat: 49.98, lng: 9.15 }, new Date())
   const local_weather = useLocalWeather()
-  const perceived_temperature: number | null = useApi(
+  const { data: perceived_temperature, status } = useApi<number[] | null>(
     'dwd/perceived_temperature',
     10,
-  ) as any
+  )
 
   function getWindDirection(degrees: number): string {
     const directions: string[] = ['N', 'NO', 'O', 'SO', 'S', 'SW', 'W', 'NW']
@@ -55,11 +55,11 @@ export default function WeatherTileContent() {
                 size="xl"
                 value={local_weather?.temperature ?? weather.temperature}
               />
-              {perceived_temperature && (
+              {perceived_temperature && status === 'success' && (
                 <Phenomenon
                   hide_icon={true}
                   phenomenon="perceived_temperature"
-                  value={perceived_temperature}
+                  value={perceived_temperature[0]}
                 />
               )}
             </div>

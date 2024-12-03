@@ -12,13 +12,14 @@ export default function DynamicText({
   children,
   tile_payload,
 }: DynamicTextProps) {
-  const parts = children.split(/\[animate:([a-zA-Z0-9_]+)\]/g)
+  // Regex angepasst, um optionales Leerzeichen zu akzeptieren
+  const parts = children.split(/\[animate:\s*([a-zA-Z0-9_]+)\]/g)
   const variant = getVariantType(tile_payload)
 
   return (
     <>
       {parts.map((part, index) => {
-        const data_point = getDataPoint(tile_payload, part)
+        const data_point = getDataPoint(tile_payload, part) ?? part
 
         if (data_point) {
           return (
