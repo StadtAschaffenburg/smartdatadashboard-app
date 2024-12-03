@@ -15,26 +15,47 @@ interface MarkdownProps {
 export default function Markdown({ content, tile_payload }: MarkdownProps) {
   const markdownComponents = {
     ...baseComponents,
-    p: ({ node, children }: { node: any; children: React.ReactNode }) => {
+    p: ({ children }: { children: React.ReactNode }) => {
       if (!tile_payload) {
-        return children
+        return <p>{children}</p>
       }
 
-      const textContent = React.Children.toArray(children).join(' ')
-      return (
-        <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
+      // Check if all children are plain text or if there are formatted elements
+      const hasOnlyPlainText = React.Children.toArray(children).every(
+        child => typeof child === 'string',
       )
+
+      if (hasOnlyPlainText) {
+        const textContent = React.Children.toArray(children).join(' ')
+        return (
+          <p>
+            <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
+          </p>
+        )
+      }
+
+      // Return children as-is for mixed/complex content
+      return <p>{children}</p>
     },
-    // Optional: Erweiterung für andere Tags wie `span`, `div` usw.
-    span: ({ node, children }: { node: any; children: React.ReactNode }) => {
+    span: ({ children }: { children: React.ReactNode }) => {
       if (!tile_payload) {
-        return children
+        return <span>{children}</span>
       }
 
-      const textContent = React.Children.toArray(children).join(' ')
-      return (
-        <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
+      const hasOnlyPlainText = React.Children.toArray(children).every(
+        child => typeof child === 'string',
       )
+
+      if (hasOnlyPlainText) {
+        const textContent = React.Children.toArray(children).join(' ')
+        return (
+          <span>
+            <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
+          </span>
+        )
+      }
+
+      return <span>{children}</span>
     },
   }
 
