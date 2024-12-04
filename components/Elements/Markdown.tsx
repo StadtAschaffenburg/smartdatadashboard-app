@@ -13,50 +13,34 @@ interface MarkdownProps {
 }
 
 export default function Markdown({ content, tile_payload }: MarkdownProps) {
+  const createDynamicWrapper = (Component: 'p' | 'span') => {
+    // eslint-disable-next-line react/function-component-definition
+    return ({ children }: { children: React.ReactNode }) => {
+      if (!tile_payload) {
+        return React.createElement(Component, {}, children)
+      }
+
+      const hasOnlyPlainText = React.Children.toArray(children).every(
+        child => typeof child === 'string',
+      )
+
+      if (hasOnlyPlainText) {
+        const textContent = React.Children.toArray(children).join(' ')
+        return React.createElement(
+          Component,
+          {},
+          <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>,
+        )
+      }
+
+      return React.createElement(Component, {}, children)
+    }
+  }
+
   const markdownComponents = {
     ...baseComponents,
-    p: ({ children }: { children: React.ReactNode }) => {
-      if (!tile_payload) {
-        return <p>{children}</p>
-      }
-
-      // Check if all children are plain text or if there are formatted elements
-      const hasOnlyPlainText = React.Children.toArray(children).every(
-        child => typeof child === 'string',
-      )
-
-      if (hasOnlyPlainText) {
-        const textContent = React.Children.toArray(children).join(' ')
-        return (
-          <p>
-            <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
-          </p>
-        )
-      }
-
-      // Return children as-is for mixed/complex content
-      return <p>{children}</p>
-    },
-    span: ({ children }: { children: React.ReactNode }) => {
-      if (!tile_payload) {
-        return <span>{children}</span>
-      }
-
-      const hasOnlyPlainText = React.Children.toArray(children).every(
-        child => typeof child === 'string',
-      )
-
-      if (hasOnlyPlainText) {
-        const textContent = React.Children.toArray(children).join(' ')
-        return (
-          <span>
-            <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>
-          </span>
-        )
-      }
-
-      return <span>{children}</span>
-    },
+    p: createDynamicWrapper('p'),
+    span: createDynamicWrapper('span'),
   }
 
   return (

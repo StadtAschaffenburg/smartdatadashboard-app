@@ -223,6 +223,7 @@ async function fetchFile(endpoint: string): Promise<any> {
 
     return content
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error('fetchFile error:', error)
     return null
   }

@@ -4,7 +4,7 @@ import CookieConsent, { getCookieConsentValue } from 'react-cookie-consent'
 
 export default function Cookies() {
   const handleAccept = () => {
-    if (typeof window === 'undefined') {
+    if (typeof window === 'undefined' || typeof document === 'undefined') {
       return
     }
 
@@ -30,6 +30,10 @@ export default function Cookies() {
   if (getCookieConsentValue() === 'true') {
     handleAccept()
     return
+  }
+
+  if (typeof document !== 'undefined') {
+    document.body.classList.add('cookie-consent')
   }
 
   return (

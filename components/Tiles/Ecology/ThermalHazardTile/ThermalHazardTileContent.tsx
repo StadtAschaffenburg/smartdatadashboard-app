@@ -53,6 +53,9 @@ export default function ThermalHazardTileContent() {
     number[] | null
   >('dwd/perceived_temperature', 10)
 
+  const [day_index, setday_index] = useState<number>(0)
+  const [harzard_index, setHazardIndex] = useState<number | null>(null) // heat or cold
+
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
     date.setDate(date.getDate() + index)
@@ -61,9 +64,6 @@ export default function ThermalHazardTileContent() {
       month: '2-digit',
     })
   })
-
-  const [day_index, setday_index] = useState<number>(0)
-  const [harzard_index, setHazardIndex] = useState<number | null>(null) // heat or cold
 
   useEffect(() => {
     const index = harzard_data
@@ -122,6 +122,7 @@ export default function ThermalHazardTileContent() {
           </Text>
         </div>
       </div>
+
       <Slider
         defaultValue={[0]}
         firstValueMobile={0}
