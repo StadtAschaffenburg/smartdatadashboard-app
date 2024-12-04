@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import BaseNavbar from './BaseNavbar'
 import Breadcrumbs from './Breadcrumbs'
 import React from 'react'
-import { getBreadcrumbs } from '@/utils/breadcrumbs'
+import { useBreadcrumbs } from '@/utils/breadcrumbs'
 import { setPageTitle } from '@/utils/content'
 import { PageMappingType } from '@/lib/sitemap'
 
@@ -17,7 +17,7 @@ export default function Navbar({
 }) {
   const pathname: string = usePathname() ?? '/'
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
-  const breadcrumbs = getBreadcrumbs()
+  const breadcrumbs = useBreadcrumbs()
 
   // split the URL into segments and filter out empty strings
   const segments = url.split('/').filter(Boolean)
