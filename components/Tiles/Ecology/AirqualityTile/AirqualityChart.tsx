@@ -56,7 +56,8 @@ export default function AirqualityChart() {
     }
   }, [readings])
 
-  if (!readings || status !== 'success') {
+  // gatekeeper
+  if (!readings || !readings.length || status !== 'success') {
     return <RequestIndicator failed={status === 'error'} />
   }
 

@@ -49,7 +49,7 @@ export default function MobileSlider({
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),
-              'block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary md:h-9',
+              'block aspect-square h-6 touch-pan-x rounded-full shadow md:h-9',
             )}
           />
         </SliderPrimitive.Root>

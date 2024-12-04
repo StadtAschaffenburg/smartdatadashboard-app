@@ -126,7 +126,7 @@ export default function IconTile({
       )}
       <>{tile_payload?.copy && <Spacer />}</>
 
-      <div className="flex gap-8 text-sm text-primary">
+      <div className="flex flex-col gap-x-8 gap-y-1 text-sm text-primary md:flex-row">
         <div className="">
           <span className="font-semibold">Datenstand:</span>{' '}
           {tile_payload?.retrieval ??

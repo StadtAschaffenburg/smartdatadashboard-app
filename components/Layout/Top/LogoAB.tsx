@@ -5,7 +5,7 @@ export default function LogoAB() {
   return (
     <Image
       alt="Logo der Stadt Aschaffenburg"
-      className="pointer-events-none ml-auto h-8 w-auto md:h-12"
+      className="pointer-events-none ml-auto h-8 w-auto md:h-10"
       src={StadtLogo}
     />
   )

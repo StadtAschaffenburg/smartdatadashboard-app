@@ -72,7 +72,7 @@ function SearchComponent() {
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-8 left-0 right-0 z-30 transition-all [.cookie-consent&]:bottom-32">
+    <div className="pointer-events-none fixed bottom-8 left-0 right-0 z-30 transition-all [.cookie-consent_&]:bottom-40">
       <Container className={'flex justify-end'} variant={'flat'}>
         <div className="group pointer-events-auto z-50 flex cursor-pointer items-center gap-4 overflow-hidden rounded bg-white shadow">
           {!is_open ? (

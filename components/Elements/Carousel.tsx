@@ -65,8 +65,8 @@ export default function Carousel({
               {[...Array(children.length)].map((_, i) => (
                 <div
                   className={cx(
-                    'h-3 w-3 rounded-full border-2 border-buildings transition-colors',
-                    curIndex === i ? 'bg-buildings' : 'bg-transparent',
+                    'h-3 w-3 rounded-full border-2 border-primary transition-colors',
+                    curIndex === i ? 'bg-primary' : 'bg-transparent',
                   )}
                   key={i}
                   onClick={() => splideRef.current?.splide?.go(i)}

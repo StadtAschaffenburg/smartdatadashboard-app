@@ -2,6 +2,7 @@
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import StadtteilMap from './StadtteilMap'
+import StadtteilMapMobile from './StadtteilMapMobile'
 import { TilePayloadType } from '@/types/tiles'
 import { getAllSources, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
@@ -126,9 +127,12 @@ export default function StadtteilContent({
 
   return (
     <>
-      <div className="relative flex h-96 flex-1 flex-col rounded bg-white p-2 md:h-[32rem]">
-        <div className="absolute left-0 hidden h-full w-full justify-center p-4 lg:flex">
+      <div className="relative flex flex-1 flex-col rounded bg-white p-2 md:h-[32rem]">
+        <div className="absolute left-0 hidden h-full w-full justify-center p-4 md:flex">
           <StadtteilMap destict_data={destictData} />
+        </div>
+        <div className="h-full justify-center p-4 md:hidden">
+          <StadtteilMapMobile destict_data={destictData} />
         </div>
         <div className="absolute -bottom-10 left-0 flex h-full w-full justify-center lg:hidden"></div>
       </div>

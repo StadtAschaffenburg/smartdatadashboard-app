@@ -1,4 +1,5 @@
 import { PageMappingType, sitemap as sitemap_static } from '@/lib/sitemap'
+import { getGlobal } from '@/lib/cms'
 
 export function getPermalink(
   id_or_slug: string,
@@ -56,4 +57,27 @@ export function findTitle(slug: string, sitemap: PageMappingType[]): string {
 
   const page = findPage(slug, sitemap)
   return page ? page.title : ''
+}
+
+export async function getPageTitle(
+  title: string,
+  seo_title?: string,
+): Promise<string> {
+  if (!seo_title) {
+    const global_seo = await getGlobal('seo')
+    seo_title = global_seo?.page_title
+  }
+  return `${title} | ${seo_title}`
+}
+
+export async function setPageTitle(
+  title: string,
+  seo_title?: string,
+): Promise<boolean> {
+  if (typeof document !== 'undefined') {
+    document.title = await getPageTitle(title, seo_title)
+    return true
+  }
+
+  return false
 }

@@ -7,7 +7,7 @@ import LightningChart from './LightningChart'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 
-const monthCount = 5 // Anzahl der angezeigten Monate
+const monthCount = 5
 
 const monthNames = [
   'JAN',
@@ -26,8 +26,8 @@ const monthNames = [
 
 function transformData(data: DataType[]): MonthlyData[] {
   return data.map(({ ts, value }) => {
-    const [month, year] = ts.split('.') // Split auf "month.year"
-    const month_key = `${monthNames[parseInt(month, 10) - 1]}` // Monatname aus Monatnummer
+    const [month, year] = ts.split('.')
+    const month_key = `${monthNames[parseInt(month, 10) - 1]}`
     return {
       date: `${month}.${year}`,
       month: month_key,
@@ -54,14 +54,15 @@ export default function LightningTileContent() {
     }
   }, [lightning_data])
 
+  // gatekeeper
+  if (!monthly_data || !monthly_data.length || status !== 'success') {
+    return <RequestIndicator failed={status === 'error'} />
+  }
+
   const visible_months = monthly_data.slice(
     Math.max(0, month_index - (monthCount - 1)),
     month_index + 1,
   )
-
-  if (!monthly_data || status !== 'success') {
-    return <RequestIndicator failed={status === 'error'} />
-  }
 
   return (
     <div>
@@ -69,9 +70,8 @@ export default function LightningTileContent() {
         <LightningChart data={visible_months} />
       </div>
       <Slider
-        className={'hidden xl:block'}
-        defaultValue={[monthly_data.length - 1]} // Setze den Standardwert auf den neuesten Monat
-        max={monthly_data.length - 1}
+        defaultValue={[monthly_data.length - 1]}
+        max={Math.max(monthly_data.length - 1, 0)}
         min={Math.max(monthCount - 1, 0)}
         onValueChange={([index]) => setMonthIndex(index)}
         variant={'ecology'}

@@ -15,7 +15,7 @@ export default async function LinkTile({
 }) {
   return (
     <Background light rounded>
-      <div className="flex w-full flex-col justify-between gap-6 px-4 py-8 lg:px-12 lg:py-8">
+      <div className="flex w-full flex-col justify-between gap-8 p-6 lg:px-12 lg:py-8">
         {headline && (
           <Title as="h3" font="normal" variant="primary">
             {headline}

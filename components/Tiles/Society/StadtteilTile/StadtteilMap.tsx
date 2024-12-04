@@ -72,7 +72,7 @@ export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
       <div className="absolute left-0 top-0 z-10 h-full w-full">
         <StadteilOverlay map_data={map_data} />
       </div>
-      <div className="absolute left-0 top-0 z-0 h-full w-full">
+      <div className="absolute left-0 top-1/2 z-0 h-4/6 w-full -translate-y-1/2 lg:h-5/6">
         <StadtAbMap className="absolute left-1/2 top-1/2 z-10 h-full -translate-x-1/2 -translate-y-1/2" />
       </div>
     </div>

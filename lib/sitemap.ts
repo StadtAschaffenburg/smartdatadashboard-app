@@ -6,7 +6,7 @@ export type PageMappingType = {
 }
 
 export const sitemap: PageMappingType[] = [
-  { id: 'home', title: 'Smart Data Dashboard', slug: '' },
+  { id: 'home', title: 'Startseite', slug: '' },
   { id: 'ab_live', title: 'Aschaffenburg Live', slug: 'aschaffenburg-live' },
   {
     id: 'dimensions',

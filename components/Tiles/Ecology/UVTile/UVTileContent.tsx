@@ -53,6 +53,7 @@ export default function UVTileContent() {
     }
   }, [uv_data, dayIndex]) // Abhängig von den UV-Daten und dem ausgewählten Tag
 
+  // gatekeeper
   if (!uv_data || status !== 'success') {
     return <RequestIndicator failed={status === 'error'} />
   }

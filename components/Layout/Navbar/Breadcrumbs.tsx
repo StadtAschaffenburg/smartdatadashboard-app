@@ -1,11 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-
-// Definieren des Breadcrumb-Typs
-export type BreadcrumbType = {
-  title: string | null
-  link?: string | null
-}
+import { BreadcrumbType } from '@/utils/breadcrumbs'
 
 type BreadcrumbsProps = {
   breadcrumbs: BreadcrumbType[]

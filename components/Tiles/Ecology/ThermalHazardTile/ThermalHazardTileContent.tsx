@@ -95,32 +95,33 @@ export default function ThermalHazardTileContent() {
 
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-row content-center items-center gap-6">
+      <div className="flex flex-col items-center justify-stretch gap-6 md:flex-row">
         <div
-          className="border-climate flex items-center justify-center rounded shadow"
+          className="border-climate flex w-full items-center justify-center rounded shadow md:w-48"
           style={{ backgroundColor: rating_color, borderColor: rating_color }}
         >
-          <div className="flex h-20 w-48 items-center justify-center rounded-md bg-gradient-to-tr from-black/40 to-black/60 bg-blend-darken">
-            <span className="text-2xl font-bold text-white">{rating}</span>
+          <div className="flex h-20 w-full items-center justify-center rounded-md bg-gradient-to-tr from-black/40 to-black/60 bg-blend-darken md:w-48">
+            <span className="text-center text-2xl font-bold text-white">
+              {rating}
+            </span>
           </div>
         </div>
-        <div className="flex flex-grow flex-col justify-between">
-          <Text as={'base'}>
-            <div>
-              {advice}
-              {temperature_rating !== '' && (
-                <span>
-                  {' '}
-                  aufgrund von{' '}
-                  <span className="whitespace-nowrap font-bold text-ecology">
-                    {temperature_rating}
-                  </span>
-                  .
+
+        <Text as={'base'}>
+          <div>
+            {advice}
+            {temperature_rating !== '' && (
+              <span>
+                {' '}
+                aufgrund von{' '}
+                <span className="whitespace-nowrap font-bold text-ecology">
+                  {temperature_rating}
                 </span>
-              )}
-            </div>
-          </Text>
-        </div>
+              </span>
+            )}
+            .
+          </div>
+        </Text>
       </div>
 
       <Slider

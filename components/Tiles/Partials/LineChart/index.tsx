@@ -21,6 +21,10 @@ const getColor = (variant: string) => {
 }
 
 const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
+  if (!data.length) {
+    return []
+  }
+
   const aggregatedData: Record<string, number> = data.reduce(
     (acc, item) => {
       const year = item.ZEIT

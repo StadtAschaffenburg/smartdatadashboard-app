@@ -110,7 +110,8 @@ export default function WeatherStationsContent() {
     }
   }, [weatherstations, autoRotate])
 
-  if (!weatherstations || status !== 'success') {
+  // gatekeeper
+  if (!weatherstations || !weatherstations.length || status !== 'success') {
     return <RequestIndicator failed={status === 'error'} />
   }
 

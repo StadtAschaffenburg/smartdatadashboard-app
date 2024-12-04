@@ -74,6 +74,12 @@ export async function getContent(
   return result
 }
 
+export async function getGlobal(global_id: string): Promise<any> {
+  const result = await handleRequest('global', global_id)
+
+  return result
+}
+
 export async function getCollection(
   collection_id: string = 'tiles',
 ): Promise<any> {
@@ -231,6 +237,7 @@ async function fetchFile(endpoint: string): Promise<any> {
 
 export async function rebuildCache() {
   const collections = ['pages', 'sources', 'tiles']
+  const global = ['seo']
   const data: any = {}
 
   for (const collection of collections) {
@@ -248,6 +255,11 @@ export async function rebuildCache() {
     }
     for (const source of data.sources) {
       await getSourceFile(source.file_name)
+    }
+
+    // get all global data
+    for (const global_id of global) {
+      await getGlobal(global_id)
     }
 
     // rebuild collections

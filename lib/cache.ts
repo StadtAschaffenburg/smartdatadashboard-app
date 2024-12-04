@@ -102,6 +102,7 @@ export async function flushCache() {
     'cache/collection',
     'cache/content',
     'cache/source',
+    'cache/global',
   ]
 
   for (const dir of wipe_dirs) {

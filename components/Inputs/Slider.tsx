@@ -21,6 +21,7 @@ export default function Slider({
   ...props
 }: SliderProps) {
   const [value, setValue] = useState<number>(firstValueMobile || 0)
+  const stepCount = props.max ? props.max - (props.min || 0) : 0
 
   return (
     <div className={`slider-component ${className}`}>
@@ -46,11 +47,24 @@ export default function Slider({
               BackgroundStyle({ variant }),
               'relative h-3 flex-1 rounded-full bg-opacity-20 md:h-5',
             )}
-          />
+          >
+            <div className="absolute inset-0 flex items-end justify-between">
+              {Array.from({ length: stepCount + 1 }, (_, i) => (
+                <div className="h-1/2 w-6 opacity-50 md:w-9" key={i}>
+                  <div
+                    className={cx(
+                      BackgroundStyle({ variant }),
+                      'mx-auto h-full w-px ',
+                    )}
+                  />
+                </div>
+              ))}
+            </div>
+          </SliderPrimitive.Track>
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),
-              'md:h-9" block aspect-square h-6 touch-pan-x rounded-full bg-primary shadow shadow-primary',
+              'block aspect-square h-6 touch-pan-x rounded-full shadow md:h-9',
             )}
           />
         </SliderPrimitive.Root>

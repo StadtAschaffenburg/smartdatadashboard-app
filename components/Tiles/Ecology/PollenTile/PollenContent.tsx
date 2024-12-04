@@ -41,7 +41,8 @@ export default function PollenContent({
     }
   }, [readings, day_index])
 
-  if (!readings || status !== 'success') {
+  // gatekeeper
+  if (!readings || !readings.length || status !== 'success') {
     return <RequestIndicator failed={status === 'error'} />
   }
 

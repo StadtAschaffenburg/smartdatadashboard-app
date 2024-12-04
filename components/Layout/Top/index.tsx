@@ -1,27 +1,32 @@
 'use client'
 
 import Container from '../Container'
-import Background from '../Background'
 import LogoAB from './LogoAB'
 import LogoSDD from './LogoSDD'
 import Link from 'next/link'
+import Title from '@/components/Elements/Title'
 
 export default function Top() {
   return (
     <>
       <Container
-        className="flex w-full justify-start gap-8"
-        variant={'compact'}
+        className="z-10 flex w-full justify-start gap-8 py-6 shadow-lg"
+        variant={'flat'}
       >
-        <Link href={'/'}>
+        <Link href={'https://aschaffenburg.de'} target="_blank">
           <LogoAB />
         </Link>
       </Container>
-      <Background light>
-        <Container className="flex w-full justify-end gap-8" variant={'flat'}>
-          <LogoSDD />
-        </Container>
-      </Background>
+
+      <Container
+        className="z-0 flex w-full items-center justify-between gap-8 py-4"
+        variant={'flat'}
+      >
+        <Title as="h1" className="uppercase" variant="primary">
+          <Link href={'/'}>Smart Data Dashboard</Link>
+        </Title>
+        <LogoSDD />
+      </Container>
     </>
   )
 }

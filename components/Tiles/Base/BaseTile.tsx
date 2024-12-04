@@ -96,7 +96,7 @@ export function BaseTile({
     <div className="pb-4 md:pb-8">
       <div className={cx(baseTileStyle({ variant }), className)}>
         {startImage}
-        <div className="z-0 flex w-full flex-col justify-between p-4 xs:p-8 md:p-12 lg:px-8 lg:py-6 xl:px-16 xl:py-12">
+        <div className="z-0 flex w-full flex-col justify-between px-6 py-4 xs:p-8 md:p-12 lg:px-8 lg:py-6 xl:px-16 xl:py-12">
           <div>{children}</div>
           <TileFooter
             dataURL={dataUrl ?? null}

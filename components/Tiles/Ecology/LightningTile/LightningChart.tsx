@@ -44,7 +44,7 @@ export default function LightningChart({ data }: Props) {
             overflow: 'truncate',
             interval: 0,
             color: 'rgb(0, 80, 150)',
-            fontSize: device === 'mobile' ? 12 : 16,
+            fontSize: device === 'mobile' ? 10 : 14,
           },
         },
         yAxis: {
