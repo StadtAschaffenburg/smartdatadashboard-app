@@ -48,7 +48,7 @@ export default function Slider({
               'relative h-3 flex-1 rounded-full bg-opacity-20 md:h-5',
             )}
           >
-            <div className="absolute inset-0 flex items-end justify-between">
+            <div className="pointer-events-none absolute inset-0 flex items-end justify-between">
               {Array.from({ length: stepCount + 1 }, (_, i) => (
                 <div className="h-1/2 w-6 opacity-50 md:w-9" key={i}>
                   <div

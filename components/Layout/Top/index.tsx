@@ -19,7 +19,7 @@ export default function Top() {
       </Container>
 
       <Container
-        className="z-0 flex w-full items-center justify-between gap-8 py-4"
+        className="z-0 flex w-full items-center justify-between gap-8 py-1"
         variant={'flat'}
       >
         <Title as="h1" className="uppercase" variant="primary">
