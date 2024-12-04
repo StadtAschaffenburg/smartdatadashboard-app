@@ -9,14 +9,13 @@ import Title from '@/components/Elements/Title'
 export default function Top() {
   return (
     <>
-      <Container
-        className="z-10 flex w-full justify-start gap-8 py-6 shadow-lg"
-        variant={'flat'}
-      >
-        <Link href={'https://aschaffenburg.de'} target="_blank">
-          <LogoAB />
-        </Link>
-      </Container>
+      <div className="z-10 w-full shadow-lg">
+        <Container className="flex justify-start gap-8 py-6" variant={'flat'}>
+          <Link href={'https://aschaffenburg.de'} target="_blank">
+            <LogoAB />
+          </Link>
+        </Container>
+      </div>
 
       <Container
         className="z-0 flex w-full items-center justify-between gap-8 py-1"

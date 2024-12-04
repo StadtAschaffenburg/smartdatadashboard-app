@@ -14,7 +14,10 @@ export const metadata = {
 // Funktion zum Abrufen des Seitentitels
 async function getPageTitleServer() {
   const current_headers = headers()
-  const pathname = new URL(current_headers.get('referer') || '/').pathname
+  const referer = current_headers.get('referer') || '/'
+
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
+  const pathname = new URL(referer, baseUrl).pathname
 
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
   const segments = url.split('/').filter(Boolean)
