@@ -1,6 +1,6 @@
 import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
-import Cookies from './Cookies'
+import Cookies from '@/components/Layout/Cookies'
 import { headers } from 'next/headers'
 import { findPage, getPageTitle } from '@/utils/content'
 import { getGlobal } from '@/lib/cms'
@@ -11,7 +11,6 @@ export const metadata = {
   icons: '/favicon.ico',
 }
 
-// Funktion zum Abrufen des Seitentitels
 async function getPageTitleServer() {
   const current_headers = headers()
   const full_url: string = current_headers.get('x-full-url') ?? ''

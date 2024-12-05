@@ -5,7 +5,7 @@ export type DestrictMapping = {
   share: number
   value: {
     current: number
-    previous: number
+    previous: number | null
   }
 }
 

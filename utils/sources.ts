@@ -25,6 +25,29 @@ export function getYears(
   )
 }
 
+export function getReducedValue(
+  values: Record<string, DataValue>,
+  keys: string[],
+): DataValue {
+  return Object.keys(values)
+    .filter(key => keys.includes(key))
+    .reduce(
+      (acc, key) => {
+        acc.current += values[key].current
+
+        // Wenn ein "previous" null ist, wird der gesamte Wert null
+        if (values[key]?.previous === null) {
+          acc.previous = null
+        } else if (acc.previous !== null) {
+          acc.previous += values[key].previous ?? 0
+        }
+
+        return acc
+      },
+      { current: 0, previous: 0 as number | null },
+    )
+}
+
 export function getRow(
   data: InputDataType[],
   yearIndex: number,

@@ -7,7 +7,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
 import { ContentProps } from './dt'
 import { getAllSources } from '@/utils/payload'
-import { getDataPoint, getString, getVariantType } from '@/utils/payload'
+import { getString, getVariantType } from '@/utils/payload'
 import { getRow, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 
@@ -18,8 +18,7 @@ export default function IconValues({
 }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const variant = getVariantType(tile_payload)
-  const modifier = getDataPoint(tile_payload, 'modifier', 1)
-  const unit: string = getString(tile_payload, 'einheit')
+  const unit: string = tile_payload.unit ?? ''
 
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(
@@ -34,7 +33,7 @@ export default function IconValues({
     data,
     yearIndex,
     keys ?? tile_payload.table_keys ?? [],
-    modifier,
+    tile_payload.modifier ?? 1,
   )
 
   return (

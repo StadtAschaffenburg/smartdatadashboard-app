@@ -7,6 +7,7 @@ import LinkComponent, { LinkProps } from './LinkComponent'
 import { IconHome } from '@/components/Icons/Navigation'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
 import { cx } from 'class-variance-authority'
+import { scrollToTop } from '@/utils/scroll'
 
 const link_home: LinkProps = {
   icon: IconHome,
@@ -67,11 +68,7 @@ export default function BaseNavbar({
 
   const handleLinkClick = () => {
     setIsOpen(false)
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    scrollToTop()
   }
 
   const toggleMenu = () => {
@@ -86,6 +83,7 @@ export default function BaseNavbar({
   return (
     <div
       className={`sticky top-0 z-50 ${isSticky ? 'is-sticky' : 'not-sticky'}`}
+      id="navbar"
       ref={navbarRef}
     >
       <Background variant={variant}>

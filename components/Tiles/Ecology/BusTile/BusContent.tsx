@@ -9,7 +9,7 @@ import Slider from '@/components/Inputs/Slider'
 import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
 import { BusContentProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import { getRow, getYears } from '@/utils/sources'
+import { getReducedValue, getRow, getYears } from '@/utils/sources'
 
 export default function BusContent({ data }: BusContentProps) {
   const years = getYears(data)
@@ -27,16 +27,7 @@ export default function BusContent({ data }: BusContentProps) {
   ])
 
   const fossil = values.fossil
-  const modern = Object.keys(values)
-    .filter(key => key !== 'fossil')
-    .reduce(
-      (acc, key) => {
-        acc.current += values[key].current
-        acc.previous += values[key]?.previous || 0
-        return acc
-      },
-      { current: 0, previous: 0 },
-    )
+  const modern = getReducedValue(values, ['elektro', 'hybrid', 'alternativ'])
 
   const ratio = modern.current
     ? fossil.current / (fossil.current + modern.current)

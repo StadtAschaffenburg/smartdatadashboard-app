@@ -22,7 +22,7 @@ export default function CompareIconValues({
 }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const variant = getVariantType(tile_payload)
-  const unit: string = getString(tile_payload, 'einheit')
+  const unit: string = tile_payload.unit ?? ''
 
   if (!keys) {
     keys = tile_payload.table_keys ?? []
@@ -35,7 +35,7 @@ export default function CompareIconValues({
     return <RequestIndicator />
   }
 
-  const values = getRow(data, yearIndex, keys)
+  const values = getRow(data, yearIndex, keys, tile_payload.modifier ?? 1)
 
   const leftCount = values[keys[0]]?.current ?? 0
   const rightCount = values[keys[1]]?.current ?? 0

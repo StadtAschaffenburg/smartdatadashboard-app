@@ -44,6 +44,8 @@ export interface TilePayloadType {
   files: string[] | null
   sources: TileSourceType[]
   search: string
+  modifier: number | null
+  unit: string | null
 }
 
 export interface TileProps {

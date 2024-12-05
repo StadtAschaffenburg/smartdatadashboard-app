@@ -19,4 +19,35 @@ export type EnergyConsumptionContentProps = {
   stromDataInput: InputDataType[]
 }
 
-export type Building = Omit<DataType, 'datum'>
+export type BuildingType = Omit<DataType, 'datum'>
+
+export const buildings: Record<keyof BuildingType, string> = {
+  rathaus: 'Rathaus',
+  frankenstolz_arena: 'F.A.N Frankenstolz Arena',
+  stadtbibliothek: 'Stadtbibliothek',
+  brentanoschule: 'Brentanoschule',
+}
+
+export type BuildingDataType = {
+  [key in keyof BuildingType]: {
+    strom: {
+      current: number[]
+      previous: number[] | null
+      currentSum: number
+      previousSum: number | null
+    }
+    waerme: {
+      current: number[]
+      previous: number[] | null
+      currentSum: number
+      previousSum: number | null
+    }
+  }
+}
+
+export interface ViewProps {
+  data: BuildingDataType
+  mode: 'strom' | 'waerme'
+  yearIndex: number
+  years: Array<number>
+}

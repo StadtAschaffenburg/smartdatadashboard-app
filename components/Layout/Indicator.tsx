@@ -1,4 +1,5 @@
 import {
+  MinusIcon as ArrowNoData,
   ArrowDownRightIcon as IconDown,
   ArrowRightIcon as IconNeutral,
   ArrowUpRightIcon as IconUp,
@@ -18,13 +19,15 @@ export function Indicator({
     difference != null && previous != null ? (difference / previous) * 100 : 0
 
   const Icon =
-    previous == null || percentDifference <= 3
-      ? IconNeutral
-      : current > previous
-        ? IconUp
-        : current < previous
-          ? IconDown
-          : IconNeutral
+    previous == null
+      ? ArrowNoData
+      : previous == null || percentDifference <= 3
+        ? IconNeutral
+        : current > previous
+          ? IconUp
+          : current < previous
+            ? IconDown
+            : IconNeutral
 
   return (
     <div className="relative inline pr-8">

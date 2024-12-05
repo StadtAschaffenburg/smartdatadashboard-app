@@ -13,6 +13,8 @@ import indicesData from './indicesData'
 import Toggle from './Toggle'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
+import Spinner from '@/components/Elements/Spinner'
+
 const { theme } = resolveConfig(tailwindConfig)
 
 const getColor = (variant: string) => {
@@ -79,12 +81,6 @@ export default function LineChart({ tile_payload }: ChartProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const keys = tile_payload.table_keys ?? []
 
-  // get the indices that are on the chart
-  const indices = getIndices(keys, data)
-
-  // fetch the start year and the max visitors
-  const start_year = getStartYear(data)
-
   const initialVisibility = keys.reduce(
     (acc, key) => {
       const index = indicesData[key]
@@ -98,6 +94,16 @@ export default function LineChart({ tile_payload }: ChartProps) {
 
   const [seriesVisible, setSeriesVisible] =
     useState<Record<string, boolean>>(initialVisibility)
+
+  if (!data || !data.length) {
+    return <Spinner />
+  }
+
+  // get the indices that are on the chart
+  const indices = getIndices(keys, data)
+
+  // fetch the start year and the max visitors
+  const start_year = getStartYear(data)
 
   const series: LineSeriesOption[] = Object.keys(indices)
     .filter(e => seriesVisible[e as string])

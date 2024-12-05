@@ -1,3 +1,10 @@
+export const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  })
+}
+
 /**
  * Smoothly scrolls to a given element by its ID and adjusts the position.
  * @param elementId The ID of the element to scroll to.
@@ -5,13 +12,21 @@
  */
 export const scrollToElement = (
   elementId: string = 'content',
-  offset: number = -70,
+  offset: number | null = null,
 ) => {
   const element = document.getElementById(elementId)
+
+  if (offset === null) {
+    const navbar = document.getElementById('navbar')
+    if (navbar) {
+      offset = navbar.clientHeight * -1
+    }
+  }
+
   if (element) {
     const elementTop = element.getBoundingClientRect().top + window.scrollY
     window.scrollTo({
-      top: elementTop + offset,
+      top: elementTop + (offset ?? 0),
       behavior: 'smooth',
     })
   }

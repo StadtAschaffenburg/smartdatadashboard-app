@@ -12,7 +12,7 @@ import {
 } from '@/components/Icons/Ecology'
 import { ContentProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import { getRow, getYears } from '@/utils/sources'
+import { getReducedValue, getRow, getYears } from '@/utils/sources'
 
 export default function StadtwerkeContent({ data }: ContentProps) {
   const years = getYears(data)
@@ -31,16 +31,11 @@ export default function StadtwerkeContent({ data }: ContentProps) {
   ])
 
   const fossil = values.Dieselantrieb
-  const modern = Object.keys(values)
-    .filter(key => key !== 'Dieselantrieb')
-    .reduce(
-      (acc, key) => {
-        acc.current += values[key].current
-        acc.previous += values[key]?.previous || 0
-        return acc
-      },
-      { current: 0, previous: 0 },
-    )
+  const modern = getReducedValue(values, [
+    'Elektroantrieb',
+    'Hybridantrieb',
+    'Erdgasantrieb',
+  ])
 
   const ratio = modern.current
     ? fossil.current / (fossil.current + modern.current)

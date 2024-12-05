@@ -6,7 +6,14 @@ import Slider from '@/components/Inputs/Slider'
 import DesktopView from './DesktopView'
 import MobileView from './MobileView'
 import { convertToFloat, convertToUnixTimestamp } from '@/utils/convert'
-import { DataType, EnergyConsumptionContentProps, InputDataType } from './dt'
+import {
+  BuildingDataType,
+  buildings,
+  BuildingType,
+  DataType,
+  EnergyConsumptionContentProps,
+  InputDataType,
+} from './dt'
 
 function convertData(data: InputDataType[]): DataType[] {
   return data.map((d: InputDataType) => ({
@@ -26,6 +33,79 @@ function setYears(data: DataType[]): number[] {
   ).sort((a, b) => a - b)
 }
 
+function getYearSum(
+  data: BuildingDataType,
+  mode: 'strom' | 'waerme',
+  building: keyof BuildingType,
+): { current: number; previous: number | null } {
+  const current = data[building][mode].current.reduce((a, b) => a + b, 0)
+  const previous =
+    data[building][mode].previous?.reduce((a, b) => a + b, 0) || null
+
+  return { current, previous }
+}
+
+function getDataByBuildings(
+  stromData: DataType[],
+  waermeData: DataType[],
+  year: number,
+): BuildingDataType {
+  const result: BuildingDataType = {} as BuildingDataType
+
+  for (const mode of ['strom', 'waerme'] as const) {
+    const data: DataType[] = mode === 'strom' ? stromData : waermeData
+
+    const currentYearData = data.filter(
+      d => year === new Date(d.datum).getFullYear(),
+    )
+    const previousYearData = data.filter(
+      d => year - 1 === new Date(d.datum).getFullYear(),
+    )
+
+    for (const building of Object.keys(buildings) as (keyof BuildingType)[]) {
+      if (!result[building]) {
+        result[building] = {
+          strom: {
+            current: [],
+            previous: [],
+            currentSum: 0,
+            previousSum: null,
+          },
+          waerme: {
+            current: [],
+            previous: [],
+            currentSum: 0,
+            previousSum: null,
+          },
+        }
+      }
+
+      const currentValues = currentYearData
+        .map(d => d[building])
+        .filter(d => d !== null && d !== undefined) as number[]
+
+      const previousValues = previousYearData
+        .map(d => d[building])
+        .filter(d => d !== null && d !== undefined) as number[]
+
+      const currentSum = currentValues.reduce((sum, value) => sum + value, 0)
+      const previousSum =
+        previousValues.length > 0
+          ? previousValues.reduce((sum, value) => sum + value, 0)
+          : null
+
+      result[building][mode] = {
+        current: currentValues,
+        previous: previousValues.length > 0 ? previousValues : null,
+        currentSum,
+        previousSum,
+      }
+    }
+  }
+
+  return result
+}
+
 export default function EnergyConsumptionContent({
   waermeDataInput,
   stromDataInput,
@@ -40,6 +120,8 @@ export default function EnergyConsumptionContent({
 
   const [mode, setMode] = useState<'strom' | 'waerme'>('strom')
   const [yearIndex, setYearIndex] = useState<number>(years.length - 1)
+
+  const data = getDataByBuildings(stromData, waermeData, years[yearIndex])
 
   return (
     <>
@@ -62,18 +144,17 @@ export default function EnergyConsumptionContent({
         </div>
         <div className="hidden xl:block">
           <DesktopView
+            data={data}
             mode={mode}
-            stromData={stromData}
-            waermeData={waermeData}
             yearIndex={yearIndex}
             years={years}
           />
         </div>
         <div className="block xl:hidden">
+          {' '}
           <MobileView
+            data={data}
             mode={mode}
-            stromData={stromData}
-            waermeData={waermeData}
             yearIndex={yearIndex}
             years={years}
           />

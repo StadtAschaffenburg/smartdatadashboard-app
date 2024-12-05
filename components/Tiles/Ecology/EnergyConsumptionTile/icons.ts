@@ -1,4 +1,4 @@
-import { Building } from './dt'
+import { BuildingType } from './dt'
 import { SVGProps } from 'react'
 
 import {
@@ -9,7 +9,7 @@ import {
 } from '@/components/Icons/Ecology'
 
 export const buildingIcon: Record<
-  keyof Building,
+  keyof BuildingType,
   (_props: SVGProps<SVGSVGElement>) => JSX.Element
 > = {
   brentanoschule: IconBuildingArena,

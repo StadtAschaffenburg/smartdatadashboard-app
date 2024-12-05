@@ -1,79 +1,40 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-
 import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
-import { Building, DataType } from './dt'
+import { buildings, BuildingType, ViewProps } from './dt'
 import { buildingIcon } from './icons'
-import { buildings } from './buildings'
 
 function getBuildingIcon(
-  building: keyof Building,
+  building: keyof BuildingType,
   props?: SVGProps<SVGSVGElement>,
 ) {
   const Icon = buildingIcon[building]
   return <Icon {...props} />
 }
 
-function getData(
-  mode: 'strom' | 'waerme',
-  building: keyof Building,
-  stromData: DataType[],
-  waermeData: DataType[],
-  year: number,
-) {
-  const data: DataType[] = mode === 'strom' ? stromData : waermeData
-
-  const filteredYear = data.filter(
-    d => year === new Date(d.datum).getFullYear(),
-  )
-
-  return filteredYear.map(d => d[building]).filter(d => d !== null) as number[]
-}
-
-function getYearSum(
-  mode: 'strom' | 'waerme',
-  building: keyof Building,
-  stromData: DataType[],
-  waermeData: DataType[],
-  year: number,
-) {
-  const data = getData(mode, building, stromData, waermeData, year)
-
-  return data.reduce((a, b) => a + b, 0)
-}
-
-interface DesktopViewProps {
-  mode: 'strom' | 'waerme'
-  stromData: DataType[]
-  waermeData: DataType[]
-  yearIndex: number
-  years: Array<number>
-}
-
 export default function DesktopView({
+  data,
   mode,
-  stromData,
-  waermeData,
   yearIndex,
   years,
-}: DesktopViewProps) {
+}: ViewProps) {
   return (
     <>
       <div className="flex h-full w-full justify-between gap-8">
         {Object.keys(buildings).map(building => (
           <div className="flex-1 p-2" key={building}>
             <div className="mx-auto mb-3 flex h-[200px] w-[200px] justify-center fill-ecology">
-              {getBuildingIcon(building as keyof Building)}
+              {getBuildingIcon(building as keyof BuildingType)}
             </div>
             <Title
               as="h4"
               className="min-h-[5rem] text-center"
               variant="ecology"
             >
-              {buildings[building as keyof Building]}
+              {buildings[building as keyof BuildingType]}
             </Title>
           </div>
         ))}
@@ -85,13 +46,7 @@ export default function DesktopView({
             {Object.keys(buildings).map(building => (
               <div className="h-72 w-full md:pb-2" key={building}>
                 <EnergyConsumptionChart
-                  data={getData(
-                    mode,
-                    building as keyof Building,
-                    stromData,
-                    waermeData,
-                    years[yearIndex],
-                  )}
+                  data={data[building as keyof BuildingType].waerme.current}
                 />
               </div>
             ))}
@@ -106,27 +61,26 @@ export default function DesktopView({
       <Spacer size={'sm'}></Spacer>
       <div className="flex h-full w-full justify-between gap-8">
         {Object.keys(buildings).map(building => {
-          const sum = getYearSum(
-            mode,
-            building as keyof Building,
-            stromData,
-            waermeData,
-            years[yearIndex],
-          )
+          const entry = data[building as keyof BuildingType][mode]
 
           return (
             <div
               className="flex w-full justify-center gap-1 p-2"
               key={building}
             >
-              {sum === 0 ? (
+              {entry.currentSum === 0 ? (
                 <Title as="h4" variant="ecology">
                   fehlende Daten
                 </Title>
               ) : (
                 <>
                   <Title as="h4" variant="ecology">
-                    <AnimatedNumber decimals={0}>{sum}</AnimatedNumber>
+                    <AnimatedNumber
+                      decimals={0}
+                      previous_value={entry.previousSum}
+                    >
+                      {entry.currentSum}
+                    </AnimatedNumber>
                   </Title>
                   <Title as="h4" font="normal" variant="ecology">
                     kWh

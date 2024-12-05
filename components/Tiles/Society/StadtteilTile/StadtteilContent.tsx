@@ -109,7 +109,7 @@ export default function StadtteilContent({
       ...destrict,
       value: {
         current: destrict_values[destrict.id]?.current ?? 0,
-        previous: destrict_values[destrict.id]?.previous ?? 0,
+        previous: destrict_values[destrict.id]?.previous ?? null,
       },
       share:
         total > 0
