@@ -40,7 +40,8 @@ function transformData(data: DataType[]): MonthlyData[] {
 export default function LightningTileContent() {
   const { data: lightning_data, status } = useApi<DataType[]>(
     'thingsboard/lightning',
-    10,
+    60,
+    false,
   )
 
   const [monthly_data, setMonthlyData] = useState<MonthlyData[]>([])

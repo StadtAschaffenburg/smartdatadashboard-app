@@ -14,7 +14,11 @@ export default function PollenContent({
 }: {
   tile_payload: TilePayloadType
 }) {
-  const { data: readings, status } = useApi<PollenResult[]>('dwd/pollen', 10)
+  const { data: readings, status } = useApi<PollenResult[]>(
+    'dwd/pollen',
+    60,
+    false,
+  )
 
   const [day_index, setDayIndex] = useState<number>(0)
   const [filteredData, setFilteredData] = useState<

@@ -14,23 +14,19 @@ export const metadata = {
 // Funktion zum Abrufen des Seitentitels
 async function getPageTitleServer() {
   const current_headers = headers()
-  const referer = current_headers.get('referer') || '/'
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'
-  const pathname = new URL(referer, baseUrl).pathname
-
-  const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
+  const full_url: string = current_headers.get('x-full-url') ?? ''
+  const url = full_url === '/' ? '' : full_url.replace(/^\//, '')
   const segments = url.split('/').filter(Boolean)
 
   if (segments.length > 0) {
-    const lastSegment = segments[segments.length - 1]
-    const page = findPage(lastSegment)
+    const last_segment = segments[segments.length - 1]
+    const page = findPage(last_segment)
     return getPageTitle(page?.title ?? '')
   }
 
-  // Fallback für die Startseite
-  const startPage = findPage('home')
-  return getPageTitle(startPage?.title ?? '')
+  // fallback to start page
+  const start_page = findPage('home')
+  return getPageTitle(start_page?.title ?? '')
 }
 
 export default async function RootLayout({

@@ -51,7 +51,7 @@ export default function ThermalHazardTileContent() {
 
   const { data: perceived_temperature, status: status_temp } = useApi<
     number[] | null
-  >('dwd/perceived_temperature', 10)
+  >('dwd/perceived_temperature', 60, false)
 
   const [day_index, setday_index] = useState<number>(0)
   const [harzard_index, setHazardIndex] = useState<number | null>(null) // heat or cold
