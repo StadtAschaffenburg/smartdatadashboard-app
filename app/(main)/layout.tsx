@@ -19,7 +19,7 @@ export default async function Layout({
   return (
     <div className="flex min-h-screen flex-col ">
       <Top />
-      <Navbar page_title={page_title} sitemap={sitemap} />
+      <Navbar page_title={page_title} />
       <div className="flex-1" id="content">
         <Providers>{children}</Providers>
       </div>

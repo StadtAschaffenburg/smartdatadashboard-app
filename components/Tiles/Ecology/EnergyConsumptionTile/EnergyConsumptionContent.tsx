@@ -33,18 +33,6 @@ function setYears(data: DataType[]): number[] {
   ).sort((a, b) => a - b)
 }
 
-function getYearSum(
-  data: BuildingDataType,
-  mode: 'strom' | 'waerme',
-  building: keyof BuildingType,
-): { current: number; previous: number | null } {
-  const current = data[building][mode].current.reduce((a, b) => a + b, 0)
-  const previous =
-    data[building][mode].previous?.reduce((a, b) => a + b, 0) || null
-
-  return { current, previous }
-}
-
 function getDataByBuildings(
   stromData: DataType[],
   waermeData: DataType[],

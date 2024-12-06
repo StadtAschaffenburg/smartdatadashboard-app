@@ -96,15 +96,17 @@ export default function IconTile({
               )}
             </Title>
           </div>
-          <div className="min-w-12 lg:min-w-16">
-            {
-              <Icon
-                className={cx(
-                  'w-auto opacity-40',
-                  iconTileTitleStyle({ variant }),
-                )}
-              />
-            }
+          <div className="flex w-full max-w-12 items-start justify-center lg:max-w-16 ">
+            <div className="width-full aspect-square overflow-hidden">
+              {
+                <Icon
+                  className={cx(
+                    'h-full w-full object-contain opacity-40',
+                    iconTileTitleStyle({ variant }),
+                  )}
+                />
+              }
+            </div>
           </div>
         </div>
         <div>
