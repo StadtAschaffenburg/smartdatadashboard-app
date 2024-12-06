@@ -17,6 +17,7 @@ import RequestIndicator from '@/components/Elements/RequestIndicator'
 export default function CompareIconValues({
   tile_payload,
   keys,
+  iconBackground,
   iconLeft,
   iconRight,
 }: ContentProps) {
@@ -47,7 +48,7 @@ export default function CompareIconValues({
   return (
     <div>
       <div className="mb-2 flex justify-between gap-4">
-        <div>
+        <div className="relative">
           {keys[0] !== undefined && keys[0] !== '' && (
             <Title as="h5">
               {getString(
@@ -86,8 +87,8 @@ export default function CompareIconValues({
           </AnimatedNumber>
         </div>
       </div>
-      <div className="grid h-60 w-full grid-cols-2 items-center rounded p-4">
-        <div className="flex w-full justify-center">
+      <div className="relative grid h-60 w-full grid-cols-2 items-center rounded p-4">
+        <div className="z-10 flex w-full justify-center">
           <div
             className={cx(
               IconStyle({ variant }),
@@ -113,6 +114,14 @@ export default function CompareIconValues({
             {iconRight}
           </div>
         </div>
+
+        {iconBackground && (
+          <div className="absolute left-0 top-0 z-0 flex h-full w-full items-center justify-center">
+            <div className={cx(IconStyle({ variant }), 'w-60 opacity-20')}>
+              {iconBackground}
+            </div>
+          </div>
+        )}
       </div>
       <MobileSlider
         defaultValue={[years.length - 1]}
