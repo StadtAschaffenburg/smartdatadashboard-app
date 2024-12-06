@@ -72,7 +72,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
             width: `${ratio * 100}%`,
           }}
         >
-          <IconStadtwerkeAbgas className="w-full fill-ecology" />
+          <IconStadtwerkeAbgas className="w-full fill-ecology pr-4" />
         </div>
         <div className="flex-1">
           <IconStadtwerkeElektro className="w-full fill-green" />

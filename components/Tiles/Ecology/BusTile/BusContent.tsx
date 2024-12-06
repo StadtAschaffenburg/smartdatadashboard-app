@@ -57,7 +57,7 @@ export default function BusContent({ data }: BusContentProps) {
           </AnimatedNumber>
         </div>
       </div>
-      <div className="flex aspect-[5/2] w-full items-end rounded bg-white p-4">
+      <div className="flex aspect-[5/2] w-full items-end gap-4 rounded bg-white p-4">
         <div
           className="flex-none transition-all"
           style={{

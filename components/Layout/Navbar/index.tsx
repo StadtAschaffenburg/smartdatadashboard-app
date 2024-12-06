@@ -6,15 +6,8 @@ import Breadcrumbs from './Breadcrumbs'
 import React from 'react'
 import { useBreadcrumbs } from '@/utils/breadcrumbs'
 import { setPageTitle } from '@/utils/content'
-import { PageMappingType } from '@/lib/sitemap'
 
-export default function Navbar({
-  page_title,
-  sitemap,
-}: {
-  page_title: string
-  sitemap: PageMappingType[]
-}) {
+export default function Navbar({ page_title }: { page_title: string }) {
   const pathname: string = usePathname() ?? '/'
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
   const breadcrumbs = useBreadcrumbs()
