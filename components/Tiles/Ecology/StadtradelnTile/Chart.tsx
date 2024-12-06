@@ -45,6 +45,10 @@ export default function Chart({ data, max, other }: ChartProps) {
       symbol: string,
       symbol_size: number = 1,
     ) => {
+      if (!data) {
+        return []
+      }
+
       const lineSeries: LineSeriesOption = {
         data: data.data.map(({ year, km }) => [year, km]),
         type: 'line',

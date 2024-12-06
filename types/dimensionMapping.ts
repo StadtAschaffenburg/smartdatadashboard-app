@@ -1,4 +1,15 @@
-import { IconPlaceholder } from '@/components/Icons/ActionFields'
+import {
+  IconArbeitUndWirtschaft,
+  IconDigitalisierung,
+  IconEnergie,
+  IconGlobaleVerantwortung,
+  IconLebenUndWohnen,
+  IconMobilitaetUndInfrastruktur,
+  IconPartizipationUndTeilhabe,
+  IconUmweltUndRessourcenschutz,
+  IconWetterUndKlima,
+  IconWissenschaft,
+} from '@/components/Icons/ActionFields'
 
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
 export type ActionFieldsType =
@@ -27,16 +38,16 @@ export type DimensionMappingType = {
 export type VariantType = ActionDimensionsType | 'live'
 
 export const ActionFieldsIconMap = {
-  'arbeit-und-wirtschaft': IconPlaceholder,
-  digitalisierung: IconPlaceholder,
-  energie: IconPlaceholder,
-  'globale-verantwortung': IconPlaceholder,
-  'leben-und-wohnen': IconPlaceholder,
-  'mobilitaet-und-infrastruktur': IconPlaceholder,
-  'partizipation-und-teilhabe': IconPlaceholder,
-  'umwelt-und-ressourcenschutz': IconPlaceholder,
-  'wetter-und-klima': IconPlaceholder,
-  wissenschaft: IconPlaceholder,
+  'arbeit-und-wirtschaft': IconArbeitUndWirtschaft,
+  digitalisierung: IconDigitalisierung,
+  energie: IconEnergie,
+  'globale-verantwortung': IconGlobaleVerantwortung,
+  'leben-und-wohnen': IconLebenUndWohnen,
+  'mobilitaet-und-infrastruktur': IconMobilitaetUndInfrastruktur,
+  'partizipation-und-teilhabe': IconPartizipationUndTeilhabe,
+  'umwelt-und-ressourcenschutz': IconUmweltUndRessourcenschutz,
+  'wetter-und-klima': IconWetterUndKlima,
+  wissenschaft: IconWissenschaft,
 }
 
 export type TileVariantsType = DimensionMappingType & 'primary'
