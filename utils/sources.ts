@@ -70,7 +70,7 @@ export function getRows(
     const key = row.key
     const multiplier = row.multiplier ?? 1
     const label = row.label ?? key
-    const unit = row.unit
+    const unit = row.unit ?? null
 
     if (key in current) {
       new_values[key] = {
