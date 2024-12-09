@@ -1,6 +1,7 @@
 import { ActionDimensionsType, ActionFieldsType } from './dimensionMapping'
 import { TargetType } from './targetMapping'
 import { CategoryType } from './TilesCategory'
+import { TileVariants } from '@/utils/variants/TileVariants'
 
 export type TileTypePrefix = 'ecology' | 'society' | 'economy'
 
@@ -20,6 +21,15 @@ export type TileSourceType = {
   content: any
 }
 
+export type TableRow = {
+  key: string
+  label: string | null
+  unit?: string | null
+  multiplier?: number | null
+  visible?: Boolean | null
+  variant?: keyof typeof TileVariants.variant | null
+}
+
 export interface TilePayloadType {
   tile_id: string
   subtitle: string | null
@@ -32,7 +42,6 @@ export interface TilePayloadType {
   source: string | null
   strings: TileStringType[] | null
   datapoints: TileDatapointType[] | null
-  table_keys: string[] | null
   layout: string | null
   tags: {
     category: CategoryType
@@ -44,8 +53,8 @@ export interface TilePayloadType {
   files: string[] | null
   sources: TileSourceType[]
   search: string
-  modifier: number | null
-  unit: string | null
+  table_keys: string[] | null
+  table_rows: TableRow[] | null
 }
 
 export interface TileProps {

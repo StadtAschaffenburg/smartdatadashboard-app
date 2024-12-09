@@ -1,4 +1,5 @@
 import { sanitizeLocalizedValue } from '@/utils/sanitize'
+import { TableRow } from '@/types/tiles'
 
 export interface DataValue {
   current: number
@@ -48,39 +49,44 @@ export function getReducedValue(
     )
 }
 
-export function getRow(
+export function getRows(
   data: InputDataType[],
   yearIndex: number,
-  keys: string[] = [],
-  modifier: number = 1,
-): Record<string, DataValue> {
+  rows: TableRow[] | null,
+): Record<string, DataValue & { label: string; unit: string | null }> {
+  if (!rows || rows.length === 0) {
+    return {}
+  }
+
   const current = data[yearIndex]
   const previous = yearIndex > 0 ? data[yearIndex - 1] : null
 
-  const newValues: Record<string, DataValue> = {}
-  Object.keys(current).forEach(key => {
-    if (key === 'ZEIT') {
-      return
-    }
-    newValues[key] = {
-      current:
-        current && current[key] !== undefined
-          ? sanitizeLocalizedValue(current[key] ?? 0) * modifier
-          : 0,
-      previous:
-        previous && previous[key] !== undefined
-          ? sanitizeLocalizedValue(previous[key] ?? 0) * modifier
-          : null,
+  const new_values: Record<
+    string,
+    DataValue & { label: string; unit: string | null }
+  > = {}
+
+  rows.forEach(row => {
+    const key = row.key
+    const multiplier = row.multiplier ?? 1
+    const label = row.label ?? key
+    const unit = row.unit
+
+    if (key in current) {
+      new_values[key] = {
+        current:
+          current[key] !== undefined
+            ? sanitizeLocalizedValue(current[key] ?? 0) * multiplier
+            : 0,
+        previous:
+          previous && previous[key] !== undefined
+            ? sanitizeLocalizedValue(previous[key] ?? 0) * multiplier
+            : null,
+        label: label,
+        unit: unit,
+      }
     }
   })
 
-  if (keys.length > 0) {
-    Object.keys(newValues).forEach(key => {
-      if (!keys.includes(key)) {
-        delete newValues[key]
-      }
-    })
-  }
-
-  return newValues
+  return new_values
 }

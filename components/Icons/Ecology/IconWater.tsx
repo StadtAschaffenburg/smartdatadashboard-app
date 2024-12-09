@@ -4,117 +4,66 @@ import type { SVGProps } from 'react'
 function Icon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      viewBox="0 0 171.12 230.28"
+      viewBox="0 0 219.67 240.66"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g className="stroke-ecology">
-        <line
+      <g className="fill-ecology stroke-ecology">
+        <path
+          d="M188.94 124.14l6.91-29.41c.05-.19.09-.39.15-.57 2.93-10.42 18.02-9.38 19.95 1.27.3 1.68.31 3.44-.04 5.21l-8.93 57.5c-.76 4.88-3.18 9.35-6.86 12.65l-20.91 18.76a23.203 23.203 0 0 0-7.43 13.75"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
-          x1="17.11"
-          x2="13.94"
-          y1="86.08"
-          y2="49.75"
-        />
-        <line
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-          x1="157.18"
-          x2="154.01"
-          y1="49.75"
-          y2="86.08"
+          strokeWidth={7}
         />
         <path
-          d="M26.34,191.95l2.03,23.34c.64,7.35,6.79,12.99,14.17,12.99h86.03c7.37,0,13.53-5.64,14.17-12.99l2.03-23.34"
+          d="M163.06 174.87l25.02-25.02a8.51 8.51 0 0 0 0-12.03h0a8.51 8.51 0 0 0-12.03 0l-22.58 22.58a7.4 7.4 0 0 1-5.87 2.14l-1.96-.17a22.863 22.863 0 0 0-16.34 4.99h0a22.868 22.868 0 0 0-8.44 19.44l2.02 23.21"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
+          strokeWidth={7}
         />
         <path
-          d="M144.98,191.95H26.14c-2.14,0-3.93-1.62-4.15-3.74l-10.16-97.52c-.26-2.46,1.68-4.61,4.15-4.61h139.16c2.48,0,4.41,2.15,4.15,4.61l-10.16,97.52c-.22,2.13-2.02,3.74-4.15,3.74Z"
+          d="M179.95 229.56l-1.65-11.99a6.54 6.54 0 0 0-7.27-5.6L121.32 218a6.54 6.54 0 0 0-5.69 7.39l1.62 11.78"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <rect
-          fill="none"
-          height="22.84"
-          rx="7.13"
-          ry="7.13"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-          width="167.12"
-          x="2"
-          y="25.35"
+          strokeWidth={7}
         />
         <path
-          d="M18.09,24.84l3.06-13.46c1.25-5.49,6.12-9.38,11.75-9.38h105.32c5.63,0,10.5,3.89,11.75,9.38l3.06,13.46"
+          d="M30.73 124.14l-6.91-29.41c-.05-.19-.09-.39-.15-.57-2.93-10.42-18.02-9.38-19.95 1.27-.3 1.68-.31 3.44.04 5.21l8.93 57.5c.76 4.88 3.18 9.35 6.86 12.65l20.91 18.76c4.06 3.65 6.63 8.53 7.43 13.75"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
+          strokeWidth={7}
         />
         <path
-          d="M71.88,106.42c4.67-2.06,9.84-3.21,15.27-3.21,17.49,0,32.21,11.86,36.56,27.97"
+          d="M56.61 174.87l-25.02-25.02a8.51 8.51 0 0 1 0-12.03h0a8.51 8.51 0 0 1 12.03 0L66.2 160.4a7.4 7.4 0 0 0 5.87 2.14l1.96-.17c5.89-.51 11.75 1.28 16.34 4.99h0a22.868 22.868 0 0 1 8.44 19.44l-2.02 23.21"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="93.07 114.21 82.41 110.33 71.74 106.45 80.43 99.15 89.12 91.86"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
+          strokeWidth={7}
         />
         <path
-          d="M64.05,171.64c-4.12-3.01-7.7-6.92-10.41-11.62-8.74-15.14-5.84-33.82,5.94-45.64"
+          d="M39.72 229.56l1.65-11.99a6.54 6.54 0 0 1 7.27-5.6L98.35 218a6.54 6.54 0 0 1 5.69 7.39l-1.62 11.78"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="60.2 149.4 62.17 160.57 64.14 171.75 53.48 167.87 42.82 163.99"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
+          strokeWidth={7}
         />
         <path
-          d="M124.31,145.61c-.55,5.08-2.14,10.12-4.86,14.83-8.74,15.14-26.37,21.96-42.5,17.67"
+          d="M109.83 135.12c3.35.07 20.08.09 33.22-12.86 15.02-14.8 13.28-34.62 12.86-38.4-1.24-11.04-6.1-17.45-14.29-30-7.65-11.74-20.37-28.61-31.79-50.36-11.41 21.75-24.14 38.62-31.79 50.36-8.18 12.55-13.05 18.97-14.29 30-.42 3.77-2.16 23.6 12.86 38.4 13.14 12.95 29.86 12.93 33.22 12.86Z"
           fill="none"
-          stroke="inherit"
+          stroke="stroke-ecology"
           strokeLinecap="round"
           strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="106.97 160.07 115.66 152.77 124.35 145.48 126.33 156.65 128.3 167.83"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
+          strokeWidth={7}
         />
       </g>
     </svg>

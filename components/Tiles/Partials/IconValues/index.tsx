@@ -8,17 +8,12 @@ import { useState } from 'react'
 import { ContentProps } from './dt'
 import { getAllSources } from '@/utils/payload'
 import { getString, getVariantType } from '@/utils/payload'
-import { getRow, getYears, InputDataType } from '@/utils/sources'
+import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 
-export default function IconValues({
-  children,
-  keys,
-  tile_payload,
-}: ContentProps) {
+export default function IconValues({ children, tile_payload }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
   const variant = getVariantType(tile_payload)
-  const unit: string = tile_payload.unit ?? ''
 
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(
@@ -29,19 +24,14 @@ export default function IconValues({
     return <RequestIndicator />
   }
 
-  const values = getRow(
-    data,
-    yearIndex,
-    keys ?? tile_payload.table_keys ?? [],
-    tile_payload.modifier ?? 1,
-  )
+  const rows = getRows(data, yearIndex, tile_payload.table_rows)
 
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
         <span>{children}</span>
         <div className="flex flex-grow flex-col justify-center">
-          {Object.entries(values).map(([key, value]) => (
+          {Object.entries(rows).map(([key, row]) => (
             <Title as="h4" key={key} variant={variant}>
               <span>
                 {getString(
@@ -53,10 +43,10 @@ export default function IconValues({
               </span>{' '}
               <AnimatedNumber
                 decimals={0}
-                previous_value={value.previous}
-                unit={unit}
+                previous_value={row.previous}
+                unit={row.unit}
               >
-                {value.current}
+                {row.current}
               </AnimatedNumber>{' '}
             </Title>
           ))}

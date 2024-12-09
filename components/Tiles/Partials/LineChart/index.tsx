@@ -9,11 +9,11 @@ import useDevice from '@/hooks/useDevice'
 import { InputDataType } from '@/utils/sources'
 import { ChartProps, InstitutionIndices } from './dt'
 import { getAllSources } from '@/utils/payload'
-import indicesData from './indicesData'
 import Toggle from './Toggle'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
 import Spinner from '@/components/Elements/Spinner'
+import { TableRow } from '@/types/tiles'
 
 const { theme } = resolveConfig(tailwindConfig)
 
@@ -30,10 +30,9 @@ const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
   const aggregatedData: Record<string, number> = data.reduce(
     (acc, item) => {
       const year = item.ZEIT
-      const value = parseInt(item[property]?.toString() || '0', 10) // Sicherer Zugriff auf den Wert
+      const value = parseInt(item[property]?.toString() || '0', 10)
 
       if (!isNaN(value)) {
-        // Nur Zahlen hinzufügen
         acc[year] = (acc[year] || 0) + value
       }
 
@@ -51,24 +50,23 @@ const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
 /**
  * All the indices that are on the chart
  */
-function getIndices(keys: string[], data: InputDataType[]) {
-  const filteredIndices: InstitutionIndices = {}
+function getIndices(table_rows: TableRow[], data: InputDataType[]) {
+  const filtered_indices: InstitutionIndices = {}
 
-  keys.forEach(key => {
-    const indexData = indicesData[key]
-    if (indexData) {
-      filteredIndices[key] = {
-        ...indexData,
-        seriesOption: {
-          name: indexData.title,
-          data: getSeries(data, key),
-          color: indexData.color ?? getColor(indexData.variant),
-        },
-      }
+  table_rows.forEach(row => {
+    console.log('row', row)
+    filtered_indices[row.key] = {
+      title: row.label ?? row.key,
+      variant: row.variant ?? 'primary',
+      seriesOption: {
+        name: row.label ?? row.key,
+        data: getSeries(data, row.key),
+        color: getColor(row.variant ?? 'primary'),
+      },
     }
   })
 
-  return filteredIndices
+  return filtered_indices
 }
 
 const getStartYear = (data: InputDataType[]): string => {
@@ -79,13 +77,14 @@ const getStartYear = (data: InputDataType[]): string => {
 export default function LineChart({ tile_payload }: ChartProps) {
   const device = useDevice()
   const data: InputDataType[] = getAllSources(tile_payload, true)
-  const keys = tile_payload.table_keys ?? []
+  const keys = tile_payload.table_rows?.map(entry => entry.key) ?? []
 
   const initialVisibility = keys.reduce(
     (acc, key) => {
-      const index = indicesData[key]
-      if (index) {
-        acc[key] = index.visible ?? false
+      const row =
+        tile_payload.table_rows?.find(entry => entry.key === key) ?? null
+      if (row) {
+        acc[key] = !!row.visible
       }
       return acc
     },
@@ -95,12 +94,12 @@ export default function LineChart({ tile_payload }: ChartProps) {
   const [seriesVisible, setSeriesVisible] =
     useState<Record<string, boolean>>(initialVisibility)
 
-  if (!data || !data.length) {
+  if (!data || !data.length || !tile_payload.table_rows) {
     return <Spinner />
   }
 
   // get the indices that are on the chart
-  const indices = getIndices(keys, data)
+  const indices = getIndices(tile_payload.table_rows, data)
 
   // fetch the start year and the max visitors
   const start_year = getStartYear(data)

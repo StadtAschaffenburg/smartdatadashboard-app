@@ -1,3 +1,5 @@
+import { TilePayloadType } from '@/types/tiles'
+
 export type InputData = {
   ZEIT: number
   Dieselantrieb: number
@@ -8,4 +10,5 @@ export type InputData = {
 
 export type ContentProps = {
   data: InputData[]
+  tile_payload: TilePayloadType
 }

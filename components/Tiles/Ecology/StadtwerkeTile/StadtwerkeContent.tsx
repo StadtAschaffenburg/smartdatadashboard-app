@@ -12,9 +12,12 @@ import {
 } from '@/components/Icons/Ecology'
 import { ContentProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import { getReducedValue, getRow, getYears } from '@/utils/sources'
+import { getReducedValue, getRows, getYears } from '@/utils/sources'
 
-export default function StadtwerkeContent({ data }: ContentProps) {
+export default function StadtwerkeContent({
+  data,
+  tile_payload,
+}: ContentProps) {
   const years = getYears(data)
 
   const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
@@ -23,12 +26,7 @@ export default function StadtwerkeContent({ data }: ContentProps) {
     return <RequestIndicator />
   }
 
-  const values = getRow(data, yearIndex, [
-    'Elektroantrieb',
-    'Hybridantrieb',
-    'Dieselantrieb',
-    'Erdgasantrieb',
-  ])
+  const values = getRows(data, yearIndex, tile_payload.table_rows)
 
   const fossil = values.Dieselantrieb
   const modern = getReducedValue(values, [

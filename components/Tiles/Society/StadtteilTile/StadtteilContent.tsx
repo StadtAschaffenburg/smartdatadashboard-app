@@ -5,10 +5,9 @@ import StadtteilMap from './StadtteilMap'
 import StadtteilMapMobile from './StadtteilMapMobile'
 import { TilePayloadType } from '@/types/tiles'
 import { getAllSources, getVariantType } from '@/utils/payload'
-import { getRow, getYears, InputDataType } from '@/utils/sources'
+import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { DestrictMapping } from './dt'
-import { getString } from '@/utils/payload'
 
 const initialDestictData: DestrictMapping[] = [
   {
@@ -93,11 +92,7 @@ export default function StadtteilContent({
       return
     }
 
-    const destrict_values = getRow(
-      data,
-      yearIndex,
-      tile_payload.table_keys ?? [],
-    )
+    const destrict_values = getRows(data, yearIndex, tile_payload.table_rows)
 
     const current_values = destictData
       .map(d => destrict_values[d.id]?.current ?? 0)
@@ -115,7 +110,7 @@ export default function StadtteilContent({
         total > 0
           ? ((destrict_values[destrict.id]?.current ?? 0) / total) * 100
           : 0,
-      title: getString(tile_payload, destrict.id, destrict.id),
+      title: destrict_values[destrict.id]?.label ?? destrict.id,
     }))
 
     setDestictData(updatedDestictData)

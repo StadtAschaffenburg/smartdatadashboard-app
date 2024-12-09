@@ -9,9 +9,9 @@ import Slider from '@/components/Inputs/Slider'
 import { IconBusAbgas, IconBusElektro } from '@/components/Icons/Ecology'
 import { BusContentProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import { getReducedValue, getRow, getYears } from '@/utils/sources'
+import { getReducedValue, getRows, getYears } from '@/utils/sources'
 
-export default function BusContent({ data }: BusContentProps) {
+export default function BusContent({ data, tile_payload }: BusContentProps) {
   const years = getYears(data)
   const [yearIndex, setYearIndex] = useState(data ? data.length - 1 : 0)
 
@@ -19,12 +19,7 @@ export default function BusContent({ data }: BusContentProps) {
     return <RequestIndicator />
   }
 
-  const values = getRow(data, yearIndex, [
-    'fossil',
-    'elektro',
-    'hybrid',
-    'alternativ',
-  ])
+  const values = getRows(data, yearIndex, tile_payload.table_rows)
 
   const fossil = values.fossil
   const modern = getReducedValue(values, ['elektro', 'hybrid', 'alternativ'])

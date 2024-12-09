@@ -12,7 +12,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
 
   return (
     <BaseTile embedId={type} tile_payload={tile_payload}>
-      <BusContent data={BusData} />
+      <BusContent data={BusData} tile_payload={tile_payload} />
     </BaseTile>
   )
 }

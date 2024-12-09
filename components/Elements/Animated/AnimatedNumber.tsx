@@ -12,7 +12,7 @@ type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
     children: number
     decimals?: number
     previous_value?: number | null
-    unit?: string
+    unit?: string | null
   }
 
 export default function AnimatedNumber({
