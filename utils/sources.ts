@@ -2,7 +2,7 @@ import { sanitizeLocalizedValue } from '@/utils/sanitize'
 import { TableRow } from '@/types/tiles'
 
 export interface DataValue {
-  current: number
+  current: number | null
   previous: number | null
 }
 
@@ -26,6 +26,14 @@ export function getYears(
   )
 }
 
+function checkValue(value: any, multiplier: number = 1): number | null {
+  if (value === null || value === undefined || value === '') {
+    return null
+  }
+
+  return sanitizeLocalizedValue(value) * multiplier
+}
+
 export function getReducedValue(
   values: Record<string, DataValue>,
   keys: string[],
@@ -34,9 +42,8 @@ export function getReducedValue(
     .filter(key => keys.includes(key))
     .reduce(
       (acc, key) => {
-        acc.current += values[key].current
+        acc.current += values[key].current ?? 0
 
-        // Wenn ein "previous" null ist, wird der gesamte Wert null
         if (values[key]?.previous === null) {
           acc.previous = null
         } else if (acc.previous !== null) {
@@ -74,14 +81,8 @@ export function getRows(
 
     if (key in current) {
       new_values[key] = {
-        current:
-          current[key] !== undefined
-            ? sanitizeLocalizedValue(current[key] ?? 0) * multiplier
-            : 0,
-        previous:
-          previous && previous[key] !== undefined
-            ? sanitizeLocalizedValue(previous[key] ?? 0) * multiplier
-            : null,
+        current: checkValue(current?.[key] ?? null, multiplier),
+        previous: checkValue(previous?.[key] ?? null, multiplier),
         label: label,
         unit: unit,
       }

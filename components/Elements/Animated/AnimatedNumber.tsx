@@ -9,7 +9,7 @@ import { sanitizeValue } from '@/utils/sanitize'
 
 type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof TextStyle> & {
-    children: number
+    children: number | null
     decimals?: number
     previous_value?: number | null
     unit?: string | null
@@ -26,7 +26,8 @@ export default function AnimatedNumber({
   const [inView, setInView] = useState(false) // control whether the number is in view
   const [lastValue, setLastValue] = useState<number | null>(null)
   const ref = useRef<HTMLSpanElement>(null) // ref to the span element
-  const value: number = sanitizeValue(children)
+  const value: number | null =
+    children === null ? null : sanitizeValue(children)
 
   const springProps = useSpring({
     val: inView ? value : 0, // animate only if in view, make sure to convert children to number
@@ -65,20 +66,22 @@ export default function AnimatedNumber({
       {previous_value !== undefined && (
         <Indicator current={value} previous={previous_value} />
       )}
-      <animated.span ref={ref}>
-        {lastValue === value
-          ? new Intl.NumberFormat('de-DE', {
-              minimumFractionDigits: decimals || 0,
-              maximumFractionDigits: decimals || 0,
-            }).format(value)
-          : springProps.val.to(val => {
-              return new Intl.NumberFormat('de-DE', {
+      <span className={value === null ? 'hidden' : ''}>
+        <animated.span ref={ref}>
+          {lastValue === value
+            ? new Intl.NumberFormat('de-DE', {
                 minimumFractionDigits: decimals || 0,
                 maximumFractionDigits: decimals || 0,
-              }).format(val)
-            })}
-      </animated.span>
-      {unit && <span>&nbsp;{unit}</span>}
+              }).format(value ?? 0)
+            : springProps.val.to(val =>
+                new Intl.NumberFormat('de-DE', {
+                  minimumFractionDigits: decimals || 0,
+                  maximumFractionDigits: decimals || 0,
+                }).format(val),
+              )}
+        </animated.span>
+        {unit && <span>&nbsp;{unit}</span>}
+      </span>
     </span>
   )
 }

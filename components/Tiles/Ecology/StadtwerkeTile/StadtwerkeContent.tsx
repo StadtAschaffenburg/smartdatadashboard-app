@@ -35,9 +35,10 @@ export default function StadtwerkeContent({
     'Erdgasantrieb',
   ])
 
-  const ratio = modern.current
-    ? fossil.current / (fossil.current + modern.current)
-    : 1
+  const ratio =
+    fossil.current && modern.current
+      ? fossil.current / (fossil.current + modern.current)
+      : 1
 
   return (
     <div>

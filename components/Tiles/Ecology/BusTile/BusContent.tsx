@@ -24,9 +24,10 @@ export default function BusContent({ data, tile_payload }: BusContentProps) {
   const fossil = values.fossil
   const modern = getReducedValue(values, ['elektro', 'hybrid', 'alternativ'])
 
-  const ratio = modern.current
-    ? fossil.current / (fossil.current + modern.current)
-    : 1
+  const ratio =
+    modern.current && fossil.current
+      ? fossil.current / (fossil.current + modern.current)
+      : 1
 
   return (
     <div>

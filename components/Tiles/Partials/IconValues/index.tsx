@@ -26,11 +26,13 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
 
   const rows = getRows(data, yearIndex, tile_payload.table_rows)
 
+  console.log('rows', rows)
+
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
         <span>{children}</span>
-        <div className="flex flex-grow flex-col justify-center">
+        <div className="flex flex-grow flex-col justify-center gap-1">
           {Object.entries(rows).map(([key, row]) => (
             <Title as="h4" key={key} variant={variant}>
               <span>{row.label}:</span>{' '}

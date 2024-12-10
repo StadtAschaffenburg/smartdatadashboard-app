@@ -7,35 +7,39 @@ import { Button } from './Button'
 export default async function LinkTile({
   headline,
   content,
+  label,
   link,
 }: {
   headline?: string | null
   content?: string | null
+  label?: string | null
   link?: string | null
 }) {
   return (
-    <Background light rounded>
-      <div className="flex w-full flex-col justify-between gap-8 p-6 lg:px-12 lg:py-8">
-        {headline && (
-          <Title as="h3" font="normal" variant="primary">
-            {headline}
-          </Title>
-        )}
+    <div>
+      <Background light rounded>
+        <div className="flex w-full flex-col justify-between gap-8 p-6 lg:px-12 lg:py-8">
+          {headline && (
+            <Title as="h3" font="normal" variant="primary">
+              {headline}
+            </Title>
+          )}
 
-        {content && (
-          <div className="">
-            <Markdown content={content} />
-          </div>
-        )}
+          {content && (
+            <div className="">
+              <Markdown content={content} />
+            </div>
+          )}
 
-        {link && (
-          <Link href={link}>
-            <Button size={'lg'} variant={'primary'}>
-              Mehr Erfahren
-            </Button>
-          </Link>
-        )}
-      </div>
-    </Background>
+          {link && (
+            <Link href={link}>
+              <Button className={'w-full'} size={'lg'} variant={'primary'}>
+                {label ?? 'Mehr Erfahren'}
+              </Button>
+            </Link>
+          )}
+        </div>
+      </Background>
+    </div>
   )
 }

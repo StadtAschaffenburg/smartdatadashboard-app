@@ -11,15 +11,16 @@ export function Indicator({
   current,
   previous,
 }: {
-  current: number
+  current: number | null
   previous: number | null
 }) {
-  const difference = previous != null ? Math.abs(current - previous) : null
+  const difference =
+    current !== null && previous != null ? Math.abs(current - previous) : null
   const percentDifference =
     difference != null && previous != null ? (difference / previous) * 100 : 0
 
   const Icon =
-    previous == null
+    current == null || previous == null
       ? ArrowNoData
       : previous == null || percentDifference <= 3
         ? IconNeutral
@@ -30,7 +31,7 @@ export function Indicator({
             : IconNeutral
 
   return (
-    <div className="relative inline pr-8">
+    <div className="relative mr-8 inline">
       <div className="absolute left-0 top-1/2 h-6 w-6 -translate-y-1/2">
         <Icon className={iconClassNames} />
       </div>

@@ -54,7 +54,6 @@ function getIndices(table_rows: TableRow[], data: InputDataType[]) {
   const filtered_indices: InstitutionIndices = {}
 
   table_rows.forEach(row => {
-    console.log('row', row)
     filtered_indices[row.key] = {
       title: row.label ?? row.key,
       variant: row.variant ?? 'primary',
