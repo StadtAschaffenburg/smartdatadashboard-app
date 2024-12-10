@@ -2,7 +2,6 @@ import Footer from '@/components/Layout/Footer'
 import Navbar from '@/components/Layout/Navbar'
 import Providers from '@/components/Layout/Providers'
 import Top from '@/components/Layout/Top'
-import getSitemap from '@/lib/sitemap'
 import { getGlobal } from '@/lib/cms'
 
 export const revalidate = false
@@ -12,7 +11,7 @@ export default async function Layout({
 }: {
   children: React.ReactNode
 }) {
-  const sitemap = await getSitemap()
+  // const sitemap = await getSitemap()
   const global_seo = await getGlobal('seo')
   const page_title = global_seo?.page_title ?? ''
 
