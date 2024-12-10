@@ -12,8 +12,8 @@ export const buildingIcon: Record<
   keyof BuildingType,
   (_props: SVGProps<SVGSVGElement>) => JSX.Element
 > = {
-  brentanoschule: IconBuildingArena,
+  brentanoschule: IconBuildingSchule,
   stadtbibliothek: IconBuildingBibliothek,
-  frankenstolz_arena: IconBuildingRathaus,
-  rathaus: IconBuildingSchule,
+  frankenstolz_arena: IconBuildingArena,
+  rathaus: IconBuildingRathaus,
 }

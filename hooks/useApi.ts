@@ -8,9 +8,9 @@ const fetchDataWithCache = async (
   lifetime: number,
   use_local_storage: boolean = true,
 ) => {
-  const cache_key: string = `api_cache_V2_${key}`
+  const cache_key: string = `api_cache_${key}`
 
-  // Check for cached data in localStorage
+  // check for cached data in localStorage
   if (typeof window !== 'undefined' && use_local_storage) {
     const cached = localStorage.getItem(cache_key)
 
@@ -60,7 +60,9 @@ export default function useApi<T>(
 
   useEffect(() => {
     const fetchData = () => {
-      if (isFetching.current) {return}
+      if (isFetching.current) {
+        return
+      }
 
       isFetching.current = true
       setStatus('loading')

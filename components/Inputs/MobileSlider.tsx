@@ -5,6 +5,7 @@ import Text from '../Elements/Text'
 import { cx, VariantProps } from 'class-variance-authority'
 import { useState } from 'react'
 import { BackgroundStyle } from '@/utils/variants/BackgroundVariants'
+import SliderStepIndictor from './SliderStepIndicator'
 
 export type SliderProps = SliderPrimitive.SliderProps &
   VariantProps<typeof BackgroundStyle> & {
@@ -20,12 +21,13 @@ export default function MobileSlider({
   ...props
 }: SliderProps) {
   const [value, setValue] = useState<number>(firstValueMobile || 0)
+  const stepCount = props.max ? props.max - (props.min || 0) : 0
 
   return (
     <div className={`slider-component ${className ?? 'xl:hidden'}`}>
       <div className="flex w-full items-center">
         {labels && (
-          <div className="block">
+          <div className="block min-w-16">
             <Text as={'h6'} className={'mr-2'} tag={'span'} variant={variant}>
               {labels[value]}
             </Text>
@@ -45,7 +47,9 @@ export default function MobileSlider({
               BackgroundStyle({ variant }),
               'relative h-3 flex-1 rounded-full bg-opacity-20 md:h-5',
             )}
-          />
+          >
+            <SliderStepIndictor stepCount={stepCount} variant={variant} />
+          </SliderPrimitive.Track>
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),

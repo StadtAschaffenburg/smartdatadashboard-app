@@ -7,7 +7,7 @@ import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
 import { ContentProps } from './dt'
 import { getAllSources } from '@/utils/payload'
-import { getString, getVariantType } from '@/utils/payload'
+import { getVariantType } from '@/utils/payload'
 import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 
@@ -33,14 +33,7 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
         <div className="flex flex-grow flex-col justify-center">
           {Object.entries(rows).map(([key, row]) => (
             <Title as="h4" key={key} variant={variant}>
-              <span>
-                {getString(
-                  tile_payload,
-                  key,
-                  key.charAt(0).toUpperCase() + key.slice(1),
-                )}
-                :
-              </span>{' '}
+              <span>{row.label}:</span>{' '}
               <AnimatedNumber
                 decimals={0}
                 previous_value={row.previous}

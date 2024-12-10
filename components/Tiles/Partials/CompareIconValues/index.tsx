@@ -67,7 +67,7 @@ export default function CompareIconValues({
           </AnimatedNumber>
         </div>
       </div>
-      <div className="relative grid h-60 w-full grid-cols-2 items-center rounded p-4">
+      <div className="relative mx-auto grid aspect-[2/1] h-60 grid-cols-2 items-center overflow-hidden rounded p-4">
         <div className="z-10 flex w-full justify-center">
           <div
             className={cx(
