@@ -14,17 +14,9 @@ export function useBreadcrumbs(): BreadcrumbType[] {
   let breadcrumbs: BreadcrumbType[] = []
 
   const segments = url.split('/').filter(Boolean)
-  segments.forEach(segment => {
-    const page_title = findTitle(segment, sitemap_static)
-    const permalink = getPermalink(segment, sitemap_static)
-    const breadcrumb: BreadcrumbType = {
-      title: page_title,
-      link: permalink,
-    }
-    breadcrumbs.push(breadcrumb)
-  })
+  let valid = true
 
-  if (breadcrumbs.length === 0) {
+  if (segments.length === 0) {
     const start_page = findPage('home', sitemap_static)
     if (start_page) {
       breadcrumbs = [
@@ -34,6 +26,34 @@ export function useBreadcrumbs(): BreadcrumbType[] {
         },
       ]
     }
+  } else {
+    segments.forEach(segment => {
+      if (!valid) {
+        return
+      }
+
+      const page_title = findTitle(segment, sitemap_static)
+      const permalink = getPermalink(segment, sitemap_static)
+      const breadcrumb: BreadcrumbType = {
+        title: page_title ?? null,
+        link: permalink,
+      }
+
+      if (!breadcrumb.title || !breadcrumb.link) {
+        valid = false
+      } else {
+        breadcrumbs.push(breadcrumb)
+      }
+    })
+  }
+
+  if (breadcrumbs.length === 0) {
+    breadcrumbs = [
+      {
+        title: '404 - Seite nicht gefunden',
+        link: '/',
+      },
+    ]
   }
 
   return breadcrumbs

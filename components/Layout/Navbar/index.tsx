@@ -12,8 +12,6 @@ export default function Navbar({ page_title }: { page_title: string }) {
   const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
   const breadcrumbs = useBreadcrumbs()
 
-  console.log('breadcrumbs', breadcrumbs)
-
   // split the URL into segments and filter out empty strings
   const segments = url.split('/').filter(Boolean)
   setPageTitle(breadcrumbs[breadcrumbs.length - 1].title ?? '', page_title)

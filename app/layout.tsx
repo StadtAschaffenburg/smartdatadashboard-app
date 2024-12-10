@@ -17,13 +17,13 @@ async function getPageTitleServer() {
   const url = full_url === '/' ? '' : full_url.replace(/^\//, '')
   const segments = url.split('/').filter(Boolean)
 
-  if (segments.length > 0) {
+  if (segments.length > 2) {
     const last_segment = segments[segments.length - 1]
     const page = findPage(last_segment)
-    return getPageTitle(page?.title ?? '')
+    return getPageTitle(page?.title ?? 'Seite nicht gefunden | 404')
   }
 
-  // fallback to start page
+  // is start page
   const start_page = findPage('home')
   return getPageTitle(start_page?.title ?? '')
 }
