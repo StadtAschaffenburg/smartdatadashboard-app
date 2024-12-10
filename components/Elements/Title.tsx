@@ -18,7 +18,6 @@ type TitleProps = VariantProps<typeof TitleStyle> &
 export default function Title({
   as,
   variant,
-  font,
   children,
   className,
   ...props

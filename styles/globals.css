@@ -19,20 +19,32 @@
   .column-fill-auto {
     column-fill: auto;
   }
-}
 
-.ab-icon-klima {
-  fill: rgb(0, 159, 222);
-}
+  .markdown {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mb-4 mt-8;
+      @apply text-primary;
 
-.ab-icon-energie {
-  fill: rgb(242, 139, 0);
-}
+      &:first-child {
+        @apply mt-0;
+      }
 
-.ab-icon-mobilitaet {
-  fill: rgb(3, 101, 122);
-}
+      .text-white & {
+        color: #fff;
+      }
+    }
 
-.ab-icon-gebaeude {
-  fill: rgb(138, 15, 118);
+    p {
+      @apply mb-4;
+
+      &:last-child {
+        @apply mb-0;
+      }
+    }
+  }
 }

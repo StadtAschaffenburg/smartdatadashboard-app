@@ -8,13 +8,11 @@ import ShareOverlay from './ShareOverlay'
 import MoreInfoOverlay from './MoreInfoOverlay'
 import TileFooter from './TileFooter'
 import { TileType } from '@/types/tiles'
-import ReactMarkdown from 'react-markdown'
-import Title from '@/components/Elements/Title'
-import remarkGfm from 'remark-gfm'
 import {
   BackgroundDefaultVariants,
   BackgroundLightVariants,
 } from '@/utils/variants/BackgroundVariants'
+import Markdown from '@/components/Elements/Markdown'
 
 const baseTileStyle = cva(
   'relative flex flex-col md:flex-row h-fit overflow-hidden rounded',
@@ -142,31 +140,7 @@ export function BaseTile({
                 variant={variant}
               >
                 {typeof moreInfo === 'string' ? (
-                  <ReactMarkdown
-                    components={{
-                      h1: props => <Title as={'h2'} {...props} />,
-                      h2: props => <Title as={'h3'} {...props} />,
-                      h3: props => <Title as={'h4'} {...props} />,
-                      h4: props => <Title as={'h5'} {...props} />,
-                      h5: props => <Title as={'h6'} {...props} />,
-                      h6: props => <Title as={'h7'} {...props} />,
-                      ul: props => <ul className="list-disc px-6" {...props} />,
-                      p: props => <p className="mb-2" {...props} />,
-                      a: props => (
-                        <a
-                          className="underline"
-                          {...props}
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        />
-                      ),
-                      table: props => <table className="my-8" {...props} />,
-                      th: props => <th className="pr-4" {...props} />,
-                    }}
-                    remarkPlugins={[remarkGfm]}
-                  >
-                    {moreInfo}
-                  </ReactMarkdown>
+                  <Markdown content={moreInfo} />
                 ) : (
                   <div>{moreInfo}</div>
                 )}

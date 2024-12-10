@@ -7,12 +7,12 @@ interface MarkdownComponentProps {
 }
 
 export const markdownComponents = {
-  h1: (props: MarkdownComponentProps) => <Title as={'h2'} {...props} />,
-  h2: (props: MarkdownComponentProps) => <Title as={'h3'} {...props} />,
-  h3: (props: MarkdownComponentProps) => <Title as={'h4'} {...props} />,
-  h4: (props: MarkdownComponentProps) => <Title as={'h5'} {...props} />,
-  h5: (props: MarkdownComponentProps) => <Title as={'h6'} {...props} />,
-  h6: (props: MarkdownComponentProps) => <Title as={'h7'} {...props} />,
+  h1: (props: MarkdownComponentProps) => <Title as={'h1'} {...props} />,
+  h2: (props: MarkdownComponentProps) => <Title as={'h2'} {...props} />,
+  h3: (props: MarkdownComponentProps) => <Title as={'h3'} {...props} />,
+  h4: (props: MarkdownComponentProps) => <Title as={'h4'} {...props} />,
+  h5: (props: MarkdownComponentProps) => <Title as={'h5'} {...props} />,
+  h6: (props: MarkdownComponentProps) => <Title as={'h6'} {...props} />,
   ul: (props: MarkdownComponentProps) => (
     <ul className="list-disc px-6" {...props} />
   ),

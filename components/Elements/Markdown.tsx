@@ -14,10 +14,19 @@ interface MarkdownProps {
 
 export default function Markdown({ content, tile_payload }: MarkdownProps) {
   const createDynamicWrapper = (Component: 'p' | 'span') => {
+    const baseClassName =
+      baseComponents[Component as keyof typeof baseComponents]?.({
+        children: null,
+      }).props?.className || ''
+
     // eslint-disable-next-line react/function-component-definition
-    return ({ children }: { children: React.ReactNode }) => {
+    return ({ children, ...rest }: { children: React.ReactNode }) => {
       if (!tile_payload) {
-        return React.createElement(Component, {}, children)
+        return React.createElement(
+          Component,
+          { className: baseClassName, ...rest },
+          children,
+        )
       }
 
       const hasOnlyPlainText = React.Children.toArray(children).every(
@@ -28,12 +37,16 @@ export default function Markdown({ content, tile_payload }: MarkdownProps) {
         const textContent = React.Children.toArray(children).join(' ')
         return React.createElement(
           Component,
-          {},
+          { className: baseClassName, ...rest },
           <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>,
         )
       }
 
-      return React.createElement(Component, {}, children)
+      return React.createElement(
+        Component,
+        { className: baseClassName, ...rest },
+        children,
+      )
     }
   }
 
@@ -45,6 +58,7 @@ export default function Markdown({ content, tile_payload }: MarkdownProps) {
 
   return (
     <ReactMarkdown
+      className={'markdown'}
       components={markdownComponents}
       remarkPlugins={markdownPlugins}
     >
