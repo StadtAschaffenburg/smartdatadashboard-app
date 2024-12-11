@@ -10,7 +10,7 @@ export interface InstitutionIndex {
   visible?: boolean
   seriesOption?: {
     name: string
-    data: (string | number)[][]
+    data: (string | number | null)[][]
     color: string
   }
   variant: keyof typeof TileVariants.variant

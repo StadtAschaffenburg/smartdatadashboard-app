@@ -8,7 +8,7 @@ import { useState } from 'react'
 import useDevice from '@/hooks/useDevice'
 import { InputDataType } from '@/utils/sources'
 import { ChartProps, InstitutionIndices } from './dt'
-import { getAllSources } from '@/utils/payload'
+import { getAllSources, getString } from '@/utils/payload'
 import Toggle from './Toggle'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '@/tailwind.config.js'
@@ -19,7 +19,7 @@ const { theme } = resolveConfig(tailwindConfig)
 
 const getColor = (variant: string) => {
   // @ts-ignore
-  return theme?.colors?.[variant]?.DEFAULT || '#6060d6'
+  return theme?.colors?.[variant]?.DEFAULT || '#ff0000'
 }
 
 const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
@@ -27,22 +27,36 @@ const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
     return []
   }
 
-  const aggregatedData: Record<string, number> = data.reduce(
+  const aggregatedData: Record<string, number | null> = data.reduce(
     (acc, item) => {
-      const year = item.ZEIT
-      const value = parseInt(item[property]?.toString() || '0', 10)
+      const year = item.ZEIT?.toString()
+      const raw = item[property]?.toString()
+      const value = raw && !isNaN(parseInt(raw, 10)) ? parseInt(raw, 10) : null
 
-      if (!isNaN(value)) {
+      // only allow years between 1800 and 2100
+      if (
+        !year ||
+        isNaN(+year) ||
+        year.length !== 4 ||
+        +year < 1800 ||
+        +year > 2100
+      ) {
+        return acc
+      }
+
+      if (value && !isNaN(value)) {
         acc[year] = (acc[year] || 0) + value
+      } else {
+        acc[year] = null
       }
 
       return acc
     },
-    {} as Record<string, number>,
+    {} as Record<string, number | null>,
   )
 
   return Object.entries(aggregatedData).map(([year, value]) => [
-    `${year}-01-01T00:00:00.000Z`,
+    new Date(`${year}-01-01T00:00:00.000Z`).getTime(),
     value,
   ])
 }
@@ -68,9 +82,21 @@ function getIndices(table_rows: TableRow[], data: InputDataType[]) {
   return filtered_indices
 }
 
-const getStartYear = (data: InputDataType[]): string => {
-  const years = data.map(item => parseInt(item.ZEIT.toString(), 10))
-  return Math.min(...years).toString()
+const getStartAndEndYear = (
+  data: InputDataType[],
+): { startYear: string | null; endYear: string | null } => {
+  const years = data
+    .map(item => parseInt(item.ZEIT?.toString(), 10)) // Konvertiere Jahr in Zahl
+    .filter(year => !isNaN(year) && year >= 1800 && year <= 2100) // Filtere nur gültige Jahre
+
+  if (years.length === 0) {
+    return { startYear: null, endYear: null } // Fallback, falls keine gültigen Jahre vorhanden sind
+  }
+
+  return {
+    startYear: Math.min(...years).toString(),
+    endYear: Math.max(...years).toString(),
+  }
 }
 
 export default function LineChart({ tile_payload }: ChartProps) {
@@ -101,7 +127,11 @@ export default function LineChart({ tile_payload }: ChartProps) {
   const indices = getIndices(tile_payload.table_rows, data)
 
   // fetch the start year and the max visitors
-  const start_year = getStartYear(data)
+  const year_limits = getStartAndEndYear(data)
+
+  if (!year_limits.startYear || !year_limits.endYear) {
+    return <></>
+  }
 
   const series: LineSeriesOption[] = Object.keys(indices)
     .filter(e => seriesVisible[e as string])
@@ -113,11 +143,13 @@ export default function LineChart({ tile_payload }: ChartProps) {
       },
     }))
 
+  const label = getString(tile_payload, 'chart_title', 'Besucher')
+
   return (
     <div className="flex w-full flex-col items-center rounded bg-white p-5 2xl:flex-row">
       <div className="h-full w-full flex-1">
         <Title as="h7" font="semibold" variant={'primary'}>
-          Besucher
+          {label}
         </Title>
         <div className="h-[235px] w-full md:h-[440px]">
           <ReactECharts
@@ -128,6 +160,14 @@ export default function LineChart({ tile_payload }: ChartProps) {
                 left: 50,
                 right: 40,
               },
+              tooltip: {
+                trigger: 'item', // Aktiviert Tooltip bei Hover über Datenpunkt
+                formatter: (params: any) => {
+                  const year = new Date(params.value[0]).getFullYear()
+                  const value = params.value[1]?.toLocaleString('de-DE')
+                  return `<strong>${year}:</strong> ${value} ${label}`
+                },
+              },
               series: [...series],
               xAxis: {
                 type: 'time',
@@ -135,12 +175,12 @@ export default function LineChart({ tile_payload }: ChartProps) {
                   fontSize: device === 'mobile' ? 12 : 20,
                 },
                 min: parse(
-                  `${start_year}-01-01`,
+                  `${year_limits.startYear}-01-01`,
                   'yyyy-MM-dd',
                   new Date(),
                 ).getTime(),
                 max: parse(
-                  `${new Date().getFullYear()}-01-01`,
+                  `${year_limits.endYear}-01-01`,
                   'yyyy-MM-dd',
                   new Date(),
                 ).getTime(),

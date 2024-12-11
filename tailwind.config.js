@@ -57,6 +57,9 @@ module.exports = {
           DEFAULT: '#005096',
           light: '#dbeeff',
         },
+        blue: {
+          DEFAULT: '#009fde',
+        },
       },
       fontSize: {
         headline: '4rem',
