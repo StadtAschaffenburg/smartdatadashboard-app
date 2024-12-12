@@ -3,9 +3,7 @@ import { TileVariants } from '@/utils/variants/TileVariants'
 
 export interface InstitutionIndex {
   title: string
-  icon?:
-    | React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>
-    | ((props: React.SVGProps<SVGSVGElement>) => JSX.Element)
+  icon?: string
   color?: string
   visible?: boolean
   seriesOption?: {

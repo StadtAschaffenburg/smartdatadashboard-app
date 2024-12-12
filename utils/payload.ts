@@ -1,5 +1,9 @@
 import { TilePayloadType } from '@/types/tiles'
 
+export type PayloadDataType = {
+  [key: string]: string
+}
+
 export function getDataPoint(
   tile_payload: TilePayloadType,
   key: string,
@@ -29,11 +33,9 @@ export function getString(
   return fallback
 }
 
-export function getAllStrings(tile_payload: TilePayloadType): {
-  [key: string]: string
-} {
+export function getAllStrings(tile_payload: TilePayloadType): PayloadDataType {
   return (
-    tile_payload.strings?.reduce((result: { [key: string]: string }, item) => {
+    tile_payload.strings?.reduce((result: PayloadDataType, item) => {
       if (item.id && item.val) {
         result[item.id] = item.val
       }
@@ -71,4 +73,24 @@ export function getSourceByName(
     entry => entry.file_name === file_name,
   )
   return item ? item.content : fallback
+}
+
+export function filterValidEntries(
+  data: PayloadDataType[],
+  needs_valid_data: boolean = false,
+): PayloadDataType[] {
+  if (!data.length) {return []}
+
+  const firstColumnKey = Object.keys(data[0])[0]
+
+  return data.filter(entry => {
+    const isFirstColumnValid =
+      entry[firstColumnKey] && entry[firstColumnKey].trim() !== ''
+
+    const hasValidData = Object.entries(entry).some(([key, value]) => {
+      return key !== firstColumnKey && value.trim() !== ''
+    })
+
+    return isFirstColumnValid && (hasValidData || needs_valid_data)
+  })
 }

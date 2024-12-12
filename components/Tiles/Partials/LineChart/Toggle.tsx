@@ -1,21 +1,21 @@
 import Switch from '@/components/Inputs/Switch'
 import { InstitutionIndices } from './dt'
 import Text from '@/components/Elements/Text'
-import { IconStyle } from '@/utils/variants/IconVariants'
-import { cx } from 'class-variance-authority'
+import IconFactory from '@/utils/IconFactory'
 
 export default function Toggle({
+  icon,
   indices,
   type,
   defaultChecked,
   onChange,
 }: {
+  icon: string | null | undefined
   indices: InstitutionIndices
   type: string
   defaultChecked?: boolean
   onChange?: (_checked: boolean) => void
 }) {
-  const Icon = indices[type].icon ?? (() => <></>)
   const variant = indices[type].variant
 
   return (
@@ -26,8 +26,10 @@ export default function Toggle({
         variant={variant}
       />
       <div className="flex items-center gap-2 md:w-max md:gap-4">
-        <Icon
-          className={cx(IconStyle({ variant }), 'aspect-square h-5 md:h-8')}
+        <IconFactory
+          className="aspect-square h-5 md:h-8"
+          type={icon}
+          variant={variant}
         />
         <Text as="h5" variant={variant}>
           {indices[type].title}

@@ -10,6 +10,7 @@ import { getAllSources } from '@/utils/payload'
 import { getVariantType } from '@/utils/payload'
 import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
+import IconFactory from '@/utils/IconFactory'
 
 export default function IconValues({ children, tile_payload }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
@@ -26,12 +27,21 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
 
   const rows = getRows(data, yearIndex, tile_payload.table_rows)
 
-  console.log('rows', rows)
-
   return (
     <div>
       <div className="mb-4 flex flex-row gap-6">
-        <span>{children}</span>
+        {tile_payload.icon && (
+          <span>
+            <IconFactory
+              className="h-20 md:h-32"
+              type={tile_payload.icon}
+              variant={variant}
+            />
+          </span>
+        )}
+
+        {children && <span>{children}</span>}
+
         <div className="flex flex-grow flex-col justify-center gap-1">
           {Object.entries(rows).map(([key, row]) => (
             <Title as="h4" key={key} variant={variant}>

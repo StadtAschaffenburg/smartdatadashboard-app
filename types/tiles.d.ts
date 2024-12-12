@@ -28,6 +28,7 @@ export type TableRow = {
   multiplier?: number | null
   visible?: Boolean | null
   variant?: keyof typeof TileVariants.variant | null
+  icon?: string | null
 }
 
 export interface TilePayloadType {
@@ -55,6 +56,7 @@ export interface TilePayloadType {
   search: string
   table_keys: string[] | null
   table_rows: TableRow[] | null
+  icon: string | null
 }
 
 export interface TileProps {

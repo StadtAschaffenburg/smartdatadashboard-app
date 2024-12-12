@@ -71,6 +71,7 @@ function getIndices(table_rows: TableRow[], data: InputDataType[]) {
     filtered_indices[row.key] = {
       title: row.label ?? row.key,
       variant: row.variant ?? 'primary',
+      icon: row.icon ?? undefined,
       seriesOption: {
         name: row.label ?? row.key,
         data: getSeries(data, row.key),
@@ -209,6 +210,7 @@ export default function LineChart({ tile_payload }: ChartProps) {
         {Object.keys(indices).map(key => (
           <Toggle
             defaultChecked={seriesVisible[key]}
+            icon={indices[key].icon}
             indices={indices}
             key={key}
             onChange={checked =>

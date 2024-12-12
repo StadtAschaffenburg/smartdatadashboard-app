@@ -1,6 +1,4 @@
-export type CsvDataType = {
-  [key: string]: string
-}
+import { PayloadDataType } from '@/utils/payload'
 
 export type InputDataType = {
   name: string
@@ -15,7 +13,7 @@ export type TransformedDataType = {
 }
 
 export type ChartContainerProps = {
-  CsvData: CsvDataType[]
+  CsvData: PayloadDataType[]
 }
 
 export type ChartProps = {

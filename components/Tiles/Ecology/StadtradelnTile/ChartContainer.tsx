@@ -7,13 +7,9 @@ import { animated, useSpring } from '@react-spring/web'
 import { ProgressCircle } from '@/components/Charts/Progress/ProgressCircle'
 import AnimatedRollingElement from '@/components/Elements/Animated/AnimatedRollingElement'
 import Title from '@/components/Elements/Title'
-import {
-  ChartContainerProps,
-  CsvDataType,
-  InputDataType,
-  TransformedDataType,
-} from './dt'
+import { ChartContainerProps, InputDataType, TransformedDataType } from './dt'
 import { sanitizeName, sanitizeValue } from '@/utils/sanitize'
+import { PayloadDataType } from '@/utils/payload'
 
 function getOtherCities(StadtradelnData: TransformedDataType) {
   return Object.keys(StadtradelnData)
@@ -21,7 +17,7 @@ function getOtherCities(StadtradelnData: TransformedDataType) {
     .map(k => StadtradelnData[k] as InputDataType)
 }
 
-const transformCsvData = (input: CsvDataType[]): TransformedDataType => {
+const transformCsvData = (input: PayloadDataType[]): TransformedDataType => {
   return input.reduce(
     (result, item) => {
       const { Stadtnamen, ...years } = item

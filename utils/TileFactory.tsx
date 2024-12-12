@@ -54,71 +54,107 @@ export default function TileFactory({ type, tile_data }: TileFactoryProps) {
     return <div>Invalid data: {type}</div>
   }
 
+  let Tile = (() => <></>) as React.FC<{
+    type: TileType
+    tile_payload: TilePayloadType
+  }>
+
   switch (type) {
     // ---- ECOLOGY ----
     case 'ecology-energyConsumption':
-      return <EnergyConsumptionTile tile_payload={tile_data} type={type} />
+      Tile = EnergyConsumptionTile
+      break
     case 'ecology-weather':
-      return <WeatherTile tile_payload={tile_data} type={type} />
+      Tile = WeatherTile
+      break
     case 'ecology-uv':
-      return <UVTile tile_payload={tile_data} type={type} />
+      Tile = UVTile
+      break
     case 'ecology-climateDevelopment':
-      return <ClimateDevelopmentTile tile_payload={tile_data} type={type} />
+      Tile = ClimateDevelopmentTile
+      break
     case 'ecology-climateIndices':
-      return <ClimateIndicesTile tile_payload={tile_data} type={type} />
+      Tile = ClimateIndicesTile
+      break
     case 'ecology-stadtradeln':
-      return <StadtradelnTile tile_payload={tile_data} type={type} />
+      Tile = StadtradelnTile
+      break
     case 'ecology-bicycle':
-      return <BicycleChartTile tile_payload={tile_data} type={type} />
+      Tile = BicycleChartTile
+      break
     case 'ecology-passengers':
-      return <PassengerTile tile_payload={tile_data} type={type} />
+      Tile = PassengerTile
+      break
     case 'ecology-bus':
-      return <BusTile tile_payload={tile_data} type={type} />
+      Tile = BusTile
+      break
     case 'ecology-stadtwerke':
-      return <StadtwerkeTile tile_payload={tile_data} type={type} />
+      Tile = StadtwerkeTile
+      break
     case 'ecology-pvanlagen':
-      return <PVAnlagenTile tile_payload={tile_data} type={type} />
+      Tile = PVAnlagenTile
+      break
     case 'ecology-lanterns':
-      return <LanternsTile tile_payload={tile_data} type={type} />
+      Tile = LanternsTile
+      break
     case 'ecology-lightning':
-      return <LightningTile tile_payload={tile_data} type={type} />
+      Tile = LightningTile
+      break
     case 'ecology-airquality':
-      return <AirqualityTile tile_payload={tile_data} type={type} />
+      Tile = AirqualityTile
+      break
     case 'ecology-pollen':
-      return <PollenTile tile_payload={tile_data} type={type} />
+      Tile = PollenTile
+      break
     case 'ecology-weatherStations':
-      return <WeatherStationsTile tile_payload={tile_data} type={type} />
+      Tile = WeatherStationsTile
+      break
     case 'ecology-thermalHazard':
-      return <ThermalHazardTile tile_payload={tile_data} type={type} />
+      Tile = ThermalHazardTile
+      break
     case 'ecology-wasserverbrauch':
-      return <WaterTile tile_payload={tile_data} type={type} />
+      Tile = WaterTile
+      break
     case 'ecology-plastikmuell':
-      return <PlasticWasteTile tile_payload={tile_data} type={type} />
+      Tile = PlasticWasteTile
+      break
     case 'ecology-BiomassEnergy':
-      return <BiomassTile tile_payload={tile_data} type={type} />
+      Tile = BiomassTile
+      break
 
     // ---- SOCIETY ----
     case 'society-GeburtenSterbefaelle':
-      return <GeburtenSterbefaelleTile tile_payload={tile_data} type={type} />
+      Tile = GeburtenSterbefaelleTile
+      break
     case 'society-kultureinrichtungen':
-      return <KulturTile tile_payload={tile_data} type={type} />
+      Tile = KulturTile
+      break
     case 'society-freizeiteinrichtungen':
-      return <FreizeitTile tile_payload={tile_data} type={type} />
+      Tile = FreizeitTile
+      break
     case 'society-bevoelkerung':
-      return <BevoelkerungTile tile_payload={tile_data} type={type} />
+      Tile = BevoelkerungTile
+      break
     case 'society-stadtteil':
-      return <StadtteilTile tile_payload={tile_data} type={type} />
+      Tile = StadtteilTile
+      break
 
     // ---- ECONOMY ----
     case 'economy-onlinedienste':
-      return <OnlinediensteTile tile_payload={tile_data} type={type} />
+      Tile = OnlinediensteTile
+      break
     case 'economy-pendler':
-      return <PendlerTile tile_payload={tile_data} type={type} />
+      Tile = PendlerTile
+      break
     case 'economy-hotelbesucher':
-      return <HotelTile tile_payload={tile_data} type={type} />
+      Tile = HotelTile
+      break
 
     // ---- FALLBACK ----
     default:
-      return <FallbackTile tile_payload={tile_data} type={type} />
+      Tile = FallbackTile
+      break
   }
+
+  return <Tile tile_payload={tile_data} type={type} />
 }
