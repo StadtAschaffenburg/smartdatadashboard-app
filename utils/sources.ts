@@ -69,12 +69,16 @@ export function getRows(
   yearIndex: number,
   rows: TableRow[] | null,
 ): RowDataCollection {
-  if (!rows || rows.length === 0) {
+  if (!rows || rows.length === 0 || !data || data.length === 0) {
     return {}
   }
 
-  const current = data[yearIndex]
-  const previous = yearIndex > 0 ? data[yearIndex - 1] : null
+  const current = data[yearIndex] ?? null
+  const previous = yearIndex > 0 ? (data[yearIndex - 1] ?? null) : null
+
+  if (current === null || typeof current !== 'object') {
+    return {}
+  }
 
   const new_values: RowDataCollection = {}
 
@@ -82,9 +86,9 @@ export function getRows(
     const key = row.key
     const multiplier = row.multiplier ?? 1
 
-    if (key in current) {
+    if (current && key in current) {
       new_values[key] = {
-        current: checkValue(current?.[key] ?? null, multiplier),
+        current: checkValue(current[key] ?? null, multiplier),
         previous: checkValue(previous?.[key] ?? null, multiplier),
         label: row.label ?? key,
         unit: row.unit ?? null,
