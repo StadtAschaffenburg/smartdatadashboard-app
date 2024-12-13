@@ -35,7 +35,7 @@ export default function Slider({
           </div>
         )}
         <SliderPrimitive.Root
-          aria-label="Volume"
+          aria-label="Slider"
           className="relative flex h-fit w-full items-center"
           {...props}
           onValueChange={([e]) => {
@@ -60,7 +60,7 @@ export default function Slider({
         </SliderPrimitive.Root>
       </div>
       {labels &&
-        (labels.length != 12 ? (
+        (labels.length < 10 ? (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
               <Text as={'h6'} key={i} tag={'span'} variant={variant}>
@@ -71,7 +71,7 @@ export default function Slider({
         ) : (
           <div className="mt-3 hidden w-full justify-between md:flex">
             {labels.map((l, i) => (
-              <Text as={'h8'} key={i} tag={'span'} variant={variant}>
+              <Text as={'xxs'} key={i} tag={'span'} variant={variant}>
                 {l}
               </Text>
             ))}

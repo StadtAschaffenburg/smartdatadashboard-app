@@ -1,7 +1,5 @@
 'use client'
 
-import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import Title from '@/components/Elements/Title'
 import MobileSlider from '@/components/Inputs/MobileSlider'
 import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
@@ -11,6 +9,7 @@ import { getVariantType } from '@/utils/payload'
 import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import IconFactory from '@/utils/IconFactory'
+import Row from './row'
 
 export default function IconValues({ children, tile_payload }: ContentProps) {
   const data: InputDataType[] = getAllSources(tile_payload, true)
@@ -26,6 +25,7 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
   }
 
   const rows = getRows(data, yearIndex, tile_payload.table_rows)
+  const row_count = Object.keys(rows).length
 
   return (
     <div>
@@ -44,16 +44,12 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
 
         <div className="flex flex-grow flex-col justify-center gap-1">
           {Object.entries(rows).map(([key, row]) => (
-            <Title as="h4" key={key} variant={variant}>
-              <span>{row.label}:</span>{' '}
-              <AnimatedNumber
-                decimals={0}
-                previous_value={row.previous}
-                unit={row.unit}
-              >
-                {row.current}
-              </AnimatedNumber>{' '}
-            </Title>
+            <Row
+              data={row}
+              key={key}
+              single={row_count === 1}
+              variant={variant}
+            />
           ))}
         </div>
       </div>

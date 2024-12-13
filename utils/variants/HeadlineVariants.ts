@@ -15,6 +15,7 @@ export const HeadlineVariants = {
     md: 'text-base lg:text-lg',
     sm: 'text-sm lg:text-base',
     xs: 'text-xs lg:text-sm',
+    xxs: 'text-xs',
   },
 } as const
 

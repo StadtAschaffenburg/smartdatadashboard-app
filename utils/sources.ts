@@ -6,6 +6,14 @@ export interface DataValue {
   previous: number | null
 }
 
+export type RowDataType = DataValue & {
+  label: string
+  unit: string | null
+  icon: string | null
+}
+
+export type RowDataCollection = Record<string, RowDataType>
+
 export type InputDataType = {
   ZEIT: number
   [key: string]: number | undefined
@@ -60,7 +68,7 @@ export function getRows(
   data: InputDataType[],
   yearIndex: number,
   rows: TableRow[] | null,
-): Record<string, DataValue & { label: string; unit: string | null }> {
+): RowDataCollection {
   if (!rows || rows.length === 0) {
     return {}
   }
@@ -68,23 +76,19 @@ export function getRows(
   const current = data[yearIndex]
   const previous = yearIndex > 0 ? data[yearIndex - 1] : null
 
-  const new_values: Record<
-    string,
-    DataValue & { label: string; unit: string | null }
-  > = {}
+  const new_values: RowDataCollection = {}
 
   rows.forEach(row => {
     const key = row.key
     const multiplier = row.multiplier ?? 1
-    const label = row.label ?? key
-    const unit = row.unit ?? null
 
     if (key in current) {
       new_values[key] = {
         current: checkValue(current?.[key] ?? null, multiplier),
         previous: checkValue(previous?.[key] ?? null, multiplier),
-        label: label,
-        unit: unit,
+        label: row.label ?? key,
+        unit: row.unit ?? null,
+        icon: row.icon ?? null,
       }
     }
   })

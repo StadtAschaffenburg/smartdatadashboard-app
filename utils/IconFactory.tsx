@@ -1,15 +1,32 @@
 import { IconStyle } from '@/utils/variants/IconVariants'
 import { TileVariants } from '@/utils/variants/TileVariants'
 import { cx } from 'class-variance-authority'
+import Placeholder from '@/components/Icons/Placeholder'
 
 // import all icons
 import { IconPeople } from '@/components/Icons/Social'
 import { IconHotel } from '@/components/Icons/Economy'
+import { IconPv } from '@/components/Icons/Ecology'
+import { IconLanterns } from '@/components/Icons/Ecology'
+import { IconWater } from '@/components/Icons/Ecology'
+import { IconRecycling } from '@/components/Icons/Ecology'
+import { IconBiomass } from '@/components/Icons/Ecology'
 
 interface IconFactoryProps {
   type: string | null | undefined
   className?: string
   variant?: keyof typeof TileVariants.variant
+}
+
+const iconMap: Record<string, React.FC<{ className: string }>> = {
+  placeholder: Placeholder,
+  hotel: IconHotel,
+  people: IconPeople,
+  pv: IconPv,
+  lanterns: IconLanterns,
+  water: IconWater,
+  recycling: IconRecycling,
+  biomass: IconBiomass,
 }
 
 /**
@@ -23,23 +40,11 @@ export default function IconFactory({
   variant = 'primary',
   type,
 }: IconFactoryProps) {
-  if (!type) {
+  if (!type || !iconMap[type]) {
+    console.warn(`Unknown icon type: ${type}`) // Warnung bei unbekanntem Typ
     return <></>
   }
 
-  let Icon = (() => <></>) as React.FC<{ className: string }>
-
-  switch (type) {
-    case 'hotel':
-      Icon = IconHotel
-      break
-    case 'people':
-      Icon = IconPeople
-      break
-    default:
-      // eslint-disable-next-line no-console
-      console.warn(`Unknown icon type: ${type}`)
-  }
-
+  const Icon = iconMap[type]
   return <Icon className={cx(IconStyle({ variant }), className)} />
 }

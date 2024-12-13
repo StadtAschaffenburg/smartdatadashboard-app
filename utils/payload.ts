@@ -79,18 +79,42 @@ export function filterValidEntries(
   data: PayloadDataType[],
   needs_valid_data: boolean = false,
 ): PayloadDataType[] {
-  if (!data.length) {return []}
+  if (!data.length) {
+    return []
+  }
 
-  const firstColumnKey = Object.keys(data[0])[0]
+  const firstColumnKey: string | undefined = Object.keys(data[0])[0]
 
-  return data.filter(entry => {
-    const isFirstColumnValid =
-      entry[firstColumnKey] && entry[firstColumnKey].trim() !== ''
+  if (!firstColumnKey) {
+    throw new Error('Data does not contain any keys.')
+  }
 
-    const hasValidData = Object.entries(entry).some(([key, value]) => {
-      return key !== firstColumnKey && value.trim() !== ''
+  return data
+    .map(entry => {
+      // create a new object with filtered keys
+      const filtered_entry: PayloadDataType = {} as PayloadDataType
+      for (const [key, value] of Object.entries(entry)) {
+        if (key && !key.startsWith('_')) {
+          filtered_entry[key] = value
+        }
+      }
+      return filtered_entry
     })
+    .filter(entry => {
+      const isFirstColumnValid: boolean =
+        typeof entry[firstColumnKey] === 'string' &&
+        entry[firstColumnKey].trim() !== ''
 
-    return isFirstColumnValid && (hasValidData || needs_valid_data)
-  })
+      const hasValidData: boolean = Object.entries(entry).some(
+        ([key, value]) => {
+          return (
+            key !== firstColumnKey &&
+            typeof value === 'string' &&
+            value.trim() !== ''
+          )
+        },
+      )
+
+      return isFirstColumnValid && (hasValidData || needs_valid_data)
+    })
 }
