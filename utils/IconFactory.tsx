@@ -4,13 +4,23 @@ import { cx } from 'class-variance-authority'
 import Placeholder from '@/components/Icons/Placeholder'
 
 // import all icons
+import {
+  IconBiomass,
+  IconBusAbgas,
+  IconBusElektro,
+  IconLanterns,
+  IconPv,
+  IconRecycling,
+  IconStadtwerkeAbgas,
+  IconStadtwerkeElektro,
+  IconWater,
+} from '@/components/Icons/Ecology'
 import { IconPeople } from '@/components/Icons/Social'
-import { IconHotel } from '@/components/Icons/Economy'
-import { IconPv } from '@/components/Icons/Ecology'
-import { IconLanterns } from '@/components/Icons/Ecology'
-import { IconWater } from '@/components/Icons/Ecology'
-import { IconRecycling } from '@/components/Icons/Ecology'
-import { IconBiomass } from '@/components/Icons/Ecology'
+import {
+  IconHotel,
+  IconServiceA,
+  IconServiceD,
+} from '@/components/Icons/Economy'
 
 interface IconFactoryProps {
   type: string | null | undefined
@@ -27,6 +37,12 @@ const iconMap: Record<string, React.FC<{ className: string }>> = {
   water: IconWater,
   recycling: IconRecycling,
   biomass: IconBiomass,
+  nutzfahrzeug_abgas: IconStadtwerkeAbgas,
+  nutzfahrzeug_elektro: IconStadtwerkeElektro,
+  bus_abgas: IconBusAbgas,
+  bus_elektro: IconBusElektro,
+  service_analog: IconServiceA,
+  service_digital: IconServiceD,
 }
 
 /**

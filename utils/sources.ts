@@ -1,5 +1,6 @@
 import { sanitizeLocalizedValue } from '@/utils/sanitize'
 import { TableRow } from '@/types/tiles'
+import { TileVariants } from '@/utils/variants/TileVariants'
 
 export interface DataValue {
   current: number | null
@@ -10,6 +11,7 @@ export type RowDataType = DataValue & {
   label: string
   unit: string | null
   icon: string | null
+  variant?: keyof typeof TileVariants.variant | null
 }
 
 export type RowDataCollection = Record<string, RowDataType>
@@ -83,17 +85,43 @@ export function getRows(
   const new_values: RowDataCollection = {}
 
   rows.forEach(row => {
-    const key = row.key
+    const keys = row.key.split(';').map(key => key.trim())
     const multiplier = row.multiplier ?? 1
 
-    if (current && key in current) {
-      new_values[key] = {
-        current: checkValue(current[key] ?? null, multiplier),
-        previous: checkValue(previous?.[key] ?? null, multiplier),
-        label: row.label ?? key,
-        unit: row.unit ?? null,
-        icon: row.icon ?? null,
+    let aggregated_current: number | null = null
+    let aggregated_previous: number | null = null
+
+    keys.forEach(key => {
+      const is_negative = key.startsWith('-')
+      key = is_negative ? key.slice(1) : key
+      const effective_multiplier = is_negative ? -multiplier : multiplier
+
+      const current_value =
+        current && key in current
+          ? checkValue(current[key], effective_multiplier)
+          : null
+
+      if (current_value !== null) {
+        aggregated_current = (aggregated_current ?? 0) + current_value
       }
+
+      const previous_value =
+        previous && key in previous
+          ? checkValue(previous[key], effective_multiplier)
+          : null
+
+      if (previous_value !== null) {
+        aggregated_previous = (aggregated_previous ?? 0) + previous_value
+      }
+    })
+
+    new_values[row.key] = {
+      current: aggregated_current,
+      previous: aggregated_previous,
+      label: row.label ?? row.key,
+      unit: row.unit ?? null,
+      icon: row.icon ?? null,
+      variant: row.variant ?? null,
     }
   })
 

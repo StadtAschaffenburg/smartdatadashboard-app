@@ -4,6 +4,7 @@ import { TilePayloadType, TileType } from '@/types/tiles'
 import IconValues from '@/components/Tiles/Prefab/IconValues'
 import LineChart from '@/components/Tiles/Prefab/LineChart'
 import IconText from '@/components/Tiles/Prefab/IconText'
+import CompareIconValues from '@/components/Tiles/Prefab/CompareIconValues'
 
 // ecology
 import EnergyConsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
@@ -14,8 +15,6 @@ import ClimateIndicesTile from '@/components/Tiles/Ecology/ClimateIndicesTile'
 import StadtradelnTile from '@/components/Tiles/Ecology/StadtradelnTile'
 import BicycleChartTile from '@/components/Tiles/Ecology/BicycleChartTile'
 import PassengerTile from '@/components/Tiles/Ecology/PassengerTile'
-import BusTile from '@/components/Tiles/Ecology/BusTile'
-import StadtwerkeTile from '@/components/Tiles/Ecology/StadtwerkeTile'
 import LightningTile from '@/components/Tiles/Ecology/LightningTile'
 import AirqualityTile from '@/components/Tiles/Ecology/AirqualityTile'
 import PollenTile from '@/components/Tiles/Ecology/PollenTile'
@@ -27,7 +26,6 @@ import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbef
 import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
 // economy
-import OnlinediensteTile from '@/components/Tiles/Economy/OnlinediensteTile'
 import PendlerTile from '@/components/Tiles/Economy/PendlerTile'
 
 // misc
@@ -52,8 +50,8 @@ const tileMap: Record<
   'ecology-stadtradeln': StadtradelnTile,
   'ecology-bicycle': BicycleChartTile,
   'ecology-passengers': PassengerTile,
-  'ecology-bus': BusTile,
-  'ecology-stadtwerke': StadtwerkeTile,
+  'ecology-bus': CompareIconValues,
+  'ecology-stadtwerke': CompareIconValues,
   'ecology-pvanlagen': IconText,
   'ecology-lanterns': IconText,
   'ecology-lightning': LightningTile,
@@ -84,7 +82,7 @@ const tileMap: Record<
   'society-wohnraum': IconValues,
 
   // ---- ECONOMY ----
-  'economy-onlinedienste': OnlinediensteTile,
+  'economy-onlinedienste': CompareIconValues,
   'economy-pendler': PendlerTile,
   'economy-hotelbesucher': IconValues,
   'economy-schulabschluss': IconValues,
