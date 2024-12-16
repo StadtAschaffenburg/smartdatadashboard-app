@@ -26,11 +26,13 @@ export default function Toggle({
         variant={variant}
       />
       <div className="flex items-center gap-2 md:w-max md:gap-4">
-        <IconFactory
-          className="aspect-square h-5 md:h-8"
-          type={icon}
-          variant={variant}
-        />
+        {icon && (
+          <IconFactory
+            className="aspect-square h-5 md:h-8"
+            type={icon}
+            variant={variant}
+          />
+        )}
         <Text as="h5" variant={variant}>
           {indices[type].title}
         </Text>

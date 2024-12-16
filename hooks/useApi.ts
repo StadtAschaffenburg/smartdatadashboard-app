@@ -8,7 +8,7 @@ const fetchDataWithCache = async (
   lifetime: number,
   use_local_storage: boolean = true,
 ) => {
-  const cache_key: string = `api_cache_${key}`
+  const cache_key: string = `sdd_api_cache_${key}`
 
   // check for cached data in localStorage
   if (typeof window !== 'undefined' && use_local_storage) {
@@ -26,7 +26,7 @@ const fetchDataWithCache = async (
   try {
     const payload = await getLiveData(key, lifetime)
 
-    if (payload !== null) {
+    if (payload !== null && payload !== '') {
       if (typeof window !== 'undefined' && use_local_storage) {
         localStorage.setItem(
           cache_key,

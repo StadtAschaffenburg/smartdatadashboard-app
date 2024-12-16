@@ -4,8 +4,10 @@ import Text from '@/components/Elements/Text'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import useApi from '@/hooks/useApi'
-import { DataProps, RatingStrings } from './dt'
+import { DataProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
+import { getString } from '@/utils/payload'
+import { TilePayloadType } from '@/types/tiles'
 
 const thermal_limit = 10
 
@@ -21,15 +23,15 @@ const rating_colors: { [key: number]: string } = {
   4: '#dd00ff',
 }
 
-const rating_strings: { [key: number]: RatingStrings } = {
-  0: ['Keine', 'Keine gesundheitliche Gefährdung'],
-  1: ['Gering', 'Geringe gesundheitliche Gefährdung'],
-  2: ['Mittel', 'Mittlere gesundheitliche Gefährdung'],
-  3: ['Hoch', 'Hohe gesundheitliche Gefährdung'],
-  4: ['Sehr Hoch', 'Sehr hohe gesundheitliche Gefährdung'],
+const rating_strings: { [key: number]: string } = {
+  0: 'Keine',
+  1: 'Gering',
+  2: 'Mittel',
+  3: 'Hoch',
+  4: 'Sehr Hoch',
 }
 
-function getRating(index: number): [string, string, string, string] {
+function getRating(index: number): [string, string, string] {
   let temp_rating = ''
   if (index > 0) {
     temp_rating = 'Wärmebelastung'
@@ -37,13 +39,17 @@ function getRating(index: number): [string, string, string, string] {
     temp_rating = 'Kältestress'
   }
 
-  const strings = rating_strings[Math.abs(index)] ?? ['Unbekannt', '']
+  const rating = rating_strings[Math.abs(index)] ?? 'Unbekannt'
   const color = rating_colors[index] ?? '#000000'
 
-  return [...strings, color, temp_rating]
+  return [rating, color, temp_rating]
 }
 
-export default function ThermalHazardTileContent() {
+export default function ThermalHazardTileContent({
+  tile_payload,
+}: {
+  tile_payload: TilePayloadType
+}) {
   const { data: harzard_data, status: status_data } = useApi<DataProps[]>(
     'dwd/thermal_hazard',
     10,
@@ -89,7 +95,7 @@ export default function ThermalHazardTileContent() {
     )
   }
 
-  const [rating, advice, rating_color, temperature_rating] = getRating(
+  const [rating, rating_color, temperature_rating] = getRating(
     harzard_index ?? 0,
   )
 
@@ -109,7 +115,7 @@ export default function ThermalHazardTileContent() {
 
         <Text as={'base'}>
           <div>
-            {advice}
+            {getString(tile_payload, rating)}
             {temperature_rating !== '' && (
               <span>
                 {' '}

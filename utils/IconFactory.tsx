@@ -78,7 +78,7 @@ export default function IconFactory({
   type,
 }: IconFactoryProps) {
   if (!type || !iconMap[type]) {
-    console.warn(`Unknown icon type: ${type}`) // Warnung bei unbekanntem Typ
+    console.warn(`Unknown icon type: ${type}`)
     return <></>
   }
 
