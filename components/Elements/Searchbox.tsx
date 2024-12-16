@@ -9,6 +9,8 @@ import { scrollToElement } from '@/utils/scroll'
 function SearchComponent() {
   const [is_open, setIsOpen] = useState(false)
   const [search_term, setSearchTerm] = useState('')
+  const [is_hidden, setIsHidden] = useState(false)
+  const search_ref = useRef<HTMLDivElement>(null)
   const input_field = useRef<HTMLInputElement>(null)
 
   const searchParams = useSearchParams()
@@ -28,6 +30,28 @@ function SearchComponent() {
       input_field.current.focus()
     }
   }, [is_open])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const tileCollection = document.getElementById('tile-collection')
+      if (!tileCollection || !search_ref.current) {return}
+
+      const collectionBottom = tileCollection.getBoundingClientRect().bottom
+      const searchTop = search_ref.current.getBoundingClientRect().top
+
+      // Check if the search field is below the tile collection
+      if (searchTop > collectionBottom) {
+        setIsHidden(true)
+      } else {
+        setIsHidden(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const updateQueryString = (key: string, value: string | null) => {
     const url = new URL(window.location.href)
@@ -72,7 +96,12 @@ function SearchComponent() {
   }
 
   return (
-    <div className="pointer-events-none fixed bottom-8 left-0 right-0 z-30 transition-all [.cookie-consent_&]:bottom-40">
+    <div
+      className={`pointer-events-none fixed bottom-8 left-0 right-0 z-30 transition-all ${
+        is_hidden ? 'pointer-events-none opacity-0' : ''
+      }`}
+      ref={search_ref}
+    >
       <Container className={'flex justify-end'} variant={'flat'}>
         <div className="group pointer-events-auto z-50 flex cursor-pointer items-center gap-4 overflow-hidden rounded bg-white shadow">
           {!is_open ? (

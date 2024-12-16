@@ -41,11 +41,6 @@ export default function CompareIconValues({
   const ratio =
     left_count && right_count ? left_count / (left_count + right_count) : 1
 
-  const icon_width_left = Math.min(50 + (1 / ratio) * 25, 100)
-  const icon_width_right = Math.min(50 + ratio * 25, 100)
-
-  console.log('ratio', ratio)
-
   return (
     <div>
       <div className="mb-2 flex justify-between gap-4">

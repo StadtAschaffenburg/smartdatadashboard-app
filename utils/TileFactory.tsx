@@ -22,11 +22,9 @@ import WeatherStationsTile from '@/components/Tiles/Ecology/WeatherStationsTile'
 import ThermalHazardTile from '@/components/Tiles/Ecology/ThermalHazardTile'
 
 // society
-import GeburtenSterbefaelleTile from '@/components/Tiles/Society/GeburtenSterbefaelleTile'
 import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
 // economy
-import PendlerTile from '@/components/Tiles/Economy/PendlerTile'
 
 // misc
 import FallbackTile from '@/components/Tiles/FallbackTile'
@@ -65,7 +63,7 @@ const tileMap: Record<
   'ecology-auto': IconValues,
 
   // ---- SOCIETY ----
-  'society-GeburtenSterbefaelle': GeburtenSterbefaelleTile,
+  'society-GeburtenSterbefaelle': CompareIconValues,
   'society-kultureinrichtungen': LineChart,
   'society-freizeiteinrichtungen': LineChart,
   'society-bevoelkerung': IconValues,
@@ -83,7 +81,7 @@ const tileMap: Record<
 
   // ---- ECONOMY ----
   'economy-onlinedienste': CompareIconValues,
-  'economy-pendler': PendlerTile,
+  'economy-pendler': CompareIconValues,
   'economy-hotelbesucher': IconValues,
   'economy-schulabschluss': IconValues,
   'economy-arbeitslosenquote': IconValues,

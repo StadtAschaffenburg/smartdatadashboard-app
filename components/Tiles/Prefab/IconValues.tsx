@@ -1,6 +1,6 @@
 import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
-import Content from '@/components/Tiles/Partials/IconValues'
+import Content from '@/components/Tiles/Prefab/Partials/IconValues'
 
 export default function Tile({ type, tile_payload }: TileProps) {
   return (

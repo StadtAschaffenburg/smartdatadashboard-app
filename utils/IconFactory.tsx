@@ -2,6 +2,7 @@ import { IconStyle } from '@/utils/variants/IconVariants'
 import { TileVariants } from '@/utils/variants/TileVariants'
 import { cx } from 'class-variance-authority'
 import Placeholder from '@/components/Icons/Placeholder'
+import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 
 // import all icons
 import {
@@ -15,12 +16,18 @@ import {
   IconStadtwerkeElektro,
   IconWater,
 } from '@/components/Icons/Ecology'
-import { IconPeople } from '@/components/Icons/Social'
+import { IconBirth, IconDeath, IconPeople } from '@/components/Icons/Social'
 import {
   IconHotel,
   IconServiceA,
   IconServiceD,
 } from '@/components/Icons/Economy'
+import { StadtAbMap } from '@/components/Icons/Misc'
+
+import {
+  ArrowLongLeftIcon as ArrowLeft,
+  ArrowLongRightIcon as ArrowRight,
+} from '@heroicons/react/24/outline'
 
 interface IconFactoryProps {
   type: string | null | undefined
@@ -28,7 +35,16 @@ interface IconFactoryProps {
   variant?: keyof typeof TileVariants.variant
 }
 
-const iconMap: Record<string, React.FC<{ className: string }>> = {
+type IconComponent =
+  | React.FC<{ className: string }>
+  | ForwardRefExoticComponent<
+      Omit<SVGProps<SVGSVGElement>, 'ref'> & {
+        title?: string
+        titleId?: string
+      } & RefAttributes<SVGSVGElement>
+    >
+
+const iconMap: Record<string, IconComponent> = {
   placeholder: Placeholder,
   hotel: IconHotel,
   people: IconPeople,
@@ -43,7 +59,12 @@ const iconMap: Record<string, React.FC<{ className: string }>> = {
   bus_elektro: IconBusElektro,
   service_analog: IconServiceA,
   service_digital: IconServiceD,
-}
+  births: IconBirth,
+  deaths: IconDeath,
+  arrow_right: ArrowRight,
+  arrow_left: ArrowLeft,
+  stadt_ab: StadtAbMap,
+} as const
 
 /**
  * The IconFactory is a helper function to create Icons dynamically.
