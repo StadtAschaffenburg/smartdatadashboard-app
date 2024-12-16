@@ -26,7 +26,6 @@ export default function Row({ data, single = false, variant }: RowType) {
         <span>{data.label}:</span> {single && <br />}
         <AnimatedNumber
           className={single ? 'block pt-1 text-2xl' : ''}
-          decimals={0}
           previous_value={data.previous}
           unit={data.unit}
         >

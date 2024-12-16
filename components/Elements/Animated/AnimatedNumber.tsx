@@ -15,6 +15,11 @@ type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
     unit?: string | null
   }
 
+function countDecimals(value: number): number {
+  if (Math.floor(value) === value) {return 0}
+  return value.toString().split('.')[1]?.length || 0
+}
+
 export default function AnimatedNumber({
   children,
   decimals,
@@ -58,6 +63,8 @@ export default function AnimatedNumber({
       }
     }
   }, [])
+
+  decimals = decimals ?? countDecimals(value ?? 0)
 
   return (
     <span
