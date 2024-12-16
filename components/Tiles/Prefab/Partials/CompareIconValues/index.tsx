@@ -50,6 +50,7 @@ export default function CompareIconValues({
           </Title>
           <AnimatedNumber
             className={'text-2xl'}
+            decimals={left_row.decimals}
             previous_value={left_row.previous}
             unit={left_row.unit}
             variant={left_row.variant ?? variant}
@@ -63,6 +64,7 @@ export default function CompareIconValues({
           </Title>
           <AnimatedNumber
             className={'text-2xl'}
+            decimals={left_row.decimals}
             previous_value={right_row.previous}
             unit={right_row.unit}
             variant={right_row.variant ?? variant}

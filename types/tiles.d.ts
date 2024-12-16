@@ -29,6 +29,7 @@ export type TableRow = {
   visible?: Boolean | null
   variant?: keyof typeof TileVariants.variant | null
   icon?: string | null
+  decimals?: number | null
 }
 
 export interface TilePayloadType {

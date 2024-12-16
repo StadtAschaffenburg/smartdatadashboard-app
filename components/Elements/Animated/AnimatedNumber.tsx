@@ -6,19 +6,15 @@ import { TextStyle } from '@/utils/variants/TextVariants'
 import { cx, VariantProps } from 'class-variance-authority'
 import { Indicator } from '@/components/Layout/Indicator'
 import { sanitizeValue } from '@/utils/sanitize'
+import { countDecimals } from '@/utils/sources'
 
 type AnimatedNumberProps = React.HTMLAttributes<HTMLSpanElement> &
   VariantProps<typeof TextStyle> & {
     children: number | null
-    decimals?: number
+    decimals?: number | null
     previous_value?: number | null
     unit?: string | null
   }
-
-function countDecimals(value: number): number {
-  if (Math.floor(value) === value) {return 0}
-  return value.toString().split('.')[1]?.length || 0
-}
 
 export default function AnimatedNumber({
   children,
@@ -39,7 +35,7 @@ export default function AnimatedNumber({
     from: { val: 0 },
     config: { tension: 170, friction: 26 },
     onChange: ({ value }) => {
-      setLastValue(value.val) // Aktualisiert den letzten Wert während der Animation
+      setLastValue(value.val) // update the last value
     },
   })
 
