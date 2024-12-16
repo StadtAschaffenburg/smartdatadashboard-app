@@ -82,12 +82,16 @@ export function getRows(
   yearIndex: number,
   rows: TableRow[] | null,
 ): RowDataCollection {
-  if (!rows?.length || !data?.length) {return {}}
+  if (!rows?.length || !data?.length) {
+    return {}
+  }
 
   const current = data[yearIndex] ?? null
   const previous = yearIndex > 0 ? (data[yearIndex - 1] ?? null) : null
 
-  if (!current || typeof current !== 'object') {return {}}
+  if (!current || typeof current !== 'object') {
+    return {}
+  }
 
   const newValues: RowDataCollection = {}
 
