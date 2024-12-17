@@ -1,5 +1,5 @@
 import { TilePayloadType } from '@/types/tiles'
-import { TileVariants } from '@/utils/variants/TileVariants'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export interface InstitutionIndex {
   title: string
@@ -11,7 +11,7 @@ export interface InstitutionIndex {
     data: (string | number | null)[][]
     color: string
   }
-  variant: keyof typeof TileVariants.variant
+  variant: TileVariantTypes
 }
 
 export type InstitutionIndices = Record<string, InstitutionIndex>

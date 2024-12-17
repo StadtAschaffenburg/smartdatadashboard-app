@@ -3,119 +3,20 @@ import type { SVGProps } from 'react'
 
 function Icon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      viewBox="0 0 171.12 230.28"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <g className="stroke-ecology">
-        <line
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-          x1="17.11"
-          x2="13.94"
-          y1="86.08"
-          y2="49.75"
-        />
-        <line
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-          x1="157.18"
-          x2="154.01"
-          y1="49.75"
-          y2="86.08"
-        />
-        <path
-          d="M26.34,191.95l2.03,23.34c.64,7.35,6.79,12.99,14.17,12.99h86.03c7.37,0,13.53-5.64,14.17-12.99l2.03-23.34"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <path
-          d="M144.98,191.95H26.14c-2.14,0-3.93-1.62-4.15-3.74l-10.16-97.52c-.26-2.46,1.68-4.61,4.15-4.61h139.16c2.48,0,4.41,2.15,4.15,4.61l-10.16,97.52c-.22,2.13-2.02,3.74-4.15,3.74Z"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <rect
-          fill="none"
-          height="22.84"
-          rx="7.13"
-          ry="7.13"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-          width="167.12"
-          x="2"
-          y="25.35"
-        />
-        <path
-          d="M18.09,24.84l3.06-13.46c1.25-5.49,6.12-9.38,11.75-9.38h105.32c5.63,0,10.5,3.89,11.75,9.38l3.06,13.46"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <path
-          d="M71.88,106.42c4.67-2.06,9.84-3.21,15.27-3.21,17.49,0,32.21,11.86,36.56,27.97"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="93.07 114.21 82.41 110.33 71.74 106.45 80.43 99.15 89.12 91.86"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <path
-          d="M64.05,171.64c-4.12-3.01-7.7-6.92-10.41-11.62-8.74-15.14-5.84-33.82,5.94-45.64"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="60.2 149.4 62.17 160.57 64.14 171.75 53.48 167.87 42.82 163.99"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <path
-          d="M124.31,145.61c-.55,5.08-2.14,10.12-4.86,14.83-8.74,15.14-26.37,21.96-42.5,17.67"
-          fill="none"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
-        <polyline
-          fill="none"
-          points="106.97 160.07 115.66 152.77 124.35 145.48 126.33 156.65 128.3 167.83"
-          stroke="inherit"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="4"
-        />
+    <svg viewBox="0 0 193 233" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <g id="c">
+        <path d="M64.77,230.23c.45.06.91.09,1.38.09h95.35c5.96,0,10.88-4.67,11.2-10.62l9.44-178.17H45.51l7.47,140.93" />
+        <circle cx="66.84" cy="204.38" r="25.94" />
+        <circle cx="66.84" cy="204.38" r="11.3" />
+        <path d="M166.3,18.09c0-8.89-7.49-16.09-16.72-16.09h-82.98c-9.23,0-16.72,7.2-16.72,16.09" />
+        <path d="M16.81,8.31c-6.54-3.88-14.81.83-14.81,8.43h0c0,3.46,1.83,6.67,4.8,8.43l24.38,13.72c3.06,1.72,6.5,2.62,10.01,2.62h149.37c0-12.59-10.21-22.8-22.8-22.8H41.07c-3.42,0-6.79-.86-9.79-2.5l-14.47-7.91Z" />
+        <rect height="10.23" width="49.02" x="91.8" y="54.88" />
+        <path d="M100.84,159.78l-22.51.06c-3.37,0-5.49-3.64-3.81-6.56l17.4-30.29" />
+        <polyline points="73.71 128.99 91.92 122.99 95.73 140.92" />
+        <path d="M142.04,133.72l11.31,19.47c1.69,2.92-.41,6.57-3.78,6.58l-34.93.08" />
+        <polyline points="128.95 172.61 114.64 159.84 128.27 147.58" />
+        <path d="M99.04,111.39l11.21-19.52c1.68-2.92,5.89-2.93,7.58-.02l17.53,30.21" />
+        <polyline points="139.26 103.29 135.36 122.07 117.93 116.4" />
       </g>
     </svg>
   )

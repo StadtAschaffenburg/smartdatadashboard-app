@@ -23,6 +23,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
           <div className="mt-4">
             <EnergyConsumptionContent
               stromDataInput={stromDataInput}
+              tile_payload={tile_payload}
               waermeDataInput={waermeDataInput}
             />
           </div>

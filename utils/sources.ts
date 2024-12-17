@@ -1,6 +1,6 @@
 import { sanitizeLocalizedValue } from '@/utils/sanitize'
 import { TableRow } from '@/types/tiles'
-import { TileVariants } from '@/utils/variants/TileVariants'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export interface DataValue {
   current: number | null
@@ -11,7 +11,7 @@ export type RowDataType = DataValue & {
   label: string
   unit: string | null
   icon: string | null
-  variant?: keyof typeof TileVariants.variant | null
+  variant?: TileVariantTypes | null
   decimals?: number | null
 }
 

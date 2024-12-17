@@ -1,7 +1,7 @@
 import { ActionDimensionsType, ActionFieldsType } from './dimensionMapping'
 import { TargetType } from './targetMapping'
 import { CategoryType } from './TilesCategory'
-import { TileVariants } from '@/utils/variants/TileVariants'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export type TileTypePrefix = 'ecology' | 'society' | 'economy'
 
@@ -27,7 +27,7 @@ export type TableRow = {
   unit?: string | null
   multiplier?: number | null
   visible?: Boolean | null
-  variant?: keyof typeof TileVariants.variant | null
+  variant?: TileVariantTypes | null
   icon?: string | null
   decimals?: number | null
 }

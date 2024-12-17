@@ -8,6 +8,8 @@ export const TileVariants = {
   font: FontVariants.font,
 } as const
 
+export type TileVariantTypes = keyof typeof TileVariants.variant
+
 export const TileDefaultVariants: { font: FontVariant } = {
   font: 'medium',
 }

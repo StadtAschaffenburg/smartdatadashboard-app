@@ -4,11 +4,11 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import IconFactory from '@/utils/IconFactory'
 import { RowDataType } from '@/utils/sources'
-import { TileVariants } from '@/utils/variants/TileVariants'
+import { TileVariantTypes } from '@/utils/payload'
 
 interface RowType {
   data: RowDataType
-  variant?: keyof typeof TileVariants.variant
+  variant?: TileVariantTypes
   single?: boolean
 }
 

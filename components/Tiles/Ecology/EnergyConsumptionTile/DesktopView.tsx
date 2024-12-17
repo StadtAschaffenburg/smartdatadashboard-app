@@ -1,40 +1,32 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import { Spacer } from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
-import { SVGProps } from 'react'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
-import { buildings, BuildingType, ViewProps } from './dt'
-import { buildingIcon } from './icons'
-
-function getBuildingIcon(
-  building: keyof BuildingType,
-  props?: SVGProps<SVGSVGElement>,
-) {
-  const Icon = buildingIcon[building]
-  return <Icon {...props} />
-}
+import { ViewProps } from './dt'
+import IconFactory from '@/utils/IconFactory'
 
 export default function DesktopView({
   data,
   mode,
+  variant,
   yearIndex,
   years,
 }: ViewProps) {
   return (
     <>
       <div className="flex h-full w-full justify-between gap-8">
-        {Object.keys(buildings).map(building => (
-          <div className="flex-1 p-2" key={building}>
+        {Object.entries(data).map(([id, row]) => (
+          <div className="flex-1 p-2" key={id}>
             <div className="mx-auto mb-3 flex h-[200px] w-[200px] justify-center fill-ecology">
-              {getBuildingIcon(building as keyof BuildingType)}
+              <IconFactory type={row.icon} variant={variant} />
             </div>
             <Title
               as="h4"
               className="min-h-[5rem] text-center"
               variant="ecology"
             >
-              {buildings[building as keyof BuildingType]}
+              {row.label}
             </Title>
           </div>
         ))}
@@ -43,11 +35,9 @@ export default function DesktopView({
         <>
           <LabelSeperator>Monatlicher Verbrauch</LabelSeperator>
           <div className="flex h-full w-full justify-between gap-8">
-            {Object.keys(buildings).map(building => (
-              <div className="h-72 w-full md:pb-2" key={building}>
-                <EnergyConsumptionChart
-                  data={data[building as keyof BuildingType].waerme.current}
-                />
+            {Object.entries(data).map(([id, row]) => (
+              <div className="h-72 w-full md:pb-2" key={id}>
+                <EnergyConsumptionChart data={row.waerme.current} />
               </div>
             ))}
           </div>
@@ -60,14 +50,11 @@ export default function DesktopView({
       </LabelSeperator>
       <Spacer size={'sm'}></Spacer>
       <div className="flex h-full w-full justify-between gap-8">
-        {Object.keys(buildings).map(building => {
-          const entry = data[building as keyof BuildingType][mode]
+        {Object.entries(data).map(([id, row]) => {
+          const entry = row[mode]
 
           return (
-            <div
-              className="flex w-full justify-center gap-1 p-2"
-              key={building}
-            >
+            <div className="flex w-full justify-center gap-1 p-2" key={id}>
               {entry.currentSum === 0 ? (
                 <Title as="h4" variant="ecology">
                   fehlende Daten

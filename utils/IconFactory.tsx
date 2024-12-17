@@ -1,5 +1,5 @@
 import { IconStyle } from '@/utils/variants/IconVariants'
-import { TileVariants } from '@/utils/variants/TileVariants'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 import { cx } from 'class-variance-authority'
 import Placeholder from '@/components/Icons/Placeholder'
 import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
@@ -7,8 +7,13 @@ import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react'
 // import all icons
 import {
   IconBiomass,
+  IconBuildingArena,
+  IconBuildingBibliothek,
+  IconBuildingRathaus,
+  IconBuildingSchule,
   IconBusAbgas,
   IconBusElektro,
+  IconCar,
   IconLanterns,
   IconPv,
   IconRecycling,
@@ -16,13 +21,62 @@ import {
   IconStadtwerkeElektro,
   IconWater,
 } from '@/components/Icons/Ecology'
-import { IconBirth, IconDeath, IconPeople } from '@/components/Icons/Social'
 import {
+  IconAdultLearning,
+  IconBirth,
+  IconCaring,
+  IconConversation,
+  IconCourt,
+  IconDeath,
+  IconGroup,
+  IconHospital,
+  IconHospitalBed,
+  IconIceSkating,
+  IconIndoorPool,
+  IconPeople,
+  IconPool,
+  IconSauna,
+  IconUmbrella,
+  IconWalker,
+  IconWorldCouple,
+  IconWorldPopulation,
+} from '@/components/Icons/Social'
+import {
+  IconBusinessCheck,
+  IconBusinessPeople,
+  IconBusinessTarget,
+  IconCV,
   IconHotel,
+  IconHouseValue,
+  IconHousingPrices,
+  IconJobSearch,
+  IconMoneyBag,
+  IconMoneyIncrease,
+  IconMoneyKeys,
+  IconMoneySafe,
+  IconPedestal,
+  IconPersonSpreadsheet,
+  IconPiggyBank,
+  IconPlot,
+  IconPromotion,
   IconServiceA,
   IconServiceD,
+  IconStockCoin,
+  IconStockMarket,
+  IconWallet,
 } from '@/components/Icons/Economy'
-import { StadtAbMap } from '@/components/Icons/Misc'
+import {
+  IconBadge,
+  IconExamination,
+  IconHangar,
+  IconLocation,
+  IconMuseum,
+  IconPersonDevelopment,
+  IconPersonTime,
+  IconRocket,
+  IconShielded,
+  StadtAbMap,
+} from '@/components/Icons/Misc'
 
 import {
   ArrowLongLeftIcon as ArrowLeft,
@@ -32,7 +86,7 @@ import {
 interface IconFactoryProps {
   type: string | null | undefined
   className?: string
-  variant?: keyof typeof TileVariants.variant
+  variant?: TileVariantTypes
 }
 
 type IconComponent =
@@ -64,6 +118,54 @@ const iconMap: Record<string, IconComponent> = {
   arrow_right: ArrowRight,
   arrow_left: ArrowLeft,
   stadt_ab: StadtAbMap,
+  school: IconBuildingSchule,
+  library: IconBuildingBibliothek,
+  arena: IconBuildingArena,
+  townhall: IconBuildingRathaus,
+  hospital: IconHospital,
+  hospital_bed: IconHospitalBed,
+  car: IconCar,
+  court: IconCourt,
+  indoor_pool: IconIndoorPool,
+  ice_skating: IconIceSkating,
+  pool: IconPool,
+  sauna: IconSauna,
+  adult_learning: IconAdultLearning,
+  world_couple: IconWorldCouple,
+  business_people: IconBusinessPeople,
+  group: IconGroup,
+  business_check: IconBusinessCheck,
+  world_population: IconWorldPopulation,
+  business_target: IconBusinessTarget,
+  umbrella: IconUmbrella,
+  examination: IconExamination,
+  money_safe: IconMoneySafe,
+  caring: IconCaring,
+  shielded: IconShielded,
+  conversation: IconConversation,
+  house_value: IconHouseValue,
+  stock_coin: IconStockCoin,
+  stock_market: IconStockMarket,
+  money_bag: IconMoneyBag,
+  badge: IconBadge,
+  walker: IconWalker,
+  job_search: IconJobSearch,
+  piggy_bank: IconPiggyBank,
+  money_increase: IconMoneyIncrease,
+  wallet: IconWallet,
+  hangar: IconHangar,
+  plot: IconPlot,
+  money_keys: IconMoneyKeys,
+  housing_prices: IconHousingPrices,
+  museum: IconMuseum,
+  location: IconLocation,
+  pedestal: IconPedestal,
+  person_spreadsheet: IconPersonSpreadsheet,
+  promotion: IconPromotion,
+  rocket: IconRocket,
+  person_time: IconPersonTime,
+  person_development: IconPersonDevelopment,
+  cv: IconCV,
 } as const
 
 /**

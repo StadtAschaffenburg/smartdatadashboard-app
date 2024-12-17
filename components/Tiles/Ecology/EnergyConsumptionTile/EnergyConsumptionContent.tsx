@@ -8,21 +8,27 @@ import MobileView from './MobileView'
 import { convertToFloat, convertToUnixTimestamp } from '@/utils/convert'
 import {
   BuildingDataType,
-  buildings,
-  BuildingType,
   DataType,
   EnergyConsumptionContentProps,
   InputDataType,
 } from './dt'
+import { TableRow } from '@/types/tiles'
+import { getVariantType } from '@/utils/payload'
 
-function convertData(data: InputDataType[]): DataType[] {
-  return data.map((d: InputDataType) => ({
-    datum: convertToUnixTimestamp(d.Zeit) * 1000,
-    brentanoschule: convertToFloat(d['Brentanoschule (kWh)']),
-    stadtbibliothek: convertToFloat(d['Stadbibliothek (kWh)']),
-    frankenstolz_arena: convertToFloat(d['F.A.N Frankenstolz Arena (kWh)']),
-    rathaus: convertToFloat(d['Rathaus (kWh)']),
-  }))
+function convertData(data: InputDataType[], table_rows: TableRow[]): any[] {
+  return data.map((d: InputDataType) => {
+    const converted_row: { [key: string]: any } = {
+      datum: convertToUnixTimestamp(d.Zeit) * 1000,
+    }
+
+    table_rows.forEach((row, index) => {
+      if (row.key && row.key in d) {
+        converted_row[index] = convertToFloat(d[row.key])
+      }
+    })
+
+    return converted_row
+  })
 }
 
 function setYears(data: DataType[]): number[] {
@@ -37,6 +43,7 @@ function getDataByBuildings(
   stromData: DataType[],
   waermeData: DataType[],
   year: number,
+  table_rows: TableRow[],
 ): BuildingDataType {
   const result: BuildingDataType = {} as BuildingDataType
 
@@ -50,9 +57,9 @@ function getDataByBuildings(
       d => year - 1 === new Date(d.datum).getFullYear(),
     )
 
-    for (const building of Object.keys(buildings) as (keyof BuildingType)[]) {
-      if (!result[building]) {
-        result[building] = {
+    table_rows.forEach((row, index) => {
+      if (!result[index]) {
+        result[index] = {
           strom: {
             current: [],
             previous: [],
@@ -65,15 +72,17 @@ function getDataByBuildings(
             currentSum: 0,
             previousSum: null,
           },
+          label: row.label ?? '',
+          icon: row.icon ?? null,
         }
       }
 
       const currentValues = currentYearData
-        .map(d => d[building])
+        .map(d => d[index])
         .filter(d => d !== null && d !== undefined) as number[]
 
       const previousValues = previousYearData
-        .map(d => d[building])
+        .map(d => d[index])
         .filter(d => d !== null && d !== undefined) as number[]
 
       const currentSum = currentValues.reduce((sum, value) => sum + value, 0)
@@ -82,34 +91,47 @@ function getDataByBuildings(
           ? previousValues.reduce((sum, value) => sum + value, 0)
           : null
 
-      result[building][mode] = {
+      result[index][mode] = {
         current: currentValues,
         previous: previousValues.length > 0 ? previousValues : null,
         currentSum,
         previousSum,
       }
-    }
+    })
   }
 
   return result
 }
 
 export default function EnergyConsumptionContent({
-  waermeDataInput,
   stromDataInput,
+  tile_payload,
+  waermeDataInput,
 }: EnergyConsumptionContentProps) {
-  const waermeData: DataType[] = waermeDataInput
-    ? convertData(waermeDataInput)
-    : []
-  const stromData: DataType[] = stromDataInput
-    ? convertData(stromDataInput)
-    : []
+  const variant = getVariantType(tile_payload)
+  const waermeData: DataType[] =
+    waermeDataInput && tile_payload.table_rows
+      ? convertData(waermeDataInput, tile_payload.table_rows)
+      : []
+  const stromData: DataType[] =
+    stromDataInput && tile_payload.table_rows
+      ? convertData(stromDataInput, tile_payload.table_rows)
+      : []
   const years = setYears(stromData)
 
   const [mode, setMode] = useState<'strom' | 'waerme'>('strom')
   const [yearIndex, setYearIndex] = useState<number>(years.length - 1)
 
-  const data = getDataByBuildings(stromData, waermeData, years[yearIndex])
+  if (tile_payload.table_rows === null) {
+    return <></>
+  }
+
+  const data = getDataByBuildings(
+    stromData,
+    waermeData,
+    years[yearIndex],
+    tile_payload.table_rows,
+  )
 
   return (
     <>
@@ -134,6 +156,7 @@ export default function EnergyConsumptionContent({
           <DesktopView
             data={data}
             mode={mode}
+            variant={variant}
             yearIndex={yearIndex}
             years={years}
           />
@@ -143,6 +166,7 @@ export default function EnergyConsumptionContent({
           <MobileView
             data={data}
             mode={mode}
+            variant={variant}
             yearIndex={yearIndex}
             years={years}
           />
