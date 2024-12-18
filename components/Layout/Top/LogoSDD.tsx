@@ -6,7 +6,7 @@ export default function LogoSSD() {
     <div className="flex h-32 w-64 items-center justify-end bg-white p-4 pr-0 md:h-40 md:w-80">
       <Image
         alt="Logo des SmartDataDashboards Aschaffenburg"
-        className="pointer-events-none ml-auto w-full"
+        className="pointer-events-none ml-auto h-full w-full w-full object-contain"
         src={SDDLogo}
       />
     </div>

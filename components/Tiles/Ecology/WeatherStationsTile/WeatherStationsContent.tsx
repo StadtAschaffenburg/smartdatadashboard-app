@@ -9,6 +9,7 @@ import { TileSplitView } from '../../Base/TileSplitView'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
 import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
+import { TilePayloadType } from '@/types/tiles'
 
 const ZOOM_LEVEL = 3
 
@@ -64,7 +65,11 @@ function getMapTransform(stations: StationsResult[], zoomLevel: number) {
   }
 }
 
-export default function WeatherStationsContent() {
+export default function WeatherStationsContent({
+  tile_payload,
+}: {
+  tile_payload: TilePayloadType
+}) {
   const { data: weatherstations, status } = useApi<StationsResult[]>(
     'thingsboard/weatherstations',
     10,
@@ -176,6 +181,7 @@ export default function WeatherStationsContent() {
         <div className="flex min-w-80 flex-col gap-4">
           {selectedStation && (
             <Entry
+              icon={tile_payload.icon ?? undefined}
               key={selectedStation.label}
               title={selectedStation.label}
               values={selectedStation.values}

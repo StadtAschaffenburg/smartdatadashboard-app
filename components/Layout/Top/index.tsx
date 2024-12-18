@@ -21,9 +21,12 @@ export default function Top() {
         className="z-0 flex w-full items-center justify-between gap-8 py-1"
         variant={'flat'}
       >
-        <Title as="h1" className="uppercase" variant="primary">
-          <Link href={'/'}>Smart Data Dashboard</Link>
-        </Title>
+        <Link href={'/'}>
+          <Title as="h2" className="uppercase" variant="primary">
+            <div>Smart Data Dashboard</div>
+            <div className="text-base xl:text-lg">Aschaffenburg</div>
+          </Title>
+        </Link>
         <LogoSDD />
       </Container>
     </>

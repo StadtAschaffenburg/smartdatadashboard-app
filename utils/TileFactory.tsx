@@ -61,6 +61,7 @@ const tileMap: Record<
   'ecology-plastikmuell': IconValues,
   'ecology-BiomassEnergy': IconValues,
   'ecology-auto': IconValues,
+  'ecology-electricCharge': IconValues,
 
   // ---- SOCIETY ----
   'society-GeburtenSterbefaelle': CompareIconValues,
@@ -78,9 +79,12 @@ const tileMap: Record<
   'society-pflege': IconValues,
   'society-bezugSozialleistungen': IconValues,
   'society-wohnraum': IconValues,
+  'society-fairtrade': IconValues,
+  'society-kriminialitaet': IconValues,
+  'society-schattenreich': IconValues,
 
   // ---- ECONOMY ----
-  'economy-onlinedienste': CompareIconValues,
+  'economy-onlinedienste': IconText,
   'economy-pendler': CompareIconValues,
   'economy-hotelbesucher': IconValues,
   'economy-schulabschluss': IconValues,

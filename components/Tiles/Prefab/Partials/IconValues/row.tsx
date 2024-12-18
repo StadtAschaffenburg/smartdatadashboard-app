@@ -16,16 +16,18 @@ export default function Row({ data, single = false, variant }: RowType) {
   return (
     <div className="flex items-center gap-4">
       {data.icon && (
-        <IconFactory
-          className={'h-16 w-16 py-2'}
-          type={data.icon}
-          variant={variant}
-        />
+        <div className="aspect-square w-16 min-w-16 py-2">
+          <IconFactory
+            className={'h-full w-full object-contain'}
+            type={data.icon}
+            variant={variant}
+          />
+        </div>
       )}
       <Title as={'h4'} variant={variant}>
         <span>{data.label}:</span> {single && <br />}
         <AnimatedNumber
-          className={single ? 'block pt-1 text-2xl' : ''}
+          className={single ? 'block pt-1 text-2xl' : 'inline-block min-w-32'}
           decimals={data.decimals}
           previous_value={data.previous}
           unit={data.unit}

@@ -2,16 +2,20 @@ import { StationsValue } from './dt'
 import Phenomenon from '@/components/Elements/Phenomenon'
 import Background from '@/components/Layout/Background'
 import Title from '@/components/Elements/Title'
+import IconFactory from '@/utils/IconFactory'
 
 export type WeatherStationsProps = {
+  icon?: string
   title: string
   values: StationsValue[]
 }
 
 export default function WeatherStationsEntry({
+  icon,
   title,
   values,
 }: WeatherStationsProps) {
+  console.log(icon)
   return (
     <div className="flex flex-col gap-4">
       <Background
@@ -20,11 +24,16 @@ export default function WeatherStationsEntry({
         variant={'white'}
       >
         <div className="">
-          <div className="bg-primary px-6 py-4 text-white">
-            <div className="text-primary-light">Wetterstation</div>
-            <Title as={'h4'} variant={'white'}>
-              {title}
-            </Title>
+          <div className="flex items-center justify-between gap-4 bg-primary px-6 py-4 text-white">
+            <div className="">
+              <div className="text-primary-light">Wetterstation</div>
+              <Title as={'h4'} variant={'white'}>
+                {title}
+              </Title>
+            </div>
+            {icon && (
+              <IconFactory className="w-12" type={icon} variant="white" />
+            )}
           </div>
           <div className="flex flex-col gap-4 px-6 py-4">
             {values.map(({ id, value }) => (

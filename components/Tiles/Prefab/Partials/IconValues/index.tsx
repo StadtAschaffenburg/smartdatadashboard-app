@@ -42,7 +42,7 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
 
         {children && <span>{children}</span>}
 
-        <div className="flex flex-grow flex-col justify-center gap-1">
+        <div className="flex flex-grow flex-col justify-center gap-2">
           {Object.entries(rows).map(([key, row]) => (
             <Row
               data={row}
