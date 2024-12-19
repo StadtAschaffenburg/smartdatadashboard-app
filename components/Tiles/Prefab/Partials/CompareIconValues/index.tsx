@@ -35,8 +35,8 @@ export default function CompareIconValues({
 
   const left_row = rows[Object.keys(rows)[0]]
   const right_row = rows[Object.keys(rows)[1]]
-  const left_count = left_row.current ?? 0
-  const right_count = right_row.current ?? 0
+  const left_count = left_row?.current ?? 0
+  const right_count = right_row?.current ?? 0
 
   const ratio =
     left_count && right_count ? left_count / (left_count + right_count) : 1

@@ -2,7 +2,7 @@ import { TilePayloadType } from '@/types/tiles'
 import { TileVariantTypes } from '@/utils/payload'
 
 export type InputDataType = {
-  Zeit: string
+  ZEIT: string
   [key: string]: string
 }
 

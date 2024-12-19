@@ -84,6 +84,7 @@ export function filterValidEntries(
   }
 
   const firstColumnKey: string | undefined = Object.keys(data[0])[0]
+  const firstKeyIsNumeric: boolean = !isNaN(Number(firstColumnKey)) // check if first key is numeric, should be year then
 
   if (!firstColumnKey) {
     throw new Error('Data does not contain any keys.')
@@ -102,8 +103,11 @@ export function filterValidEntries(
     })
     .filter(entry => {
       const isFirstColumnValid: boolean =
-        typeof entry[firstColumnKey] === 'string' &&
-        entry[firstColumnKey].trim() !== ''
+        (typeof entry[firstColumnKey] === 'string' &&
+          entry[firstColumnKey].trim() !== '') ||
+        (typeof entry[firstColumnKey] === 'number' &&
+          !isNaN(Number(entry[firstColumnKey]))) ||
+        firstKeyIsNumeric
 
       const hasValidData: boolean = Object.entries(entry).some(
         ([key, value]) => {
@@ -117,4 +121,18 @@ export function filterValidEntries(
 
       return isFirstColumnValid && (hasValidData || needs_valid_data)
     })
+}
+
+export function normalizeHeaders(data: PayloadDataType[]): PayloadDataType[] {
+  return data.map(entry => {
+    const normalizedEntry: PayloadDataType = {}
+
+    Object.keys(entry).forEach(key => {
+      // normalize 'ZEIT' key to uppercase
+      const normalizedKey = key.toUpperCase() === 'ZEIT' ? 'ZEIT' : key
+      normalizedEntry[normalizedKey] = entry[key]
+    })
+
+    return normalizedEntry
+  })
 }

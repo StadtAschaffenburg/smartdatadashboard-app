@@ -1,7 +1,11 @@
 import path from 'path'
 import fs from 'fs'
 import Papa from 'papaparse'
-import { filterValidEntries, PayloadDataType } from '@/utils/payload'
+import {
+  filterValidEntries,
+  normalizeHeaders,
+  PayloadDataType,
+} from '@/utils/payload'
 
 export default async function getDataSource(file_name: string) {
   const paths = ['assets/data', 'assets/cache/source']
@@ -26,7 +30,8 @@ export default async function getDataSource(file_name: string) {
     if (ext === '.csv') {
       const result = Papa.parse(file_data, { header: true })
         .data as PayloadDataType[]
-      return filterValidEntries(result)
+      const normalizedResult = normalizeHeaders(result)
+      return filterValidEntries(normalizedResult)
     } else if (ext === '.json') {
       return JSON.parse(file_data)
     }

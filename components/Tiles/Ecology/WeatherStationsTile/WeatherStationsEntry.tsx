@@ -15,7 +15,6 @@ export default function WeatherStationsEntry({
   title,
   values,
 }: WeatherStationsProps) {
-  console.log(icon)
   return (
     <div className="flex flex-col gap-4">
       <Background

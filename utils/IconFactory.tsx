@@ -31,11 +31,13 @@ import {
   IconCourt,
   IconDeath,
   IconGroup,
+  IconHandcuffs,
   IconHospital,
   IconHospitalBed,
   IconIceSkating,
   IconIndoorPool,
   IconPeople,
+  IconPoliceHat,
   IconSocialMobility,
   IconUmbrella,
   IconWalker,
@@ -188,6 +190,8 @@ const iconMap: Record<string, IconComponent> = {
   people_waving: IconPeopleWaving,
   shade: IconShade,
   earth_heart: IconEarthHeart,
+  handcuffs: IconHandcuffs,
+  police_hat: IconPoliceHat,
 } as const
 
 /**
