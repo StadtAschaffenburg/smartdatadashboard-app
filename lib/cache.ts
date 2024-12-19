@@ -118,7 +118,12 @@ export async function flushCache() {
   return true
 }
 
-export async function revalidateContent() {
+type RevalidateResult = {
+  success: boolean
+  error?: string
+}
+
+export async function revalidateContent(): Promise<RevalidateResult> {
   try {
     const response = await fetch(getCacheEndpoint('revalidate'), {
       method: 'GET',
@@ -128,11 +133,17 @@ export async function revalidateContent() {
     })
 
     if (!response.ok) {
-      return false
+      return {
+        success: false,
+        error: `Failed to revalidate. Status: ${response.status}`,
+      }
     }
 
-    return true
-  } catch (error) {
-    return false
+    return { success: true }
+  } catch (error: unknown) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error occurred',
+    }
   }
 }

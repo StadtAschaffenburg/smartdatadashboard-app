@@ -26,8 +26,13 @@ export default async function handler(
     return res.status(500).json({ message: 'Error rebuilding cache' })
   }
 
-  if (!(await revalidateContent())) {
-    return res.status(500).json({ message: 'Error revalidating content' })
+  const revalidationResult = await revalidateContent()
+
+  if (!revalidationResult.success) {
+    return res.status(500).json({
+      message: 'Error revalidating content',
+      error: revalidationResult.error,
+    })
   }
 
   return res
