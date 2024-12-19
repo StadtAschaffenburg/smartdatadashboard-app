@@ -1,7 +1,7 @@
 export const convertToFloat = (str: string): number =>
   parseFloat(str.replace(/\./g, '').replace(',', '.'))
 
-export const convertToUnixTimestamp = (dateStr: string): number => {
+export const convertToUnixTimestamp = (dateStr: string | undefined): number => {
   const monthMap: { [key: string]: number } = {
     Jan: 0,
     Feb: 1,
@@ -17,11 +17,17 @@ export const convertToUnixTimestamp = (dateStr: string): number => {
     Dez: 11,
   }
 
+  if (!dateStr) {
+    // handle undefined or empty dateStr gracefully
+    return NaN
+  }
+
   if (/^\d{4}$/.test(dateStr)) {
-    // Check if the dateStr is just a year
+    // check if the dateStr is just a year
     const date = new Date(`${dateStr}-01-01T00:00:00Z`)
     return Math.floor(date.getTime() / 1000)
   }
+
   const [monthStr, yearStr] = dateStr.split(' ')
   const month = monthMap[monthStr]
   const year = parseInt(`20${yearStr}`, 10) // Assumes the year is in the 21st century
