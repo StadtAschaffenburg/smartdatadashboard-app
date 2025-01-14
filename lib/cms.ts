@@ -235,10 +235,17 @@ async function fetchFile(endpoint: string): Promise<any> {
   }
 }
 
+type RebuildResult = {
+  name: string
+  success: boolean
+}
+
 export async function rebuildCache() {
   const collections = ['pages', 'sources', 'tiles']
   const global = ['seo']
   const data: any = {}
+
+  const results: RebuildResult[] = []
 
   for (const collection of collections) {
     data[collection] = await getCollection(collection)
@@ -248,18 +255,25 @@ export async function rebuildCache() {
   try {
     // get all content from the CMS
     for (const tile of data.tiles) {
-      await getContent('tile', tile.tile_id, false)
+      const result = await getContent('tile', tile.tile_id, false)
+      results.push({ name: 'tile.' + tile.tile_id, success: !!result })
     }
     for (const page of data.pages) {
-      await getContent('page', page.slug, false)
+      const result = await getContent('page', page.slug, false)
+      results.push({ name: 'page.' + page.slug, success: !!result })
     }
     for (const source of data.sources) {
-      await getSourceFile(source.file_name)
+      const result = await getSourceFile(source.file_name)
+      results.push({
+        name: 'source.' + source.file_name,
+        success: result !== null,
+      })
     }
 
     // get all global data
     for (const global_id of global) {
-      await getGlobal(global_id)
+      const result = await getGlobal(global_id)
+      results.push({ name: 'global.' + global_id, success: !!result })
     }
 
     // rebuild collections
@@ -267,7 +281,7 @@ export async function rebuildCache() {
       getPopulatedCollection(collection, false, false)
     }
 
-    return true
+    return results
   } catch (error) {
     return false
   }

@@ -15,6 +15,7 @@ type StepResult = {
   name: string
   success: boolean
   error?: string
+  payload?: any
 }
 
 export default async function handler(
@@ -31,7 +32,11 @@ export default async function handler(
   results.push({ name: 'flush', success: flushResult === true })
 
   const rebuildResult = await rebuildCache()
-  results.push({ name: 'rebuild', success: rebuildResult === true })
+  results.push({
+    name: 'rebuild',
+    success: rebuildResult !== false,
+    payload: rebuildResult,
+  })
 
   const revalidationResult = await revalidateContent()
   if (!revalidationResult.success) {
