@@ -7,6 +7,13 @@ import { rebuildCache } from '@/lib/cms'
 
 type Data = {
   message: string
+  results?: StepResult[]
+  error?: string
+}
+
+type StepResult = {
+  name: string
+  success: boolean
   error?: string
 }
 
@@ -14,28 +21,33 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
+  const results: StepResult[] = []
+
   if (!checkSecret(req)) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 
-  if (!(await flushCache())) {
-    return res.status(500).json({ message: 'Error flushing cache' })
-  }
+  const flushResult = await flushCache()
+  results.push({ name: 'flush', success: flushResult === true })
 
-  if (!(await rebuildCache())) {
-    return res.status(500).json({ message: 'Error rebuilding cache' })
-  }
+  const rebuildResult = await rebuildCache()
+  results.push({ name: 'rebuild', success: rebuildResult === true })
 
   const revalidationResult = await revalidateContent()
-
   if (!revalidationResult.success) {
-    return res.status(500).json({
-      message: 'Error revalidating content',
+    results.push({
+      name: 'revalidation',
+      success: false,
       error: revalidationResult.error,
     })
+  } else {
+    results.push({ name: 'revalidation', success: true })
   }
 
-  return res
-    .status(200)
-    .json({ message: 'Cache cleared, content rebuild & revalidated' })
+  const overallSuccess = results.every(step => step.success)
+  const message = overallSuccess
+    ? 'Success! Cache has been flushed and rebuilt.'
+    : 'Some steps failed. Check the results for more information.'
+
+  return res.status(200).json({ message, results })
 }
