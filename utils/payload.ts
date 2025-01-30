@@ -128,8 +128,11 @@ export function normalizeHeaders(data: PayloadDataType[]): PayloadDataType[] {
     const normalizedEntry: PayloadDataType = {}
 
     Object.keys(entry).forEach(key => {
-      // normalize 'ZEIT' key to uppercase
-      const normalizedKey = key.toUpperCase() === 'ZEIT' ? 'ZEIT' : key
+      // normalize timescale keys
+      const normalizedKey =
+        key.toUpperCase() === 'ZEIT' || key.toUpperCase() === 'JAHR'
+          ? 'INDEX'
+          : key
       normalizedEntry[normalizedKey] = entry[key]
     })
 

@@ -18,7 +18,7 @@ import { getVariantType } from '@/utils/payload'
 function convertData(data: InputDataType[], table_rows: TableRow[]): any[] {
   return data.map((d: InputDataType) => {
     const converted_row: { [key: string]: any } = {
-      datum: convertToUnixTimestamp(d.ZEIT) * 1000,
+      datum: convertToUnixTimestamp(d.INDEX) * 1000,
     }
 
     table_rows.forEach((row, index) => {

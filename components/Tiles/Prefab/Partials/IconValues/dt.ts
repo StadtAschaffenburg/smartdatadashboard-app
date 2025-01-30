@@ -1,7 +1,7 @@
 import { TilePayloadType } from '@/types/tiles'
 
 export type InputDataType = {
-  ZEIT: number
+  INDEX: number
   [key: string]: number | undefined
 }
 

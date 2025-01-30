@@ -13,7 +13,6 @@ export const TextVariants = {
     dark: 'text-zinc-900',
     blue: 'text-primary-medium',
     green: 'text-green',
-    purple: 'text-purple',
     white: 'text-white',
     inherit: 'text-inherit',
   },

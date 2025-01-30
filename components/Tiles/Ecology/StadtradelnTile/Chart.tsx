@@ -26,7 +26,7 @@ const colors = {
   },
   other: {
     // @ts-ignore
-    color: theme?.colors?.purple?.DEFAULT || '#6060d6',
+    color: theme?.colors?.society?.DEFAULT || '#6060d6',
     symbol: `image://${
       require('@/assets/icons/Bicycle/BicycleIconPurple.svg').default.src
     }`,

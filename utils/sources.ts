@@ -18,13 +18,13 @@ export type RowDataType = DataValue & {
 export type RowDataCollection = Record<string, RowDataType>
 
 export type InputDataType = {
-  ZEIT: number
+  INDEX: number
   [key: string]: number | undefined
 }
 
 export function getYears(
   data: InputDataType[],
-  key: string = 'ZEIT',
+  key: string = 'INDEX',
 ): number[] {
   if (!data || data.length === 0) {
     return []

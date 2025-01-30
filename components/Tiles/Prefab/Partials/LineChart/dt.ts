@@ -3,6 +3,7 @@ import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export interface InstitutionIndex {
   title: string
+  unit?: string | null
   icon?: string
   color?: string
   visible?: boolean

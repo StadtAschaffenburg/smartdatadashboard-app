@@ -9,7 +9,6 @@ export const IconVariants = {
     society: 'fill-society stroke-society text-society',
     economy: 'fill-economy stroke-economy text-economy',
     green: 'fill-green stroke-green text-green',
-    purple: 'fill-purple stroke-purple text-purple',
     data: 'fill-data stroke-data text-data',
     inverse: 'fill-inverse stroke-inverse text-inverse',
     dark: 'fill-dark stroke-dark text-dark',

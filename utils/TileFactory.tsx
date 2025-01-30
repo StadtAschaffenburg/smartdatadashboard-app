@@ -62,6 +62,7 @@ const tileMap: Record<
   'ecology-BiomassEnergy': IconValues,
   'ecology-auto': IconValues,
   'ecology-electricCharge': IconValues,
+  'ecology-verunglueckte': IconValues,
 
   // ---- SOCIETY ----
   'society-GeburtenSterbefaelle': CompareIconValues,
@@ -76,12 +77,13 @@ const tileMap: Record<
   'society-InterkulturellerAustausch': IconValues,
   'society-kinderbetreuung': IconValues,
   'society-krankenhaeuser': IconValues,
-  'society-pflege': IconValues,
-  'society-bezugSozialleistungen': IconValues,
+  'society-pflege': LineChart,
+  'society-bezugSozialleistungen': LineChart,
   'society-wohnraum': IconValues,
-  'society-fairtrade': IconValues,
+  'society-fairtrade': LineChart,
   'society-kriminialitaet': IconValues,
   'society-schattenreich': IconValues,
+  'society-vorzeitigeSterblichkeit': IconValues,
 
   // ---- ECONOMY ----
   'economy-onlinedienste': IconText,
@@ -93,6 +95,7 @@ const tileMap: Record<
   'economy-existenzgruendung': IconValues,
   'economy-hochqualifizierte': IconValues,
   'economy-kommunalerHaushalt': IconValues,
+  'economy-lehrstellen': IconValues,
 }
 
 export default function TileFactory({ type, tile_data }: TileFactoryProps) {

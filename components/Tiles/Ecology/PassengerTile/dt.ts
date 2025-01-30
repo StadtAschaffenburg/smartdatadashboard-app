@@ -1,5 +1,5 @@
 export type PassengerDataType = {
-  ZEIT: number
+  INDEX: number
   value: number
 }
 

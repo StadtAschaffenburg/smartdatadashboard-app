@@ -153,7 +153,7 @@ export default function ChartContainer({ CsvData }: ChartContainerProps) {
             <div className="relative h-6 flex-1">
               <AnimatedRollingElement>
                 <div className="flex items-center gap-2 md:gap-4">
-                  <div className="h-1 w-9 rounded bg-purple md:w-[52px]" />
+                  <div className="h-1 w-9 rounded bg-society md:w-[52px]" />
                   <Title as="h5" variant={'primary'}>
                     {otherData.name}
                   </Title>

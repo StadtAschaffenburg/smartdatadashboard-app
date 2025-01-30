@@ -28,13 +28,13 @@ const { theme } = resolveConfig(tailwindConfig)
 
 const colorLookup: Record<
   IndicesTypes,
-  'blue' | 'primary' | 'economy' | 'green' | 'purple'
+  'blue' | 'primary' | 'economy' | 'green' | 'society'
 > = {
   eistage: 'blue',
   frosttage: 'primary',
   heisse_tage: 'economy',
   sommertage: 'green',
-  tropennaechte: 'purple',
+  tropennaechte: 'society',
 }
 
 const STARTING_YEAR = 1990
@@ -97,7 +97,7 @@ function getIndices(data: ClimateIndex[]) {
         name: 'Tropennächte',
         data: getSeries(data, 'tropennaechte'),
         // @ts-ignore
-        color: theme?.colors?.purple?.DEFAULT || '#6060d6',
+        color: theme?.colors?.society?.DEFAULT || '#6060d6',
       },
     },
     frosttage: {

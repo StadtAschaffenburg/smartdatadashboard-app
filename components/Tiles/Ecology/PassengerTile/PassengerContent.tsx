@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { DataValue, PassengerContentProps } from './dt'
 
 export default function PassengerContent({ data }: PassengerContentProps) {
-  const years = data.map(e => e.ZEIT.toString())
+  const years = data.map(e => e.INDEX.toString())
   const [yearIndex, setYearIndex] = useState(
     years.length > 0 ? years.length - 1 : 0,
   )

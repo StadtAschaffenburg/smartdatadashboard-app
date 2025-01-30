@@ -29,7 +29,7 @@ const getSeries = (data: InputDataType[], property: keyof InputDataType) => {
 
   const aggregatedData: Record<string, number | null> = data.reduce(
     (acc, item) => {
-      const year = item.ZEIT?.toString()
+      const year = item.INDEX?.toString()
       const raw = item[property]?.toString()
       const value = raw && !isNaN(parseInt(raw, 10)) ? parseInt(raw, 10) : null
 
@@ -70,6 +70,7 @@ function getIndices(table_rows: TableRow[], data: InputDataType[]) {
   table_rows.forEach(row => {
     filtered_indices[row.key] = {
       title: row.label ?? row.key,
+      unit: row.unit ?? null,
       variant: row.variant ?? 'primary',
       icon: row.icon ?? undefined,
       seriesOption: {
@@ -87,7 +88,7 @@ const getStartAndEndYear = (
   data: InputDataType[],
 ): { startYear: string | null; endYear: string | null } => {
   const years = data
-    .map(item => parseInt(item.ZEIT?.toString(), 10)) // Konvertiere Jahr in Zahl
+    .map(item => parseInt(item.INDEX?.toString(), 10)) // Konvertiere Jahr in Zahl
     .filter(year => !isNaN(year) && year >= 1800 && year <= 2100) // Filtere nur gültige Jahre
 
   if (years.length === 0) {
@@ -137,20 +138,34 @@ export default function LineChart({ tile_payload }: ChartProps) {
   const series: LineSeriesOption[] = Object.keys(indices)
     .filter(e => seriesVisible[e as string])
     .map(e => ({
+      id: e,
       ...indices[e as string].seriesOption,
       type: 'line',
       itemStyle: {
-        opacity: 0,
+        opacity: 1,
+        borderColor: '#fff',
+        borderWidth: 2,
+      },
+      symbol: 'circle',
+      showAllSymbol: true,
+      symbolSize: 7,
+      emphasis: {
+        focus: 'series',
+        itemStyle: {
+          borderColor: '#005096',
+          borderWidth: 3,
+          width: 50,
+        },
       },
     }))
 
-  const label = getString(tile_payload, 'chart_title', 'Besucher')
+  const axisy_label = getString(tile_payload, 'chart_title')
 
   return (
     <div className="flex w-full flex-col items-center rounded bg-white p-5 2xl:flex-row">
       <div className="h-full w-full flex-1">
         <Title as="h7" font="semibold" variant={'primary'}>
-          {label}
+          {axisy_label}
         </Title>
         <div className="h-[235px] w-full md:h-[440px]">
           <ReactECharts
@@ -166,7 +181,16 @@ export default function LineChart({ tile_payload }: ChartProps) {
                 formatter: (params: any) => {
                   const year = new Date(params.value[0]).getFullYear()
                   const value = params.value[1]?.toLocaleString('de-DE')
-                  return `<strong>${year}:</strong> ${value} ${label}`
+
+                  const matchingIndex = indices[params.seriesId]
+                  const unit = matchingIndex?.unit
+                    ? ` ${matchingIndex.unit}`
+                    : axisy_label
+                  const variant = matchingIndex?.variant
+                    ? `text-${matchingIndex.variant}`
+                    : 'text-primary'
+
+                  return `<div class="text-md border-b border-neutral-200 pb-1 mb-1 ${variant}">${params.seriesName}</div><div class="text-primary"><strong>${year}:</strong> ${value} ${unit}</div>`
                 },
               },
               series: [...series],
