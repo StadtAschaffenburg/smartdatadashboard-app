@@ -26,9 +26,6 @@ import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
 // economy
 
-// misc
-import FallbackTile from '@/components/Tiles/FallbackTile'
-
 interface TileFactoryProps {
   type: TileType
   tile_data: TilePayloadType | undefined
@@ -57,45 +54,18 @@ const tileMap: Record<
   'ecology-pollen': PollenTile,
   'ecology-weatherStations': WeatherStationsTile,
   'ecology-thermalHazard': ThermalHazardTile,
-  'ecology-wasserverbrauch': IconValues,
-  'ecology-plastikmuell': IconValues,
-  'ecology-BiomassEnergy': IconValues,
-  'ecology-auto': IconValues,
-  'ecology-electricCharge': IconValues,
-  'ecology-verunglueckte': IconValues,
-
   // ---- SOCIETY ----
   'society-GeburtenSterbefaelle': CompareIconValues,
   'society-kultureinrichtungen': LineChart,
   'society-freizeiteinrichtungen': LineChart,
-  'society-bevoelkerung': IconValues,
   'society-stadtteil': StadtteilTile,
-  'society-arbeitslosigkeit': IconValues,
-  'society-erwachsenenbildung': IconValues,
-  'society-gleichberechtigung': IconValues,
-  'society-integration': IconValues,
-  'society-InterkulturellerAustausch': IconValues,
-  'society-kinderbetreuung': IconValues,
-  'society-krankenhaeuser': IconValues,
   'society-pflege': LineChart,
   'society-bezugSozialleistungen': LineChart,
-  'society-wohnraum': IconValues,
   'society-fairtrade': LineChart,
-  'society-kriminialitaet': IconValues,
-  'society-schattenreich': IconValues,
-  'society-vorzeitigeSterblichkeit': IconValues,
 
   // ---- ECONOMY ----
   'economy-onlinedienste': IconText,
   'economy-pendler': CompareIconValues,
-  'economy-hotelbesucher': IconValues,
-  'economy-schulabschluss': IconValues,
-  'economy-arbeitslosenquote': IconValues,
-  'economy-bruttoinlandsprodukt': IconValues,
-  'economy-existenzgruendung': IconValues,
-  'economy-hochqualifizierte': IconValues,
-  'economy-kommunalerHaushalt': IconValues,
-  'economy-lehrstellen': IconValues,
 }
 
 export default function TileFactory({ type, tile_data }: TileFactoryProps) {
@@ -103,6 +73,6 @@ export default function TileFactory({ type, tile_data }: TileFactoryProps) {
     return <div>Invalid data: {type}</div>
   }
 
-  const Tile = tileMap[type] || FallbackTile
+  const Tile = tileMap[type] || IconValues
   return <Tile tile_payload={tile_data} type={type} />
 }
