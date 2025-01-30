@@ -42,6 +42,15 @@ export default async function RootLayout({
       <head>
         <title>{page_title}</title>
         <meta content={page_description} name="description" />
+
+        <script
+          async
+          src="https://cdn.eye-able.com/configs/dashboard.aschaffenburg.de.js"
+        ></script>
+        <script
+          async
+          src="https://cdn.eye-able.com/public/js/eyeAble.js"
+        ></script>
       </head>
       <body className="overflow-x-hidden">
         {children}

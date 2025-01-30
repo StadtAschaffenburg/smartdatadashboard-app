@@ -6,6 +6,7 @@ import Container from '../Container'
 import { scrollToTop } from '@/utils/scroll'
 import ImageFoerderung from '@/assets/images/foerderung.jpg'
 import ImageStadtbau from '@/assets/images/logo_stadtbau.jpg'
+import ImageAsta from '@/assets/images/STA_Logo_Stadtwerke_CMYK.jpg'
 import Image from 'next/image'
 import Text from '@/components/Elements/Text'
 
@@ -52,12 +53,19 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-2 md:items-end">
               <Text as="xxs">Datenpaten</Text>
-              <div className="flex gap-4">
+              <div className="align-start flex h-24 gap-4">
                 <Image
                   alt="Stadtbau Logo"
-                  className="w-40"
+                  className="h-full w-40 object-contain"
                   loading="lazy"
                   src={ImageStadtbau}
+                  width={512}
+                />
+                <Image
+                  alt="Stadtbau Logo"
+                  className="h-full w-24 object-contain"
+                  loading="lazy"
+                  src={ImageAsta}
                   width={512}
                 />
               </div>
