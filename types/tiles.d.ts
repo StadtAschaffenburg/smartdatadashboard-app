@@ -5,7 +5,7 @@ import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export type TileTypePrefix = 'ecology' | 'society' | 'economy'
 
-export type TileType = `${TileTypePrefix}-${string}`
+export type TileType = `${TileTypePrefix}-${string}` | string
 
 export type TileStringType = {
   [key: string]: string
@@ -45,6 +45,7 @@ export interface TilePayloadType {
   strings: TileStringType[] | null
   datapoints: TileDatapointType[] | null
   layout: string | null
+  tile_type: string | null
   tags: {
     category: CategoryType
     action_dimension: ActionDimensionsType

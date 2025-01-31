@@ -5,6 +5,7 @@ import IconValues from '@/components/Tiles/Prefab/IconValues'
 import LineChart from '@/components/Tiles/Prefab/LineChart'
 import IconText from '@/components/Tiles/Prefab/IconText'
 import CompareIconValues from '@/components/Tiles/Prefab/CompareIconValues'
+import Basic from '@/components/Tiles/Prefab/Basic'
 
 // ecology
 import EnergyConsumptionTile from '@/components/Tiles/Ecology/EnergyConsumptionTile'
@@ -26,6 +27,9 @@ import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
 
 // economy
 
+// misc
+import FallbackTile from '@/components/Tiles/FallbackTile'
+
 interface TileFactoryProps {
   type: TileType
   tile_data: TilePayloadType | undefined
@@ -36,36 +40,32 @@ const tileMap: Record<
   TileType,
   React.FC<{ type: TileType; tile_payload: TilePayloadType }>
 > = {
+  // ---- DEFAULT ----
+  icontext: IconText,
+  compareiconvalues: CompareIconValues,
+  iconvalues: IconValues,
+  linechart: LineChart,
+  basic: Basic,
+
   // ---- ECOLOGY ----
-  'ecology-energyConsumption': EnergyConsumptionTile,
-  'ecology-weather': WeatherTile,
-  'ecology-uv': UVTile,
-  'ecology-climateDevelopment': ClimateDevelopmentTile,
-  'ecology-climateIndices': ClimateIndicesTile,
-  'ecology-stadtradeln': StadtradelnTile,
-  'ecology-bicycle': BicycleChartTile,
-  'ecology-passengers': PassengerTile,
-  'ecology-bus': CompareIconValues,
-  'ecology-stadtwerke': CompareIconValues,
-  'ecology-pvanlagen': IconText,
-  'ecology-lanterns': IconText,
-  'ecology-lightning': LightningTile,
-  'ecology-airquality': AirqualityTile,
-  'ecology-pollen': PollenTile,
-  'ecology-weatherStations': WeatherStationsTile,
-  'ecology-thermalHazard': ThermalHazardTile,
+  weather: WeatherTile,
+  energyconsumption: EnergyConsumptionTile,
+  uv: UVTile,
+  climatedevelopment: ClimateDevelopmentTile,
+  climateindices: ClimateIndicesTile,
+  stadtradeln: StadtradelnTile,
+  bicyclechart: BicycleChartTile,
+  passenger: PassengerTile,
+  lightning: LightningTile,
+  airquality: AirqualityTile,
+  pollen: PollenTile,
+  weatherstations: WeatherStationsTile,
+  thermalhazard: ThermalHazardTile,
+
   // ---- SOCIETY ----
-  'society-GeburtenSterbefaelle': CompareIconValues,
-  'society-kultureinrichtungen': LineChart,
-  'society-freizeiteinrichtungen': LineChart,
-  'society-stadtteil': StadtteilTile,
-  'society-pflege': LineChart,
-  'society-bezugSozialleistungen': LineChart,
-  'society-fairtrade': LineChart,
+  stadtteil: StadtteilTile,
 
   // ---- ECONOMY ----
-  'economy-onlinedienste': IconText,
-  'economy-pendler': CompareIconValues,
 }
 
 export default function TileFactory({ type, tile_data }: TileFactoryProps) {
@@ -73,6 +73,10 @@ export default function TileFactory({ type, tile_data }: TileFactoryProps) {
     return <div>Invalid data: {type}</div>
   }
 
-  const Tile = tileMap[type] || IconValues
+  // get tile component by tile id (type), tile_data.tile_type or use fallback
+  const Tile =
+    tileMap[type] ||
+    (tile_data?.tile_type ? tileMap[tile_data.tile_type] : undefined) ||
+    FallbackTile
   return <Tile tile_payload={tile_data} type={type} />
 }
