@@ -41,3 +41,4 @@ assets/cache/*
 !assets/cache/api/*
 
 .unused
+.vscode

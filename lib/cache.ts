@@ -109,7 +109,7 @@ export async function flushCache() {
     const cache_dir = path.join(process.cwd(), 'assets', dir)
 
     if (fs.existsSync(cache_dir)) {
-      fs.rmdirSync(cache_dir, { recursive: true })
+      fs.rmSync(cache_dir, { recursive: true })
     }
 
     fs.mkdirSync(cache_dir)
