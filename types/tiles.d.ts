@@ -39,7 +39,6 @@ export interface TilePayloadType {
   copy: string | ReactElement<any, string | JSXElementConstructor<any>> | null
   details: string
   legend: string | null
-  name: string | null
   retrieval: string | null
   source: string | null
   strings: TileStringType[] | null

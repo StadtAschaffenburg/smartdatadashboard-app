@@ -10,7 +10,7 @@
     "standalone": "next standalone",
     "lint": "next lint",
     "prepare": "husky install",
-    "svg": "svgr svgicons --out-dir components/Icons --typescript --ignore-existing --no-dimensions --no-prettier --template ./svgr-template.cjs",
+    "svg": "svgr svgicons --out-dir components/Icons/Inbox --typescript --ignore-existing --no-dimensions --no-prettier --template ./svgr-template.cjs",
     "purge": "rm -rf ./assets/cache/*"
   },
   "dependencies": {

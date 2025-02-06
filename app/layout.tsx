@@ -35,13 +35,20 @@ export default async function RootLayout({
 }) {
   const global_seo = await getGlobal('seo')
   const page_title = await getPageTitleServer()
-  const page_description = global_seo?.description ?? ''
+  const page_description = global_seo?.meta_description ?? ''
 
   return (
     <html className={inter.className} lang="de">
       <head>
         <title>{page_title}</title>
         <meta content={page_description} name="description" />
+
+        <meta content={page_title} property="og:title" />
+        <meta content={page_description} property="og:description" />
+        <meta content="/images/share.png" property="og:image" />
+        <meta content="1200" property="og:image:width" />
+        <meta content="630" property="og:image:height" />
+        <meta content="website" property="og:type" />
 
         <script
           async

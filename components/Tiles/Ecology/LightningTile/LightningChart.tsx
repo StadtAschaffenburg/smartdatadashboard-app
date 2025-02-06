@@ -14,7 +14,7 @@ export default function LightningChart({ data }: Props) {
       option={{
         grid: {
           left: 40,
-          top: 5,
+          top: 20,
           right: 0,
           bottom: 32,
         },
