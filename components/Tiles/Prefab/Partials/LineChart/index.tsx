@@ -212,6 +212,15 @@ export default function LineChart({ tile_payload }: ChartProps) {
               },
               yAxis: {
                 type: 'value',
+                min: axisValues => {
+                  const realMin = axisValues.min
+                  const withBuffer = realMin * 0.8
+                  const power = Math.floor(Math.log10(realMin))
+                  const base = Math.pow(10, power)
+                  const step = base * 1
+                  const niceMin = Math.floor(withBuffer / step) * step
+                  return Math.max(niceMin, 0)
+                },
                 axisLabel: {
                   fontSize: device === 'mobile' ? 10 : 12,
                   formatter: (val: any) => {

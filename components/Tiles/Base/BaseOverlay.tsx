@@ -29,7 +29,9 @@ export default function BaseOverlay({
 }: BaseOverlayProps) {
   return (
     <animated.div {...props} className={overlayStyle({ variant })}>
-      <div className="w-full flex-1 overflow-hidden">{children}</div>
+      <div className="w-full flex-1 overflow-y-auto overflow-x-hidden pr-4">
+        {children}
+      </div>
       <XMarkIcon
         className="h-6 cursor-pointer self-end text-white md:ml-[35px] md:self-auto"
         onClick={onClose}

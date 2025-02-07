@@ -30,14 +30,21 @@ export default function EmbedOverlay({
   return (
     <BaseOverlay onClose={onClose} {...props}>
       <div className="flex h-full w-full flex-1 flex-col">
-        <div className="grid grid-flow-col grid-cols-3 grid-rows-2 gap-8">
+        <div className="flex flex-col gap-4">
           <div className="col-span-2 row-span-1">
-            <Title as="h3" variant={'secondary'}>
+            <Title as="h3" variant={'white'}>
               Diese Kachel auf Ihre Website einbetten
             </Title>
           </div>
-          <div className="col-span-2 row-span-1">
-            <div className="flex rounded bg-white p-4">
+          <div className="">
+            <p className="text-white">
+              Sie möchten diese Kachel auch auf ihrer Website darstellen? Nutzen
+              Sie den Iframe Code und betten Sie diesen in ihrer Website ganz
+              einfach ein.
+            </p>
+          </div>
+          <div className="">
+            <div className="mt-4 flex rounded bg-white p-4">
               <pre className="m-4 flex-1 whitespace-pre-wrap break-all text-sm">
                 {iframeSrc}
               </pre>
@@ -46,15 +53,8 @@ export default function EmbedOverlay({
               </div>
             </div>
           </div>
-          <div className="col-span-1 row-span-2">
-            <p className="text-white">
-              Sie möchten diese Kachel auch auf ihrer Website darstellen? Nutzen
-              Sie den iframe Code und betten Sie diesen in ihrer Website ganz
-              einfach ein.
-            </p>
-          </div>
         </div>
-        <div className="pt-10">
+        <div className="pt-8">
           <Button
             onClick={copyToClipboard}
             startIcon={

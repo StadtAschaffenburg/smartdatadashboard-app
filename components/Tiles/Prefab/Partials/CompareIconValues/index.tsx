@@ -15,6 +15,17 @@ import { getRows, getYears, InputDataType } from '@/utils/sources'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import IconFactory from '@/utils/IconFactory'
 
+function clamp(value: number, min: number, max: number) {
+  return Math.max(min, Math.min(max, value))
+}
+
+function emphasize(r: number, power: number = 2): number {
+  // R^power / ( R^power + (1 - R)^power )
+  const rPow = Math.pow(r, power)
+  const invPow = Math.pow(1 - r, power)
+  return rPow / (rPow + invPow)
+}
+
 export default function CompareIconValues({
   tile_payload,
   iconBackground,
@@ -38,8 +49,12 @@ export default function CompareIconValues({
   const left_count = left_row?.current ?? 0
   const right_count = right_row?.current ?? 0
 
-  const ratio =
+  let ratio =
     left_count && right_count ? left_count / (left_count + right_count) : 1
+
+  if (ratio > 0 && ratio < 1) {
+    ratio = clamp(emphasize(ratio, 1.25), 0.1, 0.9)
+  }
 
   return (
     <div>
@@ -146,7 +161,7 @@ export default function CompareIconValues({
         labels={years}
         max={years.length - 1}
         min={0}
-        onValueChange={([index]) => setYearIndex(index)}
+        onValueChange={([index]: [number]) => setYearIndex(index)}
         variant={variant}
       />
       <Slider
@@ -156,7 +171,7 @@ export default function CompareIconValues({
         labels={years}
         max={years.length - 1}
         min={0}
-        onValueChange={([index]) => setYearIndex(index)}
+        onValueChange={([index]: [number]) => setYearIndex(index)}
         variant={variant}
       />
       <Spacer />
