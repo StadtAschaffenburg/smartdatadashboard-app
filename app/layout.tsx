@@ -45,7 +45,10 @@ export default async function RootLayout({
 
         <meta content={page_title} property="og:title" />
         <meta content={page_description} property="og:description" />
-        <meta content="/images/share.png" property="og:image" />
+        <meta
+          content={global_seo?.share_image?.permalink ?? ''}
+          property="og:image"
+        />
         <meta content="1200" property="og:image:width" />
         <meta content="630" property="og:image:height" />
         <meta content="website" property="og:type" />

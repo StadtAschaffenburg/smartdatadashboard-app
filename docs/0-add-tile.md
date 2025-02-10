@@ -1,47 +1,30 @@
-# How to add a new Tile?
+# How to add a new tile layout?
 
-### 0. Prerequisites:
+Compared to the original project [https://klimadashboard.ms/](Klimadashboard Münster), the tile setup is much more data-driven. Instead of creating one file per tile, you can reuse tile types multiple times.
 
-- Name of the Tile
-- Category (`climate`, `mobility`, `energy`, `building`)
-- ID (you can choose by yourself)
-- Name of the Data Source (e.g. Stadt Münster - Amt für Mobilität)
+## 1. Create a File
 
-### 1. Create Tile ID
+Create a new file in your project at:
 
-Add the Tile ID to the `types/tile.d.ts` file. If you intend to add a `mobility` tile with the ID `sampleTile`, please append it to the `MobilityTypes` list:
+`klimadashboard-ms/components/Tiles/(category)/(name)/index.tsx`
 
-```
-export type MobilityTypes = ... | 'sampleTile'
-```
+For reusable tiles that appear in multiple categories, use the Prefab folder instead.
 
-### 2. Create File
+All tiles follow a similar structure and are rendered on the client side to enable the search functionality.
 
-Create a new file: `klimadashboard-ms/components/Tiles/(category)/(name)/index.tsx`
+## 2. Create Simple Tile
 
-All tiles follow the same structure. It's best practice to keep the tile itself a Server Component and create seperate client components for interactivity (e.g. charts etc).
-
-### 3. Create Simple Tile
-
-Keeping out example, the file would look like the following:
+Continuing with an example, the file might look like this:
 
 `klimadashboard-ms/components/Tiles/mobility/sampleTile/index.tsx`:
 
 ```tsx
-import Title from '@/components/Elements/Title'
-import MobilityTile from '../MobilityTile'
-import getTileData from '@/lib/api/getTileData'
+import { TileProps } from '@/types/tiles'
+import BaseTile from '@/components/Tiles/Base/IconTile'
 
-export default async function GarbageTile() {
-  const data = await getTileData('mobility-sampleTile')
-  const infoText = data?.info ?? ''
-
+export default function Tile({ type, tile_payload }: TileProps) {
   return (
-    <BaseTile
-      dataSource="Stadt Münster - Amt für Mobilität"
-      embedId="mobility-sampleTile"
-      title="Sample Tile"
-    >
+    <BaseTile embedId={type} tile_payload={tile_payload}>
       {/*
        * Here you can add the content of the Tile
        * Don't forget to place the infoText
@@ -51,43 +34,30 @@ export default async function GarbageTile() {
 }
 ```
 
-### 4. Fill it with content
+## 3. FPopulate It With Content
 
-As said, it's best to create a seperate component with the content of the Tile. One example, which also includes the usage of the `infoText`:
+Most of the tile content is already provided via `tile_payload` (for example, the data source or title). For simple tiles, this is often enough to produce meaningful output.
+
+If you want to extend the layout further, you can import custom tile components into the BaseTile, for instance:
 
 ```tsx
-<BaseTile
-  dataSource="Stadt Münster - Amt für Mobilität"
-  embedId="mobility-sampleTile"
-  title="Sample Tile"
->
-  <TileSplitView>
-    {' '}
-    {/* <-- This is a useful wrapper for a full width tile, left the content, right the info text */}
-    <TileSplitView.Left>
-      <SampleTileContent /> {/* <-- This would be the content */}
-    </TileSplitView.Left>
-    <TileSplitView.Right>
-      <Title as="h5" variant={'dark'}>
-        {infoText} {/* <-- Rendering the info Text*/}
-      </Title>
-    </TileSplitView.Right>
-  </TileSplitView>
-</BaseTile>
+import TileContent from './MyChart'
+
+export default function Tile({ type, tile_payload }: TileProps) {
+  return (
+    <BaseTile embedId={type} tile_payload={tile_payload}>
+      <TileContent tile_payload={tile_payload} />
+    </BaseTile>
+  )
+}
 ```
 
-### 5. Add the Tile to the `utils/TileFactory.tsx`
+## 4. Add the Tile to `utils/TileFactory.tsx`
 
-The TileFactory is useful to map the IDs to the Tile. Please add the new Tile to the TileFactory.
+You must add any new tile type to the TileFactory. You can either link it by the tile ID or by the tile type (recommended).
 
-**ts-expect-error Server Component**: We need to add this line before the usage of a server component to resolve a current TypeScript issue: (https://nextjs.org/docs/app/building-your-application/configuring/typescript#async-server-component-typescript-error)
+## 5. Add the Tile to the Page in the CMS
 
-### 6. Add the Tile to the Page
+Because the view is rendered using the provided tile collection, you don't need to add the new tile to any specific view file.
 
-To add the Tile to the Page, you need to add it to its corresponding `View` (here: `components/Views/MobilityView.tsx`)
-
-You need to add the `@ts-expect-error Server Component` comment here as well.
-
-### 7. Connect CMS
-
-Please refer to the [docs/1-connect-cms.md](docs/1-connect-cms.md) document on how to add the tile to the CMS
+For details on adding the tile to the CMS, please refer to the [docs/2-cms.md](docs/2-cms.md) document.
