@@ -139,6 +139,8 @@ const iconMap: Record<string, IconComponent> = {
     EconomyIcons.KommunalterHaushaltVerschuldung221982627157,
   lehrstellen: EconomyIcons.Lehrstellen216135437166,
   online_dienste: EconomyIcons.OnlineDienste227212823116,
+  schulabschluss_abbruch: EconomyIcons.SchulabschlussAbbruch2161354371142,
+  schulabschluss_erfolg: EconomyIcons.SchulabschlussErfolg216135437114,
   // Social
   people: SocialIcons.IconPeople,
   births: SocialIcons.IconBirth,
@@ -239,6 +241,15 @@ const iconMap: Record<string, IconComponent> = {
     SocialIcons.InterkulturellerAustauschSprachvermittler220415042561,
   interkultureller_austausch_veranstaltungen:
     SocialIcons.InterkulturellerAustauschVeranstaltungen220415042550,
+  gleichberechtigung_fuehrung:
+    SocialIcons.GleichberechtigungFührung247035964544,
+  gleichberechtigung_stadtrat:
+    SocialIcons.GleichberechtigungStadtrat216135437170,
+  kinderbetreuung_kiga: SocialIcons.KinderbetreuungKiGa220415042515,
+  kinderbetreuung_personal: SocialIcons.KinderbetreuungPersonal220415042578,
+  pflege_heimplaetze: SocialIcons.PflegeHeimplätze2174038519245,
+  pflege_pflegedienst: SocialIcons.PflegePflegedienst220955118102,
+  pflege_pflegeheim: SocialIcons.PflegePflegeheim220955118117,
   // Misc
   stadt_ab: MiscIcons.StadtAbMap,
   pool: MiscIcons.IconPool,

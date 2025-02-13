@@ -35,3 +35,5 @@ export { default as KommunalerHaushaltZuführungsberatung214701252356 } from '.
 export { default as KommunalterHaushaltVerschuldung221982627157 } from './KommunalterHaushaltVerschuldung221982627157'
 export { default as Lehrstellen216135437166 } from './Lehrstellen216135437166'
 export { default as OnlineDienste227212823116 } from './OnlineDienste227212823116'
+export { default as SchulabschlussAbbruch2161354371142 } from './SchulabschlussAbbruch2161354371142'
+export { default as SchulabschlussErfolg216135437114 } from './SchulabschlussErfolg216135437114'
