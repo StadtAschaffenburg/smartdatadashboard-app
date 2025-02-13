@@ -52,35 +52,35 @@ const iconMap: Record<string, IconComponent> = {
   co2_emissionen_ab: EcologyIcons.Co2EmissionenAb219420003339,
   co2_emissionen_stadtbau: EcologyIcons.Co2EmissionenStadtbau219420003319,
   e_laden: EcologyIcons.ELaden224525512903,
-  fliesswasserqualitaet: EcologyIcons.Fließwasserqualität247035903352,
+  fliesswasserqualitaet: EcologyIcons.Fliesswasserqualitaet247035903352,
   freie_flaeche_inanspruchnahme:
-    EcologyIcons.FreieFlächeInanspruchannahmee253727075357,
+    EcologyIcons.FreieFlaecheInanspruchannahmee253727075357,
   freie_flaeche_neuinanspruchnahme:
-    EcologyIcons.FreieFlächeNeuinanspruchnahme221982627132,
+    EcologyIcons.FreieFlaecheNeuinanspruchnahme221982627132,
   freie_flaeche_nicht_ueberbaut:
-    EcologyIcons.FreieFlächeNichtÜberbaut253727075315,
+    EcologyIcons.FreieFlaecheNichtUeberbaut253727075315,
   freie_flaeche_siedlung_verkehr_1:
-    EcologyIcons.FreieFlächeSiedlungVerkehr221982627147,
+    EcologyIcons.FreieFlaecheSiedlungVerkehr221982627147,
   freie_flaeche_siedlung_verkehr_2:
-    EcologyIcons.FreieFlächeSiedlungVerkehr221982627149,
-  freie_flaechen_bauluecken: EcologyIcons.FreieFlächenBaulücken221982627171,
+    EcologyIcons.FreieFlaecheSiedlungVerkehr221982627149,
+  freie_flaechen_bauluecken: EcologyIcons.FreieFlaechenBauluecken221982627171,
   freie_flaechen_flaechennutzungsintensitaet:
-    EcologyIcons.FreieFlächenFlächennutzungsintensität221982627117,
+    EcologyIcons.FreieFlaechenFlaechennutzungsintensitaet221982627117,
   laternen: EcologyIcons.Laternen219420003357,
-  muell_abfallmenge: EcologyIcons.MüllAbfallmenge242271743718,
-  muell_gelbe_tonne: EcologyIcons.MüllGelbeTonne219420003345,
-  muell_hausmuell: EcologyIcons.MülllHausmüll242271743704,
+  muell_abfallmenge: EcologyIcons.MuellAbfallmenge242271743718,
+  muell_gelbe_tonne: EcologyIcons.MuellGelbeTonne219420003345,
+  muell_hausmuell: EcologyIcons.MuelllHausmuell242271743704,
   pv_anlagen_privat: EcologyIcons.PvAnlagenPrivat253727075343,
-  pv_anlagen_staedtisch: EcologyIcons.PvAnlagenStädtisch219420003344,
+  pv_anlagen_staedtisch: EcologyIcons.PvAnlagenStädtisch219420003344,
   passanten: EcologyIcons.Passanten247035903376,
   radelnde: EcologyIcons.Radelnde221139573108,
-  staedt_energieerzeugung: EcologyIcons.StädtEnergieerzeugung219420003325,
-  staedt_energieverbrauch_ab: EcologyIcons.StädtEnergieverbrauchAb238456407511,
+  staedt_energieerzeugung: EcologyIcons.StädtEnergieerzeugung219420003325,
+  staedt_energieverbrauch_ab: EcologyIcons.StädtEnergieverbrauchAb238456407511,
   staedt_energieverbrauch_energiematrix:
-    EcologyIcons.StädtEnergieverbrauchEnergiematrix219420003308,
+    EcologyIcons.StädtEnergieverbrauchEnergiematrix219420003308,
   staedt_energieverbrauch_regenerativ:
-    EcologyIcons.StädtEnergieverbrauchRegenerativ253727075351,
-  verunglueckte_verkehr: EcologyIcons.VerunglückteVerkehr235194006749,
+    EcologyIcons.StädtEnergieverbrauchRegenerativ253727075351,
+  verunglueckte_verkehr: EcologyIcons.VerunglückteVerkehr235194006749,
   wasserverbrauch_abwasserbehandlung:
     EcologyIcons.WasserverbrauchAbwasserbehandlung242271743731,
   wasserverbrauch_trinkwasserverbrauch:
@@ -88,15 +88,15 @@ const iconMap: Record<string, IconComponent> = {
   wasserverbrauch_trinkwasserverbrauch_jahr:
     EcologyIcons.WasserverbrauchTrinkwasserverbrauchJahr219420003312,
   wasserverbrauch_zisterne: EcologyIcons.WasserverbrauchZisterne253727075314,
-  gruene_stadt: EcologyIcons.GrüneStadt247035903331,
-  gruene_stadt_artenvielfalt: EcologyIcons.GrüneStadtArtenvielfalt247035903359,
+  gruene_stadt: EcologyIcons.GrüneStadt247035903331,
+  gruene_stadt_artenvielfalt: EcologyIcons.GrüneStadtArtenvielfalt247035903359,
   gruene_stadt_landschaftsqualitaet:
-    EcologyIcons.GrüneStadtLandschaftsqualität247035903304,
-  gruene_stadt_oekologisch: EcologyIcons.GrüneStadtÖkologisch253727075338,
+    EcologyIcons.GrüneStadtLandschaftsqualität247035903304,
+  gruene_stadt_oekologisch: EcologyIcons.GrüneStadtÖkologisch253727075338,
   gruene_stadt_versiegelte_flaeche:
-    EcologyIcons.GrüneStadtVersiegelteFläche253727075341,
+    EcologyIcons.GrüneStadtVersiegelteFläche253727075341,
   gruene_stadt_versiegelte_flaechen_grundstuecke:
-    EcologyIcons.GrüneStadtVersiegelteFlächenGrundstücke2219826271111,
+    EcologyIcons.GrüneStadtVersiegelteFlächenGrundstücke2219826271111,
   // Economy
   hotel: EconomyIcons.IconHotel,
   service_analog: EconomyIcons.IconServiceA,
@@ -124,17 +124,17 @@ const iconMap: Record<string, IconComponent> = {
   arbeitslosenquote: EconomyIcons.Arbeitslosenquote227212823154,
   bip: EconomyIcons.Bip214701252343,
   beschaeftigung_hochqualifiziert:
-    EconomyIcons.BeschäfigungHochqualifizier214701252305,
-  beschaeftigung_ab: EconomyIcons.BeschäftigungAb220415042511,
-  beschaeftigung_alt: EconomyIcons.BeschäftigungAlt220415042539,
-  beschaeftigung_jung: EconomyIcons.BeschäftigungJung220415042541,
-  existenzgruendung: EconomyIcons.Existenzgründung216135437144,
-  hoteluebernachtungen: EconomyIcons.Hotelübernachtungen217403851907,
+    EconomyIcons.BeschäfigungHochqualifizier214701252305,
+  beschaeftigung_ab: EconomyIcons.BeschäftigungAb220415042511,
+  beschaeftigung_alt: EconomyIcons.BeschäftigungAlt220415042539,
+  beschaeftigung_jung: EconomyIcons.BeschäftigungJung220415042541,
+  existenzgruendung: EconomyIcons.Existenzgründung216135437144,
+  hoteluebernachtungen: EconomyIcons.Hotelübernachtungen217403851907,
   kommunaler_haushalt: EconomyIcons.KommunalerHaushalt214701252372,
   kommunaler_haushalt_steuereinnahmen:
     EconomyIcons.KommunalerHaushaltSteuereinnahmen214701252341,
   kommunaler_haushalt_zufuehrungsberatung:
-    EconomyIcons.KommunalerHaushaltZuführungsberatung214701252356,
+    EconomyIcons.KommunalerHaushaltZuführungsberatung214701252356,
   kommunaler_haushalt_verschuldung:
     EconomyIcons.KommunalterHaushaltVerschuldung221982627157,
   lehrstellen: EconomyIcons.Lehrstellen216135437166,
@@ -165,7 +165,7 @@ const iconMap: Record<string, IconComponent> = {
   arbeitslosigkeit_langzeitquote:
     SocialIcons.ArbeitslosigkeitLangzeitquote216135437157,
   bevoelkerungsentwicklung_wanderung:
-    SocialIcons.BevölkerungsentwicklungWanderung216135437175,
+    SocialIcons.BevölkerungsentwicklungWanderung216135437175,
   eine_welt_arbeit_begegnungen:
     SocialIcons.EineWeltArbeitBegegnungen220415042520,
   eine_welt_arbeit_engagement_initiative:
@@ -173,43 +173,43 @@ const iconMap: Record<string, IconComponent> = {
   eine_welt_arbeit_entwicklungszusammenarbeit:
     SocialIcons.EineWeltArbeitEntwicklungszusammenarbeit220415042519,
   eine_welt_arbeit_globaler_sueden:
-    SocialIcons.EineWeltArbeitGlobalerSüden220415042504,
+    SocialIcons.EineWeltArbeitGlobalerSüden220415042504,
   erwachsenenbildung: SocialIcons.Erwachsenenbildung220415042536,
   fairer_kaffee_1: SocialIcons.FairerKaffee2290204317154,
   fairer_kaffee_2: SocialIcons.FairerKaffee2290204317198,
-  fehlernaehrung: SocialIcons.Fehlernährung2290204317252,
+  fehlernaehrung: SocialIcons.Fehlernährung2290204317252,
   freie_flaeche_naherholungsflaeche:
-    SocialIcons.FreieFlächeNaherholungsfläche247035903365,
+    SocialIcons.FreieFlächeNaherholungsfläche247035903365,
   freizeitwelt_eissporthalle:
     SocialIcons.FreizeitweltEissporthalle2174038519294,
   freizeitwelt_freibad: SocialIcons.FreizeitweltFreibad242150048938,
   freizeitwelt_hallenbad: SocialIcons.FreizeitweltHallenbad242150048942,
   freizeitwelt_sauna: SocialIcons.FreizeitweltSauna242150048916,
-  gaeste_stadt_gaestepaesse: SocialIcons.GästeStadtGästepässe216135437136,
-  geburten_todesfaelle_1: SocialIcons.GeburtenTodesfälle247035903338,
-  geburten_todesfaelle_2: SocialIcons.GeburtenTodesfälle247035964507,
+  gaeste_stadt_gaestepaesse: SocialIcons.GästeStadtGästepässe216135437136,
+  geburten_todesfaelle_1: SocialIcons.GeburtenTodesfälle247035903338,
+  geburten_todesfaelle_2: SocialIcons.GeburtenTodesfälle247035964507,
   geburten_todesfaelle_flatline:
-    SocialIcons.GeburtenTodesfälleFlatline2470359645072,
+    SocialIcons.GeburtenTodesfälleFlatline2470359645072,
   gleichberechtigung_beschaeftigungsquote:
-    SocialIcons.GleichberechtigungBeschäftigungsquote216135437138,
+    SocialIcons.GleichberechtigungBeschäftigungsquote216135437138,
   gleichberechtigung_verdienstabstand:
     SocialIcons.GleichberechtigungVerdienstabstand227212823129,
   grenzenlos: SocialIcons.Grenzenlos229020431772,
-  integration_beschaeftigung: SocialIcons.IntegrationBeschäftigung220415042505,
+  integration_beschaeftigung: SocialIcons.IntegrationBeschäftigung220415042505,
   integration_bildungsabschluesse:
-    SocialIcons.IntegrationBildungsabschlüsse220415042563,
-  integration_einbuergerung: SocialIcons.IntegrationEinbürgerung220415042539,
+    SocialIcons.IntegrationBildungsabschlüsse220415042563,
+  integration_einbuergerung: SocialIcons.IntegrationEinbürgerung220415042539,
   integration_schulabbrecherquote:
     SocialIcons.IntegrationSchulabbrecherquote216135437101,
   kita_interaktiv: SocialIcons.KiTaInteraktiv2174038519268,
   kinderbetreuung_krippe: SocialIcons.KinderbetreuungKrippe220415042533,
-  krankenhaeuser: SocialIcons.Krankenhäuser247035964574,
-  kriminalitaet_dichte: SocialIcons.KriminalitätDichte247035964555,
-  kriminalitaet_straftaten: SocialIcons.KriminalitätStraftaten247035964509,
+  krankenhaeuser: SocialIcons.Krankenhäuser247035964574,
+  kriminalitaet_dichte: SocialIcons.KriminalitätDichte247035964555,
+  kriminalitaet_straftaten: SocialIcons.KriminalitätStraftaten247035964509,
   kultureinrichtungen_museen: SocialIcons.KultureinrichtungenMuseen221982627188,
   kultureinrichtungen_stadthalle:
     SocialIcons.KultureinrichtungenStadthalle221982627138,
-  oepnv_haltestellen: SocialIcons.ÖpnvHaltestellen2174038519161,
+  oepnv_haltestellen: SocialIcons.ÖpnvHaltestellen2174038519161,
   schattenreich: SocialIcons.Schattenreich247035903314,
   schulverpflegung: SocialIcons.Schulverpflegung229020431709,
   sozialleistungen_alter_grundsicherung:
@@ -217,14 +217,14 @@ const iconMap: Record<string, IconComponent> = {
   sozialleistungen_aufstocker:
     SocialIcons.SozialleistungenAufstocker227212823144,
   sozialleistungen_buergergeld:
-    SocialIcons.SozialleistungenBürgergeld227212823151,
+    SocialIcons.SozialleistungenBürgergeld227212823151,
   sozialleistungen_jugendarmut:
     SocialIcons.SozialleistungenJugendarmut220415042522,
   sozialleistungen_kinderarmut:
     SocialIcons.SozialleistungenKinderarmut227212823120,
   sozialleistungen_wohngeld: SocialIcons.SozialleistungenWohngeld227212823102,
   sterblichkeit_frauen: SocialIcons.SterblichkeitFrauen247035964559,
-  sterblichkeit_maenner: SocialIcons.SterblichkeitMänner247035964507,
+  sterblichkeit_maenner: SocialIcons.SterblichkeitMänner247035964507,
   trinkwasserbrunnen: SocialIcons.Trinkwasserbrunnen235194006719,
   wohnraum_einheiten_stadtbau:
     SocialIcons.WohnraumEinheitenStadtbau2219826271102,
@@ -233,7 +233,7 @@ const iconMap: Record<string, IconComponent> = {
   wohnraum_mietpreise_stadtgebiet:
     SocialIcons.WohnraumMietpreiseStadtgebiet221982627118,
   wohnraum_neubau: SocialIcons.WohnraumNeubau221982627126,
-  wohnraum_wohnflaeche: SocialIcons.WohnraumWohnfläche2219826271105,
+  wohnraum_wohnflaeche: SocialIcons.WohnraumWohnfläche2219826271105,
   wohnungsbau: SocialIcons.Wohnungsbau2219826271103,
   interkultureller_austausch_besucher:
     SocialIcons.InterkulturellerAustauschBesucher220955118107,
@@ -242,12 +242,12 @@ const iconMap: Record<string, IconComponent> = {
   interkultureller_austausch_veranstaltungen:
     SocialIcons.InterkulturellerAustauschVeranstaltungen220415042550,
   gleichberechtigung_fuehrung:
-    SocialIcons.GleichberechtigungFührung247035964544,
+    SocialIcons.GleichberechtigungFührung247035964544,
   gleichberechtigung_stadtrat:
     SocialIcons.GleichberechtigungStadtrat216135437170,
   kinderbetreuung_kiga: SocialIcons.KinderbetreuungKiGa220415042515,
   kinderbetreuung_personal: SocialIcons.KinderbetreuungPersonal220415042578,
-  pflege_heimplaetze: SocialIcons.PflegeHeimplätze2174038519245,
+  pflege_heimplaetze: SocialIcons.PflegeHeimplätze2174038519245,
   pflege_pflegedienst: SocialIcons.PflegePflegedienst220955118102,
   pflege_pflegeheim: SocialIcons.PflegePflegeheim220955118117,
   // Misc
