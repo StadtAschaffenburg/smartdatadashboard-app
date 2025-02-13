@@ -59,7 +59,7 @@ export default function Markdown({ content, tile_payload }: MarkdownProps) {
   return (
     <ReactMarkdown
       className={'markdown'}
-      components={markdownComponents}
+      components={markdownComponents as any}
       remarkPlugins={markdownPlugins}
     >
       {content}
