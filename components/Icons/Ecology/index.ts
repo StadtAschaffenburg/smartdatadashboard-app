@@ -54,6 +54,6 @@ export { default as WasserverbrauchZisterne253727075314 } from './Wasserverbrauc
 export { default as GrüneStadt247035903331 } from './GrüneStadt247035903331'
 export { default as GrüneStadtArtenvielfalt247035903359 } from './GrüneStadtArtenvielfalt247035903359'
 export { default as GrüneStadtLandschaftsqualität247035903304 } from './GrüneStadtLandschaftsqualität247035903304'
-export { default as GrüneStadtÖkologisch253727075338 } from './GrüneStadtÖkologisch253727075338'
+export { default as GrüneStadtÖkologisch253727075338 } from './GrüneStadtÖkologisch253727075338'
 export { default as GrüneStadtVersiegelteFläche253727075341 } from './GrüneStadtVersiegelteFläche253727075341'
 export { default as GrüneStadtVersiegelteFlächenGrundstücke2219826271111 } from './GrüneStadtVersiegelteFlächenGrundstücke2219826271111'
