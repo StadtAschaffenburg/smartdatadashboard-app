@@ -21,6 +21,7 @@ import AirqualityTile from '@/components/Tiles/Ecology/AirqualityTile'
 import PollenTile from '@/components/Tiles/Ecology/PollenTile'
 import WeatherStationsTile from '@/components/Tiles/Ecology/WeatherStationsTile'
 import ThermalHazardTile from '@/components/Tiles/Ecology/ThermalHazardTile'
+import EnergietraegerTile from '@/components/Tiles/Ecology/EnergietraegerTile'
 
 // society
 import StadtteilTile from '@/components/Tiles/Society/StadtteilTile'
@@ -61,6 +62,7 @@ const tileMap: Record<
   pollen: PollenTile,
   weatherstations: WeatherStationsTile,
   thermalhazard: ThermalHazardTile,
+  energietraeger: EnergietraegerTile,
 
   // ---- SOCIETY ----
   stadtteil: StadtteilTile,
