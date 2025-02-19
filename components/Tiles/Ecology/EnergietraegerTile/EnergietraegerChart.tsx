@@ -1,219 +1,125 @@
-'use client'
-
 import { ReactECharts } from '@/components/Charts/ReactECharts'
-import Title from '@/components/Elements/Title'
 import Slider from '@/components/Inputs/Slider'
-import ToggleGroup from '@/components/Inputs/ToggleGroup'
 import { useState } from 'react'
-
-// @ts-ignore
-import StromerzeugungBereitstellung from '@/assets/data/verbrauch-erzeugung-strom.csv'
-// @ts-ignore
-import Stromemissionen from '@/assets/data/emissionen-strom.csv'
+import { ChartProps } from './dt'
 import { Spacer } from '@/components/Elements/Spacer'
 import MobileSlider from '@/components/Inputs/MobileSlider'
-import { useWindowSize } from 'react-use'
+import { getRows, getYears, InputDataType } from '@/utils/sources'
+import RequestIndicator from '@/components/Elements/RequestIndicator'
+import { getSourceByName } from '@/utils/payload'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '@/tailwind.config.js'
 
-type StromVerbrauchErzeugung = {
-  ZEIT: number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Anteil EE (%)': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - BHKW (Biomethan)': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - BHKW (Erdgas)': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Biogas': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - GUD (Erdgas)': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - HKW (Kohle)': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Klär-Deponiegas': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - PV': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Stromverbrauch ges.': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Wasserkraft': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - Windkraft': number
-  'Stromerzeugung/-bereitstellung nach Energieträgern - reg. Bezug (Bundesmix)': number
-}
+const { theme } = resolveConfig(tailwindConfig)
 
-type StromEmissionen = {
-  ZEIT: number
-  'Strom-Emissionen nach Energieträgern (t) - Windkraft': number
-  'Strom-Emissionen nach Energieträgern - Anteil EE an Gesamtemissionen (%)': number
-  'Strom-Emissionen nach Energieträgern - BHKW (Biomethan)': number
-  'Strom-Emissionen nach Energieträgern - BHKW (Erdgas)': number
-  'Strom-Emissionen nach Energieträgern - Biogas': number
-  'Strom-Emissionen nach Energieträgern - Emissionen ges.': number
-  'Strom-Emissionen nach Energieträgern - GUD (Erdgas)': number
-  'Strom-Emissionen nach Energieträgern - Klär-Deponiegas': number
-  'Strom-Emissionen nach Energieträgern - PV': number
-  'Strom-Emissionen nach Energieträgern - Wasserkraft': number
-  'Strom-Emissionen nach Energieträgern - reg. Bezug (Bundesmix)': number
-}
-
-export default function EnergietraegerChart() {
-  const [mode, setMode] = useState<'stromerzeugung' | 'stromemissionen'>(
-    'stromerzeugung',
+export default function EnergietraegerChart({ tile_payload }: ChartProps) {
+  const data: InputDataType[] = getSourceByName(
+    tile_payload,
+    'energiematrix.csv',
   )
 
-  const data: (StromVerbrauchErzeugung | StromEmissionen)[] =
-    mode === 'stromerzeugung' ? StromerzeugungBereitstellung : Stromemissionen
+  const years = getYears(data)
+  const [yearIndex, setYearIndex] = useState<number>(years.length - 1)
 
-  const [yearIndex, setYearIndex] = useState(data.length - 1)
+  if (!data) {
+    return <RequestIndicator />
+  }
 
-  const unit = mode === 'stromerzeugung' ? 'MWh' : 't'
-
-  const { width } = useWindowSize()
+  const rows = getRows(data, yearIndex, tile_payload.table_rows)
+  const chartData = Object.values(rows)
+    .filter(item => item.current !== null)
+    .map(item => ({
+      name: item.label,
+      value: item.current as number,
+    }))
 
   return (
-    <div className="flex h-full flex-col">
-      <div className="z-10 w-full">
-        <ToggleGroup
-          items={[
-            {
-              element: (
-                <Title as="h5" className="2xl:mx-auto">
-                  Anteilige Stromerzeugung
-                </Title>
-              ),
-              value: 'stromerzeugung',
+    <div>
+      <div className="h-[250px] md:h-[500px]">
+        <ReactECharts
+          option={{
+            // @ts-ignore
+            tooltip: {
+              formatter: params => {
+                const name = (params as any).name
+                const percent = (params as any).value
+
+                return `<p class="font-bold text-ecology">${name}<p>
+                    <p>${years[yearIndex]}: ${percent.toFixed(1)}%<p>`
+              },
             },
-            {
-              element: (
-                <Title as="h5" className="2xl:mx-auto">
-                  CO₂ pro Quelle
-                </Title>
-              ),
-              value: 'co2',
-            },
-          ]}
-          onChange={val => setMode(val as typeof mode)}
-          variant={'primary'}
+            series: [
+              {
+                type: 'treemap',
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                breadcrumb: {
+                  show: false,
+                },
+                itemStyle: {
+                  gapWidth: 4,
+                },
+                label: {
+                  formatter: params => {
+                    const percent = (params.value as number) || 0
+
+                    if (percent < 5) {
+                      return ''
+                    }
+
+                    return `{name|${params.name}}\n{value|${percent.toFixed(1)}%}`
+                  },
+                  rich: {
+                    name: {
+                      padding: [0, 0, 4, 0],
+                    },
+                    value: {
+                      fontSize: 32,
+                    },
+                  },
+                },
+                roam: false,
+                nodeClick: undefined,
+                levels: [
+                  {
+                    itemStyle: {
+                      // @ts-ignore
+                      color: theme?.colors?.ecology?.DEFAULT || '#6060d6',
+                    },
+                  },
+                ],
+                data: chartData,
+              },
+            ],
+          }}
         />
       </div>
-      <div className="flex h-full w-full flex-1 -translate-y-4 flex-col">
-        <div className="flex-1">
-          <ReactECharts
-            option={{
-              // @ts-ignore
-              tooltip: {
-                formatter: params => {
-                  const percent =
-                    // @ts-ignore
-                    params.value / params.treeAncestors[0].value
-
-                  if (percent === 1) {
-                    return undefined
-                  }
-
-                  // @ts-ignore
-                  return `<p>${params.name}<p>
-                  <p>${new Intl.NumberFormat('de-DE', {
-                    maximumFractionDigits: 0,
-                    // @ts-ignore
-                  }).format(params.value)}${unit}<p>
-                  <p>${(percent * 100).toFixed(1)}%<p>`
-                },
-              },
-              series: [
-                {
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  type: 'treemap',
-                  breadcrumb: {
-                    show: false,
-                  },
-                  itemStyle: {
-                    gapWidth: 4,
-                  },
-                  label: {
-                    position: ['0%', '100%'],
-                    offset: [0 + 8, -70 - 8],
-                    distance: 10,
-                    formatter(params) {
-                      const percent =
-                        // @ts-ignore
-                        params.value / params.treeAncestors[0].value
-
-                      if (percent < 0.05) {
-                        return ''
-                      }
-
-                      return `{name|${params.name}}\n{value|${(
-                        percent * 100
-                      ).toFixed(0)}%}`
-                    },
-                    rich: {
-                      name: {
-                        padding: [0, 0, 4, 0],
-                      },
-                      value: {
-                        fontSize: 40,
-                      },
-                    },
-                  },
-                  roam: false,
-                  nodeClick: undefined,
-                  levels: [
-                    {
-                      itemStyle: {
-                        color: '#f28443',
-                      },
-                    },
-                  ],
-                  data: Object.keys(data[yearIndex])
-                    .filter(
-                      k =>
-                        ![
-                          'ZEIT',
-                          'Stromerzeugung/-bereitstellung nach Energieträgern - Stromverbrauch ges.',
-                          'Strom-Emissionen nach Energieträgern - Emissionen ges.',
-                          'Stromerzeugung/-bereitstellung nach Energieträgern - Anteil EE (%)',
-                          'Strom-Emissionen nach Energieträgern - Anteil EE an Gesamtemissionen (%)',
-                          'Stromerzeugung/-bereitstellung nach Energieträgern - reg. Bezug (Bundesmix)',
-                          'Strom-Emissionen nach Energieträgern - reg. Bezug (Bundesmix)',
-                        ].includes(k),
-                    )
-                    .map(key => ({
-                      name: key
-                        .replace(
-                          'Stromerzeugung/-bereitstellung nach Energieträgern - ',
-                          '',
-                        )
-                        .replace('Strom-Emissionen nach Energieträgern - ', ''),
-                      value:
-                        data[yearIndex][
-                          key as keyof (
-                            | StromVerbrauchErzeugung
-                            | StromEmissionen
-                          )
-                        ],
-                    })),
-                },
-              ],
-            }}
-          />
-        </div>
-        <Spacer size={'xs'} />
-        {width < 1800 && (
-          <MobileSlider
-            defaultValue={[data.length - 1]}
-            firstValueMobile={data.length - 1}
-            labels={data.map(e => e.ZEIT.toString())}
-            max={data.length - 1}
-            min={0}
-            onValueChange={([index]) => setYearIndex(index)}
-            variant={'energy'}
-          />
-        )}
-        {width >= 1800 && (
-          <Slider
-            defaultValue={[data.length - 1]}
-            firstValueMobile={data.length - 1}
-            labels={data.map(e => e.ZEIT.toString())}
-            max={data.length - 1}
-            min={0}
-            onValueChange={([index]) => setYearIndex(index)}
-            variant={'energy'}
-          />
-        )}
-      </div>
+      <Spacer size={'sm'} />
+      <Slider
+        className={'hidden xl:block'}
+        defaultValue={[years.length - 1]}
+        firstValueMobile={years.length - 1}
+        labels={years}
+        max={years.length - 1}
+        min={0}
+        onValueChange={([e]) => {
+          setYearIndex(e)
+        }}
+        variant={'ecology'}
+      />
+      <MobileSlider
+        defaultValue={[years.length - 1]}
+        firstValueMobile={years.length - 1}
+        labels={years}
+        max={years.length - 1}
+        min={0}
+        onValueChange={([e]) => {
+          setYearIndex(e)
+        }}
+        variant={'ecology'}
+      />
     </div>
   )
 }
