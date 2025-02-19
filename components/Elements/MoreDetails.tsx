@@ -33,7 +33,7 @@ export default function MoreDetails({
     <div className={cx(style({ variant }), className)} onClick={onClick}>
       <MsKlimadashboardIconsNaviInfoI className="h-6" />
       <div className="whitespace-nowrap underline">
-        {lessDetails ? 'Weniger Details' : 'Mehr Details'}
+        {lessDetails ? 'Zurück' : 'Mehr Details'}
       </div>
     </div>
   )
