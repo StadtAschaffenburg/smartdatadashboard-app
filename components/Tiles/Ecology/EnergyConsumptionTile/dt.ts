@@ -20,7 +20,7 @@ export type EnergyConsumptionContentProps = {
 export type BuildingType = Omit<DataType, 'datum'>
 
 export type BuildingDataType = {
-  [key in keyof BuildingType]: {
+  [_key in keyof BuildingType]: {
     strom: {
       current: number[]
       previous: number[] | null

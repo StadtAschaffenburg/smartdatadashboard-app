@@ -8,7 +8,7 @@ type CollapsibleProps = {
   trigger?: React.ReactElement
   children: React.ReactElement
   isOpen?: boolean
-  onOpenChange?: (open: boolean) => void
+  onOpenChange?: (_open: boolean) => void
 }
 
 export default function Collapsible({

@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import Slider from '@/components/Inputs/Slider'
 import { useState } from 'react'
