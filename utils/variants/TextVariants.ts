@@ -10,7 +10,7 @@ export const TextVariants = {
     economy: 'text-economy',
     data: 'text-data',
     inverse: 'text-white',
-    dark: 'text-zinc-900',
+    dark: 'text-black',
     blue: 'text-primary-medium',
     green: 'text-green',
     white: 'text-white',

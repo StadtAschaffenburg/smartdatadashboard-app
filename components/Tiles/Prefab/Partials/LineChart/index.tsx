@@ -177,7 +177,7 @@ export default function LineChart({ tile_payload }: ChartProps) {
                 right: 40,
               },
               tooltip: {
-                trigger: 'item', // Aktiviert Tooltip bei Hover über Datenpunkt
+                trigger: 'item',
                 formatter: (params: any) => {
                   const year = new Date(params.value[0]).getFullYear()
                   const value = params.value[1]?.toLocaleString('de-DE')

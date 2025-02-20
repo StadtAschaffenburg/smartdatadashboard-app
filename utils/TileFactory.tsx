@@ -5,6 +5,7 @@ import IconValues from '@/components/Tiles/Prefab/IconValues'
 import LineChart from '@/components/Tiles/Prefab/LineChart'
 import IconText from '@/components/Tiles/Prefab/IconText'
 import CompareIconValues from '@/components/Tiles/Prefab/CompareIconValues'
+import CompareValues from '@/components/Tiles/Prefab/CompareValues'
 import Basic from '@/components/Tiles/Prefab/Basic'
 
 // ecology
@@ -44,6 +45,7 @@ const tileMap: Record<
   // ---- DEFAULT ----
   icontext: IconText,
   compareiconvalues: CompareIconValues,
+  comparevalues: CompareValues,
   iconvalues: IconValues,
   linechart: LineChart,
   basic: Basic,

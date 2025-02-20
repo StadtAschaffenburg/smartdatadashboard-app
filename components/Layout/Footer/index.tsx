@@ -7,6 +7,7 @@ import { scrollToTop } from '@/utils/scroll'
 import ImageFoerderung from '@/assets/images/foerderung.jpg'
 import ImageStadtbau from '@/assets/images/logo_stadtbau.jpg'
 import ImageAsta from '@/assets/images/STA_Logo_Stadtwerke_CMYK.jpg'
+import ImageGesta from '@/assets/images/GreLos_Logo_4C.jpg'
 import Image from 'next/image'
 import Text from '@/components/Elements/Text'
 
@@ -41,7 +42,7 @@ export default function Footer() {
 
       <Background variant="white">
         <Container variant="compact">
-          <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div className="md:w-1/2">
               <Image
                 alt="Förderung Logos"
@@ -51,9 +52,16 @@ export default function Footer() {
                 width={1280}
               />
             </div>
-            <div className="flex flex-col gap-2 md:items-end">
+            <div className="flex flex-col gap-2 lg:items-end">
               <Text as="xxs">Datenpaten</Text>
               <div className="align-start flex h-24 gap-4">
+                <Image
+                  alt="Gesta Logo"
+                  className="h-full w-40 object-contain"
+                  loading="lazy"
+                  src={ImageGesta}
+                  width={512}
+                />
                 <Image
                   alt="Stadtbau Logo"
                   className="h-full w-40 object-contain"

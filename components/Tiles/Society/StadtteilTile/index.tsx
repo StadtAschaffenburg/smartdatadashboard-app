@@ -2,7 +2,7 @@ import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import Content from './StadtteilContent'
 import { TileSplitView } from '../../Base/TileSplitView'
-import Title from '@/components/Elements/Title'
+import Block from '@/components/Elements/Block'
 
 export default function Tile({ type, tile_payload }: TileProps) {
   return (
@@ -12,9 +12,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
           <Content tile_payload={tile_payload} />
         </TileSplitView.Left>
         <TileSplitView.Right>
-          <Title as="h5" variant={'dark'}>
-            {tile_payload?.legend ?? ''}
-          </Title>
+          <Block text={tile_payload?.legend ?? ''} />
         </TileSplitView.Right>
       </TileSplitView>
     </BaseTile>

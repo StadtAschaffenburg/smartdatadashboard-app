@@ -21,7 +21,7 @@ export default function SortTiles() {
         <Menu.Item>
           <Title
             as="h6"
-            className="cursor-pointer rounded px-4 py-2 hover:bg-zinc-100"
+            className="cursor-pointer rounded px-4 py-2 hover:bg-white"
             variant={'primary'}
           >
             Nach Kategorie
@@ -30,7 +30,7 @@ export default function SortTiles() {
         <Menu.Item>
           <Title
             as="h6"
-            className="cursor-pointer rounded px-4 py-2 hover:bg-zinc-100"
+            className="cursor-pointer rounded px-4 py-2 hover:bg-white"
             variant={'primary'}
           >
             Neueste zuerst

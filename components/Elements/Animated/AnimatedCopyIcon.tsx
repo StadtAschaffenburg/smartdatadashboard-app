@@ -30,7 +30,7 @@ export default function AnimatedCopyIcon({ onClick }: AnimatedCopyIconProps) {
 
   return transitions((styles, isSuccess) => (
     <animated.div
-      className="absolute top-0 cursor-pointer rounded-full bg-transparent p-2 hover:bg-zinc-100"
+      className="absolute top-0 cursor-pointer rounded-full bg-transparent p-2 hover:bg-white"
       onClick={handleOnClick}
       style={styles}
     >

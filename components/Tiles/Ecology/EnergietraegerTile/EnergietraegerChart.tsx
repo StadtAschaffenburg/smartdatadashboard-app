@@ -76,9 +76,10 @@ export default function EnergietraegerChart({ tile_payload }: ChartProps) {
                   rich: {
                     name: {
                       padding: [0, 0, 4, 0],
+                      fontWeight: 'bold',
                     },
                     value: {
-                      fontSize: 32,
+                      // fontSize: 32,
                     },
                   },
                 },
