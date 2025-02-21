@@ -84,6 +84,6 @@ export { default as FairtradeGastro229020431709 } from './FairtradeGastro2290204
 export { default as FairtradeSchulen2174038519151 } from './FairtradeSchulen2174038519151'
 export { default as GeburtenTodesfaelle247035964507Flatline } from './GeburtenTodesfaelle247035964507Flatline'
 export { default as GleichberechtigungFuehrung247035964544 } from './GleichberechtigungFuehrung247035964544'
-export { default as Schulverpflegung2290204317193 } from './Schulverpflegung2290204317193'
 export { default as SterblichkeitFrauen } from './SterblichkeitFrauen'
 export { default as SterblichkeitMaenner } from './SterblichkeitMaenner'
+export { default as Schulverpflegung2290204317193 } from './Schulverpflegung2290204317193'

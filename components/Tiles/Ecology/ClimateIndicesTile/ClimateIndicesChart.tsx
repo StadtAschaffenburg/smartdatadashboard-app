@@ -196,7 +196,20 @@ export default function ClimateIndicesChart({
       ...indices[e as IndicesTypes].seriesOption,
       type: 'line',
       itemStyle: {
-        opacity: 0,
+        opacity: 1,
+        borderColor: '#fff',
+        borderWidth: 2,
+      },
+      symbol: 'circle',
+      showAllSymbol: true,
+      symbolSize: 7,
+      emphasis: {
+        focus: 'series',
+        itemStyle: {
+          borderColor: '#005096',
+          borderWidth: 3,
+          width: 50,
+        },
       },
       data: indices[e as IndicesTypes].seriesOption.data?.filter(
         // @ts-ignore
@@ -241,6 +254,17 @@ export default function ClimateIndicesChart({
                 bottom: 40,
                 left: 40,
                 right: 40,
+              },
+              tooltip: {
+                trigger: 'item', // Aktiviert Tooltip bei Hover über Datenpunkt
+                formatter: (params: any) => {
+                  const year = new Date(params.value[0]).getFullYear()
+                  const value = params.value[1]
+                  const unit = 'Tage'
+                  const variant = 'text-primary'
+
+                  return `<div class="text-md border-b border-neutral-200 pb-1 mb-1 ${variant}">${params.seriesName}</div><div class="text-primary"><strong>${year}:</strong> ${value} ${unit}</div>`
+                },
               },
               series: [...series, ...curYearSeries],
               xAxis: {

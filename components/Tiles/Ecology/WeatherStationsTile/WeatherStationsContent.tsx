@@ -7,6 +7,7 @@ import useApi from '@/hooks/useApi'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
+import StaticCircle from '@/components/Icons/StaticCircle'
 import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
 import { TilePayloadType } from '@/types/tiles'
@@ -159,17 +160,21 @@ export default function WeatherStationsContent({
                   }}
                 >
                   <div
-                    className={`h-8 w-8 transition-all hover:scale-110 ${
-                      selectedIndex === index ? 'scale-110' : ''
+                    className={`h-8 w-8 transition-all hover:scale-150 ${
+                      selectedIndex === index ? 'scale-150' : ''
                     }`}
                   >
-                    <PulsatingCircle
-                      className={`h-full w-full fill-primary stroke-primary ${
-                        selectedIndex === index
-                          ? 'fill-secondary stroke-secondary'
-                          : 'fill-primary stroke-primary'
-                      }`}
-                    />
+                    {selectedIndex === index ? (
+                      <PulsatingCircle
+                        className={'h-full w-full fill-primary stroke-primary'}
+                      />
+                    ) : (
+                      <StaticCircle
+                        className={
+                          '} h-full w-full fill-primary stroke-primary'
+                        }
+                      />
+                    )}
                   </div>
                 </div>
               ))}

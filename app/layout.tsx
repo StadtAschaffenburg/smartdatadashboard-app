@@ -41,8 +41,24 @@ export default async function RootLayout({
     <html className={inter.className} lang="de">
       <head>
         <title>{page_title}</title>
-        <meta content={page_description} name="description" />
 
+        <link
+          href="/favicons/favicon-96x96.png"
+          rel="icon"
+          sizes="96x96"
+          type="image/png"
+        />
+        <link href="/favicons/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favicons/favicon.ico" rel="shortcut icon" />
+        <link
+          href="/favicons/apple-touch-icon.png"
+          rel="apple-touch-icon"
+          sizes="180x180"
+        />
+        <meta content="SDD Aschaffenburg" name="apple-mobile-web-app-title" />
+        <link href="/favicons/site.webmanifest" rel="manifest" />
+
+        <meta content={page_description} name="description" />
         <meta content={page_title} property="og:title" />
         <meta content={page_description} property="og:description" />
         <meta

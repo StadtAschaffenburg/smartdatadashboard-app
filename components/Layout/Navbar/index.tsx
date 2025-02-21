@@ -17,7 +17,7 @@ export default function Navbar({ page_title }: { page_title: string }) {
   setPageTitle(breadcrumbs[breadcrumbs.length - 1].title ?? '', page_title)
 
   return (
-    <BaseNavbar current_url={segments[0]}>
+    <BaseNavbar collapsible={url !== ''} current_url={segments[0]}>
       <Breadcrumbs breadcrumbs={breadcrumbs} />
     </BaseNavbar>
   )

@@ -37,16 +37,18 @@ const links: LinkProps[] = [
 
 type BaseNavbarProps = {
   children?: React.ReactNode
+  collapsible: boolean
   current_url: string
   variant?: 'primary' | 'secondary'
 }
 
 export default function BaseNavbar({
   children,
+  collapsible,
   current_url,
   variant = 'primary',
 }: BaseNavbarProps) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(!collapsible)
   const [isSticky, setIsSticky] = useState(false)
   const navbarRef = useRef<HTMLDivElement | null>(null)
 
@@ -91,26 +93,39 @@ export default function BaseNavbar({
           className={'py-4 transition-all [.is-sticky_&]:shadow-lg'}
           variant={'flat'}
         >
-          <div className="flex flex-col justify-between gap-4">
-            <div className="flex items-center justify-between gap-8">
-              {children || 'Smart Data Dashboard'}
-              <div
-                className="flex cursor-pointer items-center gap-4 font-medium text-white "
-                onClick={toggleMenu}
-              >
-                <div>Menü</div>{' '}
-                <div className="group overflow-hidden rounded border border-white">
-                  {isOpen ? (
-                    <XMarkIcon className="stroke w-8 bg-white p-2 text-primary transition-all md:w-12" />
-                  ) : (
-                    <Bars3Icon className="stroke w-8 p-2 text-white transition-all group-hover:bg-white group-hover:text-primary md:w-12" />
-                  )}
+          <Collapsible isOpen={collapsible}>
+            <div className="flex flex-col justify-between gap-4">
+              <div className="flex items-center justify-between gap-8">
+                {children || 'Smart Data Dashboard'}
+                <div
+                  className="flex cursor-pointer items-center gap-4 font-medium text-white"
+                  onClick={toggleMenu}
+                >
+                  <div>Menü</div>{' '}
+                  <div className="group overflow-hidden rounded border border-white">
+                    {isOpen ? (
+                      <XMarkIcon className="stroke w-8 bg-white p-2 text-primary transition-all md:w-12" />
+                    ) : (
+                      <Bars3Icon className="stroke w-8 p-2 text-white transition-all group-hover:bg-white group-hover:text-primary md:w-12" />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <Collapsible isOpen={isOpen} onOpenChange={setIsOpen}>
-            <div className="mt-4 flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-8">
+          </Collapsible>
+
+          <Collapsible
+            isOpen={collapsible ? isOpen : true}
+            onOpenChange={setIsOpen}
+          >
+            <div
+              className={cx(
+                'flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-8',
+                {
+                  'mt-4': collapsible,
+                },
+              )}
+            >
               <LinkComponent
                 {...button_variants}
                 {...link_home}

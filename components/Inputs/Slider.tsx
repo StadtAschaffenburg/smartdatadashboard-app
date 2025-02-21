@@ -54,7 +54,7 @@ export default function Slider({
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),
-              'block aspect-square h-6 touch-pan-x rounded-full shadow md:h-9',
+              'block aspect-square h-6 cursor-pointer touch-pan-x rounded-full shadow md:h-9',
             )}
           />
         </SliderPrimitive.Root>

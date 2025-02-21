@@ -3,7 +3,7 @@ import { TileProps } from '@/types/tiles'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import ClimateIndicesChart from './ClimateIndicesChart'
 import { TileSplitView } from '../../Base/TileSplitView'
-import Title from '@/components/Elements/Title'
+import Block from '@/components/Elements/Block'
 import { ClimateIndex } from './dt'
 import useSourceFile from '@/hooks/useSourceFile'
 
@@ -25,9 +25,7 @@ export default function Tile({ type, tile_payload }: TileProps) {
           </div>
         </TileSplitView.Left>
         <TileSplitView.Right>
-          <Title as="h5" variant={'dark'}>
-            {tile_payload?.legend ?? ''}
-          </Title>
+          <Block text={tile_payload?.legend ?? ''} />
         </TileSplitView.Right>
       </TileSplitView>
     </BaseTile>

@@ -16,7 +16,7 @@ export default async function Layout({
   const page_title = global_seo?.page_title ?? ''
 
   return (
-    <div className="flex min-h-screen flex-col ">
+    <div className="flex min-h-screen flex-col">
       <Top />
       <Navbar page_title={page_title} />
       <div className="flex-1" id="content">
