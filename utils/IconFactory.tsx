@@ -188,8 +188,6 @@ const iconMap: Record<string, IconComponent> = {
   gaeste_stadt_gaestepaesse: SocialIcons.GästeStadtGästepässe216135437136,
   geburten_todesfaelle_1: SocialIcons.GeburtenTodesfälle247035903338,
   geburten_todesfaelle_2: SocialIcons.GeburtenTodesfälle247035964507,
-  geburten_todesfaelle_flatline:
-    SocialIcons.GeburtenTodesfälleFlatline2470359645072,
   gleichberechtigung_beschaeftigungsquote:
     SocialIcons.GleichberechtigungBeschäftigungsquote216135437138,
   gleichberechtigung_verdienstabstand:
@@ -211,7 +209,6 @@ const iconMap: Record<string, IconComponent> = {
     SocialIcons.KultureinrichtungenStadthalle221982627138,
   oepnv_haltestellen: SocialIcons.ÖpnvHaltestellen2174038519161,
   schattenreich: SocialIcons.Schattenreich247035903314,
-  schulverpflegung: SocialIcons.Schulverpflegung229020431709,
   sozialleistungen_alter_grundsicherung:
     SocialIcons.SozialleistungenAlterGrundsicherung235198422951,
   sozialleistungen_aufstocker:
@@ -223,8 +220,6 @@ const iconMap: Record<string, IconComponent> = {
   sozialleistungen_kinderarmut:
     SocialIcons.SozialleistungenKinderarmut227212823120,
   sozialleistungen_wohngeld: SocialIcons.SozialleistungenWohngeld227212823102,
-  sterblichkeit_frauen: SocialIcons.SterblichkeitFrauen247035964559,
-  sterblichkeit_maenner: SocialIcons.SterblichkeitMänner247035964507,
   trinkwasserbrunnen: SocialIcons.Trinkwasserbrunnen235194006719,
   wohnraum_einheiten_stadtbau:
     SocialIcons.WohnraumEinheitenStadtbau2219826271102,
@@ -241,8 +236,6 @@ const iconMap: Record<string, IconComponent> = {
     SocialIcons.InterkulturellerAustauschSprachvermittler220415042561,
   interkultureller_austausch_veranstaltungen:
     SocialIcons.InterkulturellerAustauschVeranstaltungen220415042550,
-  gleichberechtigung_fuehrung:
-    SocialIcons.GleichberechtigungFührung247035964544,
   gleichberechtigung_stadtrat:
     SocialIcons.GleichberechtigungStadtrat216135437170,
   kinderbetreuung_kiga: SocialIcons.KinderbetreuungKiGa220415042515,
@@ -250,6 +243,17 @@ const iconMap: Record<string, IconComponent> = {
   pflege_heimplaetze: SocialIcons.PflegeHeimplätze2174038519245,
   pflege_pflegedienst: SocialIcons.PflegePflegedienst220955118102,
   pflege_pflegeheim: SocialIcons.PflegePflegeheim220955118117,
+  fairtrade_einkauf: SocialIcons.FairtradeEinkauf2174038519142Fair,
+  fairtrade_gastro: SocialIcons.FairtradeGastro229020431709,
+  fairtrade_schulen: SocialIcons.FairtradeSchulen2174038519151,
+  geburten_todesfaelle_flatline:
+    SocialIcons.GeburtenTodesfaelle247035964507Flatline,
+  gleichberechtigung_fuehrung:
+    SocialIcons.GleichberechtigungFuehrung247035964544,
+  sterblichkeit_frauen: SocialIcons.SterblichkeitFrauen,
+  sterblichkeit_maenner: SocialIcons.SterblichkeitMaenner,
+  schulverpflegung: SocialIcons.Schulverpflegung2290204317193,
+
   // Misc
   stadt_ab: MiscIcons.StadtAbMap,
   pool: MiscIcons.IconPool,
