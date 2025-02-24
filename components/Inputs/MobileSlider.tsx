@@ -34,7 +34,7 @@ export default function MobileSlider({
           </div>
         )}
         <SliderPrimitive.Root
-          aria-label="Volume"
+          aria-label="Zeitstrahl"
           className="relative flex h-fit w-full cursor-pointer items-center"
           {...props}
           onValueChange={([e]) => {
@@ -53,7 +53,7 @@ export default function MobileSlider({
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),
-              'block aspect-square h-6 touch-pan-x rounded-full shadow md:h-9',
+              'transition:scale block aspect-square h-6 rounded-full shadow focus:scale-125 md:h-9',
             )}
           />
         </SliderPrimitive.Root>

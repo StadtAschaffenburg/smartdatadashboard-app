@@ -78,7 +78,7 @@ export default async function RootLayout({
           src="https://cdn.eye-able.com/public/js/eyeAble.js"
         ></script>
       </head>
-      <body className="overflow-x-hidden">
+      <body className="touch-pan-y overflow-x-hidden">
         {children}
         <Cookies />
       </body>

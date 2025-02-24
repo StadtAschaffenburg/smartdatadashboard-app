@@ -54,24 +54,24 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-2 lg:items-end">
               <Text as="xxs">Datenpaten</Text>
-              <div className="align-start flex h-24 gap-4">
+              <div className="align-start grid h-24 grid-cols-3 gap-4 md:flex">
                 <Image
                   alt="Gesta Logo"
-                  className="h-full w-40 object-contain"
+                  className="w-full object-contain md:h-full md:w-40"
                   loading="lazy"
                   src={ImageGesta}
                   width={512}
                 />
                 <Image
                   alt="Stadtbau Logo"
-                  className="h-full w-40 object-contain"
+                  className="w-full object-contain md:h-full md:w-40"
                   loading="lazy"
                   src={ImageStadtbau}
                   width={512}
                 />
                 <Image
                   alt="Stadtbau Logo"
-                  className="h-full w-24 object-contain"
+                  className="w-full object-contain md:h-full md:w-24"
                   loading="lazy"
                   src={ImageAsta}
                   width={512}

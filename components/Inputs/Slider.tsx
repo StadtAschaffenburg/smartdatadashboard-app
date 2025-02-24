@@ -29,13 +29,13 @@ export default function Slider({
       <div className="flex w-full items-center">
         {labels && (
           <div className="block md:hidden">
-            <Text as="h5" className="mr-2" variant={variant}>
+            <Text as="h5" className="mr-2" tag={'span'} variant={variant}>
               {labels[value]}
             </Text>
           </div>
         )}
         <SliderPrimitive.Root
-          aria-label="Slider"
+          aria-label="Zeitstrahl"
           className="relative flex h-fit w-full items-center"
           {...props}
           onValueChange={([e]) => {
@@ -54,7 +54,7 @@ export default function Slider({
           <SliderPrimitive.Thumb
             className={cx(
               BackgroundStyle({ variant }),
-              'block aspect-square h-6 cursor-pointer touch-pan-x rounded-full shadow md:h-9',
+              'transition:scale block aspect-square h-6 cursor-pointer rounded-full shadow focus:scale-125 md:h-9',
             )}
           />
         </SliderPrimitive.Root>
