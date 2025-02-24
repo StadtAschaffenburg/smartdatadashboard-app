@@ -27,7 +27,11 @@ export default function Row({ data, single = false, variant }: RowType) {
       <Title as={'h4'} variant={variant}>
         <span>{data.label}:</span> {single && <br />}
         <AnimatedNumber
-          className={single ? 'block pt-1 text-2xl' : 'inline-block min-w-32'}
+          className={
+            single
+              ? 'sm:text-xl block pt-1 text-lg md:text-2xl'
+              : 'inline-block min-w-32'
+          }
           decimals={data.decimals}
           previous_value={data.previous}
           unit={data.unit}

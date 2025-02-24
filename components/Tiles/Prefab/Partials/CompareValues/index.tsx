@@ -51,7 +51,7 @@ export default function CompareIconValues({ tile_payload }: ContentProps) {
 
   return (
     <div>
-      <div className="mb-4 flex justify-between gap-4">
+      <div className="mb-4 flex justify-between gap-4 max-xs:flex-col">
         <div className="relative">
           <div className="align-center flex flex-row gap-4">
             <div className="w-16">

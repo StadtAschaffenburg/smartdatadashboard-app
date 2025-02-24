@@ -15,13 +15,13 @@ export default function PVAnlagenContent({
     <div>
       <div className="mb-4 flex flex-row gap-6">
         {tile_payload.icon && (
-          <span>
+          <div className="">
             <IconFactory
-              className="h-20 md:h-32"
+              className="sm:w-20 mt-2 w-12 md:w-32"
               type={tile_payload.icon}
               variant={variant}
             />
-          </span>
+          </div>
         )}
         <div className="flex flex-grow flex-col justify-between">
           <Text as={'subtitle'}>

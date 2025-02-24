@@ -64,7 +64,7 @@ export default function AnimatedNumber({
 
   return (
     <span
-      className={cx(TextStyle({ variant }), className, 'whitespace-nowrap')}
+      className={cx(TextStyle({ variant }), className, 'sm:whitespace-nowrap')}
     >
       {previous_value !== undefined && (
         <Indicator current={value} previous={previous_value} />

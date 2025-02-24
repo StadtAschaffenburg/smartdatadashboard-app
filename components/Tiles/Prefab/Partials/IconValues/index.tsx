@@ -29,15 +29,15 @@ export default function IconValues({ children, tile_payload }: ContentProps) {
 
   return (
     <div>
-      <div className="mb-4 flex flex-row gap-6">
+      <div className="mb-4 flex max-w-full flex-row gap-6">
         {tile_payload.icon && (
-          <span>
+          <div>
             <IconFactory
-              className="h-20 md:h-32"
+              className="sm:w-20 mt-4 w-12 max-xs:mt-2 md:w-32"
               type={tile_payload.icon}
               variant={variant}
             />
-          </span>
+          </div>
         )}
 
         {children && <span>{children}</span>}

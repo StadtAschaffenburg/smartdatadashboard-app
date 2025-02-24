@@ -88,7 +88,7 @@ export default function CompareIconValues({
           </AnimatedNumber>
         </div>
       </div>
-      <div className="relative mx-auto flex aspect-[2/1] h-60 items-stretch gap-4 overflow-hidden rounded p-4">
+      <div className="relative mx-auto flex aspect-[2/1] h-60 max-w-full items-stretch gap-4 overflow-hidden rounded p-4">
         <div
           className="z-10 flex justify-center transition-all"
           style={{
