@@ -1,4 +1,6 @@
-# Update LIVE Websites
+# How To Deploy This Dashboard
+
+## Update LIVE Websites
 
 - Connect via SSH: `ssh [user]@dashboard.aschaffenburg.de`
 - Go to project folder: `cd /opt/smartdatadashboard/smartdatadashboard-ab`
@@ -8,7 +10,7 @@
 - Restart service: `systemctl start smartdatadashboard.service`
 - Fetch CMS content: `https://dashboard.aschaffenburg.de/api/flush?secret=[API_SECRET]`
 
-# Update PUBLIC Repository
+## Update PUBLIC Repository
 
 - Add public repository as remote: `git remote add public https://github.com/StadtAschaffenburg/smartdatadashboard-app.git`
 - Update after updating live app: `git push public main`
