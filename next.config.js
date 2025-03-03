@@ -30,6 +30,7 @@ const nextConfig = {
 const withPWA = require('next-pwa')({
   dest: 'public',
   register: true,
+  cacheStartUrl: '/',
 })
 
 module.exports = withPWA(nextConfig)

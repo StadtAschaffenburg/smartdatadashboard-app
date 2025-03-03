@@ -117,9 +117,7 @@ export default function WeatherTileContent() {
               <Phenomenon
                 hide_icon={true}
                 phenomenon="humidity"
-                value={
-                  local_weather?.relative_humidity ?? weather?.relative_humidity
-                }
+                value={local_weather?.humidity ?? weather?.relative_humidity}
               />
             </div>
             <div className="flex-1">
