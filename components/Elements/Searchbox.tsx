@@ -34,7 +34,9 @@ function SearchComponent() {
   useEffect(() => {
     const handleScroll = () => {
       const tileCollection = document.getElementById('tile-collection')
-      if (!tileCollection || !search_ref.current) {return}
+      if (!tileCollection || !search_ref.current) {
+        return
+      }
 
       const collectionBottom = tileCollection.getBoundingClientRect().bottom
       const searchTop = search_ref.current.getBoundingClientRect().top
@@ -109,7 +111,7 @@ function SearchComponent() {
               className="pl-4 text-lg font-medium text-neutral-500 transition-all group-hover:pl-6 group-hover:pr-2"
               onClick={handleToggle}
             >
-              Suche
+              Website durchsuchen
             </button>
           ) : (
             <form
