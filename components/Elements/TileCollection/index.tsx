@@ -53,15 +53,18 @@ export default function TileCollection({
   }
 
   const filteredCollection = collection.filter(item => {
-    return (
-      (category === null || item.tags.category === category) &&
-      (action_dimension === null ||
-        item.tags.action_dimension === action_dimension) &&
-      (action_field === null ||
-        item.tags.action_field.includes(action_field)) &&
-      (sdg_target === null || item.tags.sdg_target?.includes(sdg_target)) &&
-      smartSearch(search_query, item.search)
-    )
+    if (search_query) {
+      return smartSearch(search_query, item.search)
+    } 
+      return (
+        (category === null || item.tags.category === category) &&
+        (action_dimension === null ||
+          item.tags.action_dimension === action_dimension) &&
+        (action_field === null ||
+          item.tags.action_field.includes(action_field)) &&
+        (sdg_target === null || item.tags.sdg_target?.includes(sdg_target))
+      )
+    
   })
 
   if (filteredCollection.length === 0) {

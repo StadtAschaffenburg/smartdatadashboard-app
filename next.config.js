@@ -27,4 +27,11 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  cacheStartUrl: '/',
+  disable: true, //process.env.NODE_ENV === 'development',
+})
+
+module.exports = withPWA(nextConfig)
