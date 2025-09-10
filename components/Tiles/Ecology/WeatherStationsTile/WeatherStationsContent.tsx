@@ -7,7 +7,6 @@ import useApi from '@/hooks/useApi'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
-import StaticCircle from '@/components/Icons/StaticCircle'
 import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
 import { TilePayloadType } from '@/types/tiles'
@@ -103,7 +102,6 @@ export default function WeatherStationsContent({
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
   const mapContainerRef = useRef(null)
-  const [zoomLevel, setZoomLevel] = useState(1)
   const [mapTransform, setMapTransform] = useState({
     scale: 1,
     translateX: '0%',
@@ -120,21 +118,6 @@ export default function WeatherStationsContent({
     }
 
     setMapTransform(getMapTransform(weatherstations))
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setZoomLevel(mapTransform.scale)
-        } else {
-          setZoomLevel(1)
-        }
-      },
-      { threshold: 0.5 },
-    )
-
-    observer.observe(mapContainerRef.current)
-
-    return () => observer.disconnect()
   }, [weatherstations])
 
   useEffect(() => {
@@ -166,7 +149,7 @@ export default function WeatherStationsContent({
           <div
             className="relative transition-all duration-1000"
             style={{
-              transform: `scale(${zoomLevel}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
+              transform: `scale(${mapTransform.scale}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
               transformOrigin: 'center',
             }}
           >
@@ -194,17 +177,13 @@ export default function WeatherStationsContent({
                       selectedIndex === index ? 'scale-110' : ''
                     }`}
                   >
-                    {selectedIndex === index ? (
-                      <PulsatingCircle
-                        className={'h-full w-full fill-primary stroke-primary'}
-                      />
-                    ) : (
-                      <StaticCircle
-                        className={
-                          '} h-full w-full fill-primary stroke-primary'
-                        }
-                      />
-                    )}
+                    <PulsatingCircle
+                      className={`h-full w-full fill-primary stroke-primary ${
+                        selectedIndex === index
+                          ? 'fill-secondary stroke-secondary'
+                          : 'fill-primary stroke-primary'
+                      }`}
+                    />
                   </div>
                 </div>
               ))}
