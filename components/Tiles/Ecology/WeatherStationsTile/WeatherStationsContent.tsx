@@ -12,8 +12,6 @@ import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
 import { TilePayloadType } from '@/types/tiles'
 
-const ZOOM_LEVEL = 3
-
 const map_dimensions = {
   lat_start: 50.008889877698266,
   lat_end: 49.93574670873378,
@@ -21,10 +19,7 @@ const map_dimensions = {
   long_end: 9.233342108624324,
 }
 
-const position_corrections = {
-  x: -1.5,
-  y: 0,
-}
+const position_corrections = { x: -1.5, y: 0 }
 
 function getLatitude(lat: number) {
   return (
@@ -44,6 +39,28 @@ function getLongitude(lng: number) {
   )
 }
 
+function getZoomLevel(
+  min_lat: number,
+  max_lat: number,
+  min_lng: number,
+  max_lng: number,
+) {
+  const width_percent = getLongitude(max_lng) - getLongitude(min_lng)
+  const height_percent = getLatitude(min_lat) - getLatitude(max_lat)
+
+  const span_x = Math.abs(width_percent)
+  const span_y = Math.abs(height_percent)
+
+  if (span_x <= 0 || span_y <= 0) {
+    return 1
+  }
+
+  const scale_x = 80 / span_x
+  const scale_y = 80 / span_y
+
+  return Math.min(scale_x, scale_y, 5)
+}
+
 function getMapCenter(stations: StationsResult[]) {
   const latitudes = stations.map(station => station.position.lat)
   const longitudes = stations.map(station => station.position.lng)
@@ -51,11 +68,18 @@ function getMapCenter(stations: StationsResult[]) {
   const center_lat = (Math.max(...latitudes) + Math.min(...latitudes)) / 2
   const center_lng = (Math.max(...longitudes) + Math.min(...longitudes)) / 2
 
-  return { center_lat, center_lng }
+  const zoomLevel = getZoomLevel(
+    Math.min(...latitudes),
+    Math.max(...latitudes),
+    Math.min(...longitudes),
+    Math.max(...longitudes),
+  )
+
+  return { center_lat, center_lng, zoomLevel }
 }
 
-function getMapTransform(stations: StationsResult[], zoomLevel: number) {
-  const { center_lat, center_lng } = getMapCenter(stations)
+function getMapTransform(stations: StationsResult[]) {
+  const { center_lat, center_lng, zoomLevel } = getMapCenter(stations)
   const x_percent = getLongitude(center_lng)
   const y_percent = getLatitude(center_lat)
 
@@ -80,6 +104,11 @@ export default function WeatherStationsContent({
   const [autoRotate, setAutoRotate] = useState(true)
   const mapContainerRef = useRef(null)
   const [zoomLevel, setZoomLevel] = useState(1)
+  const [mapTransform, setMapTransform] = useState({
+    scale: 1,
+    translateX: '0%',
+    translateY: '0%',
+  })
 
   useEffect(() => {
     if (
@@ -90,10 +119,12 @@ export default function WeatherStationsContent({
       return
     }
 
+    setMapTransform(getMapTransform(weatherstations))
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setZoomLevel(ZOOM_LEVEL)
+          setZoomLevel(mapTransform.scale)
         } else {
           setZoomLevel(1)
         }
@@ -122,7 +153,6 @@ export default function WeatherStationsContent({
   }
 
   const selectedStation = weatherstations[selectedIndex]
-  const mapTransform = getMapTransform(weatherstations, zoomLevel)
 
   function handleStationClick(index: number) {
     setSelectedIndex(index)
@@ -136,7 +166,7 @@ export default function WeatherStationsContent({
           <div
             className="relative transition-all duration-1000"
             style={{
-              transform: `scale(${mapTransform.scale}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
+              transform: `scale(${zoomLevel}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
               transformOrigin: 'center',
             }}
           >
@@ -151,7 +181,7 @@ export default function WeatherStationsContent({
             <div className="absolute bottom-0 left-0 right-0 top-0">
               {weatherstations.map(({ label, position }, index) => (
                 <div
-                  className="absolute -translate-x-4 -translate-y-4 scale-50 cursor-pointer"
+                  className="absolute -translate-x-3 -translate-y-3 scale-50 cursor-pointer"
                   key={label}
                   onClick={() => handleStationClick(index)}
                   style={{
@@ -160,8 +190,8 @@ export default function WeatherStationsContent({
                   }}
                 >
                   <div
-                    className={`h-8 w-8 transition-all hover:scale-150 ${
-                      selectedIndex === index ? 'scale-150' : ''
+                    className={`h-6 w-6 transition-all hover:scale-110 ${
+                      selectedIndex === index ? 'scale-110' : ''
                     }`}
                   >
                     {selectedIndex === index ? (

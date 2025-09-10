@@ -28,7 +28,7 @@ export default async function getDataSource(file_name: string) {
     const ext = path.extname(sanitized_file_name).toLowerCase()
 
     if (ext === '.csv') {
-      const result = Papa.parse(file_data, { header: true })
+      const result = Papa.parse(file_data, { header: true, delimiter: ';' })
         .data as PayloadDataType[]
       const normalizedResult = normalizeHeaders(result)
       return filterValidEntries(normalizedResult)
