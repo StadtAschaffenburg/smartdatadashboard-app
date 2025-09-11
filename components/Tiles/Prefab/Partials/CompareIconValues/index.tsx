@@ -56,6 +56,11 @@ export default function CompareIconValues({
     ratio = clamp(emphasize(ratio, 1.25), 0.1, 0.9)
   }
 
+  if (!left_row || !right_row) {
+    console.log('data', data)
+    return <RequestIndicator failed={true} />
+  }
+
   return (
     <div>
       <div className="mb-2 flex justify-between gap-4">
@@ -91,18 +96,14 @@ export default function CompareIconValues({
       <div className="relative mx-auto flex aspect-[2/1] h-60 max-w-full items-stretch gap-4 overflow-hidden rounded p-4">
         <div
           className="z-10 flex justify-center transition-all"
-          style={{
-            width: `${ratio * 100}%`,
-          }}
+          style={{ width: `${ratio * 100}%` }}
         >
           <div
             className={cx(
               IconStyle({ variant }),
               'flex h-full w-full items-center justify-center object-contain transition-transform',
             )}
-            style={{
-              scale: `${80 + ratio * 20}%`,
-            }}
+            style={{ scale: `${80 + ratio * 20}%` }}
           >
             {left_row.icon && (
               <IconFactory
@@ -116,18 +117,14 @@ export default function CompareIconValues({
         </div>
         <div
           className="flex justify-center transition-all"
-          style={{
-            width: `${100 - ratio * 100}%`,
-          }}
+          style={{ width: `${100 - ratio * 100}%` }}
         >
           <div
             className={cx(
               IconStyle({ variant }),
               'flex h-full w-full items-center justify-center object-contain transition-transform',
             )}
-            style={{
-              scale: `${80 + (1 - ratio) * 20}%`,
-            }}
+            style={{ scale: `${80 + (1 - ratio) * 20}%` }}
           >
             {right_row.icon && (
               <IconFactory
