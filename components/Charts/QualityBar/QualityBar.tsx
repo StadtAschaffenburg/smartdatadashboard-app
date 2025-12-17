@@ -1,33 +1,12 @@
 'use client'
 
-import { cva, VariantProps } from 'class-variance-authority'
-
-const QualityBarStyle = cva(
-  'flex h-full rounded-full duration-300 ease-in-out',
-  {
-    variants: {
-      variant: {
-        primary: 'bg-white',
-        secondary: 'bg-secondary',
-        live: 'bg-live',
-        ecology: 'bg-ecology',
-        society: 'bg-society',
-        economy: 'bg-economy',
-      },
-    },
-    defaultVariants: {
-      variant: 'primary',
-    },
-  },
-)
-
-type QualityBarProps = VariantProps<typeof QualityBarStyle> & {
+type QualityBarProps = {
   progress: number
   low_label?: string
   high_label?: string
 }
 
-function QualityBar({
+export default function QualityBar({
   progress,
   low_label = 'Geringe Belastung',
   high_label = 'Hohe Belastung',
@@ -43,15 +22,10 @@ function QualityBar({
                 style={{ left: `${progress}%` }}
               ></div>
               <div
-                className="absolute top-[-24px]  translate-x-[-50%] px-2"
+                className="absolute top-[-24px] translate-x-[-50%] px-2"
                 style={{ left: `${progress}%` }}
               >
-                <div
-                  className="h-0 w-0
-              border-l-[15px] border-r-[15px]
-              border-t-[15px] border-primary
-              border-l-transparent border-r-transparent"
-                ></div>
+                <div className="h-0 w-0 border-l-[15px] border-r-[15px] border-t-[15px] border-primary border-l-transparent border-r-transparent"></div>
               </div>
             </div>
           </div>
@@ -64,5 +38,3 @@ function QualityBar({
     </div>
   )
 }
-
-export default QualityBar

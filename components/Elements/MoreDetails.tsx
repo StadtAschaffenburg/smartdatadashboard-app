@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { VariantProps } from 'class-variance-authority'
 import { cva, cx } from 'class-variance-authority'
-import { MsKlimadashboardIconsNaviInfoI } from '../Icons/Misc/Navi'
+import { MsKlimadashboardIconsNaviInfoI } from '../Icons/Navigation'
 
 const style = cva('flex cursor-pointer items-center gap-1 md:gap-3', {
   variants: {
@@ -18,24 +18,41 @@ const style = cva('flex cursor-pointer items-center gap-1 md:gap-3', {
 export type MoreDetailsProps = VariantProps<typeof style> & {
   link?: string
   className?: string
+  label?: string
   lessDetails?: boolean
   onClick?: () => void
+  title?: string
 }
 
 export default function MoreDetails({
   link,
   variant,
   className,
+  label,
   lessDetails,
   onClick,
+  title = '',
 }: MoreDetailsProps) {
   const Details = (
-    <div className={cx(style({ variant }), className)} onClick={onClick}>
+    <button
+      aria-label={`Mehr Details zu ${title}`}
+      className={cx(
+        'transition-all hover:text-secondary font-bold',
+        style({ variant }),
+        className,
+      )}
+      onClick={event => {
+        if (!link) {
+          event.preventDefault()
+        }
+        onClick?.()
+      }}
+    >
       <MsKlimadashboardIconsNaviInfoI className="h-6" />
       <div className="whitespace-nowrap underline">
-        {lessDetails ? 'Zurück' : 'Mehr Details'}
+        {lessDetails ? 'Zurück' : label || 'Mehr Details'}
       </div>
-    </div>
+    </button>
   )
 
   if (!link) {

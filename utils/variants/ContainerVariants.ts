@@ -16,7 +16,7 @@ export const IconDefaultVariants: { variant: ContainerVariant } = {
 }
 
 export const ContainerStyle = cva(
-  'mx-auto max-w-[1920px] px-4 xs:px-6 md:px-12 xl:px-32',
+  'w-full mx-auto max-w-[1920px] px-4 xs:px-6 md:px-12 xl:px-32 overflow-hidden',
   {
     variants: ContainerVariants,
     defaultVariants: IconDefaultVariants,

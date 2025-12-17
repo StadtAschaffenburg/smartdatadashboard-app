@@ -1,42 +1,36 @@
 'use client'
 
 import { cva, cx, VariantProps } from 'class-variance-authority'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTransition } from '@react-spring/web'
 import EmbedOverlay from './EmbedOverlay'
 import ShareOverlay from './ShareOverlay'
 import MoreInfoOverlay from './MoreInfoOverlay'
 import TileFooter from './TileFooter'
-import { TileType } from '@/types/tiles'
+import { TileType } from '@schleegleixner/react-statamic-api'
 import {
-  BackgroundDefaultVariants,
-  BackgroundLightVariants,
-} from '@/utils/variants/BackgroundVariants'
+  BorderDefaultVariants,
+  BorderVariantsBottom,
+} from '@/utils/variants/BorderVariants'
 import Markdown from '@/components/Elements/Markdown'
+import { scrollToElement } from '@/utils/scroll'
 
 const baseTileStyle = cva(
-  'relative flex flex-col md:flex-row h-fit overflow-hidden rounded',
+  'relative flex flex-col md:flex-row h-fit overflow-hidden bg-white border-b-8 rounded-intangible',
   {
-    variants: BackgroundLightVariants,
-    defaultVariants: BackgroundDefaultVariants,
+    variants: BorderVariantsBottom,
+    defaultVariants: BorderDefaultVariants,
   },
 )
-
-export type ImageProps =
-  | { startImage: React.ReactElement; endImage?: never }
-  | { endImage: React.ReactElement; startImage?: never }
-  | { endImage?: undefined; startImage?: undefined }
 
 export type EmbedTileProps = { embedId?: TileType }
 
 export type BaseTileProps = VariantProps<typeof baseTileStyle> &
-  EmbedTileProps &
-  ImageProps & {
+  EmbedTileProps & {
     children: React.ReactElement | React.ReactElement[]
     className?: string
     footerCenterElement?: React.ReactElement
     moreInfo?: React.ReactNode
-    isFullWidth?: boolean
     dataUrl?: string
   }
 
@@ -55,12 +49,9 @@ export function BaseTile({
   children,
   variant,
   className = '',
-  startImage,
-  endImage,
   footerCenterElement,
   embedId,
   moreInfo,
-  isFullWidth,
   dataUrl,
 }: BaseTileProps) {
   const [showEmbedOverlay, setShowEmbedOverlay] = useState(false)
@@ -69,8 +60,14 @@ export function BaseTile({
 
   const embedTransitions = useTransition(showEmbedOverlay, transitionOpts)
   const shareTransitions = useTransition(showShareOverlay, transitionOpts)
-
   const moreInfoTransitions = useTransition(showMoreInfo, transitionOpts)
+
+  // scroll when info overlays open
+  useEffect(() => {
+    if ((showMoreInfo || showEmbedOverlay) && embedId) {
+      scrollToElement(embedId)
+    }
+  }, [showMoreInfo, showEmbedOverlay, embedId])
 
   const openShareDialog = async () => {
     if (navigator && navigator.share) {
@@ -93,7 +90,6 @@ export function BaseTile({
   return (
     <div className="pb-4 md:pb-8">
       <div className={cx(baseTileStyle({ variant }), className)}>
-        {startImage}
         <div className="z-0 flex w-full flex-col justify-between px-6 py-4 xs:p-8 md:p-12 lg:px-8 lg:py-6 xl:px-16 xl:py-12">
           <div>{children}</div>
           <TileFooter
@@ -107,7 +103,6 @@ export function BaseTile({
             {footerCenterElement}
           </TileFooter>
         </div>
-        {endImage}
         {embedId &&
           embedTransitions(
             (styles, render) =>
@@ -134,7 +129,6 @@ export function BaseTile({
           (styles, render) =>
             render && (
               <MoreInfoOverlay
-                isFullWidth={isFullWidth}
                 onClose={() => setShowMoreInfo(false)}
                 style={styles}
                 variant={variant}

@@ -1,35 +1,29 @@
 import React from 'react'
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import { TilePayloadType } from '@/types/tiles'
-import { getDataPoint, getVariantType } from '@/utils/payload'
+import { getVariantType } from '@/utils/payload'
+import { sanitizeNumber, TilePayloadType } from '@schleegleixner/react-statamic-api'
 
 interface DynamicTextProps {
+  className?: string
   children: string
   tile_payload: TilePayloadType
 }
 
-export default function DynamicText({
-  children,
-  tile_payload,
-}: DynamicTextProps) {
-  // Regex angepasst, um optionales Leerzeichen zu akzeptieren
-  const parts = children.split(/\[animate:\s*([a-zA-Z0-9_]+)\]/g)
+export default function DynamicText({ children, tile_payload, className }: DynamicTextProps) {
   const variant = getVariantType(tile_payload)
+  const parts = children.split(/\[animate:\s*([0-9.,]+)\]/g)
 
   return (
     <>
       {parts.map((part, index) => {
-        const data_point = getDataPoint(tile_payload, part) ?? part
-
-        if (data_point) {
+        if (index % 2 === 1 && !isNaN(sanitizeNumber(part))) {
           return (
             <AnimatedNumber key={index} variant={variant}>
-              {data_point}
+              {sanitizeNumber(part)}
             </AnimatedNumber>
           )
         }
-
-        return <span key={index}>{part}</span>
+        return <span className={className} key={index}>{part}</span>
       })}
     </>
   )

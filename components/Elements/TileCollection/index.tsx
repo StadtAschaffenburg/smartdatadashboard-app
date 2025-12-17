@@ -1,22 +1,22 @@
 'use client'
 
-import TileFactory from '@/utils/TileFactory'
-import { TileDataType } from '@/types/tiles'
+import TileFactory from '@/utils/factories/TileFactory'
+import { TileDataType } from '@schleegleixner/react-statamic-api'
 import NoResults from './noResults'
 import { TileCollectionProps } from './dt'
 import Columns from '@/components/Layout/Columns'
 import { useSearchParams } from 'next/navigation'
 
-// Normalizes a string for consistent comparison
+// normalizes a string for consistent comparison
 function normalizeString(str: string): string {
   return str
     .toLowerCase()
-    .replace(/[-\s]/g, '') // Removes dashes and spaces
-    .normalize('NFD') // Breaks down accented characters
-    .replace(/[\u0300-\u036f]/g, '') // Removes diacritics
+    .replace(/[-\s]/g, '') // removes dashes and spaces
+    .normalize('NFD') // breaks down accented characters
+    .replace(/[\u0300-\u036f]/g, '') // removes diacritics
 }
 
-// Smart search function to check if needle exists in haystack
+// smart search function to check if needle exists in haystack
 function smartSearch(needle: string | null, haystack: string): boolean {
   if (!needle) {
     return true
@@ -25,10 +25,10 @@ function smartSearch(needle: string | null, haystack: string): boolean {
   const normalizedNeedle = normalizeString(needle)
   const normalizedHaystack = normalizeString(haystack)
 
-  // Split haystack into words (space, comma, or dash as separator)
+  // split haystack into words (space, comma, or dash as separator)
   const haystackTerms = normalizedHaystack.split(/[\s,-]+/)
 
-  // Check if the normalized needle is found in any term or the whole haystack
+  // check if the normalized needle is found in any term or the whole haystack
   return (
     haystackTerms.some(term => term.includes(normalizedNeedle)) ||
     normalizedHaystack.includes(normalizedNeedle)
@@ -43,35 +43,35 @@ export default function TileCollection({
   sdg_target = null,
   search_query = null,
 }: TileCollectionProps) {
-  // Get search query from the URL if not provided
+  // get search query from the URL if not provided
   const searchParams = useSearchParams()
   search_query = search_query ?? searchParams?.get('suche') ?? null
 
-  // Apply filters based on provided props
-  if (collection.length === 0) {
+  // apply filters based on provided props
+  if (!collection || collection.length === 0) {
     return <NoResults />
   }
 
+  // apply filters based on provided props
   const filteredCollection = collection.filter(item => {
-    if (search_query) {
+    if (search_query && search_query.length >= 3) {
       return smartSearch(search_query, item.search)
-    } 
-      return (
-        (category === null || item.tags.category === category) &&
-        (action_dimension === null ||
-          item.tags.action_dimension === action_dimension) &&
-        (action_field === null ||
-          item.tags.action_field.includes(action_field)) &&
-        (sdg_target === null || item.tags.sdg_target?.includes(sdg_target))
-      )
-    
+    }
+    return (
+      (category === null || item.tags.category === category) &&
+      (action_dimension === null ||
+        item.tags.action_dimension === action_dimension) &&
+      (action_field === null ||
+        item.tags.action_field.includes(action_field)) &&
+      (sdg_target === null || item.tags.sdg_targets?.includes(sdg_target))
+    )
   })
 
   if (filteredCollection.length === 0) {
     return <NoResults />
   }
 
-  // Arrange in groups
+  // arrange in groups
   const groupedTiles = []
   let currentLayout: string | null = null
   let currentGroup: TileDataType[] = []
@@ -93,7 +93,7 @@ export default function TileCollection({
   }
 
   return (
-    <div id="tile-collection">
+    <section id="tile-collection">
       {groupedTiles.map((group, index) => (
         <Columns columns={group.layout === 'default' ? 2 : 1} key={index}>
           {group.tiles.map((tile: TileDataType) => (
@@ -105,6 +105,6 @@ export default function TileCollection({
           ))}
         </Columns>
       ))}
-    </div>
+    </section>
   )
 }

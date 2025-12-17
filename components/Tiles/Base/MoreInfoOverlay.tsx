@@ -4,47 +4,55 @@ import { ComponentPropsWithRef } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import React from 'react'
 import BaseOverlay, { overlayStyle } from './BaseOverlay'
-import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
 import { cx, VariantProps } from 'class-variance-authority'
-import MoreDetails from '@/components/Elements/MoreDetails'
-import useDevice from '@/hooks/useDevice'
+import Divider from '@/components/Elements/Divider'
+import Title from '@/components/Elements/Title'
+import {
+  replaceContentTags,
+  useContentWidth,
+} from '@schleegleixner/react-statamic-api'
 
 type MoreInfoOverlayProps = VariantProps<typeof overlayStyle> &
   AnimatedProps<ComponentPropsWithRef<'div'>> & {
     onClose?: () => void
     children?: React.ReactNode | React.ReactNode[]
-    isFullWidth?: boolean
+    title?: string
   }
 
 export default function MoreInfoOverlay({
   onClose,
   children,
-  isFullWidth,
+  title,
   ...props
 }: MoreInfoOverlayProps) {
-  const device = useDevice()
+  const limit = 720
+  const { elRef, contentWidth } = useContentWidth<HTMLDivElement>()
 
   return (
-    <BaseOverlay onClose={onClose} {...props}>
-      <div className="flex h-full flex-col">
-        <div
-          className={cx(
-            'no-scrollbar h-full flex-1 overflow-scroll',
-            isFullWidth && device === 'desktop'
-              ? 'column-fill-auto columns-2 gap-12'
-              : '',
-          )}
-        >
-          <Title as="h5" variant={'inverse'}>
-            {children}
+    <BaseOverlay onClose={onClose} variant={'inverse'} {...props}>
+      <div className="flex flex-col gap-4">
+        {title && (
+          <Title as="h3" margin="none">
+            {replaceContentTags(title)}
           </Title>
-        </div>
-        <div className="mt-2 flex w-full justify-center">
-          <MoreDetails
-            lessDetails={true}
-            onClick={onClose}
-            variant={'inverse'}
-          />
+        )}
+        {title && <Divider />}
+
+        <div
+          className={cx('flex-1 overflow-y-auto overflow-x-hidden pr-4')}
+          ref={elRef}
+        >
+          <Text
+            as="md"
+            className={cx(
+              contentWidth > limit
+                ? 'column-fill-balance columns-2 gap-12'
+                : '',
+            )}
+          >
+            {children}
+          </Text>
         </div>
       </div>
     </BaseOverlay>

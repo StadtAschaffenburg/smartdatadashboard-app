@@ -1,103 +1,60 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
 import BaseView from './BaseView'
 import TileCollection from '@/components/Elements/TileCollection'
-import CategoryType from '@/types/TilesCategory'
-import Searchbox from '@/components/Elements/Searchbox'
-import { TileDataType, TileSourceType } from '@/types/tiles'
 import {
-  ActionDimensionsType,
-  ActionFieldsType,
-} from '@/types/dimensionMapping'
-import { findPage } from '@/utils/content'
+  PageMappingType,
+  TileDataType,
+} from '@schleegleixner/react-statamic-api'
+import CategoryType from '@/types/CategoryType'
+import Spinner from '../Elements/Spinner'
+import ActionDimensionsType from '@/types/ActionDimensionsType'
 
 interface DimensionViewProps {
-  collection: TileDataType[]
-  sources: TileSourceType[]
   category?: CategoryType | null
-  structure?: string // expects something like 'action_dimension/action_field'
+  collection: TileDataType[]
+  page_data: PageMappingType
+  sitemap: PageMappingType[]
 }
 
 export default function TileCollectionView({
   collection,
-  sources,
-  category,
-  structure,
+  category: initialCategory,
+  page_data,
+  sitemap,
 }: DimensionViewProps) {
+  const [filters_set, setFiltersSet] = useState<boolean>(false)
+  const [category, setCategory] = useState<CategoryType | null>(
+    initialCategory ?? null,
+  )
   const [action_dimension, setActionDimension] =
     useState<ActionDimensionsType | null>(null)
-  const [action_field, setActionField] = useState<ActionFieldsType | null>(null)
+  const [action_field, setActionField] = useState<string | null>(null)
   const [sdg_target, setSdgTarget] = useState<string | null>(null)
 
-  // update collection with sources
-  const updated_collection = collection.map(tile => {
-    if (tile.content?.files && tile.content.files.length > 0) {
-      const matched_sources = tile.content.files
-        .map(file => sources.find(source => source.file_name === file))
-        .filter((source): source is TileSourceType => source !== undefined)
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-      return {
-        ...tile,
-        content: {
-          ...tile.content,
-          sources: matched_sources,
-        },
-      }
-    }
-    return tile
-  })
-
-  const updateStateFromURL = () => {
-    if (!structure) {
+  useEffect(() => {
+    if (!sitemap || !sitemap.length) {
       return
     }
 
-    const structure_parts = structure.split('/')
-    const path_parts = window.location.pathname.split('/').filter(Boolean)
+    const fetchCategorySegments = async () => {
+      setCategory(page_data.content.category ?? null as CategoryType | null)
+      setActionDimension(page_data.content.action_dimension ?? null as ActionDimensionsType | null)
+      setActionField(page_data.content.action_field ?? null)
+      setSdgTarget(page_data.content.sdg_target ?? null)
+      setFiltersSet(true)
+    }
+    fetchCategorySegments()
+  }, [pathname, searchParams, sitemap])
 
-    structure_parts.forEach((part, index) => {
-      const slug = path_parts[index + 1] || null
-      const page = slug ? findPage(slug) : null
-
-      if (part === 'action_dimension') {
-        setActionDimension((page?.id as ActionDimensionsType) || null)
-      } else if (part === 'action_field') {
-        setActionField((page?.id as ActionFieldsType) || null)
-      } else if (part === 'sdg_target') {
-        setSdgTarget(page?.id || null)
-      }
-    })
+  if (!filters_set) {
+    return <Spinner className="mx-auto" />
   }
-
-  useEffect(() => {
-    updateStateFromURL()
-
-    const originalPushState = history.pushState.bind(history)
-    const originalReplaceState = history.replaceState.bind(history)
-
-    const handleHistoryChange = () => {
-      updateStateFromURL()
-    }
-
-    history.pushState = (...args) => {
-      originalPushState(...args)
-      handleHistoryChange()
-    }
-
-    history.replaceState = (...args) => {
-      originalReplaceState(...args)
-      handleHistoryChange()
-    }
-
-    window.addEventListener('popstate', handleHistoryChange)
-
-    return () => {
-      history.pushState = originalPushState
-      history.replaceState = originalReplaceState
-      window.removeEventListener('popstate', handleHistoryChange)
-    }
-  }, [structure])
 
   return (
     <BaseView>
@@ -105,10 +62,9 @@ export default function TileCollectionView({
         action_dimension={action_dimension}
         action_field={action_field}
         category={category}
-        collection={updated_collection}
+        collection={collection}
         sdg_target={sdg_target}
       />
-      <Searchbox />
     </BaseView>
   )
 }

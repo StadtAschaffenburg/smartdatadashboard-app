@@ -19,11 +19,6 @@ const spacer = cva('', {
 
 export type SpacerProps = VariantProps<typeof spacer>
 
-/**
- *
- * @param SpacerProps size of the spacer
- * @returns A spacer to create some space 🧑‍🚀
- */
-export function Spacer({ size }: SpacerProps) {
+export default function Spacer({ size }: SpacerProps) {
   return <div className={spacer({ size })}></div>
 }

@@ -22,7 +22,7 @@ export default function LiveBadge({ variant }: LiveBadgeProps) {
       <div className="flex h-5 w-5 items-center justify-center">
         <PulsatingCircle />
       </div>
-      <Text as="h7" font={'semibold'} variant={'inverse'}>
+      <Text as="h7" bold variant={'inverse'}>
         LIVE
       </Text>
     </div>

@@ -1,63 +1,50 @@
 import Link from 'next/link'
 import Image from 'next/image'
-
-const sdgImages = [
-  require('@/assets/icons/SDG/SDG-icon-DE-01.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-02.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-03.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-04.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-05.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-06.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-07.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-08.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-09.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-10.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-11.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-12.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-13.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-14.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-15.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-16.jpg').default.src,
-  require('@/assets/icons/SDG/SDG-icon-DE-17.jpg').default.src,
-]
+import { SdgImageMap } from '@/mapping/SdgMapping'
 
 export type SdgLinkProps = {
-  index: number
   link: string
   active: boolean
   onClick?: () => void
+  target: string
+  title: string
+  slug: string
 }
 
 export default function SdgLink({
-  index,
   link,
   active,
   onClick,
+  target,
+  title,
+  slug
 }: SdgLinkProps) {
-  const imageSrc = sdgImages[index]
-  const alt = `Nachhaltigkeitsziel Nummer ${index}`
+  const image_src: string | null = SdgImageMap[target] ?? null
+  const alt = `Nachhaltigkeitsziel ${title}`
 
   const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (onClick) {
-      event.preventDefault() // Prevent link navigation
+      event.preventDefault() // prevent link navigation
       onClick()
     }
   }
 
   return (
     <Link
-      className={active ? 'active' : ''}
+      className={active ? 'active' : '' + ' id-' + slug}
       href={link}
-      onClick={handleClick} // Attach the click handler
+      onClick={handleClick} // attach the click handler
     >
       <div className="aspect-square w-32 border-4 border-white bg-white shadow transition-all hover:scale-110 [.active_&]:scale-110 [.active_&]:border-secondary">
+        {image_src && (
         <Image
           alt={alt}
           className="aspect-square w-32"
           height={256}
-          src={imageSrc}
+          src={image_src}
           width={256}
         />
+        )}
       </div>
     </Link>
   )

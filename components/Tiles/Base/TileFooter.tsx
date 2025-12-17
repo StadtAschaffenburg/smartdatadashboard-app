@@ -1,12 +1,11 @@
 import Link from 'next/link'
-
 import MoreDetails from '@/components/Elements/MoreDetails'
 import { cva, VariantProps } from 'class-variance-authority'
 import {
   MsKlimadashboardIconsNaviDownload,
   MsKlimadashboardIconsNaviKachelImplementieren,
   MsKlimadashboardIconsNaviTeilen,
-} from '@/components/Icons/Misc/Navi'
+} from '@/components/Icons/Navigation'
 
 const tileFooterStyle = cva('flex flex-1 gap-4', {
   variants: {
@@ -27,6 +26,7 @@ type TileFooterProps = VariantProps<typeof tileFooterStyle> & {
   children?: React.ReactElement
   dataURL?: string | null
   hasMoreDetails?: boolean
+  title?: string
 }
 
 /**
@@ -41,21 +41,43 @@ export default function TileFooter({
   variant,
   dataURL,
   hasMoreDetails,
+  title = '',
 }: TileFooterProps) {
   function IconButtons() {
     return (
       <div className={tileFooterStyle({ variant })}>
-        <MsKlimadashboardIconsNaviKachelImplementieren
-          className="h-6 cursor-pointer stroke-2 px-1"
-          onClick={onEmbedClick}
-        />
-        <MsKlimadashboardIconsNaviTeilen
-          className="h-6 cursor-pointer stroke-2 px-1"
-          onClick={onShareClick}
-        />
+        <button
+          className="fill-inherit transition-all hover:fill-secondary"
+          onClick={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            onEmbedClick?.()
+          }}
+          title={`Kachel ${title} einbetten`}
+        >
+          <MsKlimadashboardIconsNaviKachelImplementieren className="h-6 cursor-pointer stroke-2" />
+        </button>
+
+        <button
+          className="fill-inherit transition-all hover:fill-secondary"
+          onClick={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            onShareClick?.()
+          }}
+          title={`Kachel ${title} teilen`}
+        >
+          <MsKlimadashboardIconsNaviTeilen className="h-6 cursor-pointer stroke-2" />
+        </button>
+
         {dataURL && (
-          <Link className="fill-inherit" href={dataURL} target="_blank">
-            <MsKlimadashboardIconsNaviDownload className="h-6 stroke-2 px-1" />
+          <Link
+            className="fill-inherit transition-all hover:fill-secondary"
+            href={dataURL}
+            target="_blank"
+            title={`Daten für ${title} herunterladen`}
+          >
+            <MsKlimadashboardIconsNaviDownload className="h-6 stroke-2" />
           </Link>
         )}
       </div>

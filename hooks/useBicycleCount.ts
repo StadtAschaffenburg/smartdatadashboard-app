@@ -1,6 +1,6 @@
 import { isEqual } from 'date-fns'
 import { useEffect, useRef, useState } from 'react'
-import getLiveData from '@/lib/api/getLiveData'
+import { getLiveData } from '@schleegleixner/react-statamic-api'
 
 const getBicycleData = async () => {
   const limit = 7

@@ -1,53 +1,59 @@
 'use client'
 
 import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
-import { TargetType } from '@/types/targetMapping'
-import { findPage } from '@/utils/content'
 import React, { useEffect, useState } from 'react'
-import { scrollToElement } from '@/utils/scroll'
+import { PageMappingType } from '@schleegleixner/react-statamic-api'
+import Spinner from '@/components/Elements/Spinner'
 
-export default function TargetFilter() {
-  const [sdg_target, setSdgTarget] = useState<string | null>(null)
+export default function TargetFilter({
+  sitemap,
+  current_page_data,
+  onChange,
+}: {
+  sitemap: PageMappingType[]
+  current_page_data: PageMappingType
+  onChange: (page_slug: string | null) => void
+}) {
+  const [target_pages, setTargetPages] = useState<PageMappingType[] | null>(
+    null,
+  )
+  const [page_links, setPageLinks] = useState<SdgLinkProps[] | null>(null)
 
   useEffect(() => {
-    const path_segments = window.location.pathname.split('/').filter(Boolean)
-    if (path_segments[1]) {
-      setSdgTarget(path_segments[1])
-    }
-  }, [])
+    // filter the sitemap, only allow pages that have the content.filter.sdg_target set
+    const filtered = sitemap.filter(page => page.content.sdg_target)
+    setTargetPages(filtered)
+  }, [sitemap])
 
-  const parent_page = findPage('sdg_targets')
-  const target_pages = parent_page?.children ?? []
+  useEffect(() => {
+    if (target_pages) {
+      const links = target_pages.map((page, index) => {
+        const active = page.slug === current_page_data.slug
 
-  const navigateTo = (sdg_target: string) => {
-    const new_url = `/nachhaltigkeitsziele/${sdg_target}`
-    setSdgTarget(sdg_target)
-    window.history.pushState(null, '', new_url)
-    if (sdg_target) {
-      scrollToElement('tile-collection', -100)
+        return {
+          index: index,
+          slug: page.slug,
+          link: active ? `${page.parent.full_url}` : `${page.full_url}`,
+          title: page.title,
+          active: active,
+          target: page.content.filter.sdg_target,
+        }
+      })
+      setPageLinks(links)
     }
+  }, [target_pages, current_page_data.slug])
+
+  if (!page_links) {
+    return <Spinner className="mx-auto" />
   }
-
-  // get the links
-  const page_links: SdgLinkProps[] = target_pages.map((page, index) => {
-    const page_id = page.id as TargetType
-    const active = page_id === sdg_target
-
-    return {
-      index: index,
-      link: `/${parent_page?.slug}/${!active ? page.slug : ''}`,
-      title: page.title,
-      active: active,
-    }
-  })
 
   return (
     <div className="flex flex-wrap items-center justify-start gap-4">
       {page_links.map(l => (
         <SdgLink
-          key={l.link}
+          key={l.slug}
           {...l}
-          onClick={() => navigateTo(l.link.split('/').pop()!)}
+          onClick={() => onChange(l.active ? null : l.slug)}
         />
       ))}
     </div>

@@ -13,8 +13,16 @@ export const scrollToTop = () => {
 export const scrollToElement = (
   elementId: string = 'content',
   offset: number | null = null,
+  onlyIfBelow: boolean = false,
 ) => {
   const element = document.getElementById(elementId)
+
+  if (onlyIfBelow) {
+    const elementTop = element?.getBoundingClientRect().top ?? 0
+    if (elementTop < 0) {
+      return
+    }
+  }
 
   if (offset === null) {
     const navbar = document.getElementById('navbar')
@@ -25,6 +33,7 @@ export const scrollToElement = (
 
   if (element) {
     const elementTop = element.getBoundingClientRect().top + window.scrollY
+
     window.scrollTo({
       top: elementTop + (offset ?? 0),
       behavior: 'smooth',

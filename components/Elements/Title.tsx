@@ -5,29 +5,53 @@ import {
   TileDefaultVariants,
   TileVariants,
 } from '@/utils/variants/TileVariants'
-import Text from './Text'
+import Text, { headlineTags } from './Text'
+import {
+  FontFamilyVariant,
+  FontWeightVariant,
+} from '@/utils/variants/FontVariants'
+import { cx } from 'class-variance-authority'
 
-const TitleStyle = cva('block', {
+export const TileStyle = cva('block', {
   variants: TileVariants,
   defaultVariants: TileDefaultVariants,
 })
 
-type TitleProps = VariantProps<typeof TitleStyle> &
-  HTMLAttributes<HTMLSpanElement>
+export type TileStyleProps = VariantProps<typeof TileStyle>
+
+type TitleProps = TileStyleProps &
+  HTMLAttributes<HTMLSpanElement> & {
+    family?: FontFamilyVariant
+    weight?: FontWeightVariant
+  }
 
 export default function Title({
   as,
   variant,
   children,
   className,
+  margin,
+  family,
+  weight,
   ...props
 }: TitleProps) {
+  margin = headlineTags.includes(
+    (margin ?? as) as (typeof headlineTags)[number],
+  )
+    ? ((margin ?? as) as (typeof headlineTags)[number])
+    : 'none'
+
   return (
     <Text
       as={as}
-      className={className}
+      bold={true}
+      className={cx(className, 'word-break hyphens-auto')}
+      family={family}
+      margin={margin}
+      style={{ hyphens: 'auto', overflowWrap: 'break-word', ...props.style }}
       tag={as as string}
       variant={variant}
+      weight={weight}
       {...props}
     >
       {children}

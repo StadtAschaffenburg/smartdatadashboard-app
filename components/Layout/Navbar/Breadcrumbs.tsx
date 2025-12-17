@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { BreadcrumbType } from '@/utils/breadcrumbs'
+import { BreadcrumbType } from '@schleegleixner/react-statamic-api'
 
 type BreadcrumbsProps = {
   breadcrumbs: BreadcrumbType[]
@@ -8,7 +8,7 @@ type BreadcrumbsProps = {
 
 export default function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
   return (
-    <nav className="breadcrumb-container flex gap-2 text-base font-medium text-white md:text-lg lg:text-xl">
+    <nav aria-label="Breadcrumbs" className="breadcrumb-container flex gap-2 text-base font-medium text-white md:text-lg lg:text-xl">
       {breadcrumbs
         .filter(
           crumb => crumb.title && crumb.title.trim() && crumb.link?.trim(),

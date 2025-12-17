@@ -1,4 +1,7 @@
+'use client'
+
 import * as React from 'react'
+import Link from 'next/link'
 import type { VariantProps } from 'class-variance-authority'
 import { cva, cx } from 'class-variance-authority'
 import {
@@ -8,61 +11,89 @@ import {
 import Spinner from '@/components/Elements/Spinner'
 
 const button = cva(
-  'flex items-center justify-center border font-medium focus:outline-none disabled:cursor-not-allowed disabled:opacity-70 group transition-colors rounded',
+  'focus:outline-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 group transition-colors font-bold rounded-intangible focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary',
   {
     variants: ButtonVariants,
     defaultVariants: ButtonDefaultVariants,
   },
 )
+const class_names_content = 'flex items-center leading-tight'
 
 type IconProps = {
-  startIcon?: React.ReactElement | null
-  endIcon?: React.ReactElement | null
+  Icon?: React.ReactElement | React.ComponentType<{ className?: string }> | null
 }
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
+  React.AnchorHTMLAttributes<HTMLAnchorElement> &
   VariantProps<typeof button> &
   IconProps & {
+    href?: string
+    inverted?: boolean
     isLoading?: boolean
   }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
-      type = 'button',
       className = '',
       variant,
       size,
-      hover,
-      active,
+      inverted = false,
       isLoading = false,
-      startIcon,
-      endIcon,
+      Icon,
+      href,
       ...props
     },
     ref,
   ) => {
-    if (!hover) {
-      hover = variant
+    const variant_name = inverted ? `${variant}_inverted` : variant
+    const content = (
+      <>
+        {isLoading && <Spinner className="text-current" size="sm" />}
+        {!isLoading && Icon && (
+          <span className="mr-3 md:mr-4">
+            {React.isValidElement(Icon) ? (
+              Icon
+            ) : typeof Icon === 'function' ? (
+              <div className="h-8 w-8">
+                <Icon className="h-full w-full object-contain" />
+              </div>
+            ) : null}
+          </span>
+        )}
+        {props.children && <span>{props.children}</span>}
+      </>
+    )
+
+    const class_names = cx(className, button({ variant: variant_name, size }))
+
+    if (href) {
+      return (
+        <Link
+          className={class_names}
+          href={href}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          {...props}
+        >
+          <div className={class_names_content}>{content}</div>
+        </Link>
+      )
     }
-    if (!active) {
-      active = hover
-    }
+
     return (
       <button
-        className={cx(className, button({ variant, size, hover, active }))}
-        ref={ref}
-        type={type}
+        className={class_names}
+        ref={ref as React.Ref<HTMLButtonElement>}
         {...props}
       >
-        {isLoading && <Spinner className="text-current" size="sm" />}
-        {!isLoading && startIcon && (
-          <div className="mr-1 md:mr-2">{startIcon}</div>
-        )}
-        <span className="mx-2">{props.children}</span> {!isLoading && endIcon}
+        <div className={class_names_content}>{content}</div>
       </button>
     )
   },
 )
 
 Button.displayName = 'Button'
+export default Button

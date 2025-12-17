@@ -5,9 +5,11 @@ import Title from '@/components/Elements/Title'
 import { ComponentPropsWithRef } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import BaseOverlay from './BaseOverlay'
-import { TileType } from '@/types/tiles'
-import { Button } from '@/components/Elements/Button'
-import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
+import { TileType } from '@schleegleixner/react-statamic-api'
+import Button from '@/components/Elements/Button'
+import { CheckIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+import { getGlobalString } from '@schleegleixner/react-statamic-api'
 
 type EmbedOverlayProps = AnimatedProps<ComponentPropsWithRef<'div'>> & {
   onClose?: () => void
@@ -21,15 +23,19 @@ export default function EmbedOverlay({
 }: EmbedOverlayProps) {
   const link = `${window.location.origin}/embed/${embedId}`
 
-  const iframeSrc = `<iframe src="${link}" style="border:none; width:100%; height:100%" title="Smart Data Dashboard Aschaffenburg"></iframe>`
+  const iframeSrc = `<iframe src="${link}" style="border:none; width:100%; height:100%" title="Datendashboard Frankfurt"></iframe>`
+
+  const [wasCopied, setWasCopied] = useState(false)
 
   const copyToClipboard = async () => {
     await navigator.clipboard.writeText(iframeSrc)
+    setWasCopied(true)
+    setTimeout(() => setWasCopied(false), 2000)
   }
 
   return (
     <BaseOverlay onClose={onClose} {...props}>
-      <div className="flex h-full w-full flex-1 flex-col">
+      <div className="flex w-full flex-1 flex-col">
         <div className="flex flex-col gap-4">
           <div className="col-span-2 row-span-1">
             <Title as="h3" variant={'white'}>
@@ -56,13 +62,19 @@ export default function EmbedOverlay({
         </div>
         <div className="pt-8">
           <Button
-            onClick={copyToClipboard}
-            startIcon={
-              <ClipboardDocumentIcon className="w-5 stroke-2 text-secondary" />
+            Icon={
+              wasCopied ? (
+                <CheckIcon className="w-5 stroke-2" />
+              ) : (
+                <ClipboardDocumentIcon className="w-5 stroke-2" />
+              )
             }
-            variant={'overlay'}
+            onClick={copyToClipboard}
+            variant={'ivory'}
           >
-            HTML Code kopieren
+            {wasCopied
+              ? getGlobalString('copy_button_success')
+              : getGlobalString('copy_button_default')}
           </Button>
         </div>
       </div>

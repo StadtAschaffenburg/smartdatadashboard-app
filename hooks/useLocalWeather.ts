@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import getLiveData from '@/lib/api/getLiveData'
+import { getLiveData } from '@schleegleixner/react-statamic-api'
 
 interface LocalWeather {
   cloud_cover: number

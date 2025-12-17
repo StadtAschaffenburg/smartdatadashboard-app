@@ -1,22 +1,14 @@
-import { cva, cx, VariantProps } from 'class-variance-authority'
-import { ForwardRefExoticComponent, HTMLAttributes, SVGProps } from 'react'
-import {
-  IconDefaultVariants,
-  IconVariants,
-} from '@/utils/variants/IconVariants'
+import { cx, VariantProps } from 'class-variance-authority'
+import { ForwardRefExoticComponent, HTMLAttributes, JSX, SVGProps } from 'react'
+import { IconStyle } from '@/utils/variants/IconVariants'
 
 interface IconFactoryProps
   extends HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof iconStyle> {
+    VariantProps<typeof IconStyle> {
   icon:
     | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>
     | ((_props: SVGProps<SVGSVGElement>) => JSX.Element)
 }
-
-const iconStyle = cva('', {
-  variants: IconVariants,
-  defaultVariants: IconDefaultVariants,
-})
 
 export default function IconFactory({
   icon,
@@ -25,5 +17,5 @@ export default function IconFactory({
 }: IconFactoryProps) {
   const Icon = icon
 
-  return <Icon className={cx(iconStyle({ variant }), className)} />
+  return <Icon className={cx(IconStyle({ variant }), className)} />
 }
