@@ -11,7 +11,7 @@ import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
 import { getVariantType } from '@/utils/payload'
 import DynamicText from '@/components/Elements/DynamicText'
 import { TileVariantTypes } from '@/utils/variants/TileVariants'
-import { ActionFieldsIconMap } from '@/mapping/dimensionMapping'
+import { ActionFieldsIconMap } from '@/mapping/ActionFieldsMapping'
 
 export type DataSourceProps = {
   dataRetrieval?: string

@@ -17,7 +17,7 @@ export default function Container({
 }: ContainerProps) {
   return (
     <div className={cx(ContainerStyle({ variant }), className)} {...props}>
-      <div className="-mx-4 px-4 w-full">{children}</div>
+      {children}
     </div>
   )
 }

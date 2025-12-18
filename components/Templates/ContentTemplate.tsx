@@ -22,7 +22,7 @@ export default function ContentTemplate({
   return (
     <Container>
       <section className="mx-auto max-w-[1136px]">
-        <Markdown content={page_data.content.copy} />
+        <Markdown content={page_data.content.content} />
       </section>
     </Container>
   )

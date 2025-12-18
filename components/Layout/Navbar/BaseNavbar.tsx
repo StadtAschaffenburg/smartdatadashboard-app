@@ -8,6 +8,8 @@ import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { cx } from 'class-variance-authority'
+import { IconHome } from '@/components/Icons/Navigation'
+import PulsatingCircle from '@/components/Icons/PulsatingCircle'
 
 type BaseNavbarProps = {
   children?: React.ReactNode
@@ -17,6 +19,14 @@ type BaseNavbarProps = {
   sitemap: PageMappingType[]
   page_title?: string
   variant?: 'primary' | 'secondary'
+}
+
+const linkHome: LinkProps = {
+  icon: IconHome,
+  title: 'Startseite',
+  link: '/',
+  IconClass:
+    'h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary',
 }
 
 export default function BaseNavbar({
@@ -30,7 +40,6 @@ export default function BaseNavbar({
 }: BaseNavbarProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
-  const [linkHome, setLinkHome] = useState<LinkProps[]>([])
   const [navLinks, setNavLinks] = useState<LinkProps[]>([])
   const navbarRef = useRef<HTMLDivElement | null>(null)
 
@@ -47,9 +56,13 @@ export default function BaseNavbar({
           title: page.title,
           link: `${page.full_url}`,
           icon:
-            page.content.page_type === 'search'
-              ? MagnifyingGlassIcon
+            page.content.category === 'live'
+              ? PulsatingCircle
               : undefined,
+            IconClass:
+              page.content.category === 'live'
+                ? 'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary'
+                : undefined,
         }))
 
       setNavLinks([...menu_links])
@@ -84,8 +97,8 @@ export default function BaseNavbar({
   }
 
   const button_variants: Partial<LinkProps> = {
-    variant: 'inverse',
-    size: 'md',
+    variant: 'white',
+    size: 'main_menu',
   }
 
   return (
@@ -132,16 +145,25 @@ export default function BaseNavbar({
                 },
               )}
             >
+              <LinkComponent
+                {...button_variants}
+                {...linkHome}
+                className={cx(
+                  'max-lg:min-w-80',
+                  current_url === undefined ? 'active' : 'active',
+                )}
+                onClick={handleLinkClick}
+              />
               <div className="flex flex-col items-center gap-4 lg:flex-row">
                 {navLinks.map(l => (
                   <LinkComponent
                     key={l.link}
                     {...button_variants}
                     {...l}
-                    ButtonClass="max-lg:min-w-80 hyphens-auto"
-                    LinkClass={
-                      l.link.replace(/^\//, '') === current_url ? 'active' : ''
-                    }
+                    className={cx(
+                      'hyphens-auto max-lg:min-w-80',
+                      l.link.replace(/^\//, '') === current_url ? 'active' : '',
+                    )}
                     onClick={handleLinkClick}
                   />
                 ))}
@@ -153,11 +175,3 @@ export default function BaseNavbar({
     </div>
   )
 }
-
-/*              <LinkComponent
-                {...button_variants}
-                {...linkHome}
-                ButtonClass="max-lg:min-w-80"
-                LinkClass={cx(current_url === undefined ? 'active' : '')}
-                onClick={handleLinkClick}
-              /> */

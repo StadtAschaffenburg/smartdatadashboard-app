@@ -13,7 +13,7 @@ export default async function Page({ params }: any) {
   // only real pages are handled here, no mounted slugs (tiles/taxonomies)
   const { 'locale': site_id } = await params
 
-  if (site_id === '.well-known') {
+  if (site_id === '.well-known' || site_id === 'favicon') {
     notFound()
   }
 

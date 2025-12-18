@@ -7,7 +7,7 @@ import {
   getGlobal,
   isAuthenticated,
   PasswordForm,
-  TranslationContext
+  TranslationContext,
 } from '@schleegleixner/react-statamic-api'
 import { notFound } from 'next/navigation'
 import Head from '@/components/Layout/Head'
@@ -32,7 +32,7 @@ export default async function RootLayout({
 
   const { locale: site_id } = await params
 
-  if (site_id === '.well-known') {
+  if (site_id === '.well-known' || site_id === 'favicon') {
     return notFound()
   }
 
@@ -50,9 +50,7 @@ export default async function RootLayout({
   const page_data = await getCurrentPageServer(sitemap, pathname)
 
   return (
-    <html
-      lang={getLangFromSiteId(site_id)}
-    >
+    <html lang={getLangFromSiteId(site_id)}>
       <Head
         global_seo={global_seo}
         page_data={page_data}
@@ -61,7 +59,14 @@ export default async function RootLayout({
       />
       <body className="touch-pan-y overflow-x-hidden text-primary">
         <FathomAnalytics />
-        <TranslationContext site_id={site_id} strings={strings?.entries}>
+        <TranslationContext
+          site_id={site_id}
+          strings={
+            strings && Object.keys(strings).length > 0
+              ? strings.entries
+              : undefined
+          }
+        >
           <main id="app-root">{children}</main>
         </TranslationContext>
       </body>

@@ -32,7 +32,7 @@ export default function Title({
   className,
   margin,
   family,
-  weight,
+  weight = 'medium',
   ...props
 }: TitleProps) {
   margin = headlineTags.includes(
@@ -44,7 +44,6 @@ export default function Title({
   return (
     <Text
       as={as}
-      bold={true}
       className={cx(className, 'word-break hyphens-auto')}
       family={family}
       margin={margin}

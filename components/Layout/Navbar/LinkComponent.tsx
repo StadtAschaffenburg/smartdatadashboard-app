@@ -5,18 +5,18 @@ import Link from 'next/link'
 import { trackEvent } from 'fathom-client'
 import Text from '@/components/Elements/Text'
 import { ChevronRightIcon } from '@heroicons/react/24/solid'
+import Button from '@/components/Elements/Button'
 
 export type LinkProps = {
   ariaLabel?: string
   title?: string
+  className?: string
   icon?: React.ComponentType<any>
   link: string
   variant?: ButtonVariant
   hover?: ButtonVariant
   size?: ButtonSize
   onClick?: () => void
-  LinkClass?: string
-  ButtonClass?: string
   IconClass?: string
   preventDefault?: boolean
 }
@@ -26,10 +26,17 @@ export default function LinkComponent({
   title,
   link,
   onClick,
-  LinkClass,
+  className,
   preventDefault,
+  size = 'md',
+  icon,
+  IconClass,
+  variant = 'primary',
 }: LinkProps) {
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+  const Icon = icon
+  const handleClick = (
+    event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>,
+  ) => {
     trackEvent(`Link clicked: ${title || link}`)
 
     if (onClick) {
@@ -42,21 +49,18 @@ export default function LinkComponent({
   }
 
   return (
-    <Link
+    <Button
       aria-label={ariaLabel || title || link}
-      className={cx(
-        LinkClass,
-        'hover:bg-primary-medium [&.active]:bg-primary-medium group border-b border-primary-light py-4 transition-colors',
-      )}
+      className={className}
       href={link}
+      Icon={
+        Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null
+      }
       onClick={handleClick}
+      size={size}
+      variant={variant}
     >
-      <div className="flex flex-row items-center gap-2 text-white transition-all">
-        <div className="h-4 w-4 ml-2">
-          <ChevronRightIcon className="h-full w-full object-contain" />
-        </div>
-        <Text family="condensed">{title}</Text>
-      </div>
-    </Link>
+      {title}
+    </Button>
   )
 }

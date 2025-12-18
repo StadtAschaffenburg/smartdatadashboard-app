@@ -11,7 +11,7 @@ import {
 import Spinner from '@/components/Elements/Spinner'
 
 const button = cva(
-  'focus:outline-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 group transition-colors font-bold rounded-intangible focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary',
+  'focus:outline-none cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 group font-medium transition-colors focus:outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary rounded border',
   {
     variants: ButtonVariants,
     defaultVariants: ButtonDefaultVariants,
@@ -37,19 +37,9 @@ const Button = React.forwardRef<
   ButtonProps
 >(
   (
-    {
-      className = '',
-      variant,
-      size,
-      inverted = false,
-      isLoading = false,
-      Icon,
-      href,
-      ...props
-    },
+    { className = '', variant, size, isLoading = false, Icon, href, ...props },
     ref,
   ) => {
-    const variant_name = inverted ? `${variant}_inverted` : variant
     const content = (
       <>
         {isLoading && <Spinner className="text-current" size="sm" />}
@@ -68,7 +58,7 @@ const Button = React.forwardRef<
       </>
     )
 
-    const class_names = cx(className, button({ variant: variant_name, size }))
+    const class_names = cx(className, button({ variant, size }))
 
     if (href) {
       return (

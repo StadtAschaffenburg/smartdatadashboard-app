@@ -29,7 +29,7 @@ export const BackgroundLightVariants = {
   variant: {
     primary: 'bg-primary-light',
     secondary: 'bg-secondary-light',
-    mosque: 'bg-mosque',
+    mosque: 'bg-mosque-light',
     inverse: 'bg-white',
     dark: 'bg-black',
     blue: 'bg-primary-light',

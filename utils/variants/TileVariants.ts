@@ -6,7 +6,7 @@ import {
   FontVariants,
   FontWeightVariant,
 } from '@/utils/variants/FontVariants'
-import { ActionDimensionColorMap } from '@/mapping/dimensionMapping'
+import { ActionDimensionColorMap } from '@/mapping/ActionDimensionsMapping'
 
 export const TileVariantLookup = ActionDimensionColorMap
 

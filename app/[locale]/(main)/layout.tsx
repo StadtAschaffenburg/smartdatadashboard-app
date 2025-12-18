@@ -26,7 +26,7 @@ export default async function Layout({
   }))
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-white text-black">
       <Top site_id={site_id} />
       <Navbar
         default_page_title={page_title}
@@ -35,7 +35,7 @@ export default async function Layout({
         sitemap={sitemap}
         tilemap={tilemap}
       />
-      <div className="min-h-[100vh] flex-1 bg-light" id="content">
+      <div className="min-h-[100vh] flex-1" id="content">
         <Providers>{children}</Providers>
       </div>
       <Footer sitemap={sitemap} />

@@ -1,15 +1,3 @@
-import {
-  IconArbeitUndWirtschaft,
-  IconDigitalisierung,
-  IconEnergie,
-  IconGlobaleVerantwortung,
-  IconLebenUndWohnen,
-  IconMobilitaetUndInfrastruktur,
-  IconPartizipationUndTeilhabe,
-  IconUmweltUndRessourcenschutz,
-  IconWetterUndKlima,
-  IconWissenschaft,
-} from '@/components/Icons/ActionFields'
 import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
@@ -43,18 +31,5 @@ export const ActionDimensionColorMap: Record<ActionDimensionsType, TileVariantTy
   society: 'purple',
   economy: 'orange',
 } as const
-
-export const ActionFieldsIconMap = {
-  'arbeit-und-wirtschaft': IconArbeitUndWirtschaft,
-  digitalisierung: IconDigitalisierung,
-  energie: IconEnergie,
-  'globale-verantwortung': IconGlobaleVerantwortung,
-  'leben-und-wohnen': IconLebenUndWohnen,
-  'mobilitaet-und-infrastruktur': IconMobilitaetUndInfrastruktur,
-  'partizipation-und-teilhabe': IconPartizipationUndTeilhabe,
-  'umwelt-und-ressourcenschutz': IconUmweltUndRessourcenschutz,
-  'wetter-und-klima': IconWetterUndKlima,
-  wissenschaft: IconWissenschaft,
-}
 
 export type TileVariantsType = DimensionMappingType & 'primary'

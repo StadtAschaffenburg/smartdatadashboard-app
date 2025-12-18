@@ -9,17 +9,17 @@ import MoreInfoOverlay from './MoreInfoOverlay'
 import TileFooter from './TileFooter'
 import { TileType } from '@schleegleixner/react-statamic-api'
 import {
-  BorderDefaultVariants,
-  BorderVariantsBottom,
-} from '@/utils/variants/BorderVariants'
+  BackgroundDefaultVariants,
+  BackgroundLightVariants,
+} from '@/utils/variants/BackgroundVariants'
 import Markdown from '@/components/Elements/Markdown'
 import { scrollToElement } from '@/utils/scroll'
 
 const baseTileStyle = cva(
-  'relative flex flex-col md:flex-row h-fit overflow-hidden bg-white border-b-8 rounded-intangible',
+  'relative flex flex-col md:flex-row h-fit overflow-hidden rounded',
   {
-    variants: BorderVariantsBottom,
-    defaultVariants: BorderDefaultVariants,
+    variants: BackgroundLightVariants,
+    defaultVariants: BackgroundDefaultVariants,
   },
 )
 

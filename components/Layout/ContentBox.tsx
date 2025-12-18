@@ -13,7 +13,7 @@ export type BackgroundProps = {
 }
 
 const BoxStyle = cva(
-  'flex h-full w-full flex-col justify-between gap-8 border-b-8 bg-white px-6 py-4 xs:p-8 lg:px-8 lg:pt-6 lg:pb-5 xl:px-12 xl:pt-10 xl:pb-9 rounded-intangible',
+  'flex h-full w-full flex-col justify-between gap-8 border-b-8 bg-white px-6 py-4 xs:p-8 lg:px-8 lg:pt-6 lg:pb-5 xl:px-12 xl:pt-10 xl:pb-9',
   {
     variants: BorderVariants,
     defaultVariants: { variant: 'ivory' },

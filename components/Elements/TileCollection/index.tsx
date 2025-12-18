@@ -52,6 +52,9 @@ export default function TileCollection({
     return <NoResults />
   }
 
+  console.log(collection)
+  console.log(action_dimension, action_field, category, collection, sdg_target)
+
   // apply filters based on provided props
   const filteredCollection = collection.filter(item => {
     if (search_query && search_query.length >= 3) {

@@ -16,7 +16,7 @@ interface MarkdownProps {
 }
 
 export default function Markdown({
-  defaultClasses = 'text-base font-normal lg:text-lg',
+  defaultClasses = 'markdown text-base font-normal lg:text-lg',
   className = '',
   content,
 }: MarkdownProps) {

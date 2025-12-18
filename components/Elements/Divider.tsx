@@ -45,7 +45,7 @@ export default function Divider({
 
       {title && (
         <div className="text-sm font-bold">
-          <span className="mb-2 inline-block rounded-intangible bg-gray-300 px-4 py-1 text-gray-900">
+          <span className="mb-2 inline-block bg-gray-300 px-4 py-1 text-gray-900">
             {title}
           </span>
         </div>

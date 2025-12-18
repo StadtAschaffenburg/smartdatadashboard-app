@@ -6,6 +6,7 @@ import { PageMappingType, useTileset } from '@schleegleixner/react-statamic-api'
 import PageIntro from '@/components/Elements/PageIntro'
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
+import DimensionFilter from '@/components/Layout/DimensionFilter'
 
 export default function TilesTemplate({
   sitemap,
@@ -28,9 +29,12 @@ export default function TilesTemplate({
     <>
       <PageIntro
         container
-        content={page_data.content.copy}
+        content={page_data.content.content}
         headline={page_data.content.headline}
       />
+
+      <DimensionFilter page_data={page_data} sitemap={sitemap} />
+
       <Container>
         <TileCollectionView
           collection={collection}

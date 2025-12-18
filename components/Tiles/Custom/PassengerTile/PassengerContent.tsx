@@ -27,8 +27,8 @@ export default function PassengerContent({
       return
     }
 
-    const current = datasource.rows[yearIndex]
-    const previous = yearIndex > 0 ? datasource.rows[yearIndex - 1] : null
+    const current = datasource.content[yearIndex]
+    const previous = yearIndex > 0 ? datasource.content[yearIndex - 1] : null
 
     setPassengerValue({
       current: current.value / 1000000,

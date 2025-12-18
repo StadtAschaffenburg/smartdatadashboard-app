@@ -86,5 +86,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|images|download|icoset|_next|\\.well-known).*)'],
+  matcher: ['/((?!api|images|download|icoset|favicon|_next|\\.well-known).*)'],
 }

@@ -10,7 +10,7 @@ import {
 } from '@schleegleixner/react-statamic-api'
 import CategoryType from '@/types/CategoryType'
 import Spinner from '../Elements/Spinner'
-import { ActionDimensionsType } from '@/mapping/dimensionMapping'
+import { ActionDimensionsType } from '@/mapping/ActionDimensionsMapping'
 
 interface DimensionViewProps {
   category?: CategoryType | null

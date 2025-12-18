@@ -2,10 +2,12 @@
 
 import BaseNavbar from './BaseNavbar'
 import React, { JSX } from 'react'
-import { setPageTitle, useBreadcrumbs } from '@schleegleixner/react-statamic-api'
+import {
+  setPageTitle,
+  useBreadcrumbs,
+} from '@schleegleixner/react-statamic-api'
 import { getUriSegment } from '@/utils/uri'
 import Breadcrumbs from './Breadcrumbs'
-import { usePathname } from 'next/navigation'
 
 export default function Navbar({
   default_page_title,
@@ -27,11 +29,10 @@ export default function Navbar({
   const page_title =
     breadcrumbs[breadcrumbs.length - 1].title ?? default_page_title
   setPageTitle(page_title, seo_title)
-  const pathname = usePathname()
 
   return (
     <BaseNavbar
-      collapsible={pathname !== ''}
+      collapsible={breadcrumbs[0].link !== '/'}
       current_url={getUriSegment() ?? ''}
       page_title={page_title ?? default_page_title}
       site_id={site_id}
