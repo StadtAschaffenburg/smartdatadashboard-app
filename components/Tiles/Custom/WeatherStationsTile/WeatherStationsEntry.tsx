@@ -2,7 +2,7 @@ import { StationsValue } from './dt'
 import Phenomenon from '@/components/Elements/Phenomenon'
 import Background from '@/components/Layout/Background'
 import Title from '@/components/Elements/Title'
-import IconFactory from '@/utils/IconFactory'
+import IconFactory from '@/utils/factories/IconFactory'
 
 export type WeatherStationsProps = {
   icon?: string

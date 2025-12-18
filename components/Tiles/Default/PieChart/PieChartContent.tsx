@@ -9,7 +9,11 @@ import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { getThemeColor } from '@/utils/colors'
 import { cx } from 'class-variance-authority'
 import Slider from '@/components/Inputs/Slider/'
-import { getRows, numberFormat, RowDataCollection } from '@schleegleixner/react-statamic-api'
+import {
+  getRows,
+  numberFormat,
+  RowDataCollection,
+} from '@schleegleixner/react-statamic-api'
 import RowDataType from '@/types/RowDataType'
 import IconFactory from '@/utils/factories/IconFactory'
 import { getStaticIcon } from '@/utils/convert'
@@ -80,7 +84,6 @@ export default function PieChartContent({
     datasource?.entry_count ? datasource.entry_count - 1 : 0,
   )
 
-  const years = datasource.timeline
   const { rows } = getRows(datasource, yearIndex) as {
     rows: Record<string, RowDataType>
   }
@@ -131,9 +134,7 @@ export default function PieChartContent({
         </div>
 
         {/* mobile view */}
-        <div
-          className={cx('py-4', contentWidth >= breakpoint ? 'hidden' : '')}
-        >
+        <div className={cx('py-4', contentWidth >= breakpoint ? 'hidden' : '')}>
           <Carousel arrows variant={variant}>
             {Object.keys(rows).map((key, index) => {
               return (
@@ -164,7 +165,11 @@ export default function PieChartContent({
       </div>
 
       <div className="mt-4 w-full">
-        <Slider labels={years} onValueChange={setYearIndex} variant={variant} />
+        <Slider
+          labels={datasource.timeline}
+          onValueChange={setYearIndex}
+          variant={variant}
+        />
       </div>
     </div>
   )

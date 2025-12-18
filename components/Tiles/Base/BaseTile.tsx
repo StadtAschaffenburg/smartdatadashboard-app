@@ -98,7 +98,7 @@ export function BaseTile({
             onEmbedClick={() => setShowEmbedOverlay(true)}
             onMoreInfoClick={() => setShowMoreInfo(true)}
             onShareClick={openShareDialog}
-            variant={variant === 'data' ? 'inverse' : 'primary'}
+            variant={'primary'}
           >
             {footerCenterElement}
           </TileFooter>
@@ -131,7 +131,6 @@ export function BaseTile({
               <MoreInfoOverlay
                 onClose={() => setShowMoreInfo(false)}
                 style={styles}
-                variant={variant}
               >
                 {typeof moreInfo === 'string' ? (
                   <Markdown content={moreInfo} />

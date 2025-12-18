@@ -1,4 +1,4 @@
-import { TileProps } from '@/types/tiles'
+import { TileProps } from '@schleegleixner/react-statamic-api'
 import BaseTile from '@/components/Tiles/Base/IconTile'
 import Content from './StadtteilContent'
 import { TileSplitView } from '../../Base/TileSplitView'

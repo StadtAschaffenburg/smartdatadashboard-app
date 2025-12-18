@@ -3,6 +3,7 @@ import {
   TileVariantLookup,
   TileVariantTypes,
 } from '@/utils/variants/TileVariants'
+import { ActionDimensionsType } from '@/mapping/dimensionMapping'
 
 export type PayloadDataType = {
   [key: string]: string
@@ -11,11 +12,12 @@ export type PayloadDataType = {
 export function getVariantType(
   payload: TilePayloadType | PayloadDataType,
 ): TileVariantTypes {
-  const action_field = payload.tags?.action_field ?? payload.content?.action_field ?? null
+  const action_dimension =
+    payload.tags?.action_dimension ?? payload.content?.action_dimension ?? null
 
   // fetch from lookup table and make sure it's a valid variant
-  if (action_field && TileVariantLookup[action_field]) {
-    return TileVariantLookup[action_field] as TileVariantTypes
+  if (action_dimension && action_dimension in TileVariantLookup) {
+    return TileVariantLookup[action_dimension as ActionDimensionsType]
   }
 
   return 'primary'

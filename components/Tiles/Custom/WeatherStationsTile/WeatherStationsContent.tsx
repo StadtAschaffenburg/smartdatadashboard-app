@@ -3,13 +3,13 @@
 import { useEffect, useRef, useState } from 'react'
 import Entry from './WeatherStationsEntry'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import useApi from '@/hooks/useApi'
+import { useApi } from '@schleegleixner/react-statamic-api'
 import { StationsResult } from './dt'
 import { TileSplitView } from '../../Base/TileSplitView'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
 import CityMap from '@/assets/images/stadt_ab_map.jpg'
 import Image from 'next/image'
-import { TilePayloadType } from '@/types/tiles'
+import { TilePayloadType } from '@schleegleixner/react-statamic-api'
 
 const map_dimensions = {
   lat_start: 50.008889877698266,

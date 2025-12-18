@@ -1,5 +1,5 @@
 import { TileDataType } from '@schleegleixner/react-statamic-api'
-import ActionDimensionsType from '@/types/ActionDimensionsType'
+import { ActionDimensionsType } from '@/mapping/dimensionMapping'
 import CategoryType from '@/types/CategoryType'
 
 export type TileCollectionProps = {

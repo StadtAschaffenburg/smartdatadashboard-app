@@ -7,7 +7,10 @@ import { MapDataType, StadtteilMapProps } from './dt'
 import { getSaveId } from '@/utils/convert'
 import StadteilOverlay from './StadtteilOverlay'
 
-export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
+export default function StadtteilMap({
+  destict_data,
+  variant,
+}: StadtteilMapProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [map_data, setMapData] = useState<MapDataType[]>([])
 
@@ -62,18 +65,20 @@ export default function StadtteilMap({ destict_data }: StadtteilMapProps) {
             0,
             Math.ceil(destict_data.length / 2),
           )}
+          variant={variant}
         ></StadtteilMapRow>
         <StadtteilMapRow
           anchor_class="left-0"
           destict_data={destict_data.slice(Math.ceil(destict_data.length / 2))}
           entry_class="justify-end text-right"
+          variant={variant}
         ></StadtteilMapRow>
       </div>
       <div className="absolute left-0 top-0 z-10 h-full w-full">
         <StadteilOverlay map_data={map_data} />
       </div>
       <div className="absolute left-0 top-1/2 z-0 h-4/6 w-full -translate-y-1/2 lg:h-5/6">
-        <StadtAbMap className="absolute left-1/2 top-1/2 z-10 h-full -translate-x-1/2 -translate-y-1/2 fill-society-light" />
+        <StadtAbMap className="fill-purple-light absolute left-1/2 top-1/2 z-10 h-full -translate-x-1/2 -translate-y-1/2" />
       </div>
     </div>
   )

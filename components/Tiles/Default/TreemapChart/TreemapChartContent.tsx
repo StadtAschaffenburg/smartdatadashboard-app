@@ -5,7 +5,11 @@ import { ReactECharts } from '@/components/Charts/ReactECharts'
 import Slider from '@/components/Inputs/Slider/'
 import { ChartProps } from './dt'
 import Spacer from '@/components/Elements/Spacer'
-import { darkenHexColor, getRows, numberFormat } from '@schleegleixner/react-statamic-api'
+import {
+  darkenHexColor,
+  getRows,
+  numberFormat,
+} from '@schleegleixner/react-statamic-api'
 import { getThemeColor } from '@/utils/colors'
 import RowDataType from '@/types/RowDataType'
 

@@ -19,7 +19,7 @@ const Phenomena: PhenomenaType = {
   precipitation: {
     title: 'Niederschlag',
     unit: 'mm',
-    icon: Icons.IconCategoryNiederschlag,
+    icon: Icons.IconWeatherNiederschlag,
   },
   cloudcover: {
     title: 'Wolken&shy;bedeckung',

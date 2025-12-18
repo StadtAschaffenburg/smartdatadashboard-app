@@ -7,30 +7,26 @@ import { useEffect, useState } from 'react'
 import { DataValue, PassengerContentProps } from './dt'
 import Slider from '@/components/Inputs/Slider/'
 import { getVariantType } from '@/utils/payload'
-import { getDataSource, getTimeline } from '@schleegleixner/react-statamic-api'
+import { getDataSource } from '@schleegleixner/react-statamic-api'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 
 export default function PassengerContent({
   tile_payload,
 }: PassengerContentProps) {
   const datasource = getDataSource(tile_payload)
-
-  if (!datasource) {
-    return <RequestIndicator />
-  }
-
-  const years = getTimeline(datasource)
   const [yearIndex, setYearIndex] = useState(
-    years.length > 0 ? years.length - 1 : 0,
+    datasource?.entry_count ? datasource.entry_count - 1 : 0,
   )
-  const variant = getVariantType(tile_payload)
-
   const [passengerValue, setPassengerValue] = useState<DataValue>({
     current: 0,
     previous: null,
   })
 
   useEffect(() => {
+    if (!datasource) {
+      return
+    }
+
     const current = datasource.rows[yearIndex]
     const previous = yearIndex > 0 ? datasource.rows[yearIndex - 1] : null
 
@@ -38,7 +34,13 @@ export default function PassengerContent({
       current: current.value / 1000000,
       previous: previous ? previous.value / 1000000 : null,
     })
-  }, [yearIndex])
+  }, [yearIndex, datasource])
+
+  if (!datasource) {
+    return <RequestIndicator />
+  }
+
+  const variant = getVariantType(tile_payload)
 
   const renderPassengerIcons = (count: number) => {
     const maxIcons = 10
@@ -95,7 +97,11 @@ export default function PassengerContent({
         </div>
       </div>
       <div className="flex-1">
-        <Slider labels={years} onValueChange={setYearIndex} variant={variant} />
+        <Slider
+          labels={datasource.timeline}
+          onValueChange={setYearIndex}
+          variant={variant}
+        />
       </div>
     </div>
   )

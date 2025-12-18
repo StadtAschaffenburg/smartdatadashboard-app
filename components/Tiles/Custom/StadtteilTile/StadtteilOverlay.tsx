@@ -39,7 +39,7 @@ export default function StadtteilOverlay({
   return (
     <>
       <svg
-        className="pointer-events-none absolute left-0 top-0 h-full w-full fill-society stroke-society"
+        className="stroke-purple fill-purple pointer-events-none absolute left-0 top-0 h-full w-full"
         xmlns="http://www.w3.org/2000/svg"
       >
         {/* pins */}

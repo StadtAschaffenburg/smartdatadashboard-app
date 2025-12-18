@@ -21,3 +21,22 @@ export function getStaticIcon(icon: React.ReactElement, color: string): string {
 
   return colored_svg
 }
+
+export function getSaveId(id: string): string {
+  return id
+    .toLowerCase()
+    .replace(/\s+/g, '_')
+    .replace(/[^a-z0-9_]/g, '')
+}
+
+export function mapBetween(
+  currentNum: number,
+  min: number,
+  max: number,
+  minAllowed = 0,
+  maxAllowed = 100,
+) {
+  return (
+    ((maxAllowed - minAllowed) * (currentNum - min)) / (max - min) + minAllowed
+  )
+}

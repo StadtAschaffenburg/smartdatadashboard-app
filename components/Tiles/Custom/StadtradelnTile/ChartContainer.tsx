@@ -171,7 +171,7 @@ export default function ChartContainer({ tile_payload }: ChartContainerProps) {
               <div className="relative h-6 flex-1">
                 <AnimatedRollingElement>
                   <div className="flex items-center gap-2 md:gap-4">
-                    <div className="bg-society h-1 w-9 rounded md:w-[52px]" />
+                    <div className="bg-purple h-1 w-9 rounded md:w-[52px]" />
                     <Text as="h5" variant={'primary'}>
                       {otherData.name}
                     </Text>

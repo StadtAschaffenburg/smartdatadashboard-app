@@ -15,6 +15,7 @@ export const ActiveVariants = {
   variant: {
     primary: '',
     secondary: '',
+    mosque: cx(default_light_classes, '[.active_&]:text-mosque [&.active]:bg-mosque'),
     red: cx(default_light_classes, '[.active_&]:text-red [&.active]:bg-red'),
     green: cx(
       default_light_classes,

@@ -10,6 +10,7 @@ import {
   IconWetterUndKlima,
   IconWissenschaft,
 } from '@/components/Icons/ActionFields'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 export type ActionDimensionsType = 'ecology' | 'society' | 'economy'
 export type ActionFieldsType =
@@ -36,6 +37,12 @@ export type DimensionMappingType = {
 }
 
 export type VariantType = ActionDimensionsType | 'live'
+
+export const ActionDimensionColorMap: Record<ActionDimensionsType, TileVariantTypes> = {
+  ecology: 'mosque',
+  society: 'purple',
+  economy: 'orange',
+} as const
 
 export const ActionFieldsIconMap = {
   'arbeit-und-wirtschaft': IconArbeitUndWirtschaft,

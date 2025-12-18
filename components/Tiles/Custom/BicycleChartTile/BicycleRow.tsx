@@ -1,7 +1,7 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Title from '@/components/Elements/Title'
 import BicycleProgress from './BicycleProgress'
-import { mapBetween } from '@/utils/map'
+import { mapBetween } from '@/utils/convert'
 import { BicycleRowProps } from './dt'
 
 export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
@@ -20,7 +20,7 @@ export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
           dangerouslySetInnerHTML={{ __html: name }}
           variant={'primary'}
         />
-        <Title as={'h3'} variant={'ecology'}>
+        <Title as={'h3'} variant={'primary'}>
           <AnimatedNumber>{count}</AnimatedNumber>
         </Title>
       </div>

@@ -40,7 +40,7 @@ export default function Slider({
   return (
     <div className={cx(className)}>
       <DefaultSlider
-        className={''}
+        className={''}    
         defaultValue={[initial]}
         firstValueMobile={initial}
         labels={labels}

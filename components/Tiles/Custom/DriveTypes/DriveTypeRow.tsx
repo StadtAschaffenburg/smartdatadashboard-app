@@ -7,18 +7,7 @@ import DriveTypeProgress from './DriveTypeProgress'
 import { RowProps } from './dt'
 import IconFactory from '@/utils/factories/IconFactory'
 import { getThemeColor } from '@/utils/colors'
-
-function mapBetween(
-  currentNum: number,
-  min: number,
-  max: number,
-  minAllowed = 0,
-  maxAllowed = 100,
-) {
-  return (
-    ((maxAllowed - minAllowed) * (currentNum - min)) / (max - min) + minAllowed
-  )
-}
+import { mapBetween } from '@/utils/convert'
 
 // prettier-ignore
 const iconMapping: Record<string, string> = {

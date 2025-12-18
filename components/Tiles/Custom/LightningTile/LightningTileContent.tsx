@@ -6,6 +6,7 @@ import LightningChart from './LightningChart'
 import Slider from '@/components/Inputs/Slider'
 import { useEffect, useState } from 'react'
 import { useApi } from '@schleegleixner/react-statamic-api'
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
 
 const monthCount = 5
 
@@ -37,7 +38,7 @@ function transformData(data: DataType[]): MonthlyData[] {
   })
 }
 
-export default function LightningTileContent() {
+export default function LightningTileContent({ variant }: { variant: TileVariantTypes }) {
   const { data: lightning_data, status } = useApi<DataType[]>(
     'thingsboard/lightning',
     60,
@@ -71,11 +72,12 @@ export default function LightningTileContent() {
         <LightningChart data={visible_months} />
       </div>
       <Slider
-        defaultValue={monthly_data.length - 1}
+        default_value={monthly_data.length - 1}
+        labels={monthly_data.map(e => e.label)}
         max={Math.max(monthly_data.length - 1, 0)}
         min={Math.max(monthCount - 1, 0)}
         onValueChange={index => setMonthIndex(index)}
-        variant={'ecology'}
+        variant={variant}
       />
     </div>
   )

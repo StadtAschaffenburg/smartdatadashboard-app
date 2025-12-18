@@ -3,6 +3,7 @@ import { cva } from 'class-variance-authority'
 export const IconFillVariants = {
   primary: 'fill-primary',
   secondary: 'fill-secondary',
+  mosque: 'fill-mosque',
   red: 'fill-red',
   green: 'fill-green',
   blue: 'fill-blue',
@@ -25,6 +26,7 @@ export const IconFillVariants = {
 export const IconStrokeVariants = {
   primary: 'stroke-primary',
   secondary: 'stroke-secondary',
+  mosque: 'stroke-mosque',
   red: 'stroke-red',
   green: 'stroke-green',
   blue: 'stroke-blue',
@@ -47,6 +49,7 @@ export const IconStrokeVariants = {
 export const IconTextVariants = {
   primary: 'text-primary',
   secondary: 'text-secondary',
+  mosque: 'text-mosque',
   red: 'text-red',
   green: 'text-green',
   blue: 'text-blue',

@@ -2,6 +2,7 @@ export const BorderVariants = {
   variant: {
     primary: 'border-primary',
     secondary: 'border-secondary',
+    mosque: 'border-mosque',
     red: 'border-red',
     green: 'border-green',
     blue: 'border-blue',
@@ -26,6 +27,7 @@ export const BorderVariantsRight = {
   variant: {
     primary: 'border-r-primary',
     secondary: 'border-r-secondary',
+    mosque: 'border-r-mosque',
     red: 'border-r-red',
     green: 'border-r-green',
     blue: 'border-r-blue',
@@ -50,6 +52,8 @@ export const BorderVariantsBottom = {
   variant: {
     primary: 'border-b-primary',
     secondary: 'border-b-secondary',
+    live: 'border-b-primary',
+    mosque: 'border-b-mosque',
     red: 'border-b-red',
     green: 'border-b-green',
     blue: 'border-b-blue',

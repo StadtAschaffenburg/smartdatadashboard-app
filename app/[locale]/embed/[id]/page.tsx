@@ -1,4 +1,3 @@
-import Text from '@/components/Elements/Title'
 import Link from 'next/link'
 import StadtLogo from '@/assets/logos/logo_ab.jpg'
 import { TileType } from '@schleegleixner/react-statamic-api'

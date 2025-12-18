@@ -6,6 +6,7 @@ import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 
 export default function StadtteilMapMobile({
   destict_data,
+  variant,
 }: StadtteilMapProps) {
   return (
     <div className="relative w-full">
@@ -17,7 +18,7 @@ export default function StadtteilMapMobile({
               className={
                 'flex w-full items-center justify-between gap-2 leading-tight'
               }
-              variant={'society'}
+              variant={variant}
             >
               <div>{item.title ?? item.id}</div>{' '}
               <AnimatedNumber

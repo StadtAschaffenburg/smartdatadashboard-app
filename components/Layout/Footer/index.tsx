@@ -51,7 +51,7 @@ export default function Footer({ sitemap }: { sitemap: PageMappingType[] }) {
         <Container variant="flat">
           <div className="flex flex-col items-center gap-4 py-8 xs:flex-row xs:justify-between xs:py-16">
             {nav_links.map((link: LinkProps) => (
-              <Link href={link.link} onClick={handleLinkClick}>
+              <Link href={link.link} key={link.link} onClick={handleLinkClick}>
                 <Text as="h5" className="underline" variant={'primary'}>
                   {link.title}
                 </Text>

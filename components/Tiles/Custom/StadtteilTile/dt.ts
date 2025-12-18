@@ -1,3 +1,5 @@
+import { TileVariantTypes } from '@/utils/variants/TileVariants'
+
 export type DestrictMapping = {
   id: string
   title?: string
@@ -11,6 +13,7 @@ export type DestrictMapping = {
 
 export interface StadtteilMapProps {
   destict_data: DestrictMapping[]
+  variant: TileVariantTypes
 }
 
 export type MapDataType = {
@@ -20,4 +23,11 @@ export type MapDataType = {
   x2: number
   y2: number
   radius: number
+}
+
+export type StadtteilMapRowProps = {
+  destict_data: DestrictMapping[]
+  entry_class?: string
+  anchor_class?: string
+  variant: TileVariantTypes
 }

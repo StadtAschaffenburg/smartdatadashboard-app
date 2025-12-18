@@ -4,6 +4,7 @@ export const TextVariants = {
   variant: {
     primary: 'text-primary',
     secondary: 'text-secondary',
+    mosque: 'text-mosque',
     red: 'text-red',
     green: 'text-green',
     blue: 'text-blue',
@@ -28,6 +29,7 @@ export const TextVariantsHover = {
   variant: {
     primary: 'hover:text-primary',
     secondary: 'hover:text-secondary',
+    mosque: 'hover:text-mosque',
     red: 'hover:text-red',
     green: 'hover:text-green',
     blue: 'hover:text-blue',

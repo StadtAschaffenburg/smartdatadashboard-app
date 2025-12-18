@@ -46,4 +46,4 @@ svgicons
 /public/images/
 .npmrc
 .env
-_backup
+.backup

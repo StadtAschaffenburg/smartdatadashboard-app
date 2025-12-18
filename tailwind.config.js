@@ -33,15 +33,15 @@ module.exports = {
           DEFAULT: '#d23c2d',
           light: '#faebea',
         },
-        ecology: {
+        mosque: {
           DEFAULT: '#036579',
           light: '#d9f8fe',
         },
-        society: {
+        purple: {
           DEFAULT: '#8b0f77',
           light: '#fcdff7',
         },
-        economy: {
+        orange: {
           DEFAULT: '#f18a00',
           light: '#fff3e4',
         },
@@ -55,7 +55,33 @@ module.exports = {
         },
         blue: {
           DEFAULT: '#009fde',
+          light: '#a8d1ec',
         },
+        red: {
+          DEFAULT: '#e34545',
+          light: '#f1a2a2',
+        },
+        glacial: {
+          DEFAULT: '#397dbe',
+          light: '#9abee1',
+        },
+        brown: {
+          DEFAULT: '#644117',
+          light: '#f2e6d9',
+        },
+        pink: {
+          DEFAULT: '#d998a0',
+          light: '#fff0f5',
+        },
+        yellow: {
+          DEFAULT: '#f3e03b',
+          light: '#fff8e1',
+        },
+        ivory: {
+          DEFAULT: '#CFC3AD',
+          light: '#FFFDF7',
+        },
+        light: '#d4d6da',
       },
       fontSize: {
         headline: '4rem',

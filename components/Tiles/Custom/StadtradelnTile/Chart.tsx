@@ -24,7 +24,7 @@ const colors = {
   other: {
     color: getThemeColor('purple'),
     symbol: `image://${
-      require('@/assets/icons/Bicycle/BicycleIconCompare.svg').default.src
+      require('@/assets/icons/Bicycle/BicycleIconPurple.svg').default.src
     }`,
   },
 }

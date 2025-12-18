@@ -39,15 +39,14 @@ export default function BicycleChartContent() {
       </div>
       {lastDays.length > 0 && (
         <Slider
-          defaultValue={[lastDays.length - 1]}
-          firstValueMobile={lastDays.length - 1}
+          default_value={lastDays.length - 1}
           labels={lastDays.map(d => format(d, 'dd.MM.'))}
           max={lastDays.length - 1}
           min={0}
-          onValueChange={([e]) => {
+          onValueChange={(e) => {
             setDate(lastDays[e])
           }}
-          variant={'ecology'}
+          variant={'primary'}
         />
       )}
     </>

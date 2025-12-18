@@ -6,9 +6,9 @@ import {
   FontVariants,
   FontWeightVariant,
 } from '@/utils/variants/FontVariants'
-import { ActionFieldsColorMap } from '@/mapping/ActionFieldsMapping'
+import { ActionDimensionColorMap } from '@/mapping/dimensionMapping'
 
-export const TileVariantLookup = ActionFieldsColorMap
+export const TileVariantLookup = ActionDimensionColorMap
 
 export const TileVariants = {
   as: HeadlineVariants.as,
