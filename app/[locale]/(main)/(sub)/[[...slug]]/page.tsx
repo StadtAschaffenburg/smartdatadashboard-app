@@ -1,13 +1,9 @@
 import { notFound } from 'next/navigation'
 
-import HomeTemplate from '@/components/Templates/HomeTemplate'
-import ContentTemplate from '@/components/Templates/ContentTemplate'
-import TilesTemplate from '@/components/Templates/TilesTemplate'
-import SdgTargetsTemplate from '@/components/Templates/SdgTargetsTemplate'
 import { getCurrentPageServer } from '@schleegleixner/react-statamic-api'
 import { headers } from 'next/headers'
-
 import { getCollection } from '@schleegleixner/react-statamic-api'
+import ClientPageWrapper from '@/components/ClientPageWrapper'
 
 export default async function Page({ params }: any) {
   // only real pages are handled here, no mounted slugs (tiles/taxonomies)
@@ -27,21 +23,8 @@ export default async function Page({ params }: any) {
     notFound()
   }
 
-  if (page_data.content.page_type === 'homepage') {
-    return <HomeTemplate page_data={page_data} sitemap={sitemap} />
-  }
+  console.log('=== SERVER RENDERING ===')
 
-  if (page_data.content.page_type === 'default') {
-    return <ContentTemplate page_data={page_data} />
-  }
-
-  if (page_data.content.page_type === 'tiles') {
-    return <TilesTemplate page_data={page_data} sitemap={sitemap} />
-  }
-
-  if (page_data.content.page_type === 'sdg-targets') {
-    return <SdgTargetsTemplate page_data={page_data} sitemap={sitemap} />
-  }
-
-  notFound()
+  // Verwende den clientseitigen Wrapper für clientseitiges Routing
+  return <ClientPageWrapper initialPageData={page_data} sitemap={sitemap} />
 }

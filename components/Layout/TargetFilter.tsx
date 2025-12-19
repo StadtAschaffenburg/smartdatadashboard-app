@@ -4,20 +4,18 @@ import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
 import React, { useEffect, useState } from 'react'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import Spinner from '@/components/Elements/Spinner'
+import { scrollToElement } from '@/utils/scroll'
+import { useRouter } from 'next/navigation'
 
 export default function TargetFilter({
+  page_data,
   sitemap,
-  current_page_data,
-  onChange,
 }: {
+  page_data: PageMappingType
   sitemap: PageMappingType[]
-  current_page_data: PageMappingType
-  onChange: (page_slug: string | null) => void
 }) {
-  const [target_pages, setTargetPages] = useState<PageMappingType[] | null>(
-    null,
-  )
-  const [page_links, setPageLinks] = useState<SdgLinkProps[] | null>(null)
+  const router = useRouter()
+  const [targetPages, setTargetPages] = useState<PageMappingType[] | null>(null)
 
   useEffect(() => {
     // filter the sitemap, only allow pages that have the content.filter.sdg_target set
@@ -26,36 +24,57 @@ export default function TargetFilter({
   }, [sitemap])
 
   useEffect(() => {
-    if (target_pages) {
-      const links = target_pages.map((page, index) => {
-        const active = page.slug === current_page_data.slug
-
-        return {
-          index: index,
-          slug: page.slug,
-          link: active ? `${page.parent.full_url}` : `${page.full_url}`,
-          title: page.title,
-          active: active,
-          target: page.content.filter.sdg_target,
-        }
-      })
-      setPageLinks(links)
+    if (!sitemap) {
+      return
     }
-  }, [target_pages, current_page_data.slug])
 
-  if (!page_links) {
-    return <Spinner className="mx-auto" />
+    const dimensionPages = sitemap.filter(
+      (page: any) => page.content.sdg_target,
+    )
+    setTargetPages(dimensionPages)
+  }, [sitemap])
+
+  if (!targetPages) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Spinner />
+      </div>
+    )
+  }
+
+  const onClick = (page: PageMappingType, event: React.MouseEvent<HTMLAnchorElement>) => {
+    console.log('=== onClick ===')
+    event.preventDefault()
+    const targetUrl = page.slug === page_data.slug && page.parent
+      ? page.parent.full_url
+      : page.full_url
+    router.push(targetUrl)
+    
+    setTimeout(() => {
+      scrollToElement('tile-collection', -100)
+    }, 500)
   }
 
   return (
     <div className="flex flex-wrap items-center justify-start gap-4">
-      {page_links.map(l => (
-        <SdgLink
-          key={l.slug}
-          {...l}
-          onClick={() => onChange(l.active ? null : l.slug)}
-        />
-      ))}
+      {targetPages.map(page => {
+        const isActive = page.slug === page_data.slug
+        return (
+          <SdgLink
+            active={isActive}
+            key={page.slug}
+            link={
+              isActive && page.parent
+                ? page.parent.full_url
+                : page.full_url
+            }
+            onClick={(event) => onClick(page, event)}
+            preventDefault={true}
+            target={page.content.sdg_target}
+            {...page}
+          />
+        )
+      })}
     </div>
   )
 }

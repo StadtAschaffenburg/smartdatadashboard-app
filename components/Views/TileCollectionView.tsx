@@ -34,7 +34,6 @@ export default function TileCollectionView({
   const [action_field, setActionField] = useState<string | null>(null)
   const [sdg_target, setSdgTarget] = useState<string | null>(null)
 
-  const pathname = usePathname()
   const searchParams = useSearchParams()
 
   useEffect(() => {
@@ -50,11 +49,17 @@ export default function TileCollectionView({
       setFiltersSet(true)
     }
     fetchCategorySegments()
-  }, [pathname, searchParams, sitemap])
+  }, [page_data, searchParams, sitemap])
 
   if (!filters_set) {
     return <Spinner className="mx-auto" />
   }
+
+  console.log('collection', collection)
+  console.log('action_dimension',action_dimension)
+  console.log('action_field', action_field)
+  console.log('category', category)
+  console.log('sdg_target',sdg_target)
 
   return (
     <BaseView>

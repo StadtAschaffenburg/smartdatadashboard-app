@@ -5,7 +5,7 @@ export const SdgImageMap: Record<string, string> = {
     .default.src,
   'hochwertige-bildung': require('@/assets/icons/SDG/SDG-icon-DE-04.jpg')
     .default.src,
-  geschlechtergerechtigkeit: require('@/assets/icons/SDG/SDG-icon-DE-05.jpg')
+  'geschlechtergleichheit': require('@/assets/icons/SDG/SDG-icon-DE-05.jpg')
     .default.src,
   'sauberes-wasser-und-sanitaereinrichtungen':
     require('@/assets/icons/SDG/SDG-icon-DE-06.jpg').default.src,

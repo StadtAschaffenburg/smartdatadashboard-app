@@ -2,12 +2,16 @@
 
 import React, { JSX, useState } from 'react'
 import Container from '@/components/Layout/Container'
-import { findPageByIdOrSlug, PageMappingType, useTileset } from '@schleegleixner/react-statamic-api'
+import {
+  findPageByIdOrSlug,
+  PageMappingType,
+  useTileset,
+} from '@schleegleixner/react-statamic-api'
 import PageIntro from '@/components/Elements/PageIntro'
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import TargetFilter from '@/components/Layout/TargetFilter'
-import { scrollToElement } from '@/utils/scroll'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
+import Background from '@/components/Layout/Background'
 
 export default function SdgTargetsTemplate({
   sitemap,
@@ -16,25 +20,7 @@ export default function SdgTargetsTemplate({
   sitemap: PageMappingType[]
   page_data: PageMappingType
 }): JSX.Element {
-  const [current_page_data, setCurrentPageData] =
-    useState<PageMappingType>(page_data)
-  const { collection, is_loading, has_error } = useTileset(
-    current_page_data?.site_id,
-  )
-
-  function setNewPage(page_slug: string | null) {
-    const new_page_data = findPageByIdOrSlug(
-      sitemap,
-      page_slug ?? current_page_data.parent?.slug ?? current_page_data.slug,
-    )
-    if (new_page_data) {
-      window.history.pushState(null, '', new_page_data.full_url)
-      setCurrentPageData(new_page_data)
-    }
-    if (page_slug) {
-      scrollToElement('tile-collection', -100)
-    }
-  }
+  const { collection, is_loading, has_error } = useTileset(page_data?.site_id)
 
   if (is_loading || has_error || !collection) {
     return (
@@ -44,22 +30,26 @@ export default function SdgTargetsTemplate({
     )
   }
 
+  // get parent page here if possible
+  const parent_data = findPageByIdOrSlug(sitemap, page_data.parent_id)
+
   return (
     <>
-      <PageIntro
-        container
-        content={current_page_data.content.copy}
-        headline={current_page_data.content.headline}
-      />
-      <TargetFilter
-        current_page_data={current_page_data}
-        onChange={setNewPage}
-        sitemap={sitemap}
-      />
+      <Background light variant="primary">
+        <Container className="flex flex-col gap-8">
+          <PageIntro
+            content={parent_data?.content.content ?? page_data.content.content}
+            headline={
+              parent_data?.content.headline ?? page_data.content.headline
+            }
+          />
+          <TargetFilter page_data={page_data} sitemap={sitemap} />
+        </Container>
+      </Background>
       <Container>
         <TileCollectionView
           collection={collection}
-          page_data={current_page_data}
+          page_data={page_data}
           sitemap={sitemap}
         />
       </Container>

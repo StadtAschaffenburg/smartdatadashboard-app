@@ -11,9 +11,11 @@ import DimensionFilter from '@/components/Layout/DimensionFilter'
 export default function TilesTemplate({
   sitemap,
   page_data,
+  show_filter = true,
 }: {
   sitemap: PageMappingType[]
   page_data: PageMappingType
+  show_filter?: boolean
 }): JSX.Element {
   const { collection, is_loading, has_error } = useTileset(page_data?.site_id)
 
@@ -33,7 +35,7 @@ export default function TilesTemplate({
         headline={page_data.content.headline}
       />
 
-      <DimensionFilter page_data={page_data} sitemap={sitemap} />
+      {show_filter && <DimensionFilter page_data={page_data} sitemap={sitemap} />}
 
       <Container>
         <TileCollectionView

@@ -30,12 +30,11 @@ export default function DimensionFilter({
   page_data: PageMappingType
   sitemap: PageMappingType[]
 }) {
-  const [dimensionPages, setDimensionPages] = useState<PageMappingType[] | null>(null)
+  const [dimensionPages, setDimensionPages] = useState<
+    PageMappingType[] | null
+  >(null)
   const [fieldPages, setFieldPages] = useState<PageMappingType[] | null>(null)
   const [variant, setVariant] = useState<BackgroundVariant>('primary')
-
-  console.log(sitemap)
-  console.log(page_data)
 
   useEffect(() => {
     if (!sitemap) {
@@ -49,7 +48,9 @@ export default function DimensionFilter({
     setDimensionPages(dimensionPages)
 
     const fieldPages = sitemap.filter(
-      (page: any) => page.content.action_dimension === page_data.content.action_dimension && page.content.action_field,
+      (page: any) =>
+        page.content.action_dimension === page_data.content.action_dimension &&
+        page.content.action_field,
     )
     setFieldPages(fieldPages)
   }, [sitemap, page_data])
@@ -57,8 +58,6 @@ export default function DimensionFilter({
   useEffect(() => {
     setVariant(getVariantType(page_data.content) as BackgroundVariant)
   }, [page_data])
-
-  const slugs = window.location.pathname.split('/').filter(Boolean)
 
   if (!dimensionPages && !fieldPages) {
     return (
@@ -73,45 +72,59 @@ export default function DimensionFilter({
       <Container variant="compact">
         <div className="flex flex-col gap-4 md:gap-8">
           <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
-            {dimensionPages?.map(page => (
-              <>
-              <LinkComponent
-                key={page.slug}
-                {...page}
-                link={page.full_url}
-                LinkClass={cx(
-                  'flex-grow md:hover:scale-105 transition-all',
-                  (page.content.action_dimension === page_data.content.action_dimension
-                    ? 'active'
-                    : 'max-md:hidden'),
-                )}
-                preventDefault
-                size={'filter_dimensions'}
-                variant={getVariantType(page.content) as ActionDimensionsType}
-              />
-              <div>{ getVariantType(page.content) }</div></>
-            ))}
-          </div>
-          {fieldPages && fieldPages.length > 0 && (
-            <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
-              {fieldPages.map(page => (
+            {dimensionPages?.map(page => {
+              const isActive = page.slug === page_data.slug
+              return (
                 <LinkComponent
-                  {...page}
-                  link={page.full_url}
-                  icon={getFieldIcon(page.action_field as ActionFieldsType)}
-                  IconClass={'h-6 md:h-8'}
                   key={page.slug}
+                  {...page}
+                  link={
+                    isActive && page.parent
+                      ? page.parent.full_url
+                      : page.full_url
+                  }
                   LinkClass={cx(
-                    'flex-grow self-stretch',
-                    page.content.action_field === page_data.content.action_field
+                    'flex-grow md:hover:scale-105 transition-all',
+                    page.content.action_dimension ===
+                      page_data.content.action_dimension
                       ? 'active'
                       : 'max-md:hidden',
                   )}
                   preventDefault
-                  size={'filter_fields'}
-                  variant={variant as ActionDimensionsType}
+                  size={'filter_dimensions'}
+                  variant={getVariantType(page.content) as ActionDimensionsType}
                 />
-              ))}
+              )
+            })}
+          </div>
+          {fieldPages && fieldPages.length > 0 && (
+            <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
+              {fieldPages.map(page => {
+                const isActive = page.slug === page_data.slug
+                return (
+                  <LinkComponent
+                    link={
+                      isActive && page.parent
+                        ? page.parent.full_url
+                        : page.full_url
+                    }
+                    icon={getFieldIcon(page.action_field as ActionFieldsType)}
+                    IconClass={'h-6 md:h-8'}
+                    key={page.slug}
+                    LinkClass={cx(
+                      'flex-grow self-stretch',
+                      page.content.action_field ===
+                        page_data.content.action_field
+                        ? 'active'
+                        : 'max-md:hidden',
+                    )}
+                    preventDefault
+                    size={'filter_fields'}
+                    variant={variant as ActionDimensionsType}
+                    {...page}
+                  />
+                )
+              })}
             </div>
           )}
         </div>

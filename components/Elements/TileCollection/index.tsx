@@ -52,9 +52,6 @@ export default function TileCollection({
     return <NoResults />
   }
 
-  console.log(collection)
-  console.log(action_dimension, action_field, category, collection, sdg_target)
-
   // apply filters based on provided props
   const filteredCollection = collection.filter(item => {
     if (search_query && search_query.length >= 3) {
@@ -66,7 +63,7 @@ export default function TileCollection({
         item.tags.action_dimension === action_dimension) &&
       (action_field === null ||
         item.tags.action_field.includes(action_field)) &&
-      (sdg_target === null || item.tags.sdg_targets?.includes(sdg_target))
+      (sdg_target === null || item.content.sdg_target === sdg_target || item.sdg_targets?.includes(sdg_target))
     )
   })
 
