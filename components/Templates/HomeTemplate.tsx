@@ -10,10 +10,8 @@ import {
 import LinkTile, { LinkTileProps } from '@/components/Elements/LinkTile'
 
 export default function HomeTemplate({
-  sitemap,
   page_data,
 }: {
-  sitemap: PageMappingType[]
   page_data: PageMappingType
 }): JSX.Element {
   const tiles = page_data.content.content_tiles || []

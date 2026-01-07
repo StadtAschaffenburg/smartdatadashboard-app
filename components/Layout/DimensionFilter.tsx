@@ -3,9 +3,7 @@
 import React from 'react'
 import Background from '@/components/Layout/Background'
 import Container from '@/components/Layout/Container'
-import LinkComponent, {
-  LinkProps,
-} from '@/components/Layout/Navbar/LinkComponent'
+import LinkComponent from '@/components/Layout/Navbar/LinkComponent'
 import {
   ActionDimensionsType,
   ActionFieldsType,
@@ -59,6 +57,20 @@ export default function DimensionFilter({
     setVariant(getVariantType(page_data.content) as BackgroundVariant)
   }, [page_data])
 
+  const onClick = (page: PageMappingType, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    const targetUrl = page.slug === page_data.slug && page.parent
+      ? page.parent.full_url
+      : page.full_url
+    
+    // change the URL without server-rendering
+    window.history.pushState({}, '', targetUrl)
+
+    setTimeout(() => {
+      scrollToElement('tile-collection', -100)
+    }, 500)
+  }
+
   if (!dimensionPages && !fieldPages) {
     return (
       <div className="flex h-full items-center justify-center">
@@ -90,6 +102,7 @@ export default function DimensionFilter({
                       ? 'active'
                       : 'max-md:hidden',
                   )}
+                  onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
                   preventDefault
                   size={'filter_dimensions'}
                   variant={getVariantType(page.content) as ActionDimensionsType}
@@ -103,14 +116,14 @@ export default function DimensionFilter({
                 const isActive = page.slug === page_data.slug
                 return (
                   <LinkComponent
+                    icon={getFieldIcon(page.action_field as ActionFieldsType)}
+                    IconClass={'h-6 md:h-8'}
+                    key={page.slug}
                     link={
                       isActive && page.parent
                         ? page.parent.full_url
                         : page.full_url
                     }
-                    icon={getFieldIcon(page.action_field as ActionFieldsType)}
-                    IconClass={'h-6 md:h-8'}
-                    key={page.slug}
                     LinkClass={cx(
                       'flex-grow self-stretch',
                       page.content.action_field ===
@@ -118,6 +131,7 @@ export default function DimensionFilter({
                         ? 'active'
                         : 'max-md:hidden',
                     )}
+                    onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
                     preventDefault
                     size={'filter_fields'}
                     variant={variant as ActionDimensionsType}

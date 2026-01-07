@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import BaseView from './BaseView'
 import TileCollection from '@/components/Elements/TileCollection'
 import {
@@ -54,12 +54,6 @@ export default function TileCollectionView({
   if (!filters_set) {
     return <Spinner className="mx-auto" />
   }
-
-  console.log('collection', collection)
-  console.log('action_dimension',action_dimension)
-  console.log('action_field', action_field)
-  console.log('category', category)
-  console.log('sdg_target',sdg_target)
 
   return (
     <BaseView>

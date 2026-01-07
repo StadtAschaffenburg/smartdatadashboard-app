@@ -5,7 +5,7 @@ import LinkComponent, { LinkProps } from './LinkComponent'
 import { scrollToElement } from '@/utils/scroll'
 import Collapsible from '@/components/Elements/Collapsible'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+// import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { cx } from 'class-variance-authority'
 import { IconHome } from '@/components/Icons/Navigation'
@@ -15,9 +15,7 @@ type BaseNavbarProps = {
   children?: React.ReactNode
   collapsible: boolean
   current_url: string
-  site_id: string
   sitemap: PageMappingType[]
-  page_title?: string
   variant?: 'primary' | 'secondary'
 }
 
@@ -33,8 +31,6 @@ export default function BaseNavbar({
   children,
   collapsible,
   current_url,
-  page_title,
-  site_id,
   sitemap,
   variant = 'primary',
 }: BaseNavbarProps) {

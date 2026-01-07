@@ -23,8 +23,6 @@ export default async function Page({ params }: any) {
     notFound()
   }
 
-  console.log('=== SERVER RENDERING ===')
-
-  // Verwende den clientseitigen Wrapper für clientseitiges Routing
+  // use the client-side wrapper for client-side routing
   return <ClientPageWrapper initialPageData={page_data} sitemap={sitemap} />
 }

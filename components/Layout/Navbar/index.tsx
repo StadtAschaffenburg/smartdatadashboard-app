@@ -34,8 +34,6 @@ export default function Navbar({
     <BaseNavbar
       collapsible={breadcrumbs[0].link !== '/'}
       current_url={getUriSegment() ?? ''}
-      page_title={page_title ?? default_page_title}
-      site_id={site_id}
       sitemap={sitemap}
     >
       <Breadcrumbs breadcrumbs={breadcrumbs} />

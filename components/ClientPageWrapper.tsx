@@ -7,8 +7,6 @@ import HomeTemplate from '@/components/Templates/HomeTemplate'
 import ContentTemplate from '@/components/Templates/ContentTemplate'
 import TilesTemplate from '@/components/Templates/TilesTemplate'
 import SdgTargetsTemplate from '@/components/Templates/SdgTargetsTemplate'
-import Spinner from '@/components/Elements/Spinner'
-import Container from '@/components/Layout/Container'
 
 /**
  * Finds the page_data based on the pathname in the sitemap
@@ -63,7 +61,6 @@ export default function ClientPageWrapper({
     if (newPageData) {
       // check if the page_data has actually changed
       if (newPageData.slug !== pageDataRef.current.slug) {
-        console.log('=== page data changed ===')
         pageDataRef.current = newPageData
         setPageData(newPageData)
       }
@@ -76,7 +73,7 @@ export default function ClientPageWrapper({
 
   // render the corresponding template based on the page_type
   if (pageData.content.page_type === 'homepage') {
-    return <HomeTemplate page_data={pageData} sitemap={sitemap} />
+    return <HomeTemplate page_data={pageData} />
   }
 
   if (pageData.content.page_type === 'default') {
@@ -91,8 +88,8 @@ export default function ClientPageWrapper({
     return (
       <TilesTemplate
         page_data={pageData}
-        sitemap={sitemap}
         show_filter={false}
+        sitemap={sitemap}
       />
     )
   }

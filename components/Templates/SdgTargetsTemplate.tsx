@@ -1,6 +1,6 @@
 'use client'
 
-import React, { JSX, useState } from 'react'
+import React, { JSX } from 'react'
 import Container from '@/components/Layout/Container'
 import {
   findPageByIdOrSlug,

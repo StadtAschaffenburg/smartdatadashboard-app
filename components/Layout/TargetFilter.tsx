@@ -1,11 +1,10 @@
 'use client'
 
-import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
+import SdgLink from '@/components/Layout/Navbar/SdgLink'
 import React, { useEffect, useState } from 'react'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import Spinner from '@/components/Elements/Spinner'
 import { scrollToElement } from '@/utils/scroll'
-import { useRouter } from 'next/navigation'
 
 export default function TargetFilter({
   page_data,
@@ -14,7 +13,6 @@ export default function TargetFilter({
   page_data: PageMappingType
   sitemap: PageMappingType[]
 }) {
-  const router = useRouter()
   const [targetPages, setTargetPages] = useState<PageMappingType[] | null>(null)
 
   useEffect(() => {
@@ -43,13 +41,14 @@ export default function TargetFilter({
   }
 
   const onClick = (page: PageMappingType, event: React.MouseEvent<HTMLAnchorElement>) => {
-    console.log('=== onClick ===')
     event.preventDefault()
     const targetUrl = page.slug === page_data.slug && page.parent
       ? page.parent.full_url
       : page.full_url
-    router.push(targetUrl)
     
+    // change the URL without server-rendering
+    window.history.pushState({}, '', targetUrl)
+
     setTimeout(() => {
       scrollToElement('tile-collection', -100)
     }, 500)
@@ -68,8 +67,8 @@ export default function TargetFilter({
                 ? page.parent.full_url
                 : page.full_url
             }
-            onClick={(event) => onClick(page, event)}
-            preventDefault={true}
+            onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
+            preventDefault
             target={page.content.sdg_target}
             {...page}
           />
