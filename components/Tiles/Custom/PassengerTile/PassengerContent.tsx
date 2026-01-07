@@ -79,7 +79,7 @@ export default function PassengerContent({
     <div>
       <div className="mb-4 flex flex-row gap-6">
         <span>
-          <IconOepnvBus className="h-20 fill-primary md:h-32" />
+          <IconOepnvBus className="h-20 fill-mosque md:h-32" />
         </span>
         <div className="flex flex-grow flex-col justify-between">
           <Title as="h3" variant={variant}>
@@ -91,7 +91,7 @@ export default function PassengerContent({
             </AnimatedNumber>{' '}
             Mio
           </Title>
-          <div className="flex flex-row-reverse justify-start gap-1 fill-primary pb-4">
+          <div className="flex flex-row-reverse justify-start gap-1 fill-mosque pb-4">
             {renderPassengerIcons(passengerValue.current)}
           </div>
         </div>

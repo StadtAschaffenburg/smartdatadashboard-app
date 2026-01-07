@@ -3,23 +3,18 @@
 import React from 'react'
 import Background from '@/components/Layout/Background'
 import Container from '@/components/Layout/Container'
-import LinkComponent from '@/components/Layout/Navbar/LinkComponent'
 import {
   ActionDimensionsType,
   ActionFieldsType,
 } from '@/mapping/ActionDimensionsMapping'
-import { cx } from 'class-variance-authority'
-import { ActionFieldsIconMap } from '@/mapping/ActionFieldsMapping'
 import { useEffect, useState } from 'react'
 import { BackgroundVariant } from '@/utils/variants/BackgroundVariants'
 import { scrollToElement } from '@/utils/scroll'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import { getVariantType } from '@/utils/payload'
 import Spinner from '@/components/Elements/Spinner'
-
-function getFieldIcon(field: ActionFieldsType) {
-  return ActionFieldsIconMap[field]
-}
+import DimensionLink from './DimensionLink'
+import FieldLink from './FieldLink'
 
 export default function DimensionFilter({
   page_data,
@@ -57,12 +52,9 @@ export default function DimensionFilter({
     setVariant(getVariantType(page_data.content) as BackgroundVariant)
   }, [page_data])
 
-  const onClick = (page: PageMappingType, event: React.MouseEvent<HTMLAnchorElement>) => {
+  const onClick = (targetUrl: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault()
-    const targetUrl = page.slug === page_data.slug && page.parent
-      ? page.parent.full_url
-      : page.full_url
-    
+
     // change the URL without server-rendering
     window.history.pushState({}, '', targetUrl)
 
@@ -85,27 +77,18 @@ export default function DimensionFilter({
         <div className="flex flex-col gap-4 md:gap-8">
           <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
             {dimensionPages?.map(page => {
-              const isActive = page.slug === page_data.slug
+              const isActive = page.slug === page_data.slug || page.content.action_dimension === page_data.content.action_dimension
+              const linkUrl = isActive && page.parent
+                ? page.parent.full_url
+                : page.full_url
               return (
-                <LinkComponent
+                <DimensionLink
+                  actionDimension={page.content.action_dimension as ActionDimensionsType}
+                  active={isActive}
                   key={page.slug}
+                  link={linkUrl}
+                  onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(linkUrl, event)}
                   {...page}
-                  link={
-                    isActive && page.parent
-                      ? page.parent.full_url
-                      : page.full_url
-                  }
-                  LinkClass={cx(
-                    'flex-grow md:hover:scale-105 transition-all',
-                    page.content.action_dimension ===
-                      page_data.content.action_dimension
-                      ? 'active'
-                      : 'max-md:hidden',
-                  )}
-                  onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
-                  preventDefault
-                  size={'filter_dimensions'}
-                  variant={getVariantType(page.content) as ActionDimensionsType}
                 />
               )
             })}
@@ -113,30 +96,20 @@ export default function DimensionFilter({
           {fieldPages && fieldPages.length > 0 && (
             <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
               {fieldPages.map(page => {
-                const isActive = page.slug === page_data.slug
+                const isActive = page.content.action_field === page_data.content.action_field
+                const linkUrl = isActive && page.parent
+                  ? page.parent.full_url
+                  : page.full_url
                 return (
-                  <LinkComponent
-                    icon={getFieldIcon(page.action_field as ActionFieldsType)}
-                    IconClass={'h-6 md:h-8'}
-                    key={page.slug}
-                    link={
-                      isActive && page.parent
-                        ? page.parent.full_url
-                        : page.full_url
-                    }
-                    LinkClass={cx(
-                      'flex-grow self-stretch',
-                      page.content.action_field ===
-                        page_data.content.action_field
-                        ? 'active'
-                        : 'max-md:hidden',
-                    )}
-                    onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
-                    preventDefault
-                    size={'filter_fields'}
-                    variant={variant as ActionDimensionsType}
-                    {...page}
-                  />
+                    <FieldLink
+                      actionField={page.content.action_field as ActionFieldsType}
+                      active={isActive}
+                      key={page.slug}
+                      link={linkUrl}
+                      onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(linkUrl, event)}
+                      variant={variant}
+                      {...page}
+                    />
                 )
               })}
             </div>

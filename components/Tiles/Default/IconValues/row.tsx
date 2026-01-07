@@ -22,6 +22,7 @@ export default function Row({ data, single = false, variant }: RowType) {
             <IconFactory
               className={'h-full w-full object-contain'}
               type={data.icon}
+              variant={variant}
             />
           </div>
         )}

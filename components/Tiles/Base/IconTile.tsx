@@ -89,6 +89,7 @@ export default function IconTile({
             <Title
               as={'h1'}
               className={cx('min-w-fit', TextStyle({ variant }))}
+              margin={'none'}
             >
               {title ?? (
                 <DynamicText tile_payload={tile_payload}>

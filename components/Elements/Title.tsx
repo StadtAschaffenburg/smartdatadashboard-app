@@ -32,7 +32,7 @@ export default function Title({
   className,
   margin,
   family,
-  weight = 'medium',
+  weight = 'normal',
   ...props
 }: TitleProps) {
   margin = headlineTags.includes(
