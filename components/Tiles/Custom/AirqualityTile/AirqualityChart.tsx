@@ -44,7 +44,7 @@ const getMaxQualityIndex = (readings: AirQualityReading[]): number | null => {
 
 export default function AirqualityChart() {
   const { data: readings, status } = useApi<AirQualityReading[]>(
-    'airquality/latest',
+    'lfu/airquality',
     10,
   )
 
@@ -101,48 +101,4 @@ export default function AirqualityChart() {
       </div>
     </div>
   )
-  /*
-
-  return (
-    <div>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-1 items-center gap-6 md:gap-2">
-          <IconLuftqualitaet className="h-20 text-primary md:mr-12 md:h-36" />
-          <div className="my-4 grow">
-            <Title as={'h3'}>
-              Die Luftqualität in Frankfurt ist aktuell{' '}
-              <span className="text-primary">
-                {air_quality_index !== null
-                  ? qualityMapping[air_quality_index]
-                  : 'unbekannt'}
-              </span>
-              .
-            </Title>
-            {air_quality_index !== null && (
-              <div className="pt-4">
-                <QualityBar
-                  progress={(air_quality_index / 5) * 100}
-                ></QualityBar>
-              </div>
-            )}
-          </div>
-        </div>
-        <Divider title="Einzelwerte" />
-        <div className="grid grid-cols-2 gap-4">
-          {readings.map(
-            ({ id, value, quality_index }) =>
-              value !== null && (
-                <Phenomenon
-                  icon={qualityToIcon(quality_index)}
-                  key={id}
-                  phenomenon={id}
-                  size="md"
-                  value={value}
-                />
-              ),
-          )}
-        </div>
-      </div>
-    </div>
-  )*/
 }

@@ -60,22 +60,22 @@ const Phenomena: PhenomenaType = {
     unit: 'hPa',
     icon: Icons.IconWeatherAtmosphaere,
   },
-  no2: {
+  stickstoffdioxid: {
     title: 'Stickstoffdioxid (NO<sub>2</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,
   },
-  pm10: {
+  feinstaub_100: {
     title: 'Feinstaub (PM<sub>10</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,
   },
-  o3: {
+  ozon: {
     title: 'Ozon (O<sub>3</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,
   },
-  pm2_5: {
+  feinstaub_250: {
     title: 'Feinstaub (PM<sub>2.5</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,
