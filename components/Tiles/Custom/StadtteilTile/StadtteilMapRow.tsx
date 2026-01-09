@@ -15,8 +15,8 @@ export default function StadtteilMapRow({
       {destict_data.map((item, index) => (
         <div className={cx('flex', entry_class)} key={item.id}>
           <div className={'relative inline-block min-w-32'} key={index}>
-            <Title as="h5" className={'flex flex-col gap-2'} variant={variant}>
-              <div>{item.title ?? item.id}</div>{' '}
+            <Title as="h5" className={'flex flex-col gap-2'} margin="none" variant={variant} weight="medium">
+              <div className="font-medium">{item.title ?? item.id}</div>{' '}
               <AnimatedNumber
                 className="text-2xl"
                 previous_value={item.value.previous}

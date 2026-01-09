@@ -22,7 +22,7 @@ export default function Top({ site_id }: { site_id: string }) {
         variant={'flat'}
       >
         <Link href={`/${site_id !== 'default' ? site_id : ''}`}>
-          <Title as="h2" className="uppercase" margin="none" variant="primary">
+          <Title as="h2" className="uppercase" margin="none" variant="primary" weight="medium">
             <div>Smart Data Dashboard</div>
             <div className="text-base xl:text-lg">Aschaffenburg</div>
           </Title>

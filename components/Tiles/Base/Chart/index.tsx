@@ -77,7 +77,7 @@ export default function Chart({
 }: ChartProps) {
   const { elRef, contentWidth } = useContentWidth<HTMLDivElement>()
   const [indicesState, setIndicesState] = useState<ChartDataTypes | null>(null)
-  const font_size =
+  const font_size_x =
     contentWidth > 1200
       ? 18
       : contentWidth > 900
@@ -85,6 +85,7 @@ export default function Chart({
         : contentWidth > 600
           ? 14
           : 12
+  const font_size_y = contentWidth > 600 ? 12 : 10
 
   useEffect(() => {
     const indicies = getIndices(
@@ -174,7 +175,7 @@ export default function Chart({
   return (
     <div
       className={cx(
-        'flex w-full flex-col items-center rounded bg-white py-4',
+        'flex w-full flex-col items-center rounded bg-white p-5',
         layout === 'full' ? '' : '',
       )}
       ref={elRef}
@@ -188,10 +189,10 @@ export default function Chart({
           <ReactECharts
             option={{
               grid: {
-                top: 10,
+                top: 20,
                 bottom: 40,
-                left: 60,
-                right: 10,
+                left: 50,
+                right: 40,
               },
               tooltip: {
                 trigger: 'axis',
@@ -206,7 +207,7 @@ export default function Chart({
               xAxis: {
                 type: 'time',
                 axisLabel: {
-                  fontSize: font_size,
+                  fontSize: font_size_x,
                 },
                 min: parse(
                   `${datasource.year_min}-01-01`,
@@ -230,7 +231,7 @@ export default function Chart({
                 type: 'value',
                 min: axisMinimum,
                 axisLabel: {
-                  fontSize: font_size,
+                  fontSize: font_size_y,
                   formatter: axisFormatter,
                 },
               },

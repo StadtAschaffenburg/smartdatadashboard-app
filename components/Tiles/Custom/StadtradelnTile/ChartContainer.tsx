@@ -163,7 +163,7 @@ export default function ChartContainer({ tile_payload }: ChartContainerProps) {
               variant={variant}
             />
             <Text as={'h5'} variant={'primary'}>
-              Städtevergleich {otherCities.length}
+              Städtevergleich
             </Text>
           </div>
           {otherData && (

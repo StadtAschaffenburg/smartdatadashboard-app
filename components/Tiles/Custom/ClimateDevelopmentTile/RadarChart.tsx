@@ -155,11 +155,6 @@ export default function RadarChart() {
             axisLabel: {
               fontSize: '20px',
             },
-            splitArea: {
-              areaStyle: {
-                color: ['#fff'],
-              },
-            },
             axisLine: {
               show: false,
             },

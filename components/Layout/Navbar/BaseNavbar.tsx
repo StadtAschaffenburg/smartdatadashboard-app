@@ -52,11 +52,11 @@ export default function BaseNavbar({
           title: page.title,
           link: `${page.full_url}`,
           icon:
-            page.content.category === 'live'
+            page.content.category === 'ab_live'
               ? PulsatingCircle
               : undefined,
             IconClass:
-              page.content.category === 'live'
+              page.content.category === 'ab_live'
                 ? 'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary'
                 : undefined,
         }))

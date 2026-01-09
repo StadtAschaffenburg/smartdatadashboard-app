@@ -7,6 +7,7 @@ import { useApi } from '@schleegleixner/react-statamic-api'
 import { DataProps } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { getString, TilePayloadType } from '@schleegleixner/react-statamic-api'
+import { getVariantType } from '@/utils/payload'
 
 const thermal_limit = 10
 
@@ -60,6 +61,7 @@ export default function ThermalHazardTileContent({
   
   const [day_index, setDayIndex] = useState<number>(0)
   const [harzard_index, setHazardIndex] = useState<number | null>(null) // heat or cold
+  const variant = getVariantType(tile_payload)
 
   const timeline = Array.from({ length: 3 }, (_, index) => {
     const date = new Date()
@@ -135,7 +137,7 @@ export default function ThermalHazardTileContent({
         max={timeline.length - 1}
         min={0}
         onValueChange={setDayIndex}
-        variant={'primary'}
+        variant={variant}
       />
     </div>
   )

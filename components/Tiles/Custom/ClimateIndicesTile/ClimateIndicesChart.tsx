@@ -188,7 +188,7 @@ export default function ClimateIndicesChart() {
   ).length
 
   return (
-    <div className="flex h-full w-full flex-col items-center py-4 2xl:flex-row">
+    <div className="flex h-full w-full flex-col items-center py-4 2xl:flex-row bg-white p-5">
       <div className="h-full w-full flex-1">
         <AxisLabel>Anzahl der Tage</AxisLabel>
         <div className="h-[235px] w-full md:h-[440px]">

@@ -25,7 +25,7 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@react-spring/web": "^10.0.0",
     "@schleegleixner/react-adobe-icons-package": "^1.1.0",
-    "@schleegleixner/react-statamic-api": "^1.5.2",
+    "@schleegleixner/react-statamic-api": "^1.5.5",
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",

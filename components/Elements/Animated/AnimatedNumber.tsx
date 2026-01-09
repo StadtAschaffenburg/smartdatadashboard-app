@@ -75,11 +75,6 @@ export default function AnimatedNumber({
 
   return (
     <span className={cx(className, 'sm:whitespace-nowrap')}>
-      {previous_value !== undefined && !hide_indicator && (
-        <span className={cx(TextStyle({ variant }))}>
-          <Indicator current={value} previous={previous_value} />
-        </span>
-      )}
       <span className={value === null ? 'hidden' : ''}>
         <animated.span ref={ref}>
           {lastValue === value
@@ -96,6 +91,11 @@ export default function AnimatedNumber({
         </animated.span>
         {unit && <span>&nbsp;{unit}</span>}
       </span>
+      {previous_value !== undefined && !hide_indicator && (
+        <span className={cx(TextStyle({ variant }))}>
+          <Indicator current={value} previous={previous_value} />
+        </span>
+      )}
     </span>
   )
 }

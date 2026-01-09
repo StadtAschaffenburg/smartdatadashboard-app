@@ -91,7 +91,7 @@ export default function CompareIconValuesContent({
             )}
           </div>
           <div>
-            <Title as="h5" variant={right_row.variant ?? variant}>
+            <Title as="h5" margin="none" variant={right_row.variant ?? variant} weight="medium">
               {right_row.label}
             </Title>
             <AnimatedNumber

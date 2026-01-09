@@ -86,10 +86,10 @@ export default function PassengerContent({
             <AnimatedNumber
               decimals={2}
               previous_value={passengerValue.previous}
+              unit="Mio"
             >
               {passengerValue.current}
             </AnimatedNumber>{' '}
-            Mio
           </Title>
           <div className="flex flex-row-reverse justify-start gap-1 fill-mosque pb-4">
             {renderPassengerIcons(passengerValue.current)}
