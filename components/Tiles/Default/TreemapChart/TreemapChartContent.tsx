@@ -8,7 +8,6 @@ import Spacer from '@/components/Elements/Spacer'
 import {
   darkenHexColor,
   getRows,
-  numberFormat,
 } from '@schleegleixner/react-statamic-api'
 import { getThemeColor } from '@/utils/colors'
 import RowDataType from '@/types/RowDataType'
@@ -25,8 +24,6 @@ export default function TreeMapChartContent({
   const { rows } = getRows(datasource, yearIndex) as {
     rows: Record<string, RowDataType>
   }
-
-  console.log('datasource', datasource, rows, yearIndex)
 
   const color_usage_count: Record<string, number> = {}
 
@@ -83,8 +80,6 @@ export default function TreeMapChartContent({
       },
     }
   })
-
-  console.log('chartData', chartData)
 
   return (
     <div>
