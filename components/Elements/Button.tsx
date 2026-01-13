@@ -17,7 +17,7 @@ const button = cva(
     defaultVariants: ButtonDefaultVariants,
   },
 )
-const class_names_content = 'flex items-center leading-tight'
+const class_names_content = 'flex items-center justify-center leading-tight'
 
 type IconProps = {
   Icon?: React.ReactElement | React.ComponentType<{ className?: string }> | null

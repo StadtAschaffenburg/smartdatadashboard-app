@@ -2,25 +2,24 @@
 
 import React, { JSX } from 'react'
 import Container from '@/components/Layout/Container'
-import { PageMappingType, useTileset } from '@schleegleixner/react-statamic-api'
+import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import PageIntro from '@/components/Elements/PageIntro'
 import TileCollectionView from '@/components/Views/TileCollectionView'
+import Searchbox from '@/components/Elements/Searchbox'
+import { useTileset } from '@schleegleixner/react-statamic-api'
+
 import RequestIndicator from '@/components/Elements/RequestIndicator'
-import DimensionFilter from '@/components/Layout/DimensionFilter/index'
-import FloatingSearchbox from '@/components/Elements/FloatingSearchbox'
 
-export default function TilesTemplate({
-  sitemap,
+export default function SearchTemplate({
   page_data,
-  show_filter = true,
+  sitemap,
 }: {
-  sitemap: PageMappingType[]
   page_data: PageMappingType
-  show_filter?: boolean
+  sitemap: PageMappingType[]
 }): JSX.Element {
-  const { collection, is_loading, has_error } = useTileset(page_data?.site_id)
+  const { collection, is_loading, has_error } = useTileset(page_data.site_id)
 
-  if (is_loading || has_error || !collection) {
+  if (is_loading) {
     return (
       <Container>
         <RequestIndicator failed={has_error} timeoutMs={10000} />
@@ -32,19 +31,16 @@ export default function TilesTemplate({
     <>
       <PageIntro
         container
-        content={page_data.content.content}
+        content={page_data.content.copy}
         headline={page_data.content.headline}
       />
-
-      {show_filter && <DimensionFilter page_data={page_data} sitemap={sitemap} />}
-
+      <Searchbox />
       <Container>
         <TileCollectionView
           collection={collection}
           page_data={page_data}
           sitemap={sitemap}
         />
-        <FloatingSearchbox />
       </Container>
     </>
   )

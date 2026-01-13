@@ -150,7 +150,7 @@ export default function ChartContainer({ tile_payload }: ChartContainerProps) {
       <div className="flex items-center gap-2 p-4 md:gap-10 md:pl-8">
         <div className="h-1 w-8 rounded bg-green md:w-[52px]" />
         <Text as={'h5'} variant={'primary'}>
-          Geradelte Kilometer in Frankfurt
+          Geradelte Kilometer in Aschaffenburg
         </Text>
       </div>
       {otherCities.length > 0 && (

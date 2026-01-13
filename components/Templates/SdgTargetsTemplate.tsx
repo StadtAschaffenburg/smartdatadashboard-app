@@ -12,6 +12,7 @@ import TileCollectionView from '@/components/Views/TileCollectionView'
 import TargetFilter from '@/components/Layout/TargetFilter'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import Background from '@/components/Layout/Background'
+import FloatingSearchbox from '@/components/Elements/FloatingSearchbox'
 
 export default function SdgTargetsTemplate({
   sitemap,
@@ -52,6 +53,7 @@ export default function SdgTargetsTemplate({
           page_data={page_data}
           sitemap={sitemap}
         />
+        <FloatingSearchbox />
       </Container>
     </>
   )

@@ -18,7 +18,9 @@ export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
         <Title
           as={'h5'}
           dangerouslySetInnerHTML={{ __html: name }}
+          margin="none"
           variant={'primary'}
+          weight="medium"
         />
         <Title as={'h3'} variant={'primary'}>
           <AnimatedNumber>{count}</AnimatedNumber>

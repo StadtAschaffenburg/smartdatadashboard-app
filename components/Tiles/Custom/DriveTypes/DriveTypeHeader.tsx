@@ -25,13 +25,13 @@ export default function DriveTypeHeader(props: {
           {props.year !== 'Alle Jahre' ? (
             <>
               waren <span className={'text-' + props.variant}>{props.year}</span> in
-              Frankfurt angemeldet.{' '}
+              Aschaffenburg angemeldet.{' '}
               Aufgeteilt auf folgende Antriebsarten:
             </>
           ) : (
             <>
               sind <span className={'text-' + props.variant}>seit {props.AllYear}</span>{' '}
-              in Frankfurt hinzugekommen, aufgeteilt auf folgende Antriebsarten:
+              in Aschaffenburg hinzugekommen, aufgeteilt auf folgende Antriebsarten:
             </>
           )}
         </Title>

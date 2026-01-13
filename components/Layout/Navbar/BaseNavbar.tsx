@@ -141,15 +141,15 @@ export default function BaseNavbar({
                 },
               )}
             >
-              <LinkComponent
-                {...button_variants}
-                {...linkHome}
-                className={cx(
-                  'max-lg:min-w-80',
-                  current_url === undefined ? 'active' : 'active',
-                )}
-                onClick={handleLinkClick}
-              />
+                <LinkComponent
+                  {...button_variants}
+                  {...linkHome}
+                  className={cx(
+                    'self-start max-lg:min-w-80',
+                    current_url === undefined ? 'active' : 'active',
+                  )}
+                  onClick={handleLinkClick}
+                />
               <div className="flex flex-col items-center gap-4 lg:flex-row">
                 {navLinks.map(l => (
                   <LinkComponent

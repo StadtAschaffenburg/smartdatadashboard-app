@@ -77,6 +77,7 @@ export default function DimensionFilter({
         <div className="flex flex-col gap-4 md:gap-8">
           <div className="flex w-full flex-col gap-x-8 gap-y-2 md:flex-row">
             {dimensionPages?.map(page => {
+              const current_action_dimension = page_data.content.action_dimension
               const isActive = page.slug === page_data.slug || page.content.action_dimension === page_data.content.action_dimension
               const linkUrl = isActive && page.parent
                 ? page.parent.full_url
@@ -84,7 +85,7 @@ export default function DimensionFilter({
               return (
                 <DimensionLink
                   actionDimension={page.content.action_dimension as ActionDimensionsType}
-                  active={isActive}
+                  active={!current_action_dimension || isActive}
                   key={page.slug}
                   link={linkUrl}
                   onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(linkUrl, event)}

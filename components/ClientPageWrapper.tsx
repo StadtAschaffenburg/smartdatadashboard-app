@@ -7,6 +7,7 @@ import HomeTemplate from '@/components/Templates/HomeTemplate'
 import ContentTemplate from '@/components/Templates/ContentTemplate'
 import TilesTemplate from '@/components/Templates/TilesTemplate'
 import SdgTargetsTemplate from '@/components/Templates/SdgTargetsTemplate'
+import SearchTemplate from '@/components/Templates/SearchTemplate'
 
 /**
  * Finds the page_data based on the pathname in the sitemap
@@ -82,6 +83,10 @@ export default function ClientPageWrapper({
 
   if (pageData.content.page_type === 'tiles') {
     return <TilesTemplate page_data={pageData} sitemap={sitemap} />
+  }
+
+  if (pageData.content.page_type === 'search') {
+    return <SearchTemplate page_data={pageData} sitemap={sitemap} />
   }
 
   if (pageData.content.page_type === 'no-filter') {

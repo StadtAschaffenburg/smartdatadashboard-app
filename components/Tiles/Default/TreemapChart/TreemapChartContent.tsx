@@ -26,6 +26,8 @@ export default function TreeMapChartContent({
     rows: Record<string, RowDataType>
   }
 
+  console.log('datasource', datasource, rows, yearIndex)
+
   const color_usage_count: Record<string, number> = {}
 
   let chartData = Object.values(rows)
@@ -63,7 +65,7 @@ export default function TreeMapChartContent({
       label: {
         show: ratio > 0.03,
         position: 'inside',
-        formatter: `{name|${item.name}}\n{value|${numberFormat(item.value, 0)} ${item.unit}}`,
+        formatter: `{name|${item.name}}\n{value|${(item.value ?? 0).toLocaleString('de-DE')} ${item.unit}}`,
         rich: {
           name: {
             fontWeight: 'bold',
@@ -82,6 +84,8 @@ export default function TreeMapChartContent({
     }
   })
 
+  console.log('chartData', chartData)
+
   return (
     <div>
       <div className="h-[250px] md:h-[500px]">
@@ -91,12 +95,11 @@ export default function TreeMapChartContent({
               formatter: params => {
                 const name = (params as any).name
                 const value = (params as any).value
-                const number = numberFormat(value, 0)
                 const unit = (params as any).data.unit
                 const variant = (params as any).data.variant
 
                 return `<p class='font-bold text-${variant}'>${name}<p>
-                    <p>${years[yearIndex] ? years[yearIndex] + ': ' : ''}${number} ${unit}<p>`
+                    <p>${years[yearIndex] ? years[yearIndex] + ': ' : ''}${(value ?? 0).toLocaleString('de-DE')} ${unit}<p>`
               },
             },
             series: [

@@ -14,7 +14,7 @@ export default function Breadcrumbs({ breadcrumbs }: BreadcrumbsProps) {
     >
       {breadcrumbs
         .filter(
-          crumb => crumb.title && crumb.title.trim() && crumb.link?.trim(),
+          crumb => crumb.title && crumb.title.trim() && crumb.link?.trim() && crumb.link !== '/share' && crumb.link !== '/embed',
         )
         .map((crumb, index) => (
           <React.Fragment key={index}>

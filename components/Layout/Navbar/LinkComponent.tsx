@@ -49,7 +49,7 @@ export default function LinkComponent({
   return (
     <Button
       aria-label={ariaLabel || title || link}
-      className={className}
+      className={cx(className, '')}
       href={link}
       Icon={
         Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null

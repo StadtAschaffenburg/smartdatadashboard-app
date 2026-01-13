@@ -3,7 +3,6 @@ import * as React from 'react'
 import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import {
-  BorderDefaultVariants,
   BorderVariants,
 } from '@/utils/variants/BorderVariants'
 
@@ -23,7 +22,7 @@ const SpacerLineStyle = cva('mt-4 pb-4', {
     ...DividerSizes,
   },
   defaultVariants: {
-    ...BorderDefaultVariants,
+    variant: 'white',
     size: 'sm',
   },
 })
@@ -44,8 +43,8 @@ export default function Divider({
       <div className={SpacerLineStyle({ variant, size })} />
 
       {title && (
-        <div className="text-sm font-bold">
-          <span className="mb-2 inline-block bg-gray-300 px-4 py-1 text-gray-900">
+        <div className="text-sm font-medium">
+          <span className="mb-2 inline-block bg-white px-4 py-1 text-primary">
             {title}
           </span>
         </div>

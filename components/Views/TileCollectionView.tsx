@@ -11,7 +11,6 @@ import {
 import CategoryType from '@/types/CategoryType'
 import Spinner from '../Elements/Spinner'
 import { ActionDimensionsType } from '@/mapping/ActionDimensionsMapping'
-import Searchbox from '@/components/Elements/Searchbox'
 
 interface DimensionViewProps {
   category?: CategoryType | null
@@ -65,7 +64,6 @@ export default function TileCollectionView({
         collection={collection}
         sdg_target={sdg_target}
       />
-      <Searchbox />
     </BaseView>
   )
 }
