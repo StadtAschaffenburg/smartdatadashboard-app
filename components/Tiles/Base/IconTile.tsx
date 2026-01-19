@@ -12,6 +12,7 @@ import { getVariantType } from '@/utils/payload'
 import DynamicText from '@/components/Elements/DynamicText'
 import { TileVariantTypes } from '@/utils/variants/TileVariants'
 import { ActionFieldsIconMap } from '@/mapping/ActionFieldsMapping'
+import Divider from '@/components/Elements/Divider'
 
 export type DataSourceProps = {
   dataRetrieval?: string
@@ -81,6 +82,7 @@ export default function IconTile({
         live ? <LiveBadge variant={variant as BackgroundVariant} /> : undefined
       }
       moreInfo={tile_payload?.details}
+      title={(title as string) ?? (tile_payload?.title as string)}
       variant={variant}
     >
       <div className="mb-4 flex flex-col gap-2">
@@ -111,6 +113,9 @@ export default function IconTile({
             </div>
           </div>
         </div>
+
+        <Divider variant={variant} />
+
         <div>
           {(tile_payload?.subtitle || subtitle) && (
             <>
@@ -127,6 +132,8 @@ export default function IconTile({
 
       {tile_payload?.copy && <Markdown content={tile_payload.copy} />}
       <>{tile_payload?.copy && <Spacer />}</>
+
+      <Divider />
 
       <div className="flex flex-col gap-x-8 gap-y-1 text-sm text-primary md:flex-row">
         <div className="">

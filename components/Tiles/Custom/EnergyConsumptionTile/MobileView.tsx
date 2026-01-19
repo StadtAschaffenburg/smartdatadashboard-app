@@ -56,12 +56,10 @@ export default function MobileView({
                     <AnimatedNumber
                       decimals={0}
                       previous_value={row[mode].previousSum}
+                      unit={'kWh'}
                     >
                       {row[mode].currentSum}
                     </AnimatedNumber>
-                  </Title>
-                  <Title as="h4" variant="primary">
-                    kWh
                   </Title>
                 </>
               )}

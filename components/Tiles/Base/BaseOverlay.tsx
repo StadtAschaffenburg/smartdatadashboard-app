@@ -42,7 +42,7 @@ export default function BaseOverlay({
 }: BaseOverlayProps) {
   return (
     <animated.div {...props} className={overlayStyle({ variant })}>
-      <div className="w-full flex-1 overflow-y-auto overflow-x-hidden pr-4">
+      <div className={`w-full flex-1 overflow-y-auto overflow-x-hidden pr-4 ${variant !== 'inverse' ? 'text-white' : ''}`}>
         {children}
         <div className="mt-8 flex w-full justify-center">
           <MoreDetails

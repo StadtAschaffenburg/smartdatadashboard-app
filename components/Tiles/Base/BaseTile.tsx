@@ -32,6 +32,7 @@ export type BaseTileProps = VariantProps<typeof baseTileStyle> &
     footerCenterElement?: React.ReactElement<any>
     moreInfo?: React.ReactNode
     dataUrl?: string
+    title?: string
   }
 
 const transitionOpts = {
@@ -53,6 +54,7 @@ export function BaseTile({
   embedId,
   moreInfo,
   dataUrl,
+  title,
 }: BaseTileProps) {
   const [showEmbedOverlay, setShowEmbedOverlay] = useState(false)
   const [showShareOverlay, setShowShareOverlay] = useState(false)
@@ -88,7 +90,7 @@ export function BaseTile({
   }
 
   return (
-    <div className="pb-4 md:pb-8">
+    <div className="pb-4 md:pb-8" id={embedId}>
       <div className={cx(baseTileStyle({ variant }), className)}>
         <div className="z-0 flex w-full flex-col justify-between px-6 py-4 xs:p-8 md:p-12 lg:px-8 lg:py-6 xl:px-16 xl:py-12">
           <div>{children}</div>
@@ -131,6 +133,8 @@ export function BaseTile({
               <MoreInfoOverlay
                 onClose={() => setShowMoreInfo(false)}
                 style={styles}
+                title={title}
+                variant={variant}
               >
                 {typeof moreInfo === 'string' ? (
                   <Markdown content={moreInfo} />

@@ -65,12 +65,10 @@ export default function DesktopView({
                     <AnimatedNumber
                       decimals={0}
                       previous_value={entry.previousSum}
+                      unit={'kWh'}
                     >
                       {entry.currentSum}
                     </AnimatedNumber>
-                  </Title>
-                  <Title as="h4" variant="primary">
-                    kWh
                   </Title>
                 </>
               )}

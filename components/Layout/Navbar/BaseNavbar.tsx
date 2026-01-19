@@ -5,7 +5,7 @@ import LinkComponent, { LinkProps } from './LinkComponent'
 import { scrollToElement } from '@/utils/scroll'
 import Collapsible from '@/components/Elements/Collapsible'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
-// import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { cx } from 'class-variance-authority'
 import { IconHome } from '@/components/Icons/Navigation'
@@ -54,11 +54,11 @@ export default function BaseNavbar({
           icon:
             page.content.category === 'ab_live'
               ? PulsatingCircle
-              : undefined,
+              : page.content.page_type === 'search' ? MagnifyingGlassIcon : undefined,
             IconClass:
               page.content.category === 'ab_live'
                 ? 'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary'
-                : undefined,
+                : 'text-white group-hover:text-primary h-4 md:h-6 [.active_&]:text-primary',
         }))
 
       setNavLinks([...menu_links])
@@ -135,7 +135,7 @@ export default function BaseNavbar({
           >
             <div
               className={cx(
-                'flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-8',
+                'flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-16',
                 {
                   'mt-4': collapsible,
                 },
@@ -145,12 +145,12 @@ export default function BaseNavbar({
                   {...button_variants}
                   {...linkHome}
                   className={cx(
-                    'self-start max-lg:min-w-80',
-                    current_url === undefined ? 'active' : 'active',
+                    'md:self-start max-lg:min-w-80',
+                    current_url === undefined ? 'active' : '',
                   )}
                   onClick={handleLinkClick}
                 />
-              <div className="flex flex-col items-center gap-4 lg:flex-row">
+              <div className="flex flex-col items-center gap-4 lg:flex-row flex-wrap justify-end">
                 {navLinks.map(l => (
                   <LinkComponent
                     key={l.link}

@@ -12,9 +12,11 @@ import {
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { useApi } from '@schleegleixner/react-statamic-api'
 import Divider from '@/components/Elements/Divider'
+import useLocalWeather from '@/hooks/useLocalWeather'
 
 export default function WeatherTileContent() {
   const weather = useWeather({ lat: 50.808453, lng: 8.771796 }, new Date())
+  const local_weather = useLocalWeather()
   const { data: perceived_temperature, status } = useApi<number[] | null>(
     'dwd/perceived_temperature',
     10,
@@ -27,7 +29,7 @@ export default function WeatherTileContent() {
     return directions[index]
   }
 
-  if (!weather) {
+  if (!weather || !local_weather) {
     return <RequestIndicator />
   }
 
@@ -50,11 +52,11 @@ export default function WeatherTileContent() {
           <Divider title="Wetterlage" />
 
           <div className="mb-4 flex flex-row items-start md:items-center">
-            <div className="flex-1 flex flex-col gap-2">
+            <div className="flex flex-1 flex-col gap-2">
               <Phenomenon
                 phenomenon="temperature"
                 size="xl"
-                value={weather.temperature}
+                value={local_weather?.temperature ?? weather.temperature}
               />
               {perceived_temperature && status === 'success' && (
                 <Phenomenon
@@ -73,11 +75,11 @@ export default function WeatherTileContent() {
                 />
                 <Phenomenon
                   phenomenon="cloudcover"
-                  value={weather?.cloud_cover}
+                  value={local_weather?.cloud_cover ?? weather?.cloud_cover}
                 />
                 <Phenomenon
                   phenomenon="solar_radiation"
-                  value={weather?.sunshine}
+                  value={local_weather?.solar_radiation ?? weather?.sunshine}
                 />
               </div>
             </div>
@@ -93,15 +95,21 @@ export default function WeatherTileContent() {
               <Phenomenon
                 hide_icon={true}
                 phenomenon="windspeed"
-                value={weather?.wind_speed}
+                value={local_weather?.wind_speed ?? weather?.wind_speed}
               />
             </div>
             <div className="flex-1">
               <Phenomenon
                 hide_icon={true}
-                meta={'(' + getWindDirection(weather?.wind_direction) + ')'}
+                meta={
+                  '(' +
+                  getWindDirection(
+                    local_weather?.wind_direction ?? weather?.wind_direction,
+                  ) +
+                  ')'
+                }
                 phenomenon="winddirection"
-                value={weather?.wind_direction}
+                value={local_weather?.wind_direction ?? weather?.wind_direction}
               />
             </div>
           </div>
@@ -115,7 +123,7 @@ export default function WeatherTileContent() {
                 <Phenomenon
                   hide_icon={true}
                   phenomenon="humidity"
-                  value={weather?.relative_humidity}
+                  value={local_weather?.humidity ?? weather?.relative_humidity}
                 />
               </div>
             )}
@@ -124,7 +132,11 @@ export default function WeatherTileContent() {
               <Phenomenon
                 hide_icon={true}
                 phenomenon="pressure"
-                value={weather?.pressure_msl}
+                value={
+                  local_weather?.pressure
+                    ? local_weather?.pressure * 0.01
+                    : weather?.pressure_msl
+                }
               />
             </div>
           </div>

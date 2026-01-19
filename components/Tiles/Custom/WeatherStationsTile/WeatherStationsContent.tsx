@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Entry from './WeatherStationsEntry'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { useApi } from '@schleegleixner/react-statamic-api'
@@ -19,6 +19,10 @@ const map_dimensions = {
 }
 
 const position_corrections = { x: -1.5, y: 0 }
+
+const MIN_ZOOM = 1
+const MAX_ZOOM = 5
+const ZOOM_STEP = 0.5
 
 function getLatitude(lat: number) {
   return (
@@ -57,7 +61,7 @@ function getZoomLevel(
   const scale_x = 80 / span_x
   const scale_y = 80 / span_y
 
-  return Math.min(scale_x, scale_y, 5)
+  return Math.min(scale_x, scale_y, MAX_ZOOM)
 }
 
 function getMapCenter(stations: StationsResult[]) {
@@ -77,15 +81,31 @@ function getMapCenter(stations: StationsResult[]) {
   return { center_lat, center_lng, zoomLevel }
 }
 
-function getMapTransform(stations: StationsResult[]) {
+function getInitialMapTransform(stations: StationsResult[]) {
   const { center_lat, center_lng, zoomLevel } = getMapCenter(stations)
   const x_percent = getLongitude(center_lng)
   const y_percent = getLatitude(center_lat)
 
   return {
     scale: zoomLevel,
-    translateX: `${50 - x_percent}%`,
-    translateY: `${50 - y_percent}%`,
+    translateX: 50 - x_percent,
+    translateY: 50 - y_percent,
+  }
+}
+
+// Clamp translation to prevent panning beyond map boundaries
+function clampTranslation(
+  translateX: number,
+  translateY: number,
+  scale: number,
+) {
+  // Maximum translation allowed based on zoom level
+  // At scale=1: no translation (0%), at scale=5: max ~40%
+  const maxTranslate = 50 * (1 - 1 / scale)
+
+  return {
+    translateX: Math.max(-maxTranslate, Math.min(maxTranslate, translateX)),
+    translateY: Math.max(-maxTranslate, Math.min(maxTranslate, translateY)),
   }
 }
 
@@ -101,11 +121,19 @@ export default function WeatherStationsContent({
 
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
-  const mapContainerRef = useRef(null)
+  const mapContainerRef = useRef<HTMLDivElement>(null)
   const [mapTransform, setMapTransform] = useState({
-    scale: 1,
-    translateX: '0%',
-    translateY: '0%',
+    scale: MIN_ZOOM,
+    translateX: 0,
+    translateY: 0,
+  })
+
+  // Drag state
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 })
+  const [initialTransform, setInitialTransform] = useState({
+    translateX: 0,
+    translateY: 0,
   })
 
   useEffect(() => {
@@ -117,8 +145,96 @@ export default function WeatherStationsContent({
       return
     }
 
-    setMapTransform(getMapTransform(weatherstations))
+    setMapTransform(getInitialMapTransform(weatherstations))
   }, [weatherstations])
+
+  // Zoom handlers
+  const handleZoomIn = useCallback(() => {
+    setMapTransform(prev => {
+      const newScale = Math.min(prev.scale + ZOOM_STEP, MAX_ZOOM)
+      const clamped = clampTranslation(prev.translateX, prev.translateY, newScale)
+      return {
+        scale: newScale,
+        translateX: clamped.translateX,
+        translateY: clamped.translateY,
+      }
+    })
+  }, [])
+
+  const handleZoomOut = useCallback(() => {
+    setMapTransform(prev => {
+      const newScale = Math.max(prev.scale - ZOOM_STEP, MIN_ZOOM)
+      const clamped = clampTranslation(prev.translateX, prev.translateY, newScale)
+      return {
+        scale: newScale,
+        translateX: clamped.translateX,
+        translateY: clamped.translateY,
+      }
+    })
+  }, [])
+
+  const handleResetView = useCallback(() => {
+    if (weatherstations && weatherstations.length > 0) {
+      setMapTransform(getInitialMapTransform(weatherstations))
+    }
+  }, [weatherstations])
+
+  // Drag handlers
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      setIsDragging(true)
+      setDragStart({ x: e.clientX, y: e.clientY })
+      setInitialTransform({
+        translateX: mapTransform.translateX,
+        translateY: mapTransform.translateY,
+      })
+    },
+    [mapTransform.translateX, mapTransform.translateY],
+  )
+
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging || !mapContainerRef.current) return
+
+      const containerRect = mapContainerRef.current.getBoundingClientRect()
+      const deltaX = e.clientX - dragStart.x
+      const deltaY = e.clientY - dragStart.y
+
+      // Convert pixel movement to percentage of container
+      const deltaXPercent = (deltaX / containerRect.width) * 100
+      const deltaYPercent = (deltaY / containerRect.height) * 100
+
+      // Scale the movement inversely to zoom level for consistent feel
+      const scaledDeltaX = deltaXPercent / mapTransform.scale
+      const scaledDeltaY = deltaYPercent / mapTransform.scale
+
+      const newTranslateX = initialTransform.translateX + scaledDeltaX
+      const newTranslateY = initialTransform.translateY + scaledDeltaY
+
+      // Clamp translation to map boundaries
+      const clamped = clampTranslation(
+        newTranslateX,
+        newTranslateY,
+        mapTransform.scale,
+      )
+
+      setMapTransform(prev => ({
+        ...prev,
+        translateX: clamped.translateX,
+        translateY: clamped.translateY,
+      }))
+    },
+    [isDragging, dragStart, initialTransform, mapTransform.scale],
+  )
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    setIsDragging(false)
+  }, [])
 
   useEffect(() => {
     if (weatherstations && weatherstations.length > 0 && autoRotate) {
@@ -145,49 +261,93 @@ export default function WeatherStationsContent({
   return (
     <TileSplitView>
       <TileSplitView.Left>
-        <div className="relative overflow-hidden rounded" ref={mapContainerRef}>
+        <div className="relative">
+          {/* Map Container */}
           <div
-            className="relative transition-all duration-1000"
-            style={{
-              transform: `scale(${mapTransform.scale}) translate(${mapTransform.translateX}, ${mapTransform.translateY})`,
-              transformOrigin: 'center',
-            }}
+            className={`relative overflow-hidden rounded ${isDragging ? 'cursor-grabbing' : 'cursor-grab'}`}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            ref={mapContainerRef}
           >
-            <Image
-              alt="Karte der Stadt Aschaffenburg"
-              className="w-full"
-              loading="lazy"
-              src={CityMap}
-              width={2560}
-            />
+            <div
+              className={`relative ${isDragging ? '' : 'transition-all duration-500'}`}
+              style={{
+                transform: `scale(${mapTransform.scale}) translate(${mapTransform.translateX}%, ${mapTransform.translateY}%)`,
+                transformOrigin: 'center',
+              }}
+            >
+              <Image
+                alt="Karte der Stadt Aschaffenburg"
+                className="pointer-events-none w-full select-none"
+                draggable={false}
+                loading="lazy"
+                src={CityMap}
+                width={2560}
+              />
 
-            <div className="absolute bottom-0 left-0 right-0 top-0">
-              {weatherstations.map(({ label, position }, index) => (
-                <div
-                  className="absolute -translate-x-3 -translate-y-3 scale-50 cursor-pointer"
-                  key={label}
-                  onClick={() => handleStationClick(index)}
-                  style={{
-                    left: getLongitude(position.lng) + '%',
-                    top: getLatitude(position.lat) + '%',
-                  }}
-                >
+              <div className="absolute bottom-0 left-0 right-0 top-0">
+                {weatherstations.map(({ label, position }, index) => (
                   <div
-                    className={`h-6 w-6 transition-all hover:scale-110 ${
-                      selectedIndex === index ? 'scale-110' : ''
-                    }`}
+                    className="absolute -translate-x-3 -translate-y-3 scale-50 cursor-pointer"
+                    key={label}
+                    onClick={e => {
+                      e.stopPropagation()
+                      handleStationClick(index)
+                    }}
+                    style={{
+                      left: getLongitude(position.lng) + '%',
+                      top: getLatitude(position.lat) + '%',
+                    }}
                   >
-                    <PulsatingCircle
-                      className={`h-full w-full fill-primary stroke-primary ${
-                        selectedIndex === index
-                          ? 'fill-secondary stroke-secondary'
-                          : 'fill-primary stroke-primary'
+                    <div
+                      className={`h-6 w-6 transition-all hover:scale-110 ${
+                        selectedIndex === index ? 'scale-110' : ''
                       }`}
-                    />
+                    >
+                      <PulsatingCircle
+                        className={`h-full w-full fill-primary stroke-primary ${
+                          selectedIndex === index
+                            ? 'fill-secondary stroke-secondary'
+                            : 'fill-primary stroke-primary'
+                        }`}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+          </div>
+
+          {/* Zoom Controls */}
+          <div className="absolute bottom-2 right-2 flex flex-col gap-1">
+            <button
+              aria-label="Vergrößern"
+              className="flex h-8 w-8 items-center justify-center rounded bg-white/90 text-lg font-bold text-gray-700 shadow-md transition-all hover:bg-white hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={mapTransform.scale >= MAX_ZOOM}
+              onClick={handleZoomIn}
+              type="button"
+            >
+              +
+            </button>
+            <button
+              aria-label="Verkleinern"
+              className="flex h-8 w-8 items-center justify-center rounded bg-white/90 text-lg font-bold text-gray-700 shadow-md transition-all hover:bg-white hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={mapTransform.scale <= MIN_ZOOM}
+              onClick={handleZoomOut}
+              type="button"
+            >
+              −
+            </button>
+            <button
+              aria-label="Ansicht zurücksetzen"
+              className="flex h-8 w-8 items-center justify-center rounded bg-white/90 text-xs font-bold text-gray-700 shadow-md transition-all hover:bg-white hover:shadow-lg"
+              onClick={handleResetView}
+              type="button"
+            >
+              ⟲
+            </button>
           </div>
         </div>
       </TileSplitView.Left>
