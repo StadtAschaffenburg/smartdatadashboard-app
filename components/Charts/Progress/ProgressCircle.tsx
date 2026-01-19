@@ -70,7 +70,7 @@ export function ProgressCircle({
         style={{
           strokeLinecap: 'round',
         }}
-        variants={variants}
+        variants={variants as any}
       />
     </svg>
   )

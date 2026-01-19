@@ -23,7 +23,7 @@ type TileFooterProps = VariantProps<typeof tileFooterStyle> & {
   onEmbedClick?: () => void
   onMoreInfoClick?: () => void
   onShareClick?: () => void
-  children?: React.ReactElement
+  children?: React.ReactElement<any>
   dataURL?: string | null
   hasMoreDetails?: boolean
   title?: string

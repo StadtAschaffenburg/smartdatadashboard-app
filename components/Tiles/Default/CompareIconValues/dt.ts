@@ -4,9 +4,9 @@ import { TileVariantTypes } from '@/utils/variants/TileVariants'
 export type ContentProps = {
   tile_payload: TilePayloadType
   keys?: string[]
-  iconBackground?: React.ReactElement
-  iconLeft?: React.ReactElement
-  iconRight?: React.ReactElement
+  iconBackground?: React.ReactElement<any>
+  iconLeft?: React.ReactElement<any>
+  iconRight?: React.ReactElement<any>
   datasource: TileDatasourceType
   variant: TileVariantTypes
 }

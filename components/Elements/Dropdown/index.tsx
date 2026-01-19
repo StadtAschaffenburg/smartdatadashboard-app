@@ -4,8 +4,8 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 
 type DropdownProps = {
-  trigger: React.ReactElement
-  children: React.ReactElement
+  trigger: React.ReactElement<any>
+  children: React.ReactElement<any>
 }
 
 export default function Dropdown({ trigger, children }: DropdownProps) {

@@ -20,9 +20,9 @@ export type DataSourceProps = {
 export type IconTileProps = DataSourceProps &
   EmbedTileProps & {
     variant?: TileVariantTypes
-    children?: React.ReactElement | React.ReactElement[]
-    title?: string | React.ReactElement
-    subtitle?: string | React.ReactElement
+    children?: React.ReactElement<any> | React.ReactElement<any>[]
+    title?: string | React.ReactElement<any>
+    subtitle?: string | React.ReactElement<any>
     dataSource?: string
     icon?:
       | ForwardRefExoticComponent<SVGProps<SVGSVGElement>>

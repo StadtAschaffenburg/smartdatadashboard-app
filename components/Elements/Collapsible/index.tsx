@@ -8,10 +8,10 @@ type TailwindBp = 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 type CollapsibleProps = {
   alwaysOpenAbove?: TailwindBp
-  children: React.ReactElement
+  children: React.ReactElement<any>
   isOpen?: boolean
   onOpenChange?: (_open: boolean) => void
-  trigger?: React.ReactElement
+  trigger?: React.ReactElement<any>
 }
 
 const bp_map: Record<TailwindBp, number> = {

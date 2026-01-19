@@ -1,79 +1,124 @@
-import { SeriesOption } from 'echarts'
-import { getThemeColor } from '@/utils/colors'
-import { calculateTrendline } from '@schleegleixner/react-statamic-api'
+import { useEffect, useState } from 'react'
+import { parseTooltipParams, TooltipDataType, TooltipIndexType } from '@schleegleixner/react-statamic-api'
+import {
+  getSplitSeries,
+  InputDataType,
+  TableRowType,
+} from '@schleegleixner/react-statamic-api'
+import { ChartDataTypes, ChartProps } from '@/components/Tiles/Base/Chart/dt'
+import { getThemeColor } from './colors'
 
-type Index = {
-  title: string
-  unit?: string
-  [key: string]: any
+/**
+ * All the indices that are on the chart
+ */
+export function getIndices(
+  table_rows: TableRowType[],
+  data: InputDataType[],
+  split_future: boolean = true,
+) {
+  const filtered_indices: ChartDataTypes = {}
+
+  table_rows.forEach(row => {
+    const { past_and_present, future } = getSplitSeries(
+      data,
+      row.key,
+      split_future,
+    )
+    const color = getThemeColor(row.variant ?? 'primary')
+
+    filtered_indices[row.key] = {
+      title: row.label ?? row.key,
+      unit: row.unit ?? undefined,
+      variant: row.variant ?? 'primary',
+      visible: row.visible ?? undefined,
+      icon: row.icon ?? undefined,
+      hide_trend: row.hide_trend ?? undefined,
+      seriesOption: [
+        {
+          name: row.label ?? row.key,
+          data: past_and_present,
+          color,
+        },
+        {
+          name: row.label ?? row.key + ' (Prognose)',
+          data: future,
+          color,
+          lineStyle: {
+            type: 'dashed',
+          },
+        },
+      ],
+    }
+  })
+
+  return filtered_indices
 }
 
 // chartTooltipFormatter formats the tooltip for the chart
 export const chartTooltipFormatter = (
   params: any,
-  indices: Record<string, Index>,
-) => {
-  const seen = new Set<string>()
+  indices: Record<string, TooltipIndexType>,
+): string => {
+  const data = parseTooltipParams(params, indices)
 
-  params = params.filter(
-    (item: any, index: number, self: any[]) =>
-      index ===
-      self.findIndex((obj: any) => obj.seriesName === item.seriesName),
-  )
-
-  return params
-    .map((param: any, index: number) => {
-      const marker = param.marker
-      const seriesName = param.seriesName
-      const value = param.value[1]?.toLocaleString('de-DE')
-      const unit =
-        Object.values(indices).find(i => i.title === seriesName)?.unit ?? ''
-      let year_tag = ''
-
-      if (!value || seen.has(seriesName) || seriesName === 'Trend') {
-        return null
-      }
-      seen.add(seriesName)
-
-      if (seen.size === 1) {
-        const year = new Date(param.value[0]).getFullYear()
-        year_tag = `<b className="block font-bold">${year}</b><hr style="margin: .35rem 0" />`
-      }
-      return `${year_tag}<div data-id="${index}" class="flex flex-row gap-2 items-center my-1">${marker}<div class="block max-lg:max-w-[350px] whitespace-normal break-words overflow-hidden leading-tight">${seriesName}: ${value} ${unit}</div></div>`
-    })
-    .filter((line: string | null) => line !== null)
-    .join('')
-}
-
-// getTrendlineSeries generates a trendline series based on the provided line series data
-export const getTrendlineSeries = ({
-  series,
-}: {
-  series: SeriesOption[]
-}): SeriesOption => {
-  const trendlineData = calculateTrendline(
-    [...series].flatMap(s => s.data) as [string, number][],
-  )
-  const trendlineColor = getThemeColor('primary')
-
-  const trendlineSeries: SeriesOption = {
-    type: 'line',
-    data: trendlineData,
-    name: 'Trend',
-    smooth: true,
-    lineStyle: {
-      type: 'dotted',
-      color: trendlineColor,
-      opacity: 0.3,
-    },
-    symbol: 'none', // hide small circles on the trendline initially
-    emphasis: {
-      lineStyle: {
-        opacity: 1, // change color on hover
-      },
-    },
-    markLine: {},
+  if (!data) {
+    return ''
   }
 
-  return trendlineSeries
+  const yearTag = `<b className="block font-bold">${data.year}</b><hr style="margin: .35rem 0" />`
+
+  const seriesHtml = data.series
+    .map(
+      (item: TooltipDataType['series'][number], index: number) =>
+        `<div data-id="${index}" class="flex flex-row gap-2 items-center my-1">${item.marker}<div class="block max-lg:max-w-[350px] whitespace-normal break-words overflow-hidden leading-tight">${item.label}: ${item.value} ${item.unit}</div></div>`,
+    )
+    .join('')
+
+  return yearTag + seriesHtml
+}
+
+// useChartIndices manages the indices state for chart components
+export function useChartIndices(
+  datasource: ChartProps['datasource'],
+  chart_type: ChartProps['chart_type'],
+) {
+  const [indicesState, setIndicesState] = useState<ChartDataTypes | null>(null)
+
+  useEffect(() => {
+    const indicies = getIndices(
+      datasource.table_rows ?? [],
+      datasource.content ?? [],
+      chart_type === 'line',
+    )
+
+    setIndicesState(prev => {
+      // set visibility of indices
+      Object.keys(indicies).forEach(key => {
+        indicies[key].visible = indicies[key]?.visible ?? true
+      })
+
+      if (prev) {
+        // merge with previous state
+        Object.keys(prev).forEach(key => {
+          if (indicies[key]) {
+            indicies[key].visible = prev[key].visible
+          }
+        })
+      }
+      return indicies
+    })
+  }, [datasource, chart_type])
+
+  const toggleIndex = (key: string, visible: boolean) =>
+    setIndicesState(prev => {
+      if (!prev) {
+        return prev
+      }
+      return {
+        ...prev,
+        [key]: { ...prev[key], visible },
+      }
+    })
+
+  return { indicesState, toggleIndex }
 }

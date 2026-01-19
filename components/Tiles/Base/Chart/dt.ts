@@ -20,6 +20,6 @@ export type ChartProps = {
   stacked?: boolean
   title?: string
   layout?: 'default' | 'full'
-  switch?: ReactElement
+  switch?: ReactElement<any>
   datasource: TileDatasourceType
 }

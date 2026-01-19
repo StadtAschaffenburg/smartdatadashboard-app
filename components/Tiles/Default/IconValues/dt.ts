@@ -4,7 +4,7 @@ import { TileVariantTypes } from '@/utils/variants/TileVariants'
 export type ContentProps = {
   keys?: string[]
   tile_payload: TilePayloadType
-  children?: React.ReactElement | React.ReactElement[]
+  children?: React.ReactElement<any> | React.ReactElement<any>[]
   datasource: TileDatasourceType
   variant: TileVariantTypes
 }

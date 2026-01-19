@@ -27,9 +27,9 @@ export type EmbedTileProps = { embedId?: TileType }
 
 export type BaseTileProps = VariantProps<typeof baseTileStyle> &
   EmbedTileProps & {
-    children: React.ReactElement | React.ReactElement[]
+    children: React.ReactElement<any> | React.ReactElement<any>[]
     className?: string
-    footerCenterElement?: React.ReactElement
+    footerCenterElement?: React.ReactElement<any>
     moreInfo?: React.ReactNode
     dataUrl?: string
   }

@@ -20,7 +20,7 @@ const button = cva(
 const class_names_content = 'flex items-center justify-center leading-tight'
 
 type IconProps = {
-  Icon?: React.ReactElement | React.ComponentType<{ className?: string }> | null
+  Icon?: React.ReactElement<any> | React.ComponentType<{ className?: string }> | null
 }
 
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &

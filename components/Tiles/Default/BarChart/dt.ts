@@ -3,6 +3,6 @@ import { ReactElement } from 'react'
 
 export type ChartProps = {
   tile_payload: TilePayloadType
-  switch?: ReactElement
+  switch?: ReactElement<any>
   datasource: TileDatasourceType
 }

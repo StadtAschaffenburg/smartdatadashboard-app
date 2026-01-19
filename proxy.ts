@@ -10,7 +10,7 @@ if (default_index > -1) {
 }
 valid_site_ids.push('preview')
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
   const host = request.headers.get('host') || 'localhost:3000'
   const protocol = host.includes('localhost') ? 'http' : 'https'

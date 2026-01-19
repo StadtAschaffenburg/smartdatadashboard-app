@@ -13,9 +13,9 @@ import {
 } from './dt'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import { getThemeColor } from '@/utils/colors'
-import { chartTooltipFormatter, getTrendlineSeries } from '@/utils/chart'
+import { chartTooltipFormatter } from '@/utils/chart'
 import AxisLabel from '@/components/Tiles/Base/AxisLabel'
-import { useApi } from '@schleegleixner/react-statamic-api'
+import { getTrendlineSeries, useApi } from '@schleegleixner/react-statamic-api'
 
 const colorLookup: Record<
   IndicesTypes,
@@ -182,7 +182,13 @@ export default function ClimateIndicesChart() {
       ),
     }))
 
-  const trendlineSeries = getTrendlineSeries({ series })
+  const trendlineSeries = getTrendlineSeries(series, {
+    lineStyle: {
+      type: 'dotted',
+      color: getThemeColor('primary'),
+      opacity: 0.3,
+    },
+  })
   const activeToggleCount = Object.values(indicesState).filter(
     index => index.visible,
   ).length

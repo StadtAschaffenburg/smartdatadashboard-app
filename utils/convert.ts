@@ -1,6 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 
-export function getStaticIcon(icon: React.ReactElement, color: string): string {
+export function getStaticIcon(icon: React.ReactElement<any>, color: string): string {
   const svg_raw = renderToStaticMarkup(icon)
 
   if (!svg_raw) {
@@ -26,7 +26,7 @@ export function getSaveId(id: string): string {
   return id
     .toLowerCase()
     .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '')
+    .replace(/[^a-z0-9_]/g, '');
 }
 
 export function mapBetween(

@@ -30,6 +30,23 @@ const nextConfig = {
       },
     ]
   },
+  turbopack: {
+    rules: {
+      '*.csv': {
+        loaders: [
+          {
+            loader: 'csv-loader',
+            options: {
+              dynamicTyping: true,
+              header: true,
+              skipEmptyLines: true,
+            },
+          },
+        ],
+        as: '*.js',
+      },
+    },
+  },
   webpack: (config, _options) => {
     config.module.rules.push({
       test: /\.csv$/,
@@ -46,7 +63,6 @@ const nextConfig = {
     })
     return config
   },
-  output: 'standalone',
 }
 
 module.exports = nextConfig

@@ -1,71 +1,22 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import { ReactECharts } from '@/components/Charts/ReactECharts'
 import { SeriesOption } from 'echarts'
-import { parse } from 'date-fns'
 import AxisLabel from '@/components/Tiles/Base/AxisLabel'
-import { useContentWidth } from '@schleegleixner/react-statamic-api'
-import { ChartDataTypes, ChartProps } from './dt'
 import {
-  axisFormatter,
-  axisMinimum,
-  getSplitSeries,
-  InputDataType,
-  TableRowType,
+  categorizeSeriesData,
+  getTimelineFromSeries,
+  getTrendlineSeries,
+  useContentWidth,
 } from '@schleegleixner/react-statamic-api'
+import { ChartProps } from './dt'
+import { axisFormatter, axisMinimum } from '@schleegleixner/react-statamic-api'
 import { getThemeColor } from '@/utils/colors'
-import { chartTooltipFormatter, getTrendlineSeries } from '@/utils/chart'
+import { chartTooltipFormatter, useChartIndices } from '@/utils/chart'
 import IndiciesToggle from '@/components/Tiles/Base/IndiciesToggle'
 import { cx } from 'class-variance-authority'
 import Text from '@/components/Elements/Text'
 import Spinner from '@/components/Elements/Spinner'
-
-/**
- * All the indices that are on the chart
- */
-function getIndices(
-  table_rows: TableRowType[],
-  data: InputDataType[],
-  split_future: boolean = true,
-) {
-  const filtered_indices: ChartDataTypes = {}
-
-  table_rows.forEach(row => {
-    const { past_and_present, future } = getSplitSeries(
-      data,
-      row.key,
-      split_future,
-    )
-    const color = getThemeColor(row.variant ?? 'primary')
-
-    filtered_indices[row.key] = {
-      title: row.label ?? row.key,
-      unit: row.unit ?? undefined,
-      variant: row.variant ?? 'primary',
-      visible: row.visible ?? undefined,
-      icon: row.icon ?? undefined,
-      hide_trend: row.hide_trend ?? undefined,
-      seriesOption: [
-        {
-          name: row.label ?? row.key,
-          data: past_and_present,
-          color,
-        },
-        {
-          name: row.label ?? row.key + ' (Prognose)',
-          data: future,
-          color,
-          lineStyle: {
-            type: 'dashed',
-          },
-        },
-      ],
-    }
-  })
-
-  return filtered_indices
-}
 
 export default function Chart({
   chart_type,
@@ -76,7 +27,8 @@ export default function Chart({
   datasource,
 }: ChartProps) {
   const { elRef, contentWidth } = useContentWidth<HTMLDivElement>()
-  const [indicesState, setIndicesState] = useState<ChartDataTypes | null>(null)
+  const { indicesState, toggleIndex } = useChartIndices(datasource, chart_type)
+
   const font_size_x =
     contentWidth > 1200
       ? 18
@@ -86,42 +38,6 @@ export default function Chart({
           ? 14
           : 12
   const font_size_y = contentWidth > 600 ? 12 : 10
-
-  useEffect(() => {
-    const indicies = getIndices(
-      datasource.table_rows ?? [],
-      datasource.content ?? [],
-      chart_type === 'line',
-    )
-
-    setIndicesState(prev => {
-      // set visibility of indices
-      Object.keys(indicies).forEach(key => {
-        indicies[key].visible = indicies[key]?.visible ?? true
-      })
-
-      if (prev) {
-        // merge with previous state
-        Object.keys(prev).forEach(key => {
-          if (indicies[key]) {
-            indicies[key].visible = prev[key].visible
-          }
-        })
-      }
-      return indicies
-    })
-  }, [datasource])
-
-  const toggleIndex = (key: string, visible: boolean) =>
-    setIndicesState(prev => {
-      if (!prev) {
-        return prev
-      }
-      return {
-        ...prev,
-        [key]: { ...prev[key], visible },
-      }
-    })
 
   if (!indicesState) {
     return (
@@ -166,10 +82,22 @@ export default function Chart({
   const active_indices = Object.values(indicesState).filter(
     index => index.visible,
   )
+
+  const isBarChart = chart_type === 'bar'
+  const timeline = getTimelineFromSeries(series)
+
+  const trendlineStyle: SeriesOption = {
+    lineStyle: {
+      type: 'dotted',
+      color: getThemeColor('primary'),
+      opacity: 0.3,
+    },
+  }
+
   const trendline_series =
     (stacked && active_indices.length) ||
     (active_indices.length === 1 && !active_indices[0].hide_trend)
-      ? getTrendlineSeries({ series })
+      ? getTrendlineSeries(series, trendlineStyle, timeline)
       : null
 
   return (
@@ -191,41 +119,34 @@ export default function Chart({
               grid: {
                 top: 20,
                 bottom: 40,
-                left: 50,
-                right: 40,
+                left: 60,
+                right: 20,
               },
-              tooltip: {
-                trigger: 'axis',
-                confine: true,
-                formatter: params =>
-                  chartTooltipFormatter(params, indicesState),
-              },
+                tooltip: {
+                  trigger: 'axis',
+                  confine: true,
+                  formatter: params =>
+                    chartTooltipFormatter(params, indicesState),
+                  axisPointer: {
+                    type: isBarChart ? 'shadow' : 'line',
+                  },
+                },
               series: [
-                ...series,
+                ...categorizeSeriesData(series, timeline),
                 ...(trendline_series ? [trendline_series] : []),
               ],
               xAxis: {
-                type: 'time',
+                type: 'category',
+                boundaryGap: isBarChart,
                 axisLabel: {
                   fontSize: font_size_x,
-                },
-                min: parse(
-                  `${datasource.year_min}-01-01`,
-                  'yyyy-MM-dd',
-                  new Date(),
-                ).getTime(),
-                max: parse(
-                  `${datasource.year_max}-01-01`,
-                  'yyyy-MM-dd',
-                  new Date(),
-                ).getTime(),
-                minInterval: 3600 * 24 * 365 * 1000,
-                axisTick: {
-                  length: 6,
+                  showMaxLabel: true,
                 },
                 splitLine: {
-                  show: true,
+                  show: !isBarChart,
                 },
+                axisTick: { length: 6, alignWithLabel: true },
+                data: timeline,
               },
               yAxis: {
                 type: 'value',

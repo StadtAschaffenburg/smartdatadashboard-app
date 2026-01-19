@@ -11,7 +11,7 @@ import {
 } from '@/utils/variants/TextVariants'
 
 interface CarouselProps extends SplideProps, VariantProps<typeof arrowStyle> {
-  children: React.ReactElement[]
+  children: React.ReactElement<any>[]
   arrows?: boolean
   pagination?: boolean
 }
