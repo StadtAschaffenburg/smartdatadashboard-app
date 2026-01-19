@@ -1,29 +1,24 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Container from '@/components/Layout/Container'
 import { scrollToElement } from '@/utils/scroll'
+import { useSearch } from '@schleegleixner/react-statamic-api'
 
 function SearchComponent() {
+  const { searchTerm, setSearchTerm, clearSearch } = useSearch()
   const [is_open, setIsOpen] = useState(false)
-  const [search_term, setSearchTerm] = useState('')
   const [is_hidden, setIsHidden] = useState(false)
   const search_ref = useRef<HTMLDivElement>(null)
   const input_field = useRef<HTMLInputElement>(null)
 
-  const searchParams = useSearchParams()
-  const search_query = searchParams?.get('suche') || null
-
   useEffect(() => {
-    if (search_query) {
-      setSearchTerm(search_query)
+    if (searchTerm) {
       setIsOpen(true)
-
       scrollToElement('tile-collection', -100)
     }
-  }, [search_query])
+  }, [searchTerm])
 
   useEffect(() => {
     if (is_open && input_field.current) {
@@ -55,46 +50,28 @@ function SearchComponent() {
     }
   }, [])
 
-  const updateQueryString = (key: string, value: string | null) => {
-    const url = new URL(window.location.href)
-    if (value) {
-      url.searchParams.set(key, value)
-    } else {
-      url.searchParams.delete(key)
-    }
-    window.history.pushState({}, '', url.toString())
-  }
-
   const handleToggle = () => {
-    if (is_open && search_term.length > 0) {
-      handleSearch(new Event('submit') as unknown as React.FormEvent)
+    if (is_open && searchTerm.length > 0) {
+      scrollToElement('tile-collection', -100)
     } else {
       setIsOpen(!is_open)
     }
   }
 
   const handleBlur = () => {
-    if (search_term.trim() === '') {
+    if (searchTerm.trim() === '') {
       setIsOpen(false)
     }
   }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (search_term.length > 0 && search_term.length <= 32) {
-      updateQueryString('suche', search_term)
-    } else if (search_term.length === 0) {
-      updateQueryString('suche', null)
-    }
-
     scrollToElement('tile-collection', -100)
   }
 
-  const clearSearch = () => {
-    if (search_query) {
-      setSearchTerm('')
-      updateQueryString('suche', null)
-    }
+  const handleClearSearch = () => {
+    clearSearch()
+    setIsOpen(false)
   }
 
   return (
@@ -126,12 +103,12 @@ function SearchComponent() {
                 placeholder="Suchbegriff..."
                 ref={input_field}
                 type="text"
-                value={search_term}
+                value={searchTerm}
               />
-              {search_query && (
+              {searchTerm && (
                 <button
                   className="ml-2 text-gray-500 hover:text-gray-700"
-                  onClick={clearSearch}
+                  onClick={handleClearSearch}
                   type="button"
                 >
                   <XMarkIcon className="w-10 stroke-neutral-500 p-2 transition-all hover:stroke-primary" />

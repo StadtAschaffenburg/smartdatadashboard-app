@@ -131,7 +131,15 @@ export default function RadarChart() {
       <ReactECharts
         option={{
           animation: false,
+          grid: {
+            left: 25,
+            right: 25,
+            top: 10,
+            bottom: 10,
+          },
           radar: {
+            center: ['50%', '50%'],
+            radius: '70%',
             splitNumber: 10,
             splitLine: {
               show: true,
@@ -151,9 +159,6 @@ export default function RadarChart() {
                 ],
                 width: 1,
               },
-            },
-            axisLabel: {
-              fontSize: '20px',
             },
             axisLine: {
               show: false,
@@ -182,7 +187,6 @@ export default function RadarChart() {
               name: 'Climate',
               type: 'radar',
               data: [
-                // zero,
                 ...seriesData,
               ],
             },

@@ -1,46 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import React from 'react'
 import Container from '@/components/Layout/Container'
 import Searchfield from '@/components/Elements/Searchfield'
+import { useSearch } from '@schleegleixner/react-statamic-api'
 
-function SearchComponent() {
-  const [search_term, setSearchTerm] = useState('')
-
-  const searchParams = useSearchParams()
-  const search_query = searchParams?.get('suche') || null
-
-  useEffect(() => {
-    if (search_term.length > 2 && search_term.length <= 128) {
-      updateQueryString('suche', search_term)
-    } else {
-      updateQueryString('suche', null)
-    }
-  }, [search_term])
-
-  useEffect(() => {
-    if (search_query) {
-      setSearchTerm(search_query)
-    }
-  }, [search_query])
-
-  const updateQueryString = (key: string, value: string | null) => {
-    const url = new URL(window.location.href)
-    if (value) {
-      url.searchParams.set(key, value)
-    } else {
-      url.searchParams.delete(key)
-    }
-    window.history.pushState({}, '', url.toString())
-  }
-
-  const clearSearch = () => {
-    if (search_query) {
-      setSearchTerm('')
-      updateQueryString('suche', null)
-    }
-  }
+function SearchComponent({ search_slug = 'suche' }: { search_slug?: string }) {
+  const { searchTerm, setSearchTerm, clearSearch } = useSearch()
 
   return (
     <div className={'group w-full'}>
@@ -51,7 +17,8 @@ function SearchComponent() {
           clearSearch={clearSearch}
           handleChange={e => setSearchTerm(e.target.value)}
           handleSubmit={e => e.preventDefault()}
-          search_term={search_term}
+          name={search_slug}
+          search_term={searchTerm}
         />
       </Container>
     </div>

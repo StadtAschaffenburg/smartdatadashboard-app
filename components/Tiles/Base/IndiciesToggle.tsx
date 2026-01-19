@@ -15,6 +15,7 @@ export default function IndiciesToggle({
 }: IndiciesToggleProps) {
   const limit = 520
   const { elRef, contentWidth } = useContentWidth<HTMLDivElement>()
+
   const toggled_count = Object.keys(indices).filter(
     key => indices[key].visible,
   ).length
@@ -23,8 +24,8 @@ export default function IndiciesToggle({
     <div
       className={cx(
         className,
-        contentWidth < limit ? 'flex' : 'grid grid-cols-2',
-        'align-center w-full max-w-[720px] flex-col justify-center gap-x-4 gap-y-2 lg:p-4',
+        'w-full max-w-[800px] flex-col justify-evenly gap-x-8 gap-y-2 overflow-x-hidden lg:p-4 2xl:max-w-[400px]',
+        contentWidth > limit ? 'grid grid-cols-2' : 'flex',
       )}
       ref={elRef}
     >
