@@ -11,6 +11,7 @@ import {
 } from '@schleegleixner/react-statamic-api'
 import { notFound } from 'next/navigation'
 import Head from '@/components/Layout/Head'
+import CookieConsent from '@/components/Layout/CookieConsent'
 
 const getLangFromSiteId = (locale: string) => {
   const locale_map: Record<string, string> = {
@@ -69,6 +70,7 @@ export default async function RootLayout({
         >
           <main id="app-root">{children}</main>
         </TranslationContext>
+        <CookieConsent />
       </body>
     </html>
   )

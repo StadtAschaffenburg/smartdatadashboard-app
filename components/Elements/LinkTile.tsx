@@ -10,7 +10,7 @@ export interface LinkTileProps {
   label?: string | null
   link?: string | null
 }
-export default async function LinkTile({
+export default function LinkTile({
   headline,
   content,
   label,
