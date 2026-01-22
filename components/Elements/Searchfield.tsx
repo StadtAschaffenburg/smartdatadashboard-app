@@ -12,6 +12,7 @@ function SearchfieldComponent({
   handleSubmit,
   name = 'suche',
   search_term,
+  placeholder = 'Suchen',
 }: {
   catchCursor?: boolean
   classes?: string
@@ -20,6 +21,7 @@ function SearchfieldComponent({
   handleSubmit?: (_event: React.FormEvent<HTMLFormElement>) => void
   name?: string
   search_term?: string
+  placeholder?: string
 }) {
   const input_field = useRef<HTMLInputElement>(null)
 
@@ -47,7 +49,7 @@ function SearchfieldComponent({
           className="placeholder:text-grey-700 w-full py-2 pl-6 transition-all focus:outline-none md:pl-12 lg:pl-8 xl:pl-12"
           name="suche"
           onChange={handleChange || (() => {})}
-          placeholder="Wonach suchen Sie?"
+          placeholder={placeholder}
           ref={input_field}
           type="text"
           value={search_term}

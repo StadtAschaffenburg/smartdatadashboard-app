@@ -7,7 +7,7 @@ import PageIntro from '@/components/Elements/PageIntro'
 import TileCollectionView from '@/components/Views/TileCollectionView'
 import RequestIndicator from '@/components/Elements/RequestIndicator'
 import DimensionFilter from '@/components/Layout/DimensionFilter/index'
-import FloatingSearchbox from '@/components/Elements/FloatingSearchbox'
+import Searchbox from '@/components/Elements/Searchbox'
 
 export default function TilesTemplate({
   sitemap,
@@ -38,13 +38,14 @@ export default function TilesTemplate({
 
       {show_filter && <DimensionFilter page_data={page_data} sitemap={sitemap} />}
 
+      <Searchbox />
+
       <Container>
         <TileCollectionView
           collection={collection}
           page_data={page_data}
           sitemap={sitemap}
         />
-        <FloatingSearchbox />
       </Container>
     </>
   )

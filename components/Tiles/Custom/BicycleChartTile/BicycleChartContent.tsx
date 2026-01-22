@@ -6,8 +6,10 @@ import { format, subDays } from 'date-fns'
 import { useState } from 'react'
 import BicycleRow from './BicycleRow'
 import LoadingRow from './LoadingRow'
+import { getString } from '@schleegleixner/react-statamic-api'
+import { TilePayloadType } from '@schleegleixner/react-statamic-api'
 
-export default function BicycleChartContent() {
+export default function BicycleChartContent({ tile_payload }: { tile_payload: TilePayloadType }) {
   const lastDays = new Array(7)
     .fill(undefined)
     .map((e, i) => subDays(new Date(), i + 1))
@@ -33,7 +35,7 @@ export default function BicycleChartContent() {
               key={e.id}
               max={max}
               min={min}
-              name={e.name}
+              name={getString(tile_payload, 'station_' + e.id, e.name)}
             />
           ))}
       </div>

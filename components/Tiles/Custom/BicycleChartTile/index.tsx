@@ -5,7 +5,7 @@ import BicycleChartContent from './BicycleChartContent'
 export default function Tile({ type, tile_payload }: TileProps) {
   return (
     <BaseTile embedId={type} live tile_payload={tile_payload}>
-      <BicycleChartContent />
+      <BicycleChartContent tile_payload={tile_payload} />
     </BaseTile>
   )
 }
