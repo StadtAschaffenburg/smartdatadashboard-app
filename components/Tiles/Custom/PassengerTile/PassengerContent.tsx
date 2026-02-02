@@ -31,10 +31,19 @@ export default function PassengerContent({
     const previous = yearIndex > 0 ? datasource.content[yearIndex - 1] : null
 
     setPassengerValue({
-      current: current.value / 1000000,
-      previous: previous ? previous.value / 1000000 : null,
+      current:
+        ((Object.entries(current).find(([key]) => key !== 'INDEX')?.[1] as
+          | number
+          | undefined) ?? 0) / 1000000,
+      previous: previous
+        ? ((Object.entries(previous).find(([key]) => key !== 'INDEX')?.[1] as
+            | number
+            | undefined) ?? 0) / 1000000
+        : null,
     })
   }, [yearIndex, datasource])
+
+  console.log(datasource)
 
   if (!datasource) {
     return <RequestIndicator />
