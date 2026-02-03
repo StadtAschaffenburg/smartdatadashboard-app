@@ -48,7 +48,7 @@ export default function Top({
             <ContentImage
               className="absolute object-cover"
               src={
-                contentWidth > 768 && heroImageMobile
+                contentWidth < 768 && heroImageMobile
                   ? heroImageMobile
                   : heroImage
               }
