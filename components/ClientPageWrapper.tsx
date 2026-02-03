@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { PageMappingType } from '@schleegleixner/react-statamic-api'
 import HomeTemplate from '@/components/Templates/HomeTemplate'
@@ -12,7 +12,7 @@ import SearchTemplate from '@/components/Templates/SearchTemplate'
 /**
  * Finds the page_data based on the pathname in the sitemap
  */
-function getCurrentPageClient(
+export function getCurrentPageClient(
   sitemap: PageMappingType[],
   pathname: string,
 ): PageMappingType | null {
