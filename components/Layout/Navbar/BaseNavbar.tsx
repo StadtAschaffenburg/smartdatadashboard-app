@@ -146,7 +146,7 @@ export default function BaseNavbar({
                   {...linkHome}
                   className={cx(
                     'md:self-start max-lg:min-w-80',
-                    current_url === undefined ? 'active' : '',
+                    current_url === undefined || current_url === '' ? 'active' : '',
                   )}
                   onClick={handleLinkClick}
                 />
