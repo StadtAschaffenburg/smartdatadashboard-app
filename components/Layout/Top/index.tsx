@@ -60,7 +60,7 @@ export default function Top({
               variant="flat"
             >
               <div className="flex w-fit flex-col gap-4 mb-4">
-                <div className="w-fit rounded bg-white px-6 xs:px-8 md:px-12 lg:px-8 xl:px-12">
+                <div className="w-fit rounded bg-white px-6 md:px-8 xl:px-8">
                   <PlatformIdentity site_id={site_id} />
                 </div>
                 <Searchfield />

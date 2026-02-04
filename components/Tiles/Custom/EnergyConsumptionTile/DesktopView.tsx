@@ -1,6 +1,7 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
 import Spacer from '@/components/Elements/Spacer'
 import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
 import { ViewProps } from './dt'
@@ -13,6 +14,7 @@ export default function DesktopView({
   yearIndex,
   years,
 }: ViewProps) {
+  console.log('data', data)
   return (
     <>
       <div className="flex h-full w-full justify-between gap-8">
@@ -21,19 +23,21 @@ export default function DesktopView({
             <div className="mx-auto mb-3 flex h-[200px] w-[200px] justify-center fill-primary">
               <IconFactory type={row.icon} variant={variant} />
             </div>
-            <Title
+            <Text
               as="h4"
               className="min-h-[5rem] text-center"
-              variant="primary"
+              weight="medium"
+              variant={variant}
             >
               {row.label}
-            </Title>
+            </Text>
           </div>
         ))}
       </div>
+
       {mode !== 'strom' && (
         <>
-          <LabelSeperator>Monatlicher Verbrauch</LabelSeperator>
+          <LabelSeperator variant={variant}>Monatlicher Verbrauch</LabelSeperator>
           <div className="flex h-full w-full justify-between gap-8">
             {Object.entries(data).map(([id, row]) => (
               <div className="h-72 w-full md:pb-2" key={id}>
@@ -43,7 +47,8 @@ export default function DesktopView({
           </div>
         </>
       )}
-      <LabelSeperator>
+
+      <LabelSeperator variant={variant}>
         {years[yearIndex] === new Date().getFullYear()
           ? 'Jahresverbrauch bisher'
           : 'Jahresverbrauch'}
@@ -56,12 +61,12 @@ export default function DesktopView({
           return (
             <div className="flex w-full justify-center gap-1 p-2" key={id}>
               {entry.currentSum === 0 ? (
-                <Title as="h4" variant="primary">
+                <Title as="h4" variant={variant}>
                   fehlende Daten
                 </Title>
               ) : (
                 <>
-                  <Title as="h4" variant="primary">
+                  <Title as="h4" variant={variant}>
                     <AnimatedNumber
                       decimals={0}
                       previous_value={entry.previousSum}

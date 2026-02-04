@@ -1,5 +1,5 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
 import EnergyConsumptionChart from './EnergyConsumptionChart'
 import LabelSeperator from './LabelSeperator'
 import Carousel from '@/components/Elements/Carousel'
@@ -25,34 +25,34 @@ export default function MobileView({
         return (
           <div key={id}>
             <div className="flex gap-2">
-              <Title as="h4" className="h-20 flex-1" variant="primary">
+              <Text as="h4" className="h-20 flex-1" variant={variant} weight="medium">
                 {row.label}
-              </Title>
-              <div className="mx-auto flex h-[80px] w-[80px] justify-end fill-primary">
+              </Text>
+              <div className="mx-auto flex h-[80px] w-[80px] justify-end fill-ecology">
                 <IconFactory type={row.icon} variant={variant} />
               </div>
             </div>
             {mode !== 'strom' && (
               <>
-                <LabelSeperator>Monatlicher Verbrauch</LabelSeperator>
+                <LabelSeperator variant={variant}>Monatlicher Verbrauch</LabelSeperator>
                 <div className="h-40 w-full">
                   <EnergyConsumptionChart data={row.waerme.current} />
                 </div>
               </>
             )}
-            <LabelSeperator>
+            <LabelSeperator variant={variant}>
               {years[yearIndex] === new Date().getFullYear()
                 ? 'Jahresverbrauch bisher'
                 : 'Jahresverbrauch'}
             </LabelSeperator>
             <div className="flex w-full gap-1 p-2">
               {row[mode].currentSum === 0 ? (
-                <Title as="h4" variant="primary">
+                <Text as="h4" variant="primary">
                   fehlende Daten
-                </Title>
+                </Text>
               ) : (
                 <>
-                  <Title as="h4" variant="primary">
+                  <Text as="h4" variant={variant}>
                     <AnimatedNumber
                       decimals={0}
                       previous_value={row[mode].previousSum}
@@ -60,7 +60,7 @@ export default function MobileView({
                     >
                       {row[mode].currentSum}
                     </AnimatedNumber>
-                  </Title>
+                  </Text>
                 </>
               )}
             </div>

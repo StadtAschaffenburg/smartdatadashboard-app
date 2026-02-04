@@ -1,14 +1,13 @@
 import { TileVariantTypes } from '@/utils/variants/TileVariants'
-import { InputDataType, TilePayloadType } from '@schleegleixner/react-statamic-api'
+import { InputDataType, TileDatasourceType, TilePayloadType} from '@schleegleixner/react-statamic-api'
 
 export type DataType = {
   datum: number
+  year: number
   [key: number]: number | null
 }
 
 export type EnergyConsumptionContentProps = {
-  waermeDataInput: InputDataType[]
-  stromDataInput: InputDataType[]
   tile_payload: TilePayloadType
 }
 

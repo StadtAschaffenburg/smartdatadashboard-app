@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Slider from '@/components/Inputs/Slider'
 import DesktopView from './DesktopView'
 import MobileView from './MobileView'
@@ -10,13 +10,21 @@ import {
   InputDataType,
   sanitizeNumber,
   TableRowType,
+  TileDatasourceType
 } from '@schleegleixner/react-statamic-api'
 import { getVariantType } from '@/utils/payload'
+import ToggleGroup from '@/components/Inputs/ToggleGroup'
+
+import {
+  getDataSource,
+  TileProps,
+} from '@schleegleixner/react-statamic-api'
 
 function convertData(data: InputDataType[], table_rows: TableRowType[]): any[] {
   return data.map((d: InputDataType) => {
     const converted_row: { [key: string]: any } = {
       datum: convertToUnixTimestamp(d.INDEX) * 1000,
+      year: new Date(convertToUnixTimestamp(d.INDEX) * 1000).getFullYear(),
     }
 
     table_rows.forEach((row, index) => {
@@ -38,8 +46,8 @@ function setYears(data: DataType[]): number[] {
 }
 
 function getDataByBuildings(
-  stromData: DataType[],
-  waermeData: DataType[],
+  stromData: TileDatasourceType,
+  waermeData: TileDatasourceType,
   year: number,
   table_rows: TableRowType[],
 ): BuildingDataType {
@@ -49,10 +57,10 @@ function getDataByBuildings(
     const data: DataType[] = mode === 'strom' ? stromData : waermeData
 
     const currentYearData = data.filter(
-      d => year === new Date(d.datum).getFullYear(),
+      d => year === d.year,
     )
     const previousYearData = data.filter(
-      d => year - 1 === new Date(d.datum).getFullYear(),
+      d => year - 1 === d.year,
     )
 
     table_rows.forEach((row, index) => {
@@ -102,26 +110,36 @@ function getDataByBuildings(
 }
 
 export default function EnergyConsumptionContent({
-  stromDataInput,
   tile_payload,
-  waermeDataInput,
 }: EnergyConsumptionContentProps) {
+  const [mode, setMode] = useState<'strom' | 'waerme'>('strom')
+  
   const variant = getVariantType(tile_payload)
+  
+  const stromDataInput = getDataSource(tile_payload, 0)
+  const waermeDataInput = getDataSource(tile_payload, 1)
+
   const table_rows =
     tile_payload.datasources && tile_payload.datasources[0]?.table_rows
       ? tile_payload.datasources[0].table_rows
       : []
+
   const waermeData: DataType[] =
     waermeDataInput && table_rows
-      ? convertData(waermeDataInput, table_rows)
+      ? convertData(waermeDataInput.content, table_rows)
       : []
   const stromData: DataType[] =
-    stromDataInput && table_rows ? convertData(stromDataInput, table_rows) : []
-  const years = setYears(stromData)
+    stromDataInput && table_rows ? convertData(stromDataInput.content, table_rows) : []
 
-  // eslint-disable unused-imports/no-unused-vars
-  const [mode, _setMode] = useState<'strom' | 'waerme'>('strom')
+  const years = setYears(mode === 'strom' ? stromData : waermeData)
+
   const [yearIndex, setYearIndex] = useState<number>(years.length - 1)
+  
+  useEffect(() => {
+    if (!years.includes(years[yearIndex])) {
+      setYearIndex(years.length - 1)
+    }
+  }, [years])
 
   if (table_rows === null) {
     return <></>
@@ -137,7 +155,23 @@ export default function EnergyConsumptionContent({
   return (
     <>
       <div className="relative h-full w-full rounded bg-white p-5 pt-8">
-        <div className="absolute -top-4 right-0 w-full md:-top-6 md:w-auto"></div>
+      <div className="absolute -top-4 right-0 w-full md:-top-6 md:w-96">
+          <ToggleGroup
+            items={[
+              {
+                element: 'Strom',
+                value: 'strom',
+              },
+              {
+                element: 'Wärme',
+                value: 'waerme',
+              },
+            ]}
+            label='Umschalter zwischen Strom und Wärme'
+            onChange={value => setMode(value as 'strom' | 'waerme')}
+            variant={variant}
+          ></ToggleGroup>
+        </div>
         <div className="hidden xl:block">
           <DesktopView
             data={data}
@@ -158,12 +192,7 @@ export default function EnergyConsumptionContent({
           />
         </div>
       </div>
-      <Slider
-        default_value={yearIndex}
-        labels={years.map(e => e.toString())}
-        onValueChange={setYearIndex}
-        variant={'primary'}
-      />
+      <Slider labels={years} onValueChange={setYearIndex} variant={variant} />
     </>
   )
 }

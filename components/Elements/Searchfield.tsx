@@ -46,7 +46,7 @@ function SearchfieldComponent({
       >
         <input
           autoComplete="off"
-          className="placeholder:text-grey-700 w-full py-2 pl-6 transition-all focus:outline-none md:pl-12 lg:pl-8 xl:pl-12"
+          className="placeholder:text-grey-700 w-full py-2 pl-6 transition-all focus:outline-none md:pl-8 xl:pl-8 xl:pl-12"
           name="suche"
           onChange={handleChange || (() => {})}
           placeholder={placeholder}

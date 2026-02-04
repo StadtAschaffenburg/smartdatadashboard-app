@@ -19,7 +19,7 @@ export default function LinkTile({
   return (
     <div>
       <Background light rounded>
-        <div className="flex w-full flex-col justify-between gap-8 p-6 lg:px-12 lg:py-8">
+        <div className="flex w-full flex-col justify-between gap-8 p-6 md:p-8 xl:px-12 xl:py-8">
           {headline && (
             <Title as="h3" margin="none" variant="primary">
               {headline}
