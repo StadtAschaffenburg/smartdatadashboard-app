@@ -44,6 +44,7 @@ const iconMap: Record<string, IconComponent> = {
   school: EcologyIcons.IconBuildingSchule,
   library: EcologyIcons.IconBuildingBibliothek,
   arena: EcologyIcons.IconBuildingArena,
+  line_mh_arena: EcologyIcons.StadionAb260203Fin,
   townhall: EcologyIcons.IconBuildingRathaus,
   car: EcologyIcons.IconCar,
   weatherstation: EcologyIcons.IconWeatherstation,
