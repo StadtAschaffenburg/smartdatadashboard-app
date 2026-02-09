@@ -4,65 +4,44 @@ import {
   markdownComponents as baseComponents,
   markdownPlugins,
 } from '@/utils/markdown'
-import DynamicText from '@/components/Elements/DynamicText'
-import { TilePayloadType } from '@/types/tiles'
+import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
+import rehypeRaw from 'rehype-raw'
+import remarkAnimate from '@/utils/markdown/remarkAnimate'
+import { cx } from 'class-variance-authority'
 
 interface MarkdownProps {
+  className?: string
+  defaultClasses?: string
   content: string
-  tile_payload?: TilePayloadType
 }
 
-export default function Markdown({ content, tile_payload }: MarkdownProps) {
-  const createDynamicWrapper = (Component: 'p' | 'span') => {
-    const baseClassName =
-      baseComponents[Component as keyof typeof baseComponents]?.({
-        children: null,
-      }).props?.className || ''
-
-    // eslint-disable-next-line react/function-component-definition
-    return ({ children, ...rest }: { children: React.ReactNode }) => {
-      if (!tile_payload) {
-        return React.createElement(
-          Component,
-          { className: baseClassName, ...rest },
-          children,
-        )
-      }
-
-      const hasOnlyPlainText = React.Children.toArray(children).every(
-        child => typeof child === 'string',
-      )
-
-      if (hasOnlyPlainText) {
-        const textContent = React.Children.toArray(children).join(' ')
-        return React.createElement(
-          Component,
-          { className: baseClassName, ...rest },
-          <DynamicText tile_payload={tile_payload}>{textContent}</DynamicText>,
-        )
-      }
-
-      return React.createElement(
-        Component,
-        { className: baseClassName, ...rest },
-        children,
-      )
-    }
-  }
-
+export default function Markdown({
+  defaultClasses = 'markdown text-base font-normal lg:text-lg',
+  className = '',
+  content,
+}: MarkdownProps) {
   const markdownComponents = {
     ...baseComponents,
-    p: createDynamicWrapper('p'),
-    span: createDynamicWrapper('span'),
+    animate: ({ children }: { children: React.ReactNode }) => {
+      // if is number, animate it - else just render as text
+      const value = String(children).trim()
+      return isNaN(Number(value)) ? (
+        <span>{children}</span>
+      ) : (
+        <AnimatedNumber>{Number(value)}</AnimatedNumber>
+      )
+    },
   }
 
   return (
-    <ReactMarkdown
-      className={'markdown'}
-      components={markdownComponents as any}
-      remarkPlugins={markdownPlugins}
-    >
-      {content}
-    </ReactMarkdown>
+    <div className={cx(className, defaultClasses)}>
+      <ReactMarkdown
+        components={markdownComponents as any}
+        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[...markdownPlugins, remarkAnimate]}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   )
 }

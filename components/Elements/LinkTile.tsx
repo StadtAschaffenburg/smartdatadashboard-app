@@ -2,25 +2,26 @@ import Title from '@/components/Elements/Title'
 import Markdown from '@/components/Elements/Markdown'
 import Background from '@/components/Layout/Background'
 import Link from 'next/link'
-import { Button } from './Button'
+import Button from './Button'
 
-export default async function LinkTile({
-  headline,
-  content,
-  label,
-  link,
-}: {
+export interface LinkTileProps {
   headline?: string | null
   content?: string | null
   label?: string | null
   link?: string | null
-}) {
+}
+export default function LinkTile({
+  headline,
+  content,
+  label,
+  link,
+}: LinkTileProps) {
   return (
     <div>
       <Background light rounded>
-        <div className="flex w-full flex-col justify-between gap-8 p-6 lg:px-12 lg:py-8">
+        <div className="flex w-full flex-col justify-between gap-8 p-6 md:p-8 xl:px-12 xl:py-8">
           {headline && (
-            <Title as="h3" font="normal" variant="primary">
+            <Title as="h3" margin="none" variant="primary">
               {headline}
             </Title>
           )}

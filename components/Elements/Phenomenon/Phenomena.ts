@@ -1,78 +1,71 @@
 import { PhenomenaType } from './dt'
 
-import {
-  IconWeatherAtmosphaere,
-  IconWeatherNiederschlag,
-  IconWeatherSonnig,
-  IconWeatherTemperatur,
-  IconWeatherWindgeschw,
-  IconWeatherWolkendichte,
-} from '@/components/Icons/Weather'
+import * as Icons from '@/components/Icons/Weather'
 import IconPlaceholder from '@/components/Icons/Placeholder'
 
 const Phenomena: PhenomenaType = {
   temperature: {
     title: 'Temperatur',
     unit: '°C',
-    icon: IconWeatherTemperatur,
+    icon: Icons.IconWeatherTemperatur,
     decimals: 1,
   },
   perceived_temperature: {
     title: 'Gefühlte Temperatur',
     unit: '°C',
-    icon: IconWeatherTemperatur,
+    icon: Icons.IconWeatherTemperatur,
     decimals: 1,
   },
   precipitation: {
     title: 'Niederschlag',
     unit: 'mm',
-    icon: IconWeatherNiederschlag,
+    icon: Icons.IconWeatherNiederschlag,
   },
   cloudcover: {
     title: 'Wolken&shy;bedeckung',
     shortTitle: 'Wolkenbed.',
     unit: '%',
-    icon: IconWeatherWolkendichte,
+    icon: Icons.IconWeatherWolkendichte,
   },
   windspeed: {
     title: 'Wind&shy;geschwindigkeit',
     shortTitle: 'Windgeschw.',
     unit: 'km/h',
-    icon: IconWeatherWindgeschw,
+    icon: Icons.IconWeatherWindgeschw,
     decimals: 1,
   },
   winddirection: {
     title: 'Wind&shy;richtung',
     shortTitle: 'Windricht.',
     unit: '°',
-    icon: IconWeatherWindgeschw,
+    icon: Icons.IconWeatherWindgeschw,
   },
   sunhours: {
     title: 'Sonnenstunden',
     unit: 'h',
-    icon: IconWeatherSonnig,
+    icon: Icons.IconWeatherSonnig,
   },
   solar_radiation: {
     title: 'Sonneneinstrahlung',
     unit: 'W/m²',
-    icon: IconWeatherSonnig,
+    icon: Icons.IconWeatherSonnig,
   },
   humidity: {
     title: 'Luft&shy;feuchtigkeit',
     unit: '%',
-    icon: IconWeatherAtmosphaere,
+    icon: Icons.IconWeatherAtmosphaere,
   },
   pressure: {
     title: 'Luft&shy;druck',
     unit: 'hPa',
-    icon: IconWeatherAtmosphaere,
+    icon: Icons.IconWeatherAtmosphaere,
   },
   stickstoffdioxid: {
     title: 'Stickstoffdioxid (NO<sub>2</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,
   },
-  feinstaub_1000: {
+  feinstaub_100: {
     title: 'Feinstaub (PM<sub>10</sub>)',
     unit: 'μg/m³',
     icon: IconPlaceholder,

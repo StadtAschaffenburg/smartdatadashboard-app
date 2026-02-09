@@ -1,23 +1,41 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
 import BaseNavbar from './BaseNavbar'
+import React, { JSX } from 'react'
+import {
+  setPageTitle,
+  useBreadcrumbs,
+} from '@schleegleixner/react-statamic-api'
+import { getUriSegment } from '@/utils/uri'
 import Breadcrumbs from './Breadcrumbs'
-import React from 'react'
-import { useBreadcrumbs } from '@/utils/breadcrumbs'
-import { setPageTitle } from '@/utils/content'
 
-export default function Navbar({ page_title }: { page_title: string }) {
-  const pathname: string = usePathname() ?? '/'
-  const url = pathname === '/' ? '' : pathname.replace(/^\//, '')
-  const breadcrumbs = useBreadcrumbs()
-
-  // split the URL into segments and filter out empty strings
-  const segments = url.split('/').filter(Boolean)
-  setPageTitle(breadcrumbs[breadcrumbs.length - 1].title ?? '', page_title)
+export default function Navbar({
+  default_page_title,
+  seo_title,
+  sitemap,
+  site_id,
+  tilemap,
+}: {
+  default_page_title: string
+  seo_title: string | null
+  sitemap: any[]
+  site_id: string
+  tilemap: {
+    tile_id: string
+    title: string | null
+  }[]
+}): JSX.Element {
+  const breadcrumbs = useBreadcrumbs(site_id, sitemap, tilemap)
+  const page_title =
+    breadcrumbs[breadcrumbs.length - 1].title ?? default_page_title
+  setPageTitle(page_title, seo_title)
 
   return (
-    <BaseNavbar collapsible={url !== ''} current_url={segments[0]}>
+    <BaseNavbar
+      collapsible={breadcrumbs[0].link !== '/'}
+      current_url={getUriSegment() ?? ''}
+      sitemap={sitemap}
+    >
       <Breadcrumbs breadcrumbs={breadcrumbs} />
     </BaseNavbar>
   )

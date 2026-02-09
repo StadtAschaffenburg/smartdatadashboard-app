@@ -1,5 +1,5 @@
 import AnimatedNumber from '@/components/Elements/Animated/AnimatedNumber'
-import Title from '@/components/Elements/Title'
+import Text from '@/components/Elements/Text'
 import { cx } from 'class-variance-authority'
 import useDevice from '@/hooks/useDevice'
 import Phenomena from './Phenomena'
@@ -44,14 +44,14 @@ export default function Phenomenon({
         />
       )}
       <div>
-        <Title
+        <Text
           as={'h6'}
           dangerouslySetInnerHTML={{
             __html: device === 'mobile' && shortTitle ? shortTitle : title,
           }}
-          variant={'live'}
-        ></Title>
-        <Title as={valueSize} variant={variant}>
+          variant={'primary'}
+        ></Text>
+        <Text as={valueSize} variant={variant}>
           {animate && (
             <AnimatedNumber decimals={decimals}>{value}</AnimatedNumber>
           )}
@@ -63,7 +63,7 @@ export default function Phenomenon({
             </span>
           )}{' '}
           {unit} {meta}
-        </Title>
+        </Text>
       </div>
     </div>
   )

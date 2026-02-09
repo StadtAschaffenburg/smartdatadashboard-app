@@ -13,7 +13,6 @@ export type BackgroundProps = {
   rounded?: boolean
 }
 
-// Background-Komponente ohne cva
 export default function Background({
   light = false,
   variant = BackgroundDefaultVariants.variant,

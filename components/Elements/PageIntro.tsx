@@ -1,26 +1,20 @@
 import Title from '@/components/Elements/Title'
-import { getContent } from '@/lib/cms'
-import { PageContentType } from '@/types/PageContent'
 import Markdown from '@/components/Elements/Markdown'
+import { cx } from 'class-variance-authority'
 import Container from '@/components/Layout/Container'
 
-export default async function PageIntro({
+export default function PageIntro({
   headline,
   content,
-  slug,
   container,
+  use_columns = false,
 }: {
   headline?: string | null
   content?: string | null
   slug?: string
   container?: boolean
+  use_columns?: boolean
 }) {
-  const page_content: PageContentType = slug
-    ? await getContent('page', slug)
-    : {}
-  headline = page_content?.headline ?? headline
-  content = page_content?.content ?? content
-
   if (!headline && !content) {
     return <></>
   }
@@ -29,13 +23,13 @@ export default async function PageIntro({
     <>
       <div className="my-4">
         {headline && (
-          <Title as="h1" className="mb-8" font="normal" variant="primary">
+          <Title as="h1" className="mb-8" variant="primary">
             {headline}
           </Title>
         )}
 
         {content && (
-          <div className="gap-16 lg:columns-2">
+          <div className={cx('gap-16', use_columns ? 'lg:columns-2' : '')}>
             <Markdown content={content} />
           </div>
         )}

@@ -1,7 +1,9 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
-import getPageData from '@/lib/api/getPageData'
+import React, { JSX, useEffect, useRef, useState } from 'react'
+import {
+  getPageData,
+} from '@schleegleixner/react-statamic-api'
 import Spinner from '@/components/Elements/Spinner'
 import Container from '@/components/Layout/Container'
 import Markdown from '@/components/Elements/Markdown'
@@ -34,9 +36,9 @@ export default function ContentView({ slug }: Props): JSX.Element {
   if (content) {
     return (
       <Container>
-        <main className="mx-auto max-w-[1136px]">
+        <section className="mx-auto max-w-[1136px]">
           <Markdown content={content} />
-        </main>
+        </section>
       </Container>
     )
   }

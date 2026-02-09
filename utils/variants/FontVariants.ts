@@ -1,14 +1,20 @@
 export const FontVariants = {
-  font: {
+  family: {
+    sans: 'font-sans',
+    condensed: 'font-condensed',
+  },
+  weight: {
     medium: 'font-medium',
     normal: 'font-normal',
+    semibold: 'font-bold',
     bold: 'font-bold',
-    semibold: 'font-semibold',
   },
 } as const
 
-export type FontVariant = keyof typeof FontVariants.font
+export type FontFamilyVariant = keyof typeof FontVariants.family
+export type FontWeightVariant = keyof typeof FontVariants.weight
 
-export const FontDefaultVariants: { font: FontVariant } = {
-  font: 'medium',
+export const FontDefaultVariants: { family: FontFamilyVariant, weight: FontWeightVariant } = {
+  family: 'sans',
+  weight: 'medium',
 }

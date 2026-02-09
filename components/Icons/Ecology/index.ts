@@ -60,3 +60,4 @@ export { default as GrueneStadtVersiegelteFlaechenGrundstuecke2219826271111 } fr
 export { default as StaedtStromerzeugungIndustrie2174038519139 } from './StaedtStromerzeugungIndustrie2174038519139'
 export { default as StaedtStromerzeugungFossil2174038519118 } from './StaedtStromerzeugungFossil2174038519118'
 export { default as StaedtStromerzeugungRegenerativ219420003325 } from './StaedtStromerzeugungRegenerativ219420003325'
+export { default as StadionAb260203Fin } from './StadionAb260203Fin'

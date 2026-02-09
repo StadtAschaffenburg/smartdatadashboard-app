@@ -1,7 +1,7 @@
 import { animated, useTransition } from '@react-spring/web'
 
 type AnimatedRollingElementProps = {
-  children: React.ReactElement | React.ReactElement[]
+  children: React.ReactElement<any> | React.ReactElement<any>[]
 }
 
 export default function AnimatedRollingElement({

@@ -37,8 +37,13 @@ next-env.d.ts
 
 svgicons
 
-assets/cache/*
-!assets/cache/api/*
+/cache/*
+/assets/cache/*
+!/cache/default/data/*
 
 .unused
 .vscode
+/public/images/
+.npmrc
+.env
+.backup

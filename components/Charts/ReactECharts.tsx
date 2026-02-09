@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { JSX, useEffect, useRef, useState } from 'react'
 import { getInstanceByDom, init } from 'echarts'
 import type { CSSProperties } from 'react'
 import type { ECharts, EChartsOption, SetOptionOpts } from 'echarts'
@@ -84,7 +84,7 @@ export function ReactECharts({
       const myOption: EChartsOption = {
         textStyle: {
           ...option.textStyle,
-          fontFamily: 'Inter, sans-serif',
+          fontFamily: 'Verdanda, sans-serif',
           color: '#005096',
           fontSize: device === 'mobile' ? 12 : 20,
         },

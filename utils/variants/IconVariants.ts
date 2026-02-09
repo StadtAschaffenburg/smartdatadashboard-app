@@ -1,30 +1,89 @@
 import { cva } from 'class-variance-authority'
 
+export const IconFillVariants = {
+  primary: 'fill-primary',
+  secondary: 'fill-secondary',
+  mosque: 'fill-mosque',
+  red: 'fill-red',
+  green: 'fill-green',
+  blue: 'fill-blue',
+  purple: 'fill-purple',
+  orange: 'fill-orange',
+  glacial: 'fill-glacial',
+  brown: 'fill-brown',
+  pink: 'fill-pink',
+  yellow: 'fill-yellow',
+  inverse: 'fill-inverse',
+  dark: 'fill-dark',
+  white: 'fill-white',
+  inherit: 'fill-inherit',
+  light: 'fill-neutral-300',
+  black: 'fill-black',
+  neutral: 'fill-neutral-500',
+  ivory: 'fill-ivory',
+} as const
+
+export const IconStrokeVariants = {
+  primary: 'stroke-primary',
+  secondary: 'stroke-secondary',
+  mosque: 'stroke-mosque',
+  red: 'stroke-red',
+  green: 'stroke-green',
+  blue: 'stroke-blue',
+  purple: 'stroke-purple',
+  orange: 'stroke-orange',
+  glacial: 'stroke-glacial',
+  brown: 'stroke-brown',
+  pink: 'stroke-pink',
+  yellow: 'stroke-yellow',
+  inverse: 'stroke-inverse',
+  dark: 'stroke-dark',
+  white: 'stroke-white',
+  inherit: 'stroke-inherit',
+  light: 'stroke-neutral-300',
+  black: 'stroke-black',
+  neutral: 'stroke-neutral-500',
+  ivory: 'stroke-ivory',
+} as const
+
+export const IconTextVariants = {
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  mosque: 'text-mosque',
+  red: 'text-red',
+  green: 'text-green',
+  blue: 'text-blue',
+  purple: 'text-purple',
+  orange: 'text-orange',
+  glacial: 'text-glacial',
+  brown: 'text-brown',
+  pink: 'text-pink',
+  yellow: 'text-yellow',
+  inverse: 'text-inverse',
+  dark: 'text-primary',
+  white: 'text-white',
+  inherit: 'text-inherit',
+  light: 'text-neutral-300',
+  black: 'text-black',
+  neutral: 'text-neutral-500',
+  ivory: 'text-ivory',
+} as const
+
 export const IconVariants = {
-  variant: {
-    primary: 'fill-primary stroke-primary text-primary',
-    secondary: 'fill-secondary stroke-secondary text-secondary',
-    live: 'fill-primary stroke-primary text-primary',
-    ecology: 'fill-ecology stroke-ecology text-ecology',
-    society: 'fill-society stroke-society text-society',
-    economy: 'fill-economy stroke-economy text-economy',
-    green: 'fill-green stroke-green text-green',
-    data: 'fill-data stroke-data text-data',
-    inverse: 'fill-inverse stroke-inverse text-inverse',
-    dark: 'fill-dark stroke-dark text-dark',
-    blue: 'fill-blue stroke-blue text-blue',
-    white: 'fill-white stroke-white text-white',
-    inherit: 'fill-inherit stroke-inherit text-inherit',
-  },
+  variant: (Object.keys(IconFillVariants) as Array<keyof typeof IconFillVariants>).reduce((acc, key) => {
+    acc[key] = `${IconFillVariants[key]} ${IconStrokeVariants[key]} ${IconTextVariants[key]}`
+    return acc
+  }, {} as Record<keyof typeof IconFillVariants, string>),
 } as const
 
 export type IconVariant = keyof typeof IconVariants.variant
 
-export const IconDefaultVariants: { variant: IconVariant } = {
-  variant: 'primary',
-}
-
 export const IconStyle = cva('', {
-  variants: IconVariants,
-  defaultVariants: IconDefaultVariants,
+  variants: {
+    ...IconVariants,
+    fill: IconFillVariants,
+    stroke: IconStrokeVariants,
+    text: IconTextVariants,
+  },
+  defaultVariants: {},
 })

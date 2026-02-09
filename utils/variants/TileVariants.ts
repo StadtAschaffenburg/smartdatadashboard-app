@@ -1,15 +1,38 @@
 import { HeadlineVariants } from '@/utils/variants/HeadlineVariants'
 import { TextVariants } from '@/utils/variants/TextVariants'
-import { FontVariant, FontVariants } from '@/utils/variants/FontVariants'
+import {
+  FontDefaultVariants,
+  FontFamilyVariant,
+  FontVariants,
+  FontWeightVariant,
+} from '@/utils/variants/FontVariants'
+import { ActionDimensionColorMap } from '@/mapping/ActionDimensionsMapping'
+
+export const TileVariantLookup = ActionDimensionColorMap
 
 export const TileVariants = {
   as: HeadlineVariants.as,
   variant: TextVariants.variant,
-  font: FontVariants.font,
+  family: FontVariants.family,
+  weight: FontVariants.weight,
+  margin: {
+    none: '',
+    h1: 'mb-4 lg:mb-6',
+    h2: 'mb-4',
+    h3: 'mb-4',
+    h4: 'mb-4',
+    h5: 'mb-4',
+    h6: 'mb-4',
+    p: 'mb-2',
+  },
 } as const
 
 export type TileVariantTypes = keyof typeof TileVariants.variant
 
-export const TileDefaultVariants: { font: FontVariant } = {
-  font: 'medium',
+export const TileDefaultVariants: {
+  family: FontFamilyVariant
+  weight: FontWeightVariant
+} = {
+  family: FontDefaultVariants.family,
+  weight: FontDefaultVariants.weight,
 }

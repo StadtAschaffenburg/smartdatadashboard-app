@@ -1,5 +1,5 @@
 import Phenomena from './Phenomena'
-import { ForwardRefExoticComponent, SVGProps } from 'react'
+import { ForwardRefExoticComponent, JSX, SVGProps } from 'react'
 import { TextVariant } from '@/utils/variants/TextVariants'
 
 export type PhenomenaType = {

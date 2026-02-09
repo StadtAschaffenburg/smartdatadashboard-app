@@ -1,55 +1,79 @@
 'use client'
 
-import SdgLink, { SdgLinkProps } from '@/components/Layout/Navbar/SdgLink'
-import { TargetType } from '@/types/targetMapping'
-import { findPage } from '@/utils/content'
+import SdgLink from '@/components/Layout/Navbar/SdgLink'
 import React, { useEffect, useState } from 'react'
+import { PageMappingType } from '@schleegleixner/react-statamic-api'
+import Spinner from '@/components/Elements/Spinner'
 import { scrollToElement } from '@/utils/scroll'
 
-export default function TargetFilter() {
-  const [sdg_target, setSdgTarget] = useState<string | null>(null)
+export default function TargetFilter({
+  page_data,
+  sitemap,
+}: {
+  page_data: PageMappingType
+  sitemap: PageMappingType[]
+}) {
+  const [targetPages, setTargetPages] = useState<PageMappingType[] | null>(null)
 
   useEffect(() => {
-    const path_segments = window.location.pathname.split('/').filter(Boolean)
-    if (path_segments[1]) {
-      setSdgTarget(path_segments[1])
-    }
-  }, [])
+    // filter the sitemap, only allow pages that have the content.filter.sdg_target set
+    const filtered = sitemap.filter(page => page.content.sdg_target)
+    setTargetPages(filtered)
+  }, [sitemap])
 
-  const parent_page = findPage('sdg_targets')
-  const target_pages = parent_page?.children ?? []
-
-  const navigateTo = (sdg_target: string) => {
-    const new_url = `/nachhaltigkeitsziele/${sdg_target}`
-    setSdgTarget(sdg_target)
-    window.history.pushState(null, '', new_url)
-    if (sdg_target) {
-      scrollToElement('tile-collection', -100)
+  useEffect(() => {
+    if (!sitemap) {
+      return
     }
+
+    const dimensionPages = sitemap.filter(
+      (page: any) => page.content.sdg_target,
+    )
+    setTargetPages(dimensionPages)
+  }, [sitemap])
+
+  if (!targetPages) {
+    return (
+      <div className="flex h-full items-center justify-center">
+        <Spinner />
+      </div>
+    )
   }
 
-  // get the links
-  const page_links: SdgLinkProps[] = target_pages.map((page, index) => {
-    const page_id = page.id as TargetType
-    const active = page_id === sdg_target
+  const onClick = (page: PageMappingType, event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    const targetUrl = page.slug === page_data.slug && page.parent
+      ? page.parent.full_url
+      : page.full_url
+    
+    // change the URL without server-rendering
+    window.history.pushState({}, '', targetUrl)
 
-    return {
-      index: index,
-      link: `/${parent_page?.slug}/${!active ? page.slug : ''}`,
-      title: page.title,
-      active: active,
-    }
-  })
+    setTimeout(() => {
+      scrollToElement('tile-collection', -100)
+    }, 500)
+  }
 
   return (
     <div className="flex flex-wrap items-center justify-start gap-4">
-      {page_links.map(l => (
-        <SdgLink
-          key={l.link}
-          {...l}
-          onClick={() => navigateTo(l.link.split('/').pop()!)}
-        />
-      ))}
+      {targetPages.map(page => {
+        const isActive = page.slug === page_data.slug
+        return (
+          <SdgLink
+            active={isActive}
+            key={page.slug}
+            link={
+              isActive && page.parent
+                ? page.parent.full_url
+                : page.full_url
+            }
+            onClick={(event: React.MouseEvent<HTMLAnchorElement>) => onClick(page, event)}
+            preventDefault
+            target={page.content.sdg_target}
+            {...page}
+          />
+        )
+      })}
     </div>
   )
 }

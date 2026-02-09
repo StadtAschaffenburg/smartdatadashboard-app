@@ -1,60 +1,64 @@
-import { Button } from '@/components/Elements/Button'
-import Link from 'next/link'
-import { MouseEvent, SVGProps } from 'react'
+import { MouseEvent } from 'react'
 import { ButtonSize, ButtonVariant } from '@/utils/variants/ButtonVariants'
 import { cx } from 'class-variance-authority'
+import { trackEvent } from 'fathom-client'
+import Button from '@/components/Elements/Button'
 
 export type LinkProps = {
+  ariaLabel?: string
   title?: string
-  icon?: (_props: SVGProps<SVGSVGElement>) => JSX.Element
+  className?: string
+  icon?: React.ComponentType<any>
   link: string
   variant?: ButtonVariant
   hover?: ButtonVariant
   size?: ButtonSize
-  onClick?: () => void
-  LinkClass?: string
-  ButtonClass?: string
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => void
   IconClass?: string
   preventDefault?: boolean
 }
 
 export default function LinkComponent({
+  ariaLabel,
   title,
   link,
-  icon,
-  variant = 'primary',
-  hover,
-  size = 'link',
   onClick,
-  LinkClass,
-  ButtonClass,
-  IconClass,
+  className,
   preventDefault,
+  size = 'md',
+  icon,
+  IconClass,
+  variant = 'primary',
 }: LinkProps) {
   const Icon = icon
+  
+  const handleClick = (
+    event: MouseEvent<HTMLAnchorElement> | MouseEvent<HTMLButtonElement>,
+  ) => {
+    trackEvent(`Link clicked: ${title || link}`)
 
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (preventDefault) {
+      event.preventDefault()
+    }
+
     if (onClick) {
-      onClick()
-      if (preventDefault) {
-        event.preventDefault()
-      }
+      onClick(event)
     }
   }
 
   return (
-    <Link className={LinkClass} href={link} onClick={handleClick}>
-      <Button
-        className={ButtonClass}
-        hover={hover ?? variant}
-        size={size}
-        startIcon={
-          Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null
-        }
-        variant={variant}
-      >
-        {title}
-      </Button>
-    </Link>
+    <Button
+      aria-label={ariaLabel || title || link}
+      className={cx(className, '')}
+      href={link}
+      Icon={
+        Icon ? <Icon className={cx(IconClass, 'transition-colors')} /> : null
+      }
+      onClick={handleClick}
+      size={size}
+      variant={variant}
+    >
+      {title}
+    </Button>
   )
 }

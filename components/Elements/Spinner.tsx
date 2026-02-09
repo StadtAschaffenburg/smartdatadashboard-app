@@ -36,7 +36,7 @@ export default function Spinner({
   className = '',
 }: SpinnerProps) {
   return (
-    <div className="flex min-h-32 w-full items-center justify-center">
+    <span className="flex min-h-32 w-full items-center justify-center">
       <svg
         className={cx(spinner({ size, variant }), className)}
         data-testid="loading"
@@ -59,6 +59,6 @@ export default function Spinner({
         ></path>
       </svg>
       <span className="sr-only">Loading</span>
-    </div>
+    </span>
   )
 }

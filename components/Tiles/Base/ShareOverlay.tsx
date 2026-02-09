@@ -5,8 +5,8 @@ import Title from '@/components/Elements/Title'
 import { ComponentPropsWithRef } from 'react'
 import { AnimatedProps } from '@react-spring/web'
 import BaseOverlay from './BaseOverlay'
-import { TileType } from '@/types/tiles'
-import { Button } from '@/components/Elements/Button'
+import { TileType } from '@schleegleixner/react-statamic-api'
+import Button from '@/components/Elements/Button'
 import { ClipboardDocumentIcon } from '@heroicons/react/24/outline'
 
 type ShareOverlayProps = AnimatedProps<ComponentPropsWithRef<'div'>> & {
@@ -53,10 +53,10 @@ export default function ShareOverlay({
         </div>
         <div className="pt-10">
           <Button
-            onClick={copyToClipboard}
-            startIcon={
+            Icon={
               <ClipboardDocumentIcon className="w-5 stroke-2 text-secondary" />
             }
+            onClick={copyToClipboard}
             variant={'overlay'}
           >
             Link kopieren

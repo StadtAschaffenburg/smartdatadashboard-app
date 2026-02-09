@@ -1,15 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Background from '@/components/Layout/Background'
-import Collapsible from '@/components/Elements/Collapsible'
 import Container from '@/components/Layout/Container'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import LinkComponent, { LinkProps } from './LinkComponent'
+import { scrollToElement } from '@/utils/scroll'
+import Collapsible from '@/components/Elements/Collapsible'
+import { PageMappingType } from '@schleegleixner/react-statamic-api'
+import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { cx } from 'class-variance-authority'
 import { IconHome } from '@/components/Icons/Navigation'
 import PulsatingCircle from '@/components/Icons/PulsatingCircle'
-import { cx } from 'class-variance-authority'
-import { scrollToTop } from '@/utils/scroll'
 
-const link_home: LinkProps = {
+type BaseNavbarProps = {
+  children?: React.ReactNode
+  collapsible: boolean
+  current_url: string
+  sitemap: PageMappingType[]
+  variant?: 'primary' | 'secondary'
+}
+
+const linkHome: LinkProps = {
   icon: IconHome,
   title: 'Startseite',
   link: '/',
@@ -17,40 +27,45 @@ const link_home: LinkProps = {
     'h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary',
 }
 
-const links: LinkProps[] = [
-  {
-    icon: PulsatingCircle,
-    title: 'Aschaffenburg Live',
-    link: '/aschaffenburg-live',
-    IconClass:
-      'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary',
-  },
-  {
-    title: 'Handlungsdimensionen',
-    link: '/handlungsdimensionen',
-  },
-  {
-    title: 'Nachhaltigkeitsziele',
-    link: '/nachhaltigkeitsziele',
-  },
-]
-
-type BaseNavbarProps = {
-  children?: React.ReactNode
-  collapsible: boolean
-  current_url: string
-  variant?: 'primary' | 'secondary'
-}
-
 export default function BaseNavbar({
   children,
   collapsible,
   current_url,
+  sitemap,
   variant = 'primary',
 }: BaseNavbarProps) {
-  const [isOpen, setIsOpen] = useState(!collapsible)
+  const [isOpen, setIsOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
+  const [navLinks, setNavLinks] = useState<LinkProps[]>([])
   const navbarRef = useRef<HTMLDivElement | null>(null)
+
+  // foreach link in sitemap, add the link to links_categories
+  useEffect(() => {
+    if (!sitemap || sitemap.length === 0) {
+      return
+    }
+
+    const fetchLinks = async () => {
+      const menu_links = sitemap
+        .filter((page: any) => page.content.menu_position === 'main')
+        .map((page: any) => ({
+          title: page.title,
+          link: `${page.full_url}`,
+          icon:
+            page.content.category === 'ab_live'
+              ? PulsatingCircle
+              : page.content.page_type === 'search' ? MagnifyingGlassIcon : undefined,
+            IconClass:
+              page.content.category === 'ab_live'
+                ? 'stroke-secondary fill-secondary h-4 text-white group-hover:text-primary md:h-6 [.active_&]:text-primary'
+                : 'text-white group-hover:text-primary h-4 md:h-6 [.active_&]:text-primary',
+        }))
+
+      setNavLinks([...menu_links])
+    }
+
+    fetchLinks()
+  }, [sitemap])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,8 +84,8 @@ export default function BaseNavbar({
   }, [])
 
   const handleLinkClick = () => {
+    scrollToElement('app-root', 0)
     setIsOpen(false)
-    scrollToTop()
   }
 
   const toggleMenu = () => {
@@ -78,7 +93,7 @@ export default function BaseNavbar({
   }
 
   const button_variants: Partial<LinkProps> = {
-    variant: 'inverse',
+    variant: 'white',
     size: 'main_menu',
   }
 
@@ -120,29 +135,31 @@ export default function BaseNavbar({
           >
             <div
               className={cx(
-                'flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-8',
+                'flex flex-col flex-nowrap justify-between gap-4 max-md:items-center md:flex-row lg:items-center lg:gap-16',
                 {
                   'mt-4': collapsible,
                 },
               )}
             >
-              <LinkComponent
-                {...button_variants}
-                {...link_home}
-                ButtonClass="max-lg:min-w-80"
-                LinkClass={cx(current_url === undefined ? 'active' : '')}
-                onClick={handleLinkClick}
-              />
-              <div className="flex flex-col items-center gap-4 lg:flex-row">
-                {links.map(l => (
+                <LinkComponent
+                  {...button_variants}
+                  {...linkHome}
+                  className={cx(
+                    'md:self-start max-lg:min-w-80',
+                    current_url === undefined || current_url === '' ? 'active' : '',
+                  )}
+                  onClick={handleLinkClick}
+                />
+              <div className="flex flex-col items-center gap-4 lg:flex-row flex-wrap justify-end">
+                {navLinks.map(l => (
                   <LinkComponent
                     key={l.link}
                     {...button_variants}
                     {...l}
-                    ButtonClass="max-lg:min-w-80 hyphens-auto"
-                    LinkClass={
-                      l.link.replace(/^\//, '') === current_url ? 'active' : ''
-                    }
+                    className={cx(
+                      'hyphens-auto max-lg:min-w-80',
+                      l.link.replace(/^\//, '') === current_url ? 'active' : '',
+                    )}
                     onClick={handleLinkClick}
                   />
                 ))}
