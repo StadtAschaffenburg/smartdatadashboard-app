@@ -4,7 +4,7 @@ import BicycleProgress from './BicycleProgress'
 import { mapBetween } from '@/utils/convert'
 import { BicycleRowProps } from './dt'
 
-export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
+export default function BicycleRow({ id, name, count, min, max }: BicycleRowProps) {
   const progress = mapBetween(count, min * 0.9, max * 1.1)
   name = name.replace(
     'straße',
@@ -13,7 +13,7 @@ export default function BicycleRow({ name, count, min, max }: BicycleRowProps) {
   name = name.replace('Straße', '<span class="whitespace-nowrap">Straße</span>')
 
   return (
-    <div className="my-2 flex w-full items-end">
+    <div className="my-2 flex w-full items-end" data-id={id}>
       <div className="w-28 flex-none md:w-40">
         <Title
           as={'h5'}

@@ -29,15 +29,18 @@ export default function BicycleChartContent({ tile_payload }: { tile_payload: Ti
             .fill(undefined)
             .map((_e, i) => <LoadingRow key={i} />)}
         {data &&
-          data.map(e => (
-            <BicycleRow
-              count={e.count}
-              key={e.id}
-              max={max}
-              min={min}
-              name={getString(tile_payload, 'station_' + e.id, e.name)}
-            />
-          ))}
+          data
+            .filter(e => String(getString(tile_payload, 'hide_' + e.id, '')) !== 'true')
+            .map(e => (
+              <BicycleRow
+                count={e.count}
+                id={e.id}
+                key={e.id}
+                max={max}
+                min={min}
+                name={getString(tile_payload, 'station_' + e.id, e.name)}
+              />
+            ))}
       </div>
       {lastDays.length > 0 && (
         <Slider
