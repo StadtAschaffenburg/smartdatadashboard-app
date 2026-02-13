@@ -10,7 +10,7 @@ import Text from '@/components/Elements/Text'
 import { ChartContainerProps, InputDataType, TransformedDataType } from './dt'
 import { getVariantType, PayloadDataType } from '@/utils/payload'
 import {
-  getSource,
+  getDataSourceContent,
   sanitizeName,
   sanitizeNumber,
 } from '@schleegleixner/react-statamic-api'
@@ -78,7 +78,7 @@ const COMPARE_INTERVAL = 5000
 const AnimatedProgressCircle = animated(ProgressCircle)
 
 export default function ChartContainer({ tile_payload }: ChartContainerProps) {
-  const CsvData: PayloadDataType[] = getSource(tile_payload)
+  const CsvData: PayloadDataType[] = getDataSourceContent(tile_payload)
   const variant = getVariantType(tile_payload)
 
   const main_city = CsvData[0]?.Stadtnamen.toLowerCase() // get the first city as main city

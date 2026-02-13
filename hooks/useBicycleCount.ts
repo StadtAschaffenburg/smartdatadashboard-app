@@ -62,7 +62,7 @@ export function useBicycleCount(timestamp: Date) {
   }, [])
 
   useEffect(() => {
-    if (!data) {
+    if (!data || !Array.isArray(data)) {
       return
     }
 
@@ -77,7 +77,7 @@ export function useBicycleCount(timestamp: Date) {
   }, [timestamp, data])
 
   useEffect(() => {
-    if (!data) {
+    if (!data || !Array.isArray(data)) {
       return
     }
 

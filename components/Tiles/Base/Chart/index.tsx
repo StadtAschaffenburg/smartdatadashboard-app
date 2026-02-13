@@ -10,9 +10,14 @@ import {
   useContentWidth,
 } from '@schleegleixner/react-statamic-api'
 import { ChartProps } from './dt'
-import { axisFormatter, axisMinimum } from '@schleegleixner/react-statamic-api'
 import { getThemeColor } from '@/utils/colors'
-import { chartTooltipFormatter, useChartIndices } from '@/utils/chart'
+import {
+  seriesFormatter,
+  tooltipFormatter,
+  useChartIndices,
+  xAxisFormatter,
+  yAxisFormatter,
+} from '@/utils/chart'
 import IndiciesToggle from '@/components/Tiles/Base/IndiciesToggle'
 import { cx } from 'class-variance-authority'
 import Text from '@/components/Elements/Text'
@@ -25,6 +30,7 @@ export default function Chart({
   stacked = false,
   switch: toggle,
   datasource,
+  categorize = true,
 }: ChartProps) {
   const { elRef, contentWidth } = useContentWidth<HTMLDivElement>()
   const { indicesState, toggleIndex } = useChartIndices(datasource, chart_type)
@@ -47,37 +53,7 @@ export default function Chart({
     )
   }
 
-  const series: SeriesOption[] = !indicesState
-    ? []
-    : Object.keys(indicesState)
-        .filter(key => indicesState[key]?.visible)
-        .flatMap(key =>
-          indicesState[key]?.seriesOption
-            ? indicesState[key].seriesOption.map((opt, idx) => {
-                const baseSeries = {
-                  id: `${key}-${idx}`,
-                  type: chart_type,
-                  stack: stacked ? (opt as any).lineStyle?.type === 'dashed' ? 'future' : 'current' : undefined,
-                  symbol: 'circle',
-                  showAllSymbol: true,
-                  symbolSize: 7,
-                  areaStyle: {
-                    color: getThemeColor(
-                      indicesState[key].variant ?? 'primary',
-                    ),
-                    opacity: 0.05,
-                  },
-                  itemStyle: {
-                    opacity: 1,
-                    borderColor: '#fff',
-                    borderWidth: chart_type === 'line' ? 2 : 0,
-                  },
-                  ...opt,
-                }
-                return baseSeries as SeriesOption
-              })
-            : [],
-        )
+  const series = seriesFormatter(indicesState, chart_type, stacked)
 
   const active_indices = Object.values(indicesState).filter(
     index => index.visible,
@@ -97,8 +73,16 @@ export default function Chart({
   const trendline_series =
     (stacked && active_indices.length) ||
     (active_indices.length === 1 && !active_indices[0].hide_trend)
-      ? getTrendlineSeries(series, trendlineStyle, timeline)
+      ? getTrendlineSeries(
+          series,
+          trendlineStyle,
+          categorize ? timeline : undefined,
+        )
       : null
+
+  const series_data = categorize
+    ? categorizeSeriesData(series, timeline, false)
+    : series
 
   return (
     <div
@@ -122,40 +106,18 @@ export default function Chart({
                 left: 60,
                 right: 20,
               },
-                tooltip: {
-                  trigger: 'axis',
-                  confine: true,
-                  formatter: params =>
-                    chartTooltipFormatter(params, indicesState),
-                  axisPointer: {
-                    type: isBarChart ? 'shadow' : 'line',
-                  },
-                },
+              tooltip: tooltipFormatter(indicesState, datasource, isBarChart),
               series: [
-                ...categorizeSeriesData(series, timeline),
+                ...series_data,
                 ...(trendline_series ? [trendline_series] : []),
               ],
-              xAxis: {
-                type: 'category',
-                boundaryGap: isBarChart,
-                axisLabel: {
-                  fontSize: font_size_x,
-                  showMaxLabel: true,
-                },
-                splitLine: {
-                  show: !isBarChart,
-                },
-                axisTick: { length: 6, alignWithLabel: true },
-                data: timeline,
-              },
-              yAxis: {
-                type: 'value',
-                min: axisMinimum,
-                axisLabel: {
-                  fontSize: font_size_y,
-                  formatter: axisFormatter,
-                },
-              },
+              xAxis: xAxisFormatter(
+                categorize,
+                timeline,
+                isBarChart,
+                font_size_x,
+              ),
+              yAxis: yAxisFormatter(stacked, font_size_y),
               animation: true,
             }}
             settings={{

@@ -247,9 +247,11 @@ export default function WeatherStationsContent({
   }, [weatherstations, autoRotate])
 
   // gatekeeper
-  if (!weatherstations || !weatherstations.length || status !== 'success') {
+  if (!weatherstations || !Array.isArray(weatherstations) || weatherstations.length === 0 || status !== 'success') {
     return <RequestIndicator failed={status === 'error'} />
   }
+
+  console.log('weatherstations', weatherstations)
 
   const selectedStation = weatherstations[selectedIndex]
 

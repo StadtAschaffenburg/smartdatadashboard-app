@@ -42,9 +42,7 @@ export default function PassengerContent({
         : null,
     })
   }, [yearIndex, datasource])
-
-  console.log(datasource)
-
+  
   if (!datasource) {
     return <RequestIndicator />
   }

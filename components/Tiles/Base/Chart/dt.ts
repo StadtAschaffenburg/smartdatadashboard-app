@@ -22,4 +22,5 @@ export type ChartProps = {
   layout?: 'default' | 'full'
   switch?: ReactElement<any>
   datasource: TileDatasourceType
+  categorize?: boolean
 }

@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { parseTooltipParams, TooltipDataType, TooltipIndexType } from '@schleegleixner/react-statamic-api'
+import {
+  parseTooltipParams,
+  TooltipDataType,
+  TooltipIndexType,
+} from '@schleegleixner/react-statamic-api'
 import {
   getSplitSeries,
   InputDataType,
@@ -7,6 +11,10 @@ import {
 } from '@schleegleixner/react-statamic-api'
 import { ChartDataTypes, ChartProps } from '@/components/Tiles/Base/Chart/dt'
 import { getThemeColor } from './colors'
+import { SeriesOption } from 'echarts'
+import { format } from 'date-fns'
+import { axisFormatter } from '@schleegleixner/react-statamic-api'
+import { EChartsOption } from 'echarts'
 
 /**
  * All the indices that are on the chart
@@ -58,6 +66,7 @@ export function getIndices(
 export const chartTooltipFormatter = (
   params: any,
   indices: Record<string, TooltipIndexType>,
+  year_marker?: number | null,
 ): string => {
   const data = parseTooltipParams(params, indices)
 
@@ -65,7 +74,7 @@ export const chartTooltipFormatter = (
     return ''
   }
 
-  const yearTag = `<b className="block font-bold">${data.year}</b><hr style="margin: .35rem 0" />`
+  const yearTag = `<b className="block font-bold">${data.year} ${year_marker && year_marker < data.year ? `(Prognose)` : ''}</b><hr style="margin: .35rem 0" />`
 
   const seriesHtml = data.series
     .map(
@@ -121,4 +130,107 @@ export function useChartIndices(
     })
 
   return { indicesState, toggleIndex }
+}
+
+export const seriesFormatter = (
+  indicesState: ChartDataTypes,
+  chart_type: ChartProps['chart_type'],
+  stacked: boolean,
+): SeriesOption[] =>
+  !indicesState
+    ? []
+    : Object.keys(indicesState)
+        .filter(key => indicesState[key]?.visible)
+        .flatMap(key =>
+          indicesState[key]?.seriesOption
+            ? indicesState[key].seriesOption.map((opt, idx) => {
+                const is_future = (opt as any).lineStyle?.type === 'dashed'
+                const baseSeries = {
+                  id: `${key}-${idx}`,
+                  type: chart_type,
+                  stack: stacked
+                    ? is_future
+                      ? 'future'
+                      : 'current'
+                    : undefined,
+                  barGap: stacked ? '-1' : undefined,
+                  symbol: 'circle',
+                  showAllSymbol: true,
+                  symbolSize: 7,
+                  areaStyle: {
+                    color: getThemeColor(
+                      indicesState[key].variant ?? 'primary',
+                    ),
+                    opacity: 0.05,
+                  },
+                  itemStyle: {
+                    opacity: 1,
+                    borderColor: '#fff',
+                    borderWidth: chart_type === 'line' ? 2 : 0,
+                  },
+                  connectNulls: true,
+                  ...opt,
+                }
+                return baseSeries as SeriesOption
+              })
+            : [],
+        )
+
+export const xAxisFormatter = (
+  categorize: boolean,
+  timeline: (string | number)[],
+  isBarChart: boolean,
+  font_size: number,
+) =>
+  categorize
+    ? {
+        type: 'category' as const,
+        data: timeline,
+        boundaryGap: isBarChart,
+        axisLabel: {
+          fontSize: font_size,
+          showMaxLabel: true,
+          formatter: (value: string) => value,
+        },
+        splitLine: { show: !isBarChart },
+        axisTick: { length: 6, alignWithLabel: true },
+      }
+    : {
+        type: 'time' as const,
+        axisLabel: {
+          fontSize: font_size,
+          showMaxLabel: true,
+          formatter: (value: number) => format(new Date(value), 'yyyy'),
+        },
+        splitLine: { show: !isBarChart },
+        axisTick: { length: 6 },
+      }
+
+export const yAxisFormatter = (stacked: boolean, font_size: number) => {
+  return {
+    type: 'value' as const,
+    min: stacked ? 0 : undefined,
+    axisLabel: {
+      fontSize: font_size,
+      formatter: (value: number) => {
+        return axisFormatter(Math.round(value * 10) / 10)
+      },
+    },
+  }
+}
+
+export const tooltipFormatter = (
+  indicesState: ChartDataTypes,
+  datasource: ChartProps['datasource'],
+  isBarChart: boolean,
+): EChartsOption['tooltip'] => {
+  return {
+    trigger: 'axis',
+    confine: true,
+    formatter: params =>
+      chartTooltipFormatter(params, indicesState, datasource.year_marker),
+    axisPointer: {
+      type: isBarChart ? 'shadow' : 'line',
+    },
+  }
 }

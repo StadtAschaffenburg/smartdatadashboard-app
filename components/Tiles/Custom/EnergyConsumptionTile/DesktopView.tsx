@@ -14,7 +14,6 @@ export default function DesktopView({
   yearIndex,
   years,
 }: ViewProps) {
-  console.log('data', data)
   return (
     <>
       <div className="flex h-full w-full justify-between gap-8">
