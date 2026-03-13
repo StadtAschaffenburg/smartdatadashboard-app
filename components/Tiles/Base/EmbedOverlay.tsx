@@ -51,7 +51,7 @@ export default function EmbedOverlay({
           </div>
           <div className="">
             <div className="mt-4 flex rounded bg-white p-4">
-              <pre className="m-4 flex-1 whitespace-pre-wrap break-all text-sm">
+              <pre className="m-4 flex-1 whitespace-pre-wrap break-all text-sm text-black">
                 {iframeSrc}
               </pre>
               <div className="relative w-7">

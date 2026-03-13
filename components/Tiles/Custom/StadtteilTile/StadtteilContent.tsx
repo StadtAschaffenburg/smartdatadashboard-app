@@ -44,7 +44,7 @@ const initialDestictData: DestrictMapping[] = [
     value: { current: 0, previous: 0 },
   },
   {
-    id: '�sterreicher Kolonie',
+    id: 'Oesterreicher Kolonie',
     position: { x: 10, y: 10 },
     share: 0,
     value: { current: 0, previous: 0 },

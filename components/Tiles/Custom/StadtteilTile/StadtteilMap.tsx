@@ -23,8 +23,10 @@ export default function StadtteilMap({
       const containerRect = containerRef.current.getBoundingClientRect()
 
       const data = destict_data.map(item => {
-        const entryElement = document.getElementById(`entry-${item.id}`)
+        const entryElement = document.getElementById(`entry-${getSaveId(item.id)}`)
         const mapElement = document.getElementById(`pin-${getSaveId(item.id)}`)
+
+        console.log(item.id, entryElement, mapElement)
 
         if (entryElement && mapElement) {
           const entryRect = entryElement.getBoundingClientRect()

@@ -29,7 +29,7 @@ function StadtAbMap(props: SVGProps<SVGSVGElement>) {
           }}
         />
       </g>
-      <g id="pin-sterreicher_kolonie">
+      <g id="pin-oesterreicher_kolonie">
         <path
           d="m453.7 251-62 27.6-44 24.2c34.1 6.3 46.9 19.2 46.9 19.2 25.8-47.1 76.7-63.8 77.8-64.2 1.3.6 2.5 1.2 3.8 1.9-5.3-2.8-10.9-5-16.7-6.7-2-.6-3.9-1.2-5.8-2z"
           style={{
